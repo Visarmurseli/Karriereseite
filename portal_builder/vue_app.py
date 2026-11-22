@@ -80,16 +80,16 @@ Ich bin also ganz bewusst kein klassischer ABAP-Customizer alter Schule, sondern
           {
             icon: '🤖',
             danger: 'Gefahrenstufe Rot: UiPath & RPA Fangfrage',
-            question: '"Erzählen Sie uns von Ihrer RPA-Entwicklung mit UiPath bei Bosch. Wie haben Sie Queues und Fehlerbehandlung gebaut?"',
+            question: '"Erzählen Sie uns von Ihrer RPA- und Prozessanalyse im Innovationsprojekt. Wie haben Sie Machbarkeit und Business Case bewertet?"',
             badAnswer: '"Ich habe da Bots gebaut mit Activities..." – Der Interviewer fragt nach REFramework, Try-Catch-Blöcken oder Orchestrator-Triggern.',
-            goodAnswer: `Bei Robert Bosch im Patentwesen lag mein strategischer Schwerpunkt auf der vorgelagerten Prozessanalyse und Machbarkeitsprüfung: 
+            goodAnswer: `Im Innovationsprojekt für ein führendes Unternehmen der Verpackungsindustrie lag mein Schwerpunkt an der Schnittstelle von Business Model und Prozessautomatisierung: 
 
-Das Patentmanagement ist stark reguliert und papierlastig. Ich habe die Abläufe der Patentrecherche und Fristenüberwachung detailliert analysiert, Prozesskosten quantifiziert und bewertet, welche Teilprozesse sich wirtschaftlich für eine robotergestützte Automatisierung eignen und wo die Schnittstellenrisiken liegen.
+Die Patentrecherche und Fristenüberwachung war stark manuell geprägt. Ich habe die Kernprozesse mit BPMN 2.0 detailliert modelliert, Prozesskosten quantifiziert und analysiert, welche Recherche- und Monitoring-Schritte sich wirtschaftlich für eine robotergestützte Automatisierung (UiPath) in Verbindung mit KI-gestützter Volltextsuche eignen.
 
-Die anschließende technische Skript-Implementierung in UiPath haben dedizierte RPA-Entwickler übernommen. Meine Kernkompetenz war das Anforderungsmanagement, die Erstellung des Process Design Documents (PDD) und die Validierung der Testergebnisse.
+Meine Kernkompetenz lag in der Konzeption des hybriden Geschäftsmodells, der Business-Case-Kalkulation und der Definition der Prozessschnittstellen.
 
-Genau diese Fähigkeit – komplexe Geschäftsprozesse strukturiert zu zerlegen und auf IT-Machbarkeit zu prüfen – war anschließend auch bei der SSB der Schlüssel für meine Arbeit mit SAP Signavio und Cloud ALM.`,
-            whyItWorks: 'Du positionierst dich als Business Analyst und Solution Designer, nicht als billiger Bot-Scripter. Das erhöht dein Ansehen sofort.',
+Genau diese Fähigkeit – komplexe Geschäftsprozesse strukturiert zu zerlegen, Wirtschaftlichkeit zu prüfen und Soll-Architekturen zu entwerfen – war anschließend auch bei der SSB der Schlüssel für meine Arbeit mit SAP Signavio und Cloud ALM im Solution Design.`,
+            whyItWorks: 'Du positionierst dich als Business Analyst, Solution Designer und Innovationsstratege, nicht als Bot-Scripter. Das erhöht dein Ansehen sofort.',
             open: false
           },
           {
@@ -118,7 +118,7 @@ Zusätzlich habe ich in meiner Masterarbeit am Lehrstuhl von Prof. Herzwurm – 
           },
           {
             area: 'RPA / Automatisierung',
-            oldText: 'Automatisierung & UiPath (Robert Bosch)',
+            oldText: 'Automatisierung & UiPath (Innovationsprojekt Verpackungsindustrie)',
             newText: 'Business Process Automation & Analyse (UiPath-Machbarkeitsprüfung, Prozesskosten-Kalkulation, PDD-Erstellung)',
             effect: 'Positioniert dich als strategischen Business Analysten statt als Script-Entwickler.'
           },
@@ -265,7 +265,7 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
           { name: 'Masterarbeit_Visar_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Masterarbeit (126 Seiten, Note 1,0 bei Prof. Herzwurm, Uni Stuttgart) über Kritische Erfolgsfaktoren der S/4HANA Plattformisierung.', impact: 'Dein akademisches Meisterstück – belegt deine methodische Spitzenklasse!' },
           { name: 'DigitaleNachhaltigkeit_Ausarbeitung_Schmalz.docx', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Wissenschaftliche Ausarbeitung (Note 1,0, 6 ECTS): Nachhaltigkeit durch Automatisierung: Eine Fallstudie zur Optimierung der Abfallbilanz bei der Schmalz GmbH (Dr. Dimitri Petrik).', impact: 'Beweist Green-IT-, BPMN- und CSRD/ESG-Expertise direkt am Weltmarktführer J. Schmalz GmbH.' },
           { name: 'CloudComputing_Kurzpaper_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Wissenschaftliches Kurzpaper (12 Seiten): Entwicklung einer Cloud-basierten Plattformarchitektur für einen wachsenden Onlineshop (AWS Well-Architected Framework).', impact: 'Zeigt tiefes Know-how in Cloud-Architekturen: Microservices, DynamoDB, Step Functions, QuickSight, EventBridge.' },
-          { name: 'ISG_PatentRadar_Pitch.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Pitch-Deck & Geschäftsmodell-Konzept: PatentRadar – Digital Venture für Klingele Paper & Packaging (Prof. Dr. Georg Herzwurm).', impact: 'Verknüpft Bosch-Patenterfahrung mit digitaler Geschäftsmodell-Innovation und Venture-Pitching.' },
+          { name: 'ISG_PatentRadar_Pitch.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Pitch-Deck & Geschäftsmodell-Konzept: PatentRadar – Digital Venture für Klingele Paper & Packaging (Prof. Dr. Georg Herzwurm).', impact: 'Demonstriert fundierte Expertise in digitaler Geschäftsmodell-Innovation, BPMN 2.0-Prozessmodellierung und Venture-Pitching für Industrieunternehmen.' },
           { name: 'FPWI_Forschungsprojekt_Paper.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Forschungspapier (Note 1,3, 6 ECTS): Integration physischer und digitaler Welten: Ein Framework für Smart Service Blueprinting (DSRM Peffers, SUS-Score 85/100).', impact: 'Beweist Methodenkompetenz in Design Science Research, IoT-Architekturen & Smart Services.' },
           { name: 'Seminararbeit_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Systematische Literaturanalyse (SLR nach PRISMA 2020, 26 Studien): Die Transformation menschlicher Arbeitsrollen durch KI-gestützte Mensch-Roboter-Kollaboration in der Produktion.', impact: 'Beweist rigorose wissenschaftliche Recherche, Industrie 5.0, Cobots & Human-AI-Kollaboration.' },
           { name: 'Leistungsnachweis_Master_SS25.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizieller Master-Leistungsnachweis Universität Stuttgart (M.Sc. Wirtschaftsinformatik, Gesamtnote 1,6).', impact: 'Amtlicher Nachweis deiner Noten: Digitale Nachhaltigkeit 1,0, FPWI 1,3, Applied AI 1,7, Innovationsmanagement 1,7, etc.' },

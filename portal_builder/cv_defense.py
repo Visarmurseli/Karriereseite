@@ -82,7 +82,7 @@ def get_cv_defense():
                 <p><strong>Absolute Fangfragen-Falle!</strong> Bei Nachfrage sofort die Pivot-Formel anwenden:</p>
                 <ul class="space-y-1.5 list-disc list-inside text-[11px]">
                   <li><strong>Java / OOP / Spring Boot:</strong> "Teil des Grundlagenstudiums. In der Praxis konzentriere ich mich zu 100% auf ERP-Architektur und Clean-Core-Governance."</li>
-                  <li><strong>UiPath / RPA Scripting:</strong> "Bei Bosch lag der Fokus auf Prozessanalyse und Business Case – die Implementierung machten dedizierte Scripter."</li>
+                  <li><strong>UiPath / RPA Scripting:</strong> "Im Innovationsprojekt für die Verpackungsindustrie lag mein Fokus auf BPMN-Prozessmodellierung, Machbarkeitsanalyse und dem Business Case für KI/RPA-Workflows – nicht auf manuellem Scripting."</li>
                   <li><strong>SPRO Customizing / ABAP Coding:</strong> "Unser Dogma war Clean Core – ich habe Z-Entwicklungen im PMO verhindert, nicht selbst gecodet!"</li>
                 </ul>
               </div>

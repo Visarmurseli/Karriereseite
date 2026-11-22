@@ -358,7 +358,7 @@ def get_thesis():
                   <td class="p-3 whitespace-nowrap text-slate-500">Ergänzung WI</td>
                   <td class="p-3 text-center">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,0</span></td>
-                  <td class="p-3">Data-driven Business Models, Plattformökonomie, Venture-Pitch „PatentRadar“ für Klingele Paper & Packaging (Verknüpfung mit Bosch-Erfahrung).</td>
+                  <td class="p-3">Data-driven Business Models, Plattformökonomie, Venture-Pitch „PatentRadar“ für Klingele Paper & Packaging (KI-gestützte Patentrecherche und RPA-Kernprozesse).</td>
                 </tr>
 
                 <tr>

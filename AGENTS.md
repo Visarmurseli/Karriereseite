@@ -32,22 +32,29 @@ Dieses Dokument definiert das Profil, die wissenschaftlichen Fakten und die arch
 
 ---
 
-## 2. Praxis- und Berufsstationen
+## 2. Praxis- und Berufsstationen & Projekte (Authentischer Lebenslauf-Standard)
 
-1. **Stuttgarter Straßenbahnen AG (SSB AG) – 24 Monate (01.05.2024 – 30.04.2026):**
-   - Rolle: Werkstudent im IT-PMO (Teilprojekt 5: Gesamtsteuerung & Architektur) unter Gesamtprojektleiter Roland Nowak und IT-Leiter Dietmar Fillinger.
-   - Aufgaben: Multiprojektkoordination (TP1–TP5), Lenkungsausschuss-Vorbereitung, Tool-Governance (SAP Cloud ALM, SAP Signavio, SAP Enable Now Übergabe), Schnittstellen-Tracking mit Axians, Migrationskataloge.
-2. **Datacenter One GmbH – 12 Monate:**
-   - Rolle: Werkstudent im Integrated Network Operation Center (INOC) unter Helmut Schmidpeter.
-   - Aufgaben: 24/7 Monitoring von Core-Netzwerken, USV, Klimatechnik, Incident- & Problem-Management nach ITIL 4, Ticketbearbeitung in Jira/Confluence.
-3. **Robert Bosch GmbH:**
-   - Rolle: Werkstudent / Praktikant im Patentwesen & Intellectual Property.
-   - Aufgaben: Prozessanalyse, Machbarkeitsprüfung robotergestützter Prozessautomatisierung (RPA mit UiPath), PDD-Erstellung.
-4. **Daimler AG (Standort Untertürkheim) & Volkswagen OTLG:**
-   - Industrie- und Logistikerfahrung: Fertigung, Teiledistribution und Materialflussprozesse.
-5. **Enterprise Architecture Zertifizierung:**
+### Berufserfahrung
+1. **Stuttgarter Straßenbahnen AG (SSB AG) – 24 Monate (05/2024 – 04/2026):**
+   - Rolle: Werkstudent SAP S/4HANA Transformation (IT-PMO & Teilprojekt 5: Gesamtsteuerung & Architektur unter Gesamtprojektleiter Roland Nowak und IT-Leiter Dietmar Fillinger).
+   - Aufgaben & Deliverables: Analyse und Dokumentation von Geschäftsprozessen im SAP S/4HANA-Umfeld zur Erstellung des Solution Design Documents; Erstellung und Pflege des Projektplans in MS Project sowie interne Ressourcenplanung; Statusverfolgung und Fortschrittsanalyse diverser Teilprojekte; Strukturierung von Teams-Kanälen inklusive Kanban-Boards, Abwesenheitskalendern und FAQ-Seiten; Tool-Governance (SAP Cloud ALM, SAP Signavio, SAP Enable Now).
+2. **Datacenter One GmbH – 12 Monate (05/2023 – 04/2024):**
+   - Rolle: Werkstudent Information Network Operation Center (INOC unter Helmut Schmidpeter).
+   - Aufgaben: Prozessorientiertes IT-Service-Management als Single Point of Contact (Jira); Konzeption und Aufbau einer Wissensdatenbank zur Prozessstandardisierung (Confluence); 24/7 Monitoring von Core-Netzwerken, USV und Klimatechnik nach ITIL 4.
+
+### Projekte & Außerschulische Aktivitäten (WICHTIG: Keine Fehlatzuschreibung als Praktika!)
+3. **Innovationsprojekt: Plattform für Patentmanagement und -recherche (02/2024):**
+   - Kontext: Konzeption für ein führendes Unternehmen der Verpackungsindustrie (Klingele Paper & Packaging / ISG).
+   - Aufgaben: Entwicklung und wirtschaftliche Konzeption eines hybriden Geschäftsmodells (SaaS & Beratung) zur Stärkung der Innovationskraft durch KI-gestützte Patentrecherche, inklusive BPMN-Modellierung der RPA-basierten Kernprozesse.
+   - *Wichtige Leitlinie:* Dies war ein praxisbezogenes Innovationsprojekt für die Verpackungsindustrie – Visar hat **kein** Praktikum bei der Robert Bosch GmbH absolviert!
+4. **Automatisierungsprojekt: Optimierung der Abfallbilanz und Nachhaltigkeitsberichterstattung (07/2024):**
+   - Kontext: Abfallmanagement eines Industrieunternehmens.
+   - Aufgaben: Modellierung von Ist-Prozessen und Identifikation von Automatisierungspotenzialen; Entwicklung von PowerShell-Skripts zur automatisierten Datenextraktion zur Eliminierung von Eingabefehlern und Reduzierung des Zeitaufwands.
+5. **Privatprojekt: Persönliche Portfolio-Website (2023–):**
+   - Konzeption und Entwicklung einer responsiven Single-Page-Application (via GitHub Pages) zur digitalen Präsentation des Qualifikationsprofils mit Fokus auf SAP-Expertise, akademische Arbeiten und technische Skills.
+6. **Enterprise Architecture & Zertifizierungen:**
    - TOGAF 9 ADM-Intensivkurs bei Scape Consulting (Dr. Daniel Simon, Universität Stuttgart, 16.01.2020).
-6. **Ehrenamt & Gesellschaftliches Engagement:**
+7. **Ehrenamt & Gesellschaftliches Engagement:**
    - Ehrenamtliche Geflüchtetenhilfe (Refugees Welcome, HVF) und Hausaufgabenbetreuung.
 
 ---

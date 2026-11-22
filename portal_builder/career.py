@@ -16,7 +16,7 @@ def get_career():
                 <span class="tag-badge bg-emerald-100 text-emerald-800 text-[10px]">Top Match Industrie</span>
               </div>
               <p class="text-xs text-slate-600 dark:text-slate-300">
-                <strong>Unternehmen:</strong> Porsche, Bosch, Mercedes-Benz, Trumpf, Mahle, Festo, EnBW.
+                <strong>Unternehmen:</strong> Porsche, Mercedes-Benz, Trumpf, Mahle, Festo, STIHL, EnBW.
               </p>
               <p class="text-xs text-slate-600 dark:text-slate-300">
                 <strong>Rolle:</strong> Betreuung und Weiterentwicklung der S/4-Kernmodule (FI/CO, MM, PM) oder als BTP Solution Architect.
