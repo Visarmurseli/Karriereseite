@@ -380,6 +380,7 @@ def run():
                                 conversation_history = [conversation_history[0], conversation_history[1]] + conversation_history[-18:]
                                 
                             send_message(bot_token, chat_id, reply)
+                            print(f"[✓] Antwort an {sender} gesendet ({len(reply)} Zeichen)", flush=True)
                         except Exception as e:
                             print(f"[!] Fehler bei Gemini-Aufruf: {e}", flush=True)
                             send_message(bot_token, chat_id, f"⚠️ Fehler bei der Antwortgenerierung: {e}")
