@@ -29,7 +29,9 @@ from portal_builder.notebook import get_notebook
 from portal_builder.vue_app import get_vue_app
 
 def main():
-    index_path = os.path.join(BASE_DIR, "index.html")
+    target_dir = os.path.join(BASE_DIR, "s4hana-prep-portal")
+    os.makedirs(target_dir, exist_ok=True)
+    index_path = os.path.join(target_dir, "index.html")
 
     html_parts = [
         get_header(),

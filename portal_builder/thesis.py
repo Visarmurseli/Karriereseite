@@ -2,7 +2,7 @@
 
 def get_thesis():
     return """
-      <!-- ================= TAB 7: MASTERARBEIT, FORSCHUNG & ACADEMIC KNOWLEDGE HUB ================= -->
+      <!-- ================= TAB 7: 300 ECTS ACADEMIC KNOWLEDGE HUB (BACHELOR & MASTER) ================= -->
       <div v-show="activeTab === 'thesis'" class="space-y-6">
         
         <!-- Header Hero -->
@@ -13,316 +13,204 @@ def get_thesis():
                 Universität Stuttgart | Fakultät für Wirtschafts- und Sozialwissenschaften
               </span>
               <h3 class="text-xl font-extrabold text-slate-900 dark:text-white mt-1">
-                Akademischer Knowledge Hub: Forschung, Veröffentlichungen & Master-Curriculum
+                300 ECTS Academic Knowledge Hub: Bachelor & Master Single Source of Truth
               </h3>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Visar Murseli, M.Sc. Wirtschaftsinformatik (Amtliches Zeugnis: Gesamtnote 1,6 „gut“ | Masterarbeit 1,0 „sehr gut“ | 120 ECTS)
+                Visar Murseli, M.Sc. Wirtschaftsinformatik (M.Sc. Note 1,6 „gut“ | Masterarbeit 1,0 „sehr gut“ | B.Sc. 180 ECTS Note 3,0 | Bachelorarbeit 1,7 „gut“)
               </p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <span class="tag-badge bg-emerald-600 text-white font-bold text-xs whitespace-nowrap">Masterarbeit: Note 1,0 (30 ECTS)</span>
               <span class="tag-badge bg-blue-600 text-white font-bold text-xs whitespace-nowrap">M.Sc. Gesamtnote: 1,6 (120 ECTS)</span>
-              <span class="tag-badge bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300 font-bold text-xs whitespace-nowrap">B.Sc. Note: 2,3 (180 ECTS)</span>
+              <span class="tag-badge bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300 font-bold text-xs whitespace-nowrap">Bachelorarbeit: Note 1,7 (12 ECTS)</span>
+              <span class="tag-badge bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300 font-bold text-xs whitespace-nowrap">B.Sc. Gesamtnote: 3,0 (180 ECTS)</span>
             </div>
           </div>
 
-          <!-- Official Master Degree Certificate Callout -->
-          <div class="p-4 rounded-xl bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 dark:from-emerald-950/40 dark:via-teal-950/30 dark:to-blue-950/30 border border-emerald-300 dark:border-emerald-700 text-xs text-slate-700 dark:text-slate-300 space-y-2.5">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div class="flex items-center space-x-2 font-bold text-emerald-900 dark:text-emerald-300 text-sm">
-                <span>📜</span>
-                <span>Offizielles Zeugnis über die Masterprüfung (Universität Stuttgart)</span>
+          <!-- 2 Official Degree Certificates Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            
+            <!-- Master Certificate Callout -->
+            <div class="p-4 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/40 dark:to-teal-950/30 border border-emerald-300 dark:border-emerald-700 text-xs text-slate-700 dark:text-slate-300 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-emerald-900 dark:text-emerald-300 text-sm flex items-center space-x-1.5">
+                    <span>📜</span>
+                    <span>Master of Science (M.Sc.)</span>
+                  </span>
+                  <span class="tag-badge bg-emerald-600 text-white font-bold text-[10px]">1,6 (Gut) | 120 ECTS</span>
+                </div>
+                <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Ausgestellt am <strong>17. September 2026</strong> durch Prüfungsausschussvorsitzenden Prof. Dr. Christian Becker. 
+                  Masterarbeit bei Prof. Dr. Georg Herzwurm mit der <strong>Spitzennote 1,0 (sehr gut)</strong>.
+                </p>
               </div>
-              <span class="text-[11px] font-semibold bg-emerald-100 dark:bg-emerald-900/80 text-emerald-800 dark:text-emerald-200 px-2.5 py-1 rounded-full border border-emerald-300 dark:border-emerald-700">
-                Stuttgart, den 17. September 2026 | Prof. Dr. Christian Becker (Prüfungsausschussvorsitzender)
-              </span>
+              <div class="pt-2 border-t border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
+                <span class="text-[10px] text-slate-500 font-mono">Masterzeugnis_Murseli_Visar.pdf</span>
+                <a href="Studium_Dokumente/Masterzeugnis_Murseli_Visar.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] transition">
+                  <span>📄</span>
+                  <span>Masterzeugnis (PDF)</span>
+                </a>
+              </div>
             </div>
-            <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
-              Mit Beschluss des Prüfungsausschusses der Universität Stuttgart wurde Visar Murseli nach Erbringung aller 120 ECTS Leistungspunkte der akademische Grad <strong>Master of Science (M.Sc.) Wirtschaftsinformatik</strong> mit dem Gesamturteil <strong>„gut“ (1,6)</strong> verliehen. Die Masterarbeit am Lehrstuhl von Prof. Dr. Georg Herzwurm wurde mit der <strong>Spitzennote 1,0 (sehr gut)</strong> bewertet.
-            </p>
-            <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-emerald-200 dark:border-emerald-800 text-[11px]">
-              <span class="text-slate-500 dark:text-slate-400">
-                Verifizierte Originaldatei: <code>Studium_Dokumente/Masterzeugnis_Murseli_Visar.pdf</code> (3 Seiten, 120 ECTS)
-              </span>
-              <a href="Studium_Dokumente/Masterzeugnis_Murseli_Visar.pdf" target="_blank" class="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold transition shadow-sm">
-                <span>📄</span>
-                <span>Offizielles Masterzeugnis (PDF) öffnen</span>
-              </a>
+
+            <!-- Bachelor Certificate Callout -->
+            <div class="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/30 border border-blue-300 dark:border-blue-700 text-xs text-slate-700 dark:text-slate-300 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-blue-900 dark:text-blue-300 text-sm flex items-center space-x-1.5">
+                    <span>📜</span>
+                    <span>Bachelor of Science (B.Sc.)</span>
+                  </span>
+                  <span class="tag-badge bg-blue-600 text-white font-bold text-[10px]">3,0 | 180 ECTS</span>
+                </div>
+                <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Amtliche Leistungsübersicht (Dezernat 3 - Studium, Universität Stuttgart).
+                  Bachelorarbeit: <strong>Note 1,7 (gut)</strong> bei Prof. Herzwurm. 
+                  Bestnote <strong>1,0 in Informationssysteme im E-Business</strong>.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-blue-200 dark:border-blue-800 flex items-center justify-between">
+                <span class="text-[10px] text-slate-500 font-mono">Bachelorzeugnis_Leistungsuebersicht_Murseli.pdf</span>
+                <a href="Studium_Dokumente/Bachelorzeugnis_Leistungsuebersicht_Murseli.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] transition">
+                  <span>📄</span>
+                  <span>Bachelorzeugnis (PDF)</span>
+                </a>
+              </div>
             </div>
+
           </div>
 
-          <!-- Academic Impact Explanation -->
-          <div class="p-4 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
-            <div>
-              <strong>Dein wissenschaftlicher USP im Bewerbungsgespräch:</strong>
-              Du bist kein reiner Theoretiker und kein reiner Konfigurations-Klicker. Dein 6-jähriges Studium an der Exzellenzuniversität Stuttgart zeichnet sich durch einen stringenten <strong>Roten Faden</strong> aus: 
-              <em>Von Software-Ökosystemen und Low-Code Boundary Resources im Bachelor über Software-Architektur (1,7), Advanced Software Engineering (1,6), Cloud Computing (2,0) und Smart Services bis hin zur empirisch fundierten ERP-Transformation, Plattformisierung und Plattform-Governance im Master (Note 1,0).</em>
+          <!-- Academic Growth Story (Der Rote Faden) -->
+          <div class="p-4 rounded-xl bg-gradient-to-r from-slate-50 to-indigo-50/40 dark:from-slate-800/60 dark:to-indigo-950/30 border border-slate-200 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300 leading-relaxed space-y-2">
+            <div class="font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+              <span>🚀</span>
+              <span>Die akademische Entwicklung: Von den Bachelor-Grundlagen zur Master-Spitzenleistung (+1,4 Notenpunkte)</span>
             </div>
-            <div class="text-[11px] text-slate-600 dark:text-slate-400">
-              Alle hier dokumentierten Arbeiten sind durch amtliche Notenbescheide, Original-PDFs und empirische Transkripte im Ordner <code>Studium_Dokumente</code> lokal im System verifiziert.
-            </div>
+            <p class="text-[11px] text-slate-600 dark:text-slate-300">
+              Im Bachelorstudium (180 ECTS) hast du das breite und fordernde ingenieurwissenschaftliche Fundament erworben: Höhere Mathematik, Theoretische Informatik, Algorithmen, Datenstrukturen, Java-Programmierung und Rechnungslegung. Im Masterstudium (120 ECTS) hast du deine Spezialisierung voll entfaltet: Software-Architektur (1,7), Advanced Software Engineering (1,6), Cloud Computing (2,0) und die mit der <strong>Traumnote 1,0</strong> bewertete Masterarbeit. Deine Notensteigerung von <strong>3,0 auf 1,6</strong> belegt deine außerordentliche Lernkurve, Zielstrebigkeit und architektonische Reife!
+            </p>
+          </div>
+
+          <!-- Interactive Degree View Selector -->
+          <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+            <span class="text-xs font-semibold text-slate-500 mr-1">Ansicht filtern:</span>
+            <button @click="degreeTab = 'all'" :class="degreeTab === 'all' ? 'bg-blue-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
+              🌐 Alle 300 ECTS (Gesamtübersicht)
+            </button>
+            <button @click="degreeTab = 'master'" :class="degreeTab === 'master' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
+              🎓 Master of Science (120 ECTS | Note 1,6)
+            </button>
+            <button @click="degreeTab = 'bachelor'" :class="degreeTab === 'bachelor' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
+              🏛️ Bachelor of Science (180 ECTS | Note 3,0)
+            </button>
+            <button @click="degreeTab = 'synergies'" :class="degreeTab === 'synergies' ? 'bg-purple-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'" class="px-3 py-1.5 rounded-lg text-xs font-bold transition">
+              ⚡ 300 ECTS Synergie-Cluster (Knowledge Graph)
+            </button>
           </div>
         </div>
 
-        <!-- Die 6 Meilensteine deiner wissenschaftlichen Forschung -->
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <!-- ================= SECTION: 300 ECTS KNOWLEDGE GRAPH & SYNERGIES ================= -->
+        <div v-show="degreeTab === 'all' || degreeTab === 'synergies'" class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center space-x-2">
-              <span>📚</span>
-              <span>Die 6 Meilensteine & Industrieprojekte deiner akademischen Forschung (Originalarbeiten)</span>
+              <span>⚡</span>
+              <span>Das 300 ECTS Synergie-Netzwerk: Bachelor ➔ Master ➔ Enterprise-Praxis</span>
             </h3>
-            <span class="tag-badge bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300">Empirie & Design Science</span>
+            <span class="tag-badge bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300">Single Source of Truth</span>
           </div>
+          <p class="text-xs text-slate-500">
+            Wie sich deine universitären Grundlagen über 6 Jahre hinweg zu einer unschlagbaren Enterprise-Architektur- und Transformationskompetenz verdichtet haben:
+          </p>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
             
-            <!-- Paper 1: Masterarbeit (1,0) -->
-            <div class="p-5 rounded-xl border-2 border-emerald-500 bg-emerald-50/20 dark:bg-emerald-950/20 space-y-3 shadow-sm flex flex-col justify-between">
-              <div class="space-y-2">
-                <div class="flex justify-between items-start gap-2">
-                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                    Masterarbeit | Lehrstuhl Prof. Dr. Georg Herzwurm (30 ECTS)
-                  </span>
-                  <span class="tag-badge bg-emerald-600 text-white font-extrabold text-[11px]">Note: 1,0 (Sehr Gut)</span>
-                </div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm leading-snug">
-                  „Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA“
-                </h4>
-                <div class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed space-y-1.5">
-                  <p>
-                    <strong>Wissenschaftliche Fragestellung:</strong> Wie verändert die Plattformisierung von ERP-Systemen (Schnittstellen zwischen S/4HANA Core und Cloud-Erweiterungen wie SAP BTP) die traditionellen Kritischen Erfolgsfaktoren (CSF)?
-                  </p>
-                  <p>
-                    <strong>Methodik & Empirie:</strong> 12 leitfadengestützte Experteninterviews im Großprojekt SAP4SSB (Gesamtprojektleiter Roland Nowak, Teilprojektleiter Thomas Wimpff, Enterprise Architekten Axians & Nagarro). Qualitative Inhaltsanalyse nach Mayring mit dediziertem Kategoriensystem.
-                  </p>
-                  <p>
-                    <strong>Zentrales Artefakt:</strong> Phase-based Platform Excellence Framework (4 Phasen × 4 Dimensionen: Organisation, Technik, Mensch, PMO).
-                  </p>
-                </div>
+            <!-- Cluster 1: Architecture & Platforms -->
+            <div class="p-4 rounded-xl border border-blue-200 dark:border-blue-800/80 bg-blue-50/20 dark:bg-blue-950/20 space-y-2">
+              <div class="font-bold text-blue-700 dark:text-blue-400 text-sm flex items-center justify-between">
+                <span>1. Enterprise Architecture, Plattformen & Boundary Resources</span>
+                <span class="tag-badge bg-blue-600 text-white text-[10px]">Kern-Kompetenz</span>
               </div>
-              <div class="pt-3 border-t border-emerald-200 dark:border-emerald-800/60 flex items-center justify-between">
-                <span class="text-[10px] text-slate-500">126 Seiten | 12 Transkripte | Codebuch</span>
-                <span class="text-[11px] font-bold text-emerald-700 dark:text-emerald-400">PDF: Masterarbeit_Visar_Murseli.pdf</span>
+              <div class="text-[11px] text-slate-600 dark:text-slate-300 space-y-1">
+                <p><strong>Bachelor:</strong> PSE (Java/OOP), Datenstrukturen & Algorithmen (3,0), Softwaretechnik, <strong>Bachelorarbeit: Boundary Resources (1,7)</strong> bei OutSystems & Mendix.</p>
+                <p><strong>Master:</strong> <strong>Software-Architektur (1,7)</strong>, <strong>Advanced Software Engineering (1,6)</strong>, <strong>Cloud Computing (2,0)</strong>, <strong>Masterarbeit: S/4HANA Plattformisierung (1,0)</strong>.</p>
+                <p><strong>Praxis (SSB):</strong> BTP-Zielarchitektur, API-Management (xSuite, PATRIS), ES4-Mandantenlandschaft mit Axians, TOGAF ADM.</p>
+                <div class="text-blue-800 dark:text-blue-300 font-semibold pt-1">
+                  ➔ Synergie-Wert: Du beherrschst die Entkopplung von Kern- und Cloud-Systemen von der theoretischen Modellierung bis zum realen SAP-Großprojekt.
+                </div>
               </div>
             </div>
 
-            <!-- Paper 2: FPWI Forschungsprojekt (1,3) -->
-            <div class="p-5 rounded-xl border-2 border-blue-500 bg-blue-50/20 dark:bg-blue-950/20 space-y-3 shadow-sm flex flex-col justify-between">
-              <div class="space-y-2">
-                <div class="flex justify-between items-start gap-2">
-                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-700 dark:text-blue-400">
-                    Forschungsprojekt Wirtschaftsinformatik (FPWI) | D. Anders, V. Murseli, U.E. Tumar (6 ECTS)
-                  </span>
-                  <span class="tag-badge bg-blue-600 text-white font-extrabold text-[11px]">Note: 1,3 (Sehr Gut)</span>
-                </div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm leading-snug">
-                  „Integration physischer und digitaler Welten: Ein Framework für Smart Service Blueprinting“
-                </h4>
-                <div class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed space-y-1.5">
-                  <p>
-                    <strong>Wissenschaftliche Fragestellung:</strong> Klassisches Service Blueprinting (Bitner et al., 2008) versagt bei vernetzten Smart Services und cyber-physischen Systemen (CPS). Wie muss ein Modellierungsframework gestaltet sein, um Omnichannel-Interaktionen, IoT-Sensoren und automatisierte Entscheidungsknoten abzubilden?
-                  </p>
-                  <p>
-                    <strong>Methodik:</strong> Design Science Research Methodology (DSRM nach Peffers et al., 2007). Konzeptionelle Iterationen, Artefakterstellung und empirische Evaluation.
-                  </p>
-                  <p>
-                    <strong>Praxis-Use-Cases:</strong> Connected Cars (Predictive Maintenance & Smart Charging) sowie Smart Home (Smarte Rolladensteuerung basierend auf Sonneneinstrahlungsdaten und Wetterprognosen).
-                  </p>
-                  <p>
-                    <strong>Evaluation & Usability:</strong> Thinking-Aloud Usability-Tests mit anschließender System Usability Scale (SUS) Messung. <strong>Ergebnis: Überragender SUS-Score von 85 / 100 Punkten („Grade A / Excellent“)!</strong>
-                  </p>
-                </div>
+            <!-- Cluster 2: Kaufmännische Prozesse & ERP -->
+            <div class="p-4 rounded-xl border border-emerald-200 dark:border-emerald-800/80 bg-emerald-50/20 dark:bg-emerald-950/20 space-y-2">
+              <div class="font-bold text-emerald-700 dark:text-emerald-400 text-sm flex items-center justify-between">
+                <span>2. Kaufmännische Prozesse, ERP & Finance</span>
+                <span class="tag-badge bg-emerald-600 text-white text-[10px]">Business & IT</span>
               </div>
-              <div class="pt-3 border-t border-blue-200 dark:border-blue-800/60 flex items-center justify-between">
-                <span class="text-[10px] text-slate-500">DSRM Framework | SUS-Score 85/100</span>
-                <span class="text-[11px] font-bold text-blue-700 dark:text-blue-400">PDF: FPWI_Forschungsprojekt_Paper.pdf</span>
+              <div class="text-[11px] text-slate-600 dark:text-slate-300 space-y-1">
+                <p><strong>Bachelor:</strong> Einführung BWL, Einführung Rechnungswesen, Finanzprozesse (2,7), Modellierung (2,3), <strong>Informationssysteme im E-Business (1,0 - Bestnote)</strong>.</p>
+                <p><strong>Master:</strong> <strong>Digitale Nachhaltigkeit (1,0 - Fallstudie Schmalz)</strong>, Innovationsmanagement (1,7), INUT (1,7), Service Operations Management (3,0).</p>
+                <p><strong>Praxis (SSB):</strong> TP2 Lösungsdesign (FI/CO/MM/RE-FX), Trennungsrechnung kaufmännisch/steuerlich, Eröffnungsbilanz-Abgleich auf 0,00 € Übernahmekonto.</p>
+                <div class="text-emerald-800 dark:text-emerald-300 font-semibold pt-1">
+                  ➔ Synergie-Wert: Du sprichst die Sprache der Buchhaltung und des Controllings genauso fließend wie die der IT-Entwickler.
+                </div>
               </div>
             </div>
 
-            <!-- Paper 3: Seminararbeit (SLR nach PRISMA 2020) -->
-            <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <div class="flex justify-between items-start gap-2">
-                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-700 dark:text-purple-400">
-                    Seminar Wirtschaftsinformatik 2 | Visar Murseli (6 ECTS)
-                  </span>
-                  <span class="tag-badge bg-purple-600 text-white font-extrabold text-[11px]">Note: 1,7 (Gut)</span>
-                </div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm leading-snug">
-                  „Die Transformation menschlicher Arbeitsrollen durch KI-gestützte Mensch-Roboter-Kollaboration in der Produktion“
-                </h4>
-                <div class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed space-y-1.5">
-                  <p>
-                    <strong>Wissenschaftliche Fragestellung:</strong> Wie verändern kognitive Cobots und KI-Systeme die menschliche Rolle im Übergang von Industrie 4.0 (reine Automatisierung) zu <strong>Industrie 5.0 (Human-Centricity)</strong>?
-                  </p>
-                  <p>
-                    <strong>Methodik:</strong> Strenge Systematische Literaturanalyse (SLR) nach dem <strong>PRISMA 2020 Protokoll</strong>. Systematische Recherche über 5 wissenschaftliche Datenbanken (ACM Digital Library, AIS eLibrary, EBSCOhost, IEEE Xplore, Web of Science). 
-                  </p>
-                  <p>
-                    <strong>Recherche-Trichter:</strong> 570 gefundene Datensätze → Deduplizierung → Title/Abstract-Screening → Volltextprüfung → <strong>26 identifizierte und synthesefähige Kernstudien</strong>.
-                  </p>
-                  <p>
-                    <strong>Kernergebnisse:</strong> Analyse von Learning from Demonstration (LfD), Messung kognitiver Ermüdung über Heart Rate Variability (HRV), Status Threat (Angst vor Kontrollverlust) und die Rolle der Metakognition (Human-in-the-Loop).
-                  </p>
-                </div>
+            <!-- Cluster 3: Data, Analytics & AI -->
+            <div class="p-4 rounded-xl border border-purple-200 dark:border-purple-800/80 bg-purple-50/20 dark:bg-purple-950/20 space-y-2">
+              <div class="font-bold text-purple-700 dark:text-purple-400 text-sm flex items-center justify-between">
+                <span>3. Data Architecture, Analytics & Artificial Intelligence</span>
+                <span class="tag-badge bg-purple-600 text-white text-[10px]">Data & Intelligence</span>
               </div>
-              <div class="pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                <span class="text-[10px] text-slate-500">PRISMA 2020 | 570 screened | 26 Studien</span>
-                <span class="text-[11px] font-bold text-purple-700 dark:text-purple-400">PDF: Seminararbeit_Murseli.pdf</span>
+              <div class="text-[11px] text-slate-600 dark:text-slate-300 space-y-1">
+                <p><strong>Bachelor:</strong> Statistik 1 (4,0) & Statistik 2 (2,7), Wissensverarbeitung (3,7), Business Intelligence (2,7).</p>
+                <p><strong>Master:</strong> Datenbanken & Informationssysteme (2,7), <strong>AI4IoT (2,0)</strong>, <strong>Applied AI (1,7)</strong>, <strong>FPWI: Smart Service Blueprinting (1,3 - SUS-Score 85/100)</strong>.</p>
+                <p><strong>Praxis (SSB):</strong> Datenmigrations-Cockpit (LTMC Staging-Tabellen, CVI Business Partner Konsolidierung), Signavio Process Insights.</p>
+                <div class="text-purple-800 dark:text-purple-300 font-semibold pt-1">
+                  ➔ Synergie-Wert: Fundiertes Datenverständnis von relationalen SQL/HANA-Modellen bis hin zu modernen generativen KI- und IoT-Architekturen.
+                </div>
               </div>
             </div>
 
-            <!-- Paper 4: Bachelorarbeit (1,7) -->
-            <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <div class="flex justify-between items-start gap-2">
-                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-400">
-                    Bachelorarbeit (B.Sc. WI) | Lehrstuhl Prof. Dr. Georg Herzwurm (12 ECTS)
-                  </span>
-                  <span class="tag-badge bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300 font-extrabold text-[11px]">Note: 1,7 (Gut)</span>
-                </div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm leading-snug">
-                  „Die Bedeutung von Boundary Resources in Low-Code Entwicklungsplattformen: Eine qualitative Untersuchung am Beispiel von OutSystems und Mendix“
-                </h4>
-                <div class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed space-y-1.5">
-                  <p>
-                    <strong>Wissenschaftliche Fragestellung:</strong> Welche Grenzressourcen (Boundary Resources) stellen Low-Code-Plattformbetreiber bereit, um Entwickler an ihre Plattform zu binden und Ökosystem-Wachstum zu steuern?
-                  </p>
-                  <p>
-                    <strong>Theoretische Fundierung:</strong> Boundary Resource Theory (Ghazawneh & Henfridsson, 2013).
-                  </p>
-                  <p>
-                    <strong>Ergebnis & Taxonomie:</strong> Identifikation und Klassifizierung von 14 aggregierten Boundary-Resource-Gruppen aufgeteilt in:
-                    <br>• Application Boundary Resources (ABR: APIs, REST Services, Cloud Connectors)
-                    <br>• Development Boundary Resources (DBR: Visual Modeler, AI-Assistants, CI/CD Pipelines)
-                    <br>• Social Boundary Resources (SBR: Community Foren, Marktplätze wie OutSystems Forge & Mendix Marketplace).
-                  </p>
-                  <p>
-                    <strong>Strategischer Transfer:</strong> Bereits 2023 das Fundament gelegt für Schnittstellen-Governance – direkt transferiert auf die SAP BTP im Master!
-                  </p>
-                </div>
+            <!-- Cluster 4: Governance, PMO & Leadership -->
+            <div class="p-4 rounded-xl border border-amber-200 dark:border-amber-800/80 bg-amber-50/20 dark:bg-amber-950/20 space-y-2">
+              <div class="font-bold text-amber-700 dark:text-amber-400 text-sm flex items-center justify-between">
+                <span>4. Transformations-Governance, PMO & Leadership</span>
+                <span class="tag-badge bg-amber-600 text-white text-[10px]">PMO & Governance</span>
               </div>
-              <div class="pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                <span class="text-[10px] text-slate-500">14 Resource-Gruppen | OutSystems & Mendix</span>
-                <span class="text-[11px] font-bold text-slate-700 dark:text-slate-300">PDF: Bachelorarbeit_Murseli.pdf</span>
-              </div>
-            </div>
-
-            <!-- Paper 5: Fallstudie J. Schmalz GmbH (Digitale Nachhaltigkeit 1,0) -->
-            <div class="p-5 rounded-xl border-2 border-emerald-500/80 bg-emerald-50/20 dark:bg-emerald-950/20 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <div class="flex justify-between items-start gap-2">
-                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                    Praxis-Fallstudie | Dr. Dimitri Petrik (6 ECTS)
-                  </span>
-                  <span class="tag-badge bg-emerald-600 text-white font-extrabold text-[11px]">Note: 1,0 (Sehr Gut)</span>
+              <div class="text-[11px] text-slate-600 dark:text-slate-300 space-y-1">
+                <p><strong>Bachelor:</strong> Management von Dienstleistungsunternehmen (4,0), Human Resource Management (3,0), Informatikrecht (4,0), SQ Schreibwerkstatt.</p>
+                <p><strong>Master:</strong> <strong>Seminar Wirtschaftsinformatik 2 (1,7 - SLR PRISMA 2020)</strong>, Forschungsmethoden (1,7), Management von IT-Unternehmen (3,0).</p>
+                <p><strong>Praxis (SSB):</strong> 24 Monate IT-PMO (TP5), Steuerung von Partnern (Nagarro, Axians, Evora), SAP Cloud ALM Quality Gates, Betriebsvereinbarung mit Betriebsrat.</p>
+                <div class="text-amber-800 dark:text-amber-300 font-semibold pt-1">
+                  ➔ Synergie-Wert: Lückenlose Methodenkompetenz für C-Level Steering Committees, Stakeholder-Alignment und agile Fit-to-Standard Governance.
                 </div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm leading-snug">
-                  „Nachhaltigkeit durch Automatisierung: Eine Fallstudie zur Optimierung der Abfallbilanz bei der Schmalz GmbH“
-                </h4>
-                <div class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed space-y-1.5">
-                  <p>
-                    <strong>Praxispartner:</strong> J. Schmalz GmbH (Weltmarktführer für Vakuum-Automation).
-                  </p>
-                  <p>
-                    <strong>Problemstellung:</strong> Manuelle, fehleranfällige Erfassung von Abfall- und Wertstoffbilanzen per Excel verhinderte präzises ESG-Reporting und verursachte hohe Personalkosten.
-                  </p>
-                  <p>
-                    <strong>Lösungsansatz:</strong> Detaillierte BPMN-Modellierung des Ist- und Soll-Zustands, Konzeption einer automatisierten Datenintegrationsstrecke und Entwicklung eines funktionalen Softwareprototypen für automatisierte CSRD-Kennzahlen.
-                  </p>
-                  <p>
-                    <strong>Beratungs-Transfer:</strong> Du beherrschst Prozessmodellierung (BPMN), Schnittstellenautomatisierung und ESG-Reporting im industriellen Mittelstand aus erster Hand!
-                  </p>
-                </div>
-              </div>
-              <div class="pt-3 border-t border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
-                <span class="text-[10px] text-slate-500">J. Schmalz GmbH | BPMN & ESG Prototyp</span>
-                <span class="text-[11px] font-bold text-emerald-700 dark:text-emerald-400">DOCX: DigitaleNachhaltigkeit_Ausarbeitung_Schmalz.docx</span>
-              </div>
-            </div>
-
-            <!-- Paper 6: Cloud Computing Kurzpaper (AWS Well-Architected) -->
-            <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 space-y-3 flex flex-col justify-between">
-              <div class="space-y-2">
-                <div class="flex justify-between items-start gap-2">
-                  <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-700 dark:text-blue-400">
-                    Wissenschaftliches Kurzpaper | Service Management & Cloud Computing (6 ECTS)
-                  </span>
-                  <span class="tag-badge bg-blue-600 text-white font-extrabold text-[11px]">Note: 2,0 (Gut) | 12 Seiten</span>
-                </div>
-                <h4 class="font-bold text-slate-900 dark:text-white text-sm leading-snug">
-                  „Entwicklung einer Cloud-basierten Plattformarchitektur für einen wachsenden Onlineshop“
-                </h4>
-                <div class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed space-y-1.5">
-                  <p>
-                    <strong>Architektur-Framework:</strong> AWS Well-Architected Framework (Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization).
-                  </p>
-                  <p>
-                    <strong>Komponenten:</strong> Entwurf einer Microservices- und Serverless-Architektur: React Frontend via AWS Amplify, DynamoDB & ElastiCache, Amazon RDS Multi-AZ, AWS IoT Core für Lagerbestands-Sensorik, AWS Step Functions Workflow-Orchestrierung, Amazon EventBridge für CRM & Event-Driven-Streaming, Amazon Kinesis & QuickSight für Real-Time Clickstream-Analytics.
-                  </p>
-                  <p>
-                    <strong>DevOps & Governance:</strong> CI/CD-Pipelines mit AWS CodePipeline, CodeBuild und CodeDeploy.
-                  </p>
-                </div>
-              </div>
-              <div class="pt-3 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between">
-                <span class="text-[10px] text-slate-500">12 Seiten | AWS Microservices & Serverless</span>
-                <span class="text-[11px] font-bold text-blue-700 dark:text-blue-400">PDF: CloudComputing_Kurzpaper_Murseli.pdf</span>
               </div>
             </div>
 
           </div>
         </div>
 
-        <!-- Master-Curriculum & Leistungsübersicht (Alle 16 Module offiziell nach Zeugnis) -->
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <!-- ================= SECTION: MASTER-CURRICULUM (120 ECTS | NOTE 1,6) ================= -->
+        <div v-show="degreeTab === 'all' || degreeTab === 'master'" class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <div class="flex items-center space-x-2">
                 <span class="text-lg">🎓</span>
                 <h3 class="text-base font-bold text-slate-900 dark:text-white">
-                  Vollständiges Master-Curriculum: Alle 16 Prüfungsleistungen (120 ECTS)
+                  Master-Curriculum: Alle 16 Prüfungsleistungen (120 ECTS | Gesamtnote 1,6)
                 </h3>
               </div>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Amtlich beglaubigt im Zeugnis über die Masterprüfung (Universität Stuttgart, PO 2020) | Gesamtnote: 1,6 „gut“
+              <p class="text-xs text-slate-500">
+                Offiziell verbürgt im Zeugnis über die Masterprüfung (Universität Stuttgart, 17.09.2026, Prof. Becker)
               </p>
             </div>
-            <div class="flex items-center gap-2">
-              <span class="tag-badge bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold text-xs whitespace-nowrap">
-                Masterarbeit: 1,0 (30 ECTS)
-              </span>
-              <span class="tag-badge bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300 font-bold text-xs whitespace-nowrap">
-                Gesamtnote M.Sc.: 1,6
-              </span>
-            </div>
+            <span class="tag-badge bg-emerald-600 text-white font-bold text-xs whitespace-nowrap">
+              Masterarbeit: Note 1,0 (30 ECTS)
+            </span>
           </div>
 
-          <!-- Academic Scorecard Grid -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
-              <div class="text-[11px] text-slate-500 font-medium">Gesamt-ECTS</div>
-              <div class="text-lg font-bold text-slate-900 dark:text-white mt-0.5">120 ECTS</div>
-              <div class="text-[10px] text-emerald-600 font-semibold">100% abgeschlossen</div>
-            </div>
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
-              <div class="text-[11px] text-slate-500 font-medium">Masterarbeit (Herzwurm)</div>
-              <div class="text-lg font-bold text-emerald-600 mt-0.5">1,0 (Sehr Gut)</div>
-              <div class="text-[10px] text-slate-500">30 ECTS | 126 Seiten</div>
-            </div>
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
-              <div class="text-[11px] text-slate-500 font-medium">Vertiefungsmodule</div>
-              <div class="text-lg font-bold text-blue-600 mt-0.5">66 ECTS</div>
-              <div class="text-[10px] text-slate-500">11 Module à 6 ECTS</div>
-            </div>
-            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
-              <div class="text-[11px] text-slate-500 font-medium">Ergänzende Module</div>
-              <div class="text-lg font-bold text-purple-600 mt-0.5">24 ECTS</div>
-              <div class="text-[10px] text-slate-500">4 Module à 6 ECTS</div>
-            </div>
-          </div>
-
-          <!-- Detailed Curriculum Table -->
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold">
@@ -331,20 +219,15 @@ def get_thesis():
                   <th class="p-3 border-b dark:border-slate-700 whitespace-nowrap">Bereich</th>
                   <th class="p-3 border-b dark:border-slate-700 text-center">ECTS</th>
                   <th class="p-3 border-b dark:border-slate-700 text-center">Note</th>
-                  <th class="p-3 border-b dark:border-slate-700">Akademischer Inhalt & Relevanz für Vorstellungsgespräche</th>
+                  <th class="p-3 border-b dark:border-slate-700">Akademischer Inhalt & Praxisrelevanz</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-slate-600 dark:text-slate-300">
                 
-                <!-- SECTION 1: MASTERARBEIT -->
-                <tr class="bg-slate-100/80 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
-                  <td colspan="5" class="p-2.5 uppercase tracking-wider text-[11px] text-emerald-700 dark:text-emerald-400">
-                    ⭐ Bereich 1: Masterarbeit (30 ECTS) – Höchste Auszeichnung
-                  </td>
-                </tr>
+                <!-- MASTERARBEIT -->
                 <tr class="bg-emerald-50/40 dark:bg-emerald-950/20 font-medium">
                   <td class="p-3 font-bold text-slate-900 dark:text-white">
-                    Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA
+                    ⭐ Masterarbeit: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA
                   </td>
                   <td class="p-3 whitespace-nowrap text-slate-500">Masterarbeit</td>
                   <td class="p-3 font-bold text-center">30</td>
@@ -352,14 +235,7 @@ def get_thesis():
                   <td class="p-3">Kritische Erfolgsfaktoren (CSF) und Plattformisierung großer ERP-Systeme, Plattform-Governance, 12 leitfadengestützte Experteninterviews im Großprojekt SSB AG. Qualitative Inhaltsanalyse nach Mayring. Höchste universitäre Auszeichnung (Note 1,0).</td>
                 </tr>
 
-                <!-- SECTION 2: VERTIEFUNGSMODULE (66 ECTS) -->
-                <tr class="bg-slate-100/80 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
-                  <td colspan="5" class="p-2.5 uppercase tracking-wider text-[11px] text-blue-700 dark:text-blue-400">
-                    📘 Bereich 2: Vertiefungsmodule (66 ECTS)
-                  </td>
-                </tr>
-
-                <!-- 1. Forschungsmethoden -->
+                <!-- VERTIEFUNGSMODULE (66 ECTS) -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Forschungsmethoden in der Wirtschaftsinformatik</td>
                   <td class="p-3 whitespace-nowrap text-slate-500">Pflichtmodul</td>
@@ -368,34 +244,30 @@ def get_thesis():
                   <td class="p-3">Design Science Research Methodology (DSRM nach Peffers), qualitative Inhaltsanalyse nach Mayring, quantitative Hypothesenprüfung. Wissenschaftliches Fundament.</td>
                 </tr>
 
-                <!-- 2. Forschungsprojekte WI -->
                 <tr class="bg-blue-50/20 dark:bg-blue-950/10">
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Forschungsprojekte in der Wirtschaftsinformatik (FPWI)</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Wirtschaftsinformatik</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog WI</td>
                   <td class="p-3 text-center font-bold">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-blue-600 text-white font-bold">1,3</span></td>
                   <td class="p-3">Smart Service Blueprinting Framework für cyber-physische Systeme & IoT. DSRM, Thinking-Aloud Tests, empirischer SUS-Score 85/100 (Grade A / Excellent).</td>
                 </tr>
 
-                <!-- 3. AI4IoT -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">AI4IoT – Artificial Intelligence for the Internet of Things</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Wirtschaftsinformatik</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog WI</td>
                   <td class="p-3 text-center">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,0</span></td>
                   <td class="p-3">Sensorik-Datenströme, Edge Computing, Predictive Maintenance im industriellen Maschinenbau, Time-Series Forecasting für verteilte Anlagen.</td>
                 </tr>
 
-                <!-- 4. Management von IT-Unternehmen -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Management von IT-Unternehmen</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Wirtschaftsinformatik</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog WI</td>
                   <td class="p-3 text-center">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,0</span></td>
                   <td class="p-3">IT-Governance, COBIT, ITIL Service Lifecycle, Sourcing-Modelle, IT-Kostenrechnung und Budgetierung für Enterprise-IT.</td>
                 </tr>
 
-                <!-- 5. Seminar WI 2 -->
                 <tr class="bg-purple-50/20 dark:bg-purple-950/10">
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Seminar Wirtschaftsinformatik 2</td>
                   <td class="p-3 whitespace-nowrap text-slate-500">Katalog Seminar WI</td>
@@ -404,16 +276,14 @@ def get_thesis():
                   <td class="p-3">Systematische Literaturanalyse (SLR nach PRISMA 2020) über 5 Fachdatenbanken (570 gefundene Studien): KI-gestützte Mensch-Roboter-Kollaboration in der Produktion (Industrie 5.0).</td>
                 </tr>
 
-                <!-- 6. Advanced Software Engineering -->
                 <tr class="bg-indigo-50/20 dark:bg-indigo-950/10">
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Advanced Software Engineering (ASE)</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Software Engineering</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Software Eng.</td>
                   <td class="p-3 text-center font-bold">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-indigo-600 text-white font-bold">1,6</span></td>
                   <td class="p-3">Fortgeschrittene Software-Architekturen, Domain-Driven Design (DDD), CI/CD-Pipelines, automatisiertes Testing, Clean Code und Refactoring im Enterprise-Maßstab.</td>
                 </tr>
 
-                <!-- 7. Software-Architektur -->
                 <tr class="bg-indigo-50/20 dark:bg-indigo-950/10">
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Software-Architektur</td>
                   <td class="p-3 whitespace-nowrap text-slate-500">Katalog MINF Informatik</td>
@@ -422,7 +292,6 @@ def get_thesis():
                   <td class="p-3">Architekturmuster (Microservices, Event-Driven, SOA), Schnittstellendesign (REST, gRPC, Event Mesh), Bounded Contexts und Entkopplungsstrategien für Cloud-Plattformen.</td>
                 </tr>
 
-                <!-- 8. Service Management & Cloud Computing -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Service Management and Cloud Computing, and Evaluation</td>
                   <td class="p-3 whitespace-nowrap text-slate-500">Katalog MINF Informatik</td>
@@ -431,7 +300,6 @@ def get_thesis():
                   <td class="p-3">AWS Well-Architected Framework, Microservices & Serverless (DynamoDB, EventBridge, Step Functions), Cloud Service Level Agreements (SLAs) und quantitative Evaluation.</td>
                 </tr>
 
-                <!-- 9. Datenbanken und Informationssysteme -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Datenbanken und Informationssysteme</td>
                   <td class="p-3 whitespace-nowrap text-slate-500">Katalog MINF Informatik</td>
@@ -440,62 +308,50 @@ def get_thesis():
                   <td class="p-3">Relationale Datenmodelle, SQL-Anfragen, ACID-Transaktionsprinzipien, Indizierungsstrategien, NoSQL- und In-Memory-Konzepte (Fundament für SAP HANA).</td>
                 </tr>
 
-                <!-- 10. Innovationsmanagement -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Innovationsmanagement</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Betriebswirtschaftslehre</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog BWL</td>
                   <td class="p-3 text-center">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">1,7</span></td>
                   <td class="p-3">Disruptive Innovationen, Plattform-Ökosysteme, Technologie-Lebenszyklen und strategische Go-to-Market-Planung für digitale Produkte.</td>
                 </tr>
 
-                <!-- 11. Theorie & Empirie int. Unternehmenstätigkeit (INUT) -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Theorie und Empirie internationaler Unternehmenstätigkeit (INUT)</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Betriebswirtschaftslehre</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog BWL</td>
                   <td class="p-3 text-center">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">1,7</span></td>
                   <td class="p-3">Globale Wertschöpfungsketten, internationale Standortentscheidungen, Multinationale Konzerne (MNE), globales IT-Sourcing und Außenhandelstheorie.</td>
                 </tr>
 
-                <!-- SECTION 3: ERGÄNZENDE SPEZIALISIERUNGSMODULE (24 ECTS) -->
-                <tr class="bg-slate-100/80 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
-                  <td colspan="5" class="p-2.5 uppercase tracking-wider text-[11px] text-purple-700 dark:text-purple-400">
-                    🚀 Bereich 3: Ergänzende Spezialisierungsmodule (24 ECTS)
-                  </td>
-                </tr>
-
-                <!-- 1. Digitale Nachhaltigkeit -->
+                <!-- ERGÄNZENDE MODULE (24 ECTS) -->
                 <tr class="bg-emerald-50/20 dark:bg-emerald-950/10">
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Digitale Nachhaltigkeit (Green IT & CSRD)</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Wirtschaftsinformatik</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Ergänzung WI</td>
                   <td class="p-3 text-center font-bold">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-emerald-600 text-white font-bold">1,0</span></td>
                   <td class="p-3">Praxis-Fallstudie J. Schmalz GmbH: BPMN-Prozessmodellierung, Schnittstellenintegration und Software-Prototyp zur automatisierten CSRD-Abfallbilanz.</td>
                 </tr>
 
-                <!-- 2. Applied AI -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Applied AI and Upcoming Technologies in Industries</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Wirtschaftsinformatik</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Ergänzung WI</td>
                   <td class="p-3 text-center">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">1,7</span></td>
                   <td class="p-3">Machine Learning im industriellen Einsatz, NLP, LLM-Architekturen, generative KI und Integration intelligenter Algorithmen in ERP-Geschäftsprozesse.</td>
                 </tr>
 
-                <!-- 3. ISG Innovationsmethoden -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Innovationsmethoden für software- und datenintensive Geschäftsmodelle (ISG)</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Wirtschaftsinformatik</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Ergänzung WI</td>
                   <td class="p-3 text-center">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,0</span></td>
                   <td class="p-3">Data-driven Business Models, Plattformökonomie, Venture-Pitch „PatentRadar“ für Klingele Paper & Packaging (Verknüpfung mit Bosch-Erfahrung).</td>
                 </tr>
 
-                <!-- 4. Service Operations Management -->
                 <tr>
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">Service Operations Management (SOM)</td>
-                  <td class="p-3 whitespace-nowrap text-slate-500">Katalog Betriebswirtschaftslehre</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Ergänzung BWL</td>
                   <td class="p-3 text-center">6</td>
                   <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,0</span></td>
                   <td class="p-3">Operations Management, Warteschlangentheorie, Kapazitäts- und Durchsatzoptimierung operativer Dienstleistungsprozesse im Dienstleistungssektor.</td>
@@ -506,8 +362,309 @@ def get_thesis():
           </div>
         </div>
 
-        <!-- The 12 Empirical Expert Interviews -->
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <!-- ================= SECTION: BACHELOR-CURRICULUM (180 ECTS | NOTE 3,0) ================= -->
+        <div v-show="degreeTab === 'all' || degreeTab === 'bachelor'" class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-lg">🏛️</span>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">
+                  Bachelor-Curriculum: Alle 25+ Prüfungsleistungen (180 ECTS | Gesamtnote 3,0)
+                </h3>
+              </div>
+              <p class="text-xs text-slate-500">
+                Amtlich beglaubigt in der Leistungsübersicht B.Sc. Wirtschaftsinformatik (Universität Stuttgart, Abschluss 18.09.2023)
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="tag-badge bg-indigo-600 text-white font-bold text-xs whitespace-nowrap">
+                Bachelorarbeit: Note 1,7 (12 ECTS)
+              </span>
+              <span class="tag-badge bg-emerald-600 text-white font-bold text-xs whitespace-nowrap">
+                E-Business: Note 1,0 (Bestnote)
+              </span>
+            </div>
+          </div>
+
+          <!-- Bachelor Scorecard Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+              <div class="text-[11px] text-slate-500 font-medium">Bereich B1: Informatik</div>
+              <div class="text-lg font-bold text-blue-600 mt-0.5">48 ECTS</div>
+              <div class="text-[10px] text-slate-500">Modellierung 2,3 | DSA 3,0</div>
+            </div>
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+              <div class="text-[11px] text-slate-500 font-medium">Bereich B2: Wirtschaftsinformatik</div>
+              <div class="text-lg font-bold text-emerald-600 mt-0.5">45 ECTS</div>
+              <div class="text-[10px] text-emerald-600 font-bold">E-Business: 1,0 | IVP: 2,3</div>
+            </div>
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+              <div class="text-[11px] text-slate-500 font-medium">Bereich B3 & C: BWL / VWL</div>
+              <div class="text-lg font-bold text-purple-600 mt-0.5">45 ECTS</div>
+              <div class="text-[10px] text-slate-500">Finanzprozess 2,7 | Märkte 2,7</div>
+            </div>
+            <div class="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
+              <div class="text-[11px] text-slate-500 font-medium">Bachelorarbeit (Prof. Herzwurm)</div>
+              <div class="text-lg font-bold text-indigo-600 mt-0.5">1,7 (Gut)</div>
+              <div class="text-[10px] text-slate-500">12 ECTS | Boundary Resources</div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold">
+                <tr>
+                  <th class="p-3 border-b dark:border-slate-700">Modulbezeichnung</th>
+                  <th class="p-3 border-b dark:border-slate-700 whitespace-nowrap">Bereich nach PO</th>
+                  <th class="p-3 border-b dark:border-slate-700 text-center">ECTS</th>
+                  <th class="p-3 border-b dark:border-slate-700 text-center">Note</th>
+                  <th class="p-3 border-b dark:border-slate-700">Inhaltlicher Kern & Fachkompetenz</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-slate-600 dark:text-slate-300">
+                
+                <!-- BEREICH D: ABSCHLUSSPROJEKT -->
+                <tr class="bg-indigo-50/40 dark:bg-indigo-950/20 font-medium">
+                  <td class="p-3 font-bold text-slate-900 dark:text-white">
+                    ⭐ Bachelorarbeit Wirtschaftsinformatik: Die Bedeutung von Boundary Resources in Low-Code Entwicklungsplattformen (OutSystems & Mendix)
+                  </td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Bereich D: Abschlussprojekt</td>
+                  <td class="p-3 font-bold text-center">12</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-indigo-600 text-white font-bold">1,7</span></td>
+                  <td class="p-3">Boundary Resource Theory (Ghazawneh & Henfridsson). Identifikation von 14 Grenzressourcen-Klassen (ABR, DBR, SBR). Fundament für Schnittstellen- und Plattform-Governance bei Prof. Herzwurm.</td>
+                </tr>
+
+                <!-- BEREICH B2: WIRTSCHAFTSINFORMATIK -->
+                <tr class="bg-slate-100/80 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
+                  <td colspan="5" class="p-2.5 uppercase tracking-wider text-[11px] text-emerald-700 dark:text-emerald-400">
+                    💻 Säule B 2: Wirtschaftsinformatik (45 ECTS | Note: 2,8)
+                  </td>
+                </tr>
+                <tr class="bg-emerald-50/30 dark:bg-emerald-950/15">
+                  <td class="p-3 font-bold text-slate-900 dark:text-white">Betriebliche Informationssysteme: Informationssysteme im E-Business</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI (Teilleistung)</td>
+                  <td class="p-3 text-center font-bold">4,5</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-emerald-600 text-white font-bold">1,0</span></td>
+                  <td class="p-3">Elektronische Marktplätze, E-Procurement, digitale B2B-Plattformen und Web-Ökosysteme. Absolute Bestnote!</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Betriebliche Informationssysteme: Management betrieblicher Informationssysteme</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI (Teilleistung)</td>
+                  <td class="p-3 text-center">4,5</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,7</span></td>
+                  <td class="p-3">Architektur betrieblicher Standardsoftware (ERP, SCM, CRM), Integration und Geschäftsprozessmanagement.</td>
+                </tr>
+                <tr class="bg-blue-50/20 dark:bg-blue-950/10">
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Informationsverarbeitungspraktikum (IVP)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI Pflicht</td>
+                  <td class="p-3 text-center font-bold">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-blue-600 text-white font-bold">2,3</span></td>
+                  <td class="p-3">Hands-on Softwareentwicklung, Datenanalyse, relationale Abfragen und Implementierung betrieblicher Datenstrecken.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Einführung in die Wirtschaftsinformatik</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,7</span></td>
+                  <td class="p-3">Grundlagen der Wirtschaftsinformatik, Informationssystem-Architekturen, Datenmodellierung und Geschäftsprozesse.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Informationsmanagement: Business Intelligence (BI)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI (Teilleistung)</td>
+                  <td class="p-3 text-center">4,5</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,7</span></td>
+                  <td class="p-3">Data Warehousing, ETL-Prozesse, OLAP-Cubes, multidimensionale Datenmodelle und Management-Reporting.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Informationsmanagement: Grundlagen des Informationsmanagements</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI (Teilleistung)</td>
+                  <td class="p-3 text-center">4,5</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,3</span></td>
+                  <td class="p-3">Strategisches, administratives und operatives Informationsmanagement im Unternehmen.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Softwarepraktikum (SOPRA)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,0</span></td>
+                  <td class="p-3">Agiles Team-Entwicklungsprojekt, Scrum-Methodik, Versionskontrolle (Git), Software-Architektur und Qualitätssicherung.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Wissensverarbeitung</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,7</span></td>
+                  <td class="p-3">Ontologien, Wissensbasierte Systeme, Logikprogrammierung, Inferenzmechanismen und semantische Netze.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Informatikrecht</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B2: WI Pflicht</td>
+                  <td class="p-3 text-center">3</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">4,0</span></td>
+                  <td class="p-3">Datenschutzrecht (DSGVO), Urheberrecht an Software, IT-Vertragsrecht und Haftung bei Cloud-Diensten.</td>
+                </tr>
+
+                <!-- BEREICH B1: INFORMATIK -->
+                <tr class="bg-slate-100/80 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
+                  <td colspan="5" class="p-2.5 uppercase tracking-wider text-[11px] text-blue-700 dark:text-blue-400">
+                    🖥️ Säule B 1: Informatik & Softwaretechnik (48 ECTS | Note: 3,3)
+                  </td>
+                </tr>
+                <tr class="bg-blue-50/20 dark:bg-blue-950/10">
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Modellierung</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B1: Informatik Pflicht</td>
+                  <td class="p-3 text-center font-bold">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-blue-600 text-white font-bold">2,3</span></td>
+                  <td class="p-3">UML-Klassendiagramme, Sequenzdiagramme, Zustandsautomaten, Petrinetze und formale Modellierungssysteme.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Datenstrukturen und Algorithmen (DSA)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B1: Informatik Pflicht</td>
+                  <td class="p-3 text-center">9</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,0</span></td>
+                  <td class="p-3">Bäume, Graphen, Such- und Sortieralgorithmen, Laufzeitkomplexität (O-Notation) und algorithmische Effizienz.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Programmentwicklung</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B1: Informatik Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,0</span></td>
+                  <td class="p-3">Fortgeschrittene Programmierung, Clean Code, Test-Driven Development (TDD), Entwurfsmuster und Modularisierung.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Mensch-Computer-Interaktion (MCI)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B1: Informatik Wahlpflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,3</span></td>
+                  <td class="p-3">Usability Engineering, User Experience (UX), Interaktionsdesign, Usability-Tests und UI-Prototyping.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Einführung in die Softwaretechnik (EST)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B1: Informatik Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,7</span></td>
+                  <td class="p-3">Software-Lebenszyklusmodelle, Anforderungsanalyse (Requirements Engineering), Softwaretests und Konfigurationsmanagement.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Automaten und Formale Sprachen</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B1: Informatik Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,7</span></td>
+                  <td class="p-3">Reguläre Sprachen, endliche Automaten, kontextfreie Grammatiken, Turing-Maschinen und Berechenbarkeitstheorie.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Programmierung und Software-Entwicklung (PSE)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B1: Informatik Pflicht</td>
+                  <td class="p-3 text-center">9</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">4,0</span></td>
+                  <td class="p-3">Objektorientierte Programmierung in Java, Vererbung, Polymorphie, Datenkapselung, Collections Framework.</td>
+                </tr>
+
+                <!-- BEREICH B3 & C: BWL / VWL / MANAGEMENT -->
+                <tr class="bg-slate-100/80 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
+                  <td colspan="5" class="p-2.5 uppercase tracking-wider text-[11px] text-purple-700 dark:text-purple-400">
+                    📊 Säule B 3 & Bereich C: Wirtschaftswissenschaften & Management (45 ECTS)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">GBWL 1: Strukturen der Betriebswirtschaftslehre</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B3: BWL Hohenheim</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,7</span></td>
+                  <td class="p-3">Unternehmensführung, Rechtsformen, Corporate Governance, Standortfaktoren und Wertschöpfungsstrukturen.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">GBWL 4: Finanzprozess (Finanzierung & Investition)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B3: BWL Hohenheim</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,7</span></td>
+                  <td class="p-3">Investitionsrechnung (Kapitalwertmethode, IZF), Finanzierungsarten, Liquiditätsmanagement und Kapitalstruktur.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">GVWL 1: Märkte & wirtschaftliche Entscheidungen</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B3: VWL Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,7</span></td>
+                  <td class="p-3">Mikroökonomie, Marktformen, Preisbildung, Wohlfahrtstheorie, Angebot und Nachfrage.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Profilseminar zum Human Resource Management</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Bereich C: Wahl</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,0</span></td>
+                  <td class="p-3">Personalökonomie, Mitarbeiterführung, Anreizsysteme, Talent Management und organisatorischer Wandel.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">BWL 1: Organisation, Personalführung, Strategisches Management</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">B3: BWL Pflicht</td>
+                  <td class="p-3 text-center">9</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,3</span></td>
+                  <td class="p-3">Strategische Analyse (SWOT, Porter Five Forces), Organisationsstrukturen, Aufbau- und Ablauforganisation.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Marketing Management</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Bereich C: Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">3,3</span></td>
+                  <td class="p-3">Marketing-Mix (4P), Marktforschung, Kundenbindung, Produktpositionierung und Markenführung.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Management von Dienstleistungsunternehmen</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Bereich C: Pflicht</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">4,0</span></td>
+                  <td class="p-3">Dienstleistungsqualität (SERVQUAL), Kapazitätssteuerung, Customer Journey und Dienstleistungsproduktivität.</td>
+                </tr>
+
+                <!-- BEREICH A & SQ: ALLGEMEINE LEISTUNGEN & MATHEMATIK -->
+                <tr class="bg-slate-100/80 dark:bg-slate-800/80 font-bold text-slate-900 dark:text-white">
+                  <td colspan="5" class="p-2.5 uppercase tracking-wider text-[11px] text-slate-700 dark:text-slate-400">
+                    📐 Bereich A & SQ: Mathematisch-Methodische Grundlagen (30 ECTS)
+                  </td>
+                </tr>
+                <tr class="bg-blue-50/20 dark:bg-blue-950/10">
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Seminar interdisziplinäre Themen</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Bereich A</td>
+                  <td class="p-3 text-center font-bold">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-blue-600 text-white font-bold">2,3</span></td>
+                  <td class="p-3">Interdisziplinäres wissenschaftliches Arbeiten, Literaturrecherche, Argumentation und Präsentation.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Statistik II (Induktive Statistik)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Bereich A</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">2,7</span></td>
+                  <td class="p-3">Wahrscheinlichkeitstheorie, Hypothesentests, Konfidenzintervalle, lineare Regression und multivariate Analyseverfahren.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Statistik I (Deskriptive Statistik)</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Bereich A</td>
+                  <td class="p-3 text-center">6</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">4,0</span></td>
+                  <td class="p-3">Empirische Verteilungen, Lage- und Streuungsmaße, Korrelationsrechnung und Zeitreihenanalyse.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Mathematik für Wirtschaftswissenschaftler</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Bereich A</td>
+                  <td class="p-3 text-center">9</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold">4,0</span></td>
+                  <td class="p-3">Lineare Algebra, Matrizenrechnung, Differentialrechnung mehrerer Variablen und Optimierung unter Nebenbedingungen.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">Schreibwerkstatt: Vom studentischen zum beruflichen Schreiben</td>
+                  <td class="p-3 whitespace-nowrap text-slate-500">Schlüsselqualifikationen</td>
+                  <td class="p-3 text-center">3</td>
+                  <td class="p-3 text-center"><span class="tag-badge bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-bold">Bestanden</span></td>
+                  <td class="p-3">Strukturierte Berichtserstellung, Business Communication, Zielgruppenansprache und professionelles Storytelling.</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ================= SECTION: 12 EMPIRICAL INTERVIEWS & THEORETICAL CONSTRUCTS ================= -->
+        <div v-show="degreeTab === 'all' || degreeTab === 'master'" class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center space-x-2">
               <span>🎙️</span>
@@ -516,7 +673,7 @@ def get_thesis():
             <span class="tag-badge bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Mayring Inhaltsanalyse & Codebuch</span>
           </div>
           <p class="text-xs text-slate-500">
-            Alle Transkripte und das Auswertungs-Codebuch liegen nun lokal im Workspace unter <code>Studium_Dokumente/Interviews_Masterarbeit</code>:
+            Alle Transkripte und das Auswertungs-Codebuch liegen lokal im Workspace unter <code>Studium_Dokumente/Interviews_Masterarbeit</code>:
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
@@ -567,90 +724,6 @@ def get_thesis():
               </p>
               <div class="text-[9px] text-slate-400 font-mono">Interview_Henning_Gerdes_Axians_Lead.docx</div>
             </div>
-          </div>
-        </div>
-
-        <!-- The 4 Core Theoretical Constructs -->
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-          <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center space-x-2">
-            <span>🔬</span>
-            <span>Die 4 theoretischen Säulen deiner wissenschaftlichen Arbeit</span>
-          </h3>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 space-y-1.5">
-              <div class="font-bold text-blue-600 dark:text-blue-400">1. Boundary Resources Theory (Wareham et al., 2014)</div>
-              <p class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
-                Schnittstellen, APIs, CDS Views und Entwicklungsrichtlinien sind nicht bloß technischer Code, sondern strategische „Grenzressourcen“. Sie bestimmen, wie Drittpartner (Nagarro, Axians) an die Plattform andocken können, ohne die Kernstabilität zu gefährden.
-              </p>
-            </div>
-
-            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 space-y-1.5">
-              <div class="font-bold text-purple-600 dark:text-purple-400">2. Decoupling / Entkopplungstheorie (Benlian et al., 2015)</div>
-              <p class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
-                Bimodale IT in der Praxis: Der ERP-Kern (System of Record) muss hochgradig stabil und standardisiert bleiben, während kundenindividuelle Innovationszyklen (Systems of Innovation) auf der SAP BTP entkoppelt und agil entwickelt werden.
-              </p>
-            </div>
-
-            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 space-y-1.5">
-              <div class="font-bold text-emerald-600 dark:text-emerald-400">3. Absorptive Capacity Theory (Min et al., 2016)</div>
-              <p class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
-                Die Fähigkeit einer Organisation (wie der SSB), externes Wissen der Implementierungspartner aufzunehmen und in eigenes Know-how zu transformieren. Ohne gezieltes Enablement (Enable Now) entsteht gefährliche Beraterabhängigkeit.
-              </p>
-            </div>
-
-            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 space-y-1.5">
-              <div class="font-bold text-amber-600 dark:text-amber-400">4. Das Integrations-Paradoxon & Technical Debt</div>
-              <p class="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
-                Jede Sonderlocke und jedes proprietäre Z-Programm erhöht kurzfristig die Zufriedenheit einzelner Key User, erzeugt aber langfristig exponentiell steigende Upgrade- und Wartungskosten (Technische Schuld). Eine strategische Plattform- und Schnittstellen-Governance löst dieses Paradoxon auf.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- The 4x4 Phase-based Platform Excellence Framework -->
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-          <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center space-x-2">
-            <span>📊</span>
-            <span>Das Phase-based Platform Excellence Framework (Phasen × Dimensionen)</span>
-          </h3>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
-              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold">
-                <tr>
-                  <th class="p-3 border-b dark:border-slate-700">Kategorie</th>
-                  <th class="p-3 border-b dark:border-slate-700">Pre-Implementation (Discover / Prepare)</th>
-                  <th class="p-3 border-b dark:border-slate-700">Implementation (Explore / Realize)</th>
-                  <th class="p-3 border-b dark:border-slate-700">Post-Implementation (Deploy / Run)</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-slate-600 dark:text-slate-300">
-                <tr>
-                  <td class="p-3 font-semibold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/40">Organisation & Strategie</td>
-                  <td class="p-3">Strategische Plattform-Vision, C-Level Commitment, Betriebsvereinbarung mit Betriebsrat.</td>
-                  <td class="p-3">Strikte Standard-Governance (Abweichung vom Standard bedarf Freigabe), Rollenmodell.</td>
-                  <td class="p-3">Kontinuierliche BTP-Roadmap, Anpassung an halbjährliche Cloud-Release-Zyklen.</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/40">Technik & Architektur</td>
-                  <td class="p-3">Clean-Core-Strategie, Ziel-Architektur (BTP vs Core), Systemlandkarte (EAM/LeanIX).</td>
-                  <td class="p-3">API-First Management, Side-by-Side Extensions, Staging-Datenmigration, Testautomatisierung.</td>
-                  <td class="p-3">Upgrade-Stabilität, Monitoring über SAP Cloud ALM Operations, Schnittstellen-Performance.</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/40">Mensch & Befähigung</td>
-                  <td class="p-3">Transparente Change-Kommunikation, Abbau von Zukunftsängsten bei Fachbereichen.</td>
-                  <td class="p-3">Key-User-Befähigung, In-App-Lernen mit SAP Enable Now, abteilungsübergreifende Co-Creation.</td>
-                  <td class="p-3">Kultureller Wandel zum agilen Plattform-Mindset, kontinuierliches Feedback.</td>
-                </tr>
-                <tr>
-                  <td class="p-3 font-semibold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/40">Projektmanagement</td>
-                  <td class="p-3">Partner-Auswahl (Tier-1 Kompetenz), Meilenstein- und Budgetplanung, Scope-Definition.</td>
-                  <td class="p-3">Agiles Fit-to-Standard Tracking in CALM, Multi-Projekt-Synchronisation (TP1–TP5).</td>
-                  <td class="p-3">Hyper-Care-Management, Lesson-Learned-Synthese, Übergang in Regelbetrieb.</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
 

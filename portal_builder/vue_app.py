@@ -20,6 +20,7 @@ def get_vue_app():
     createApp({
       setup() {
         const activeTab = ref('dashboard');
+        const degreeTab = ref('all');
         const searchQuery = ref('');
         const isDark = ref(false);
         const pitchMode = ref('short');
@@ -270,7 +271,7 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
           { name: 'Leistungsnachweis_Master_SS25.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizieller Master-Leistungsnachweis Universität Stuttgart (M.Sc. Wirtschaftsinformatik, Gesamtnote 1,6).', impact: 'Amtlicher Nachweis deiner Noten: Digitale Nachhaltigkeit 1,0, FPWI 1,3, Applied AI 1,7, Innovationsmanagement 1,7, etc.' },
           { name: 'Notenrechner_Master.xlsx', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Detaillierter ECTS- und Notenrechner für das M.Sc. Studium an der Universität Stuttgart.', impact: 'Strukturierte Übersicht aller 120 ECTS Leistungspunkte.' },
           { name: 'Bachelorarbeit_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Bachelorarbeit (Note 1,7, Uni Stuttgart): Die Bedeutung von Boundary Resources in Low-Code Entwicklungsplattformen (OutSystems & Mendix).', impact: 'Beweist deinen kontinuierlichen Forschungsschwerpunkt auf Plattformen und Schnittstellen seit 2023.' },
-          { name: 'Bachelorzeugnis_Leistungsübersicht.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizielle Leistungsübersicht B.Sc. Wirtschaftsinformatik (180 ECTS, Bestnote 1,0 in E-Business Informationssysteme).', impact: 'Belegt dein starkes informationstechnisches und betriebswirtschaftliches Fundament.' },
+          { name: 'Bachelorzeugnis_Leistungsuebersicht_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Amtliche Leistungsübersicht B.Sc. Wirtschaftsinformatik (180 ECTS, Universität Stuttgart, Bestnote 1,0 in E-Business Informationssysteme).', impact: 'Belegt dein starkes informationstechnisches und betriebswirtschaftliches Fundament.' },
           { name: 'Bachelorurkunde_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizielle Verleihungsurkunde des akademischen Grades Bachelor of Science durch die Universität Stuttgart.', impact: 'Formaler Nachweis deines ersten berufsqualifizierenden Hochschulabschlusses.' },
           { name: 'Codebuch_Masterarbeit_Mayring.xlsx', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Wissenschaftliches Mayring-Codebuch zur qualitativen Inhaltsanalyse der 12 empirischen Experteninterviews.', impact: 'Beweist höchste empirische Forschungsmethodik und qualitative Datenanalysekompetenz.' },
           { name: 'Interview_Roland_Nowak_Gesamt_PL.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews', desc: 'Vollständiges Experteninterview-Transkript mit Roland Nowak (Gesamtprojektleiter SAP4SSB).', impact: 'Echter Primärbeleg für dein tiefes Verständnis der Management- und Architekturperspektive.' },
@@ -371,6 +372,7 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
 
         return {
           activeTab,
+          degreeTab,
           searchQuery,
           isDark,
           pitchMode,
