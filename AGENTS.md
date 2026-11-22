@@ -10,7 +10,7 @@ Dieses Dokument definiert das Profil, die wissenschaftlichen Fakten und die arch
 * **Akademischer Grad:** Master of Science (M.Sc.) Wirtschaftsinformatik, Universität Stuttgart
 * **Amtliches Zeugnis:** Ausgestellt am 17. September 2026 (Prüfungsausschussvorsitzender Prof. Dr. Christian Becker)
 * **Gesamtnote Master:** **1,6 („gut“)** | 120 ECTS (100% abgeschlossen)
-* **Bachelor of Science (B.Sc.):** Wirtschaftsinformatik, Universität Stuttgart (180 ECTS, Gesamtnote 2,3)
+* **Bachelor of Science (B.Sc.):** Wirtschaftsinformatik, Universität Stuttgart (180 ECTS, Gesamtnote 3,0, Bachelorarbeit Note 1,7 bei Prof. Dr. Georg Herzwurm, Bestnote 1,0 in Informationssysteme im E-Business)
 
 ### Offizieller Titel & Fokus der Masterarbeit (Note 1,0 – Sehr Gut)
 * **Offizieller Titel:**
@@ -40,8 +40,15 @@ Dieses Dokument definiert das Profil, die wissenschaftlichen Fakten und die arch
 2. **Datacenter One GmbH – 12 Monate:**
    - Rolle: Werkstudent im Integrated Network Operation Center (INOC) unter Helmut Schmidpeter.
    - Aufgaben: 24/7 Monitoring von Core-Netzwerken, USV, Klimatechnik, Incident- & Problem-Management nach ITIL 4, Ticketbearbeitung in Jira/Confluence.
-3. **Enterprise Architecture Zertifizierung:**
-   - TOGAF 9 ADM-Intensivkurs bei Scape Consulting (Dr. Daniel Simon).
+3. **Robert Bosch GmbH:**
+   - Rolle: Werkstudent / Praktikant im Patentwesen & Intellectual Property.
+   - Aufgaben: Prozessanalyse, Machbarkeitsprüfung robotergestützter Prozessautomatisierung (RPA mit UiPath), PDD-Erstellung.
+4. **Daimler AG (Standort Untertürkheim) & Volkswagen OTLG:**
+   - Industrie- und Logistikerfahrung: Fertigung, Teiledistribution und Materialflussprozesse.
+5. **Enterprise Architecture Zertifizierung:**
+   - TOGAF 9 ADM-Intensivkurs bei Scape Consulting (Dr. Daniel Simon, Universität Stuttgart, 16.01.2020).
+6. **Ehrenamt & Gesellschaftliches Engagement:**
+   - Ehrenamtliche Geflüchtetenhilfe (Refugees Welcome, HVF) und Hausaufgabenbetreuung.
 
 ---
 

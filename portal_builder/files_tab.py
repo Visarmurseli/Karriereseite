@@ -45,9 +45,15 @@ def get_files_tab():
               </thead>
               <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-slate-600 dark:text-slate-300">
                 <tr v-for="(file, idx) in filteredFiles" :key="idx" class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="p-3 font-semibold text-slate-900 dark:text-white flex items-center space-x-2">
-                    <span>📄</span>
-                    <span>{{ file.name }}</span>
+                  <td class="p-3 font-semibold text-slate-900 dark:text-white">
+                    <div class="flex items-center space-x-2">
+                      <span>📄</span>
+                      <a v-if="file.path && file.path.startsWith('Studium_Dokumente')" :href="file.path + '/' + file.name" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline font-bold inline-flex items-center space-x-1.5">
+                        <span>{{ file.name }}</span>
+                        <span class="text-[10px] bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 px-1.5 py-0.5 rounded font-mono">Öffnen ↗</span>
+                      </a>
+                      <span v-else>{{ file.name }}</span>
+                    </div>
                   </td>
                   <td class="p-3"><span class="tag-badge bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{{ file.cat }}</span></td>
                   <td class="p-3 leading-relaxed">{{ file.desc }}</td>
