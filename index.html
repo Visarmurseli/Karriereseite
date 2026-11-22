@@ -81,7 +81,7 @@
               <span class="bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">M.Sc. 1,6 | Thesis 1,0</span>
             </div>
             <p class="text-[11px] text-slate-500 dark:text-slate-400">
-              24 Monate IT-PMO S/4HANA bei der Stuttgarter Straßenbahnen AG | Plattform- & Clean Core Exzellenz
+              24 Monate IT-PMO S/4HANA bei der Stuttgarter Straßenbahnen AG | ERP-Transformation, Plattformisierung & Clean Core Governance
             </p>
           </div>
         </div>
@@ -184,7 +184,7 @@
                   <span>➔</span>
                 </div>
                 <div class="font-semibold text-sm mt-1">Masterarbeit Note 1,0</div>
-                <div class="text-[11px] text-slate-300 mt-1">126 Seiten, 12 Experteninterviews, empirisches Clean Core & Plattform-Framework.</div>
+                <div class="text-[11px] text-slate-300 mt-1">126 Seiten, 12 Experteninterviews, empirische ERP-Transformation & Plattform-Governance.</div>
               </div>
 
               <div @click="activeTab = 'solution_design'" class="bg-white/10 hover:bg-white/15 transition cursor-pointer backdrop-blur rounded-xl p-3 border border-white/10">
@@ -347,7 +347,7 @@
                 <p><strong>Hier führst du das Gespräch!</strong> Sprich aktiv darüber, bringe Beispiele, zeige Tiefe:</p>
                 <ul class="space-y-1.5 list-disc list-inside text-[11px]">
                   <li><strong>24 Mo. IT-PMO SSB:</strong> TP1-TP5 Governance, Lenkungsausschuss, Meilenstein-Tracking.</li>
-                  <li><strong>Masterarbeit 1,0 (30 ECTS):</strong> 126 Seiten, 12 Experteninterviews, empirische Clean-Core-Forschung.</li>
+                  <li><strong>Masterarbeit 1,0 (30 ECTS):</strong> 126 Seiten, 12 Experteninterviews, empirische Forschung zu ERP-Transformation, Plattformisierung & Kritischen Erfolgsfaktoren.</li>
                   <li><strong>SAP Cloud ALM & Signavio:</strong> Offizieller Quickguide-Autor; End-to-End Traceability.</li>
                   <li><strong>SAP Enable Now:</strong> Strategisches Übergabekonzept an HR/Personalentwicklung (UB AC).</li>
                   <li><strong>Datenmigrations-Methodik:</strong> Staging vs. Direct, SuSa/Bilanzabgleich (0,00 € Übernahmekonto).</li>
@@ -1141,12 +1141,18 @@
                   Masterarbeit bei Prof. Dr. Georg Herzwurm mit der <strong>Spitzennote 1,0 (sehr gut)</strong>.
                 </p>
               </div>
-              <div class="pt-2 border-t border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
-                <span class="text-[10px] text-slate-500 font-mono">Masterzeugnis_Murseli_Visar.pdf</span>
-                <a href="Studium_Dokumente/Masterzeugnis_Murseli_Visar.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] transition">
-                  <span>📄</span>
-                  <span>Masterzeugnis (PDF)</span>
-                </a>
+              <div class="pt-2 border-t border-emerald-200 dark:border-emerald-800 flex flex-wrap items-center justify-between gap-1">
+                <span class="text-[10px] text-slate-500 font-mono">Masterzeugnis & Masterarbeit</span>
+                <div class="flex items-center space-x-1.5">
+                  <a href="Studium_Dokumente/Masterzeugnis_Murseli_Visar.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] transition">
+                    <span>📄</span>
+                    <span>Zeugnis (PDF)</span>
+                  </a>
+                  <a href="Studium_Dokumente/Masterarbeit_Visar_Murseli.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 text-white font-bold text-[11px] transition">
+                    <span>⭐</span>
+                    <span>Masterarbeit (1,0)</span>
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -1323,7 +1329,13 @@
                 <!-- MASTERARBEIT -->
                 <tr class="bg-emerald-50/40 dark:bg-emerald-950/20 font-medium">
                   <td class="p-3 font-bold text-slate-900 dark:text-white">
-                    ⭐ Masterarbeit: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <span>⭐ Masterarbeit: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA</span>
+                      <a href="Studium_Dokumente/Masterarbeit_Visar_Murseli.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] whitespace-nowrap self-start sm:self-auto">
+                        <span>📄</span>
+                        <span>Volltext (PDF)</span>
+                      </a>
+                    </div>
                   </td>
                   <td class="p-3 whitespace-nowrap text-slate-500">Masterarbeit</td>
                   <td class="p-3 font-bold text-center">30</td>
@@ -1950,12 +1962,18 @@
 
           <!-- TOGAF ADM Cycle -->
           <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-3">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center space-x-2">
                 <span>🏛️</span>
                 <span>Der TOGAF Architecture Development Method (ADM) Zyklus</span>
               </h4>
-              <span class="text-[11px] text-slate-500">Intensivkurs Scape Consulting (Dr. Daniel Simon)</span>
+              <div class="flex items-center space-x-2">
+                <span class="text-[11px] text-slate-500">Intensivkurs Scape Consulting (Dr. Daniel Simon)</span>
+                <a href="Studium_Dokumente/Togaf_Zertifikat.pdf" target="_blank" class="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] transition inline-flex items-center space-x-1">
+                  <span>📜</span>
+                  <span>Zertifikat (PDF)</span>
+                </a>
+              </div>
             </div>
             <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               TOGAF ist dein strategischer Kompass, um komplexe IT-Landschaften ganzheitlich zu strukturieren. Bei der SSB hast du diesen Zyklus im Programm SAP4SSB in der Praxis erlebt:
@@ -2955,7 +2973,7 @@ Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum get
           { name: '20250922_Projektplan_GAP_Axians_Gerdes.xlsx', cat: 'PMO & Steuerung', path: 'Desktop', desc: 'Trackingliste der technischen Basis-ToDos mit Axians (ES4 System, ADS Formulare, SSO, Transportkonsolidierung).', impact: 'Zeigt deine Hands-on Rolle bei der Steuerung technischer Infrastrukturpartner.' },
           { name: '20260211_Themensammlung_Priorisierung.xlsx', cat: 'PMO & Steuerung', path: 'Desktop', desc: 'Priorisierungsmatrix mit CalmIDs, T-Shirt-Sizes und Zuweisungen für anstehende S/4-Releases.', impact: 'Beweis für agile Aufwandsschätzung und Releasesteuerung.' },
           { name: 'Masterzeugnis_Murseli_Visar.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizielles Zeugnis über die Masterprüfung der Universität Stuttgart (17. September 2026, 120 ECTS, Gesamtnote "gut" 1,6).', impact: 'Amtlicher Vollnachweis deines M.Sc. Abschlusses, der Masterarbeit (1,0) und aller 15 Fachprüfungen.' },
-          { name: 'Masterarbeit_Visar_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'SSB Dateien', desc: 'Masterarbeit (126 Seiten, Note 1,0 bei Prof. Herzwurm, Uni Stuttgart) über Kritische Erfolgsfaktoren der S/4HANA Plattformisierung.', impact: 'Dein akademisches Meisterstück – belegt deine methodische Spitzenklasse!' },
+          { name: 'Masterarbeit_Visar_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Masterarbeit (126 Seiten, Note 1,0 bei Prof. Herzwurm, Uni Stuttgart) über Kritische Erfolgsfaktoren der S/4HANA Plattformisierung.', impact: 'Dein akademisches Meisterstück – belegt deine methodische Spitzenklasse!' },
           { name: 'DigitaleNachhaltigkeit_Ausarbeitung_Schmalz.docx', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Wissenschaftliche Ausarbeitung (Note 1,0, 6 ECTS): Nachhaltigkeit durch Automatisierung: Eine Fallstudie zur Optimierung der Abfallbilanz bei der Schmalz GmbH (Dr. Dimitri Petrik).', impact: 'Beweist Green-IT-, BPMN- und CSRD/ESG-Expertise direkt am Weltmarktführer J. Schmalz GmbH.' },
           { name: 'CloudComputing_Kurzpaper_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Wissenschaftliches Kurzpaper (12 Seiten): Entwicklung einer Cloud-basierten Plattformarchitektur für einen wachsenden Onlineshop (AWS Well-Architected Framework).', impact: 'Zeigt tiefes Know-how in Cloud-Architekturen: Microservices, DynamoDB, Step Functions, QuickSight, EventBridge.' },
           { name: 'ISG_PatentRadar_Pitch.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Pitch-Deck & Geschäftsmodell-Konzept: PatentRadar – Digital Venture für Klingele Paper & Packaging (Prof. Dr. Georg Herzwurm).', impact: 'Verknüpft Bosch-Patenterfahrung mit digitaler Geschäftsmodell-Innovation und Venture-Pitching.' },
@@ -2977,11 +2995,11 @@ Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum get
           { name: 'Bachelorzeugnis_Leistungsuebersicht_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Amtliche Leistungsübersicht B.Sc. Wirtschaftsinformatik (180 ECTS, Universität Stuttgart, Bestnote 1,0 in E-Business Informationssysteme).', impact: 'Belegt dein starkes informationstechnisches und betriebswirtschaftliches Fundament.' },
           { name: 'Bachelorurkunde_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizielle Verleihungsurkunde des akademischen Grades Bachelor of Science durch die Universität Stuttgart.', impact: 'Formaler Nachweis deines ersten berufsqualifizierenden Hochschulabschlusses.' },
           { name: 'Codebuch_Masterarbeit_Mayring.xlsx', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Wissenschaftliches Mayring-Codebuch zur qualitativen Inhaltsanalyse der 12 empirischen Experteninterviews.', impact: 'Beweist höchste empirische Forschungsmethodik und qualitative Datenanalysekompetenz.' },
-          { name: 'Interview_Roland_Nowak_Gesamt_PL.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews', desc: 'Vollständiges Experteninterview-Transkript mit Roland Nowak (Gesamtprojektleiter SAP4SSB).', impact: 'Echter Primärbeleg für dein tiefes Verständnis der Management- und Architekturperspektive.' },
-          { name: 'Interview_Thomas_Wimpff_TP2_Leitung.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews', desc: 'Experteninterview-Transkript mit Thomas Wimpff (Teilprojektleiter TP2 Finance & Controlling).', impact: 'Beweist dein Detailwissen über Trennungsrechnung, ACDOCA und kaufmännische Prozesse.' },
-          { name: 'Interview_Armin_Heinrich_Basis_Architektur.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews', desc: 'Experteninterview-Transkript mit Armin Heinrich (Enterprise Architekt & Basis SSB).', impact: 'Belegt dein Verständnis für BTP-Zielarchitektur, SSO und Cloud-Infrastruktur.' },
-          { name: 'Interview_Henning_Gerdes_Axians_Lead.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews', desc: 'Experteninterview-Transkript mit Henning Gerdes (Lead Architect Axians ES4).', impact: 'Dokumentiert deine Schnittstellenkompetenz bei der Steuerung technischer Basispartner.' },
-          { name: 'Zeugnisse_Murseli_Visar.pdf', cat: 'PMO & Steuerung', path: 'SSB Dateien', desc: 'Offizielle Leistungsnachweise: M.Sc. Wirtschaftsinformatik 1,6, SSB Zwischenzeugnis (Fillinger/Nowak), Datacenter One, TOGAF.', impact: 'Lückenlose Verifikation aller deiner Erfolge und Top-Referenzen.' }
+          { name: 'Interview_Roland_Nowak_Gesamt_PL.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Vollständiges Experteninterview-Transkript mit Roland Nowak (Gesamtprojektleiter SAP4SSB).', impact: 'Echter Primärbeleg für dein tiefes Verständnis der Management- und Architekturperspektive.' },
+          { name: 'Interview_Thomas_Wimpff_TP2_Leitung.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Thomas Wimpff (Teilprojektleiter TP2 Finance & Controlling).', impact: 'Beweist dein Detailwissen über Trennungsrechnung, ACDOCA und kaufmännische Prozesse.' },
+          { name: 'Interview_Armin_Heinrich_Basis_Architektur.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Armin Heinrich (Enterprise Architekt & Basis SSB).', impact: 'Belegt dein Verständnis für BTP-Zielarchitektur, SSO und Cloud-Infrastruktur.' },
+          { name: 'Interview_Henning_Gerdes_Axians_Lead.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Henning Gerdes (Lead Architect Axians ES4).', impact: 'Dokumentiert deine Schnittstellenkompetenz bei der Steuerung technischer Basispartner.' },
+          { name: 'Zeugnisse_Murseli_Visar.pdf', cat: 'PMO & Steuerung', path: 'Studium_Dokumente', desc: 'Offizielle Leistungsnachweise: M.Sc. Wirtschaftsinformatik 1,6, SSB Zwischenzeugnis (Fillinger/Nowak), Datacenter One, TOGAF.', impact: 'Lückenlose Verifikation aller deiner Erfolge und Top-Referenzen.' }
         ];
 
         const filteredQA = computed(() => {

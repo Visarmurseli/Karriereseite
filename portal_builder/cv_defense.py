@@ -46,7 +46,7 @@ def get_cv_defense():
                 <p><strong>Hier führst du das Gespräch!</strong> Sprich aktiv darüber, bringe Beispiele, zeige Tiefe:</p>
                 <ul class="space-y-1.5 list-disc list-inside text-[11px]">
                   <li><strong>24 Mo. IT-PMO SSB:</strong> TP1-TP5 Governance, Lenkungsausschuss, Meilenstein-Tracking.</li>
-                  <li><strong>Masterarbeit 1,0 (30 ECTS):</strong> 126 Seiten, 12 Experteninterviews, empirische Clean-Core-Forschung.</li>
+                  <li><strong>Masterarbeit 1,0 (30 ECTS):</strong> 126 Seiten, 12 Experteninterviews, empirische Forschung zu ERP-Transformation, Plattformisierung & Kritischen Erfolgsfaktoren.</li>
                   <li><strong>SAP Cloud ALM & Signavio:</strong> Offizieller Quickguide-Autor; End-to-End Traceability.</li>
                   <li><strong>SAP Enable Now:</strong> Strategisches Übergabekonzept an HR/Personalentwicklung (UB AC).</li>
                   <li><strong>Datenmigrations-Methodik:</strong> Staging vs. Direct, SuSa/Bilanzabgleich (0,00 € Übernahmekonto).</li>

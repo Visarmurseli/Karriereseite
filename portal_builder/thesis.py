@@ -45,12 +45,18 @@ def get_thesis():
                   Masterarbeit bei Prof. Dr. Georg Herzwurm mit der <strong>Spitzennote 1,0 (sehr gut)</strong>.
                 </p>
               </div>
-              <div class="pt-2 border-t border-emerald-200 dark:border-emerald-800 flex items-center justify-between">
-                <span class="text-[10px] text-slate-500 font-mono">Masterzeugnis_Murseli_Visar.pdf</span>
-                <a href="Studium_Dokumente/Masterzeugnis_Murseli_Visar.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] transition">
-                  <span>📄</span>
-                  <span>Masterzeugnis (PDF)</span>
-                </a>
+              <div class="pt-2 border-t border-emerald-200 dark:border-emerald-800 flex flex-wrap items-center justify-between gap-1">
+                <span class="text-[10px] text-slate-500 font-mono">Masterzeugnis & Masterarbeit</span>
+                <div class="flex items-center space-x-1.5">
+                  <a href="Studium_Dokumente/Masterzeugnis_Murseli_Visar.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] transition">
+                    <span>📄</span>
+                    <span>Zeugnis (PDF)</span>
+                  </a>
+                  <a href="Studium_Dokumente/Masterarbeit_Visar_Murseli.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2.5 py-1 rounded bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 text-white font-bold text-[11px] transition">
+                    <span>⭐</span>
+                    <span>Masterarbeit (1,0)</span>
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -227,7 +233,13 @@ def get_thesis():
                 <!-- MASTERARBEIT -->
                 <tr class="bg-emerald-50/40 dark:bg-emerald-950/20 font-medium">
                   <td class="p-3 font-bold text-slate-900 dark:text-white">
-                    ⭐ Masterarbeit: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <span>⭐ Masterarbeit: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA</span>
+                      <a href="Studium_Dokumente/Masterarbeit_Visar_Murseli.pdf" target="_blank" class="inline-flex items-center space-x-1 px-2 py-0.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] whitespace-nowrap self-start sm:self-auto">
+                        <span>📄</span>
+                        <span>Volltext (PDF)</span>
+                      </a>
+                    </div>
                   </td>
                   <td class="p-3 whitespace-nowrap text-slate-500">Masterarbeit</td>
                   <td class="p-3 font-bold text-center">30</td>

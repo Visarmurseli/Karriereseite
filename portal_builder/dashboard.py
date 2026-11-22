@@ -39,7 +39,7 @@ def get_dashboard():
                   <span>➔</span>
                 </div>
                 <div class="font-semibold text-sm mt-1">Masterarbeit Note 1,0</div>
-                <div class="text-[11px] text-slate-300 mt-1">126 Seiten, 12 Experteninterviews, empirisches Clean Core & Plattform-Framework.</div>
+                <div class="text-[11px] text-slate-300 mt-1">126 Seiten, 12 Experteninterviews, empirische ERP-Transformation & Plattform-Governance.</div>
               </div>
 
               <div @click="activeTab = 'solution_design'" class="bg-white/10 hover:bg-white/15 transition cursor-pointer backdrop-blur rounded-xl p-3 border border-white/10">

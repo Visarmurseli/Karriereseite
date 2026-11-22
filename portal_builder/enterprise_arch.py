@@ -16,12 +16,18 @@ def get_enterprise_arch():
 
           <!-- TOGAF ADM Cycle -->
           <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-3">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center space-x-2">
                 <span>🏛️</span>
                 <span>Der TOGAF Architecture Development Method (ADM) Zyklus</span>
               </h4>
-              <span class="text-[11px] text-slate-500">Intensivkurs Scape Consulting (Dr. Daniel Simon)</span>
+              <div class="flex items-center space-x-2">
+                <span class="text-[11px] text-slate-500">Intensivkurs Scape Consulting (Dr. Daniel Simon)</span>
+                <a href="Studium_Dokumente/Togaf_Zertifikat.pdf" target="_blank" class="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold text-[11px] transition inline-flex items-center space-x-1">
+                  <span>📜</span>
+                  <span>Zertifikat (PDF)</span>
+                </a>
+              </div>
             </div>
             <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               TOGAF ist dein strategischer Kompass, um komplexe IT-Landschaften ganzheitlich zu strukturieren. Bei der SSB hast du diesen Zyklus im Programm SAP4SSB in der Praxis erlebt:

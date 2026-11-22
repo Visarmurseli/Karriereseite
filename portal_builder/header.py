@@ -84,7 +84,7 @@ def get_header():
               <span class="bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">M.Sc. 1,6 | Thesis 1,0</span>
             </div>
             <p class="text-[11px] text-slate-500 dark:text-slate-400">
-              24 Monate IT-PMO S/4HANA bei der Stuttgarter Straßenbahnen AG | Plattform- & Clean Core Exzellenz
+              24 Monate IT-PMO S/4HANA bei der Stuttgarter Straßenbahnen AG | ERP-Transformation, Plattformisierung & Clean Core Governance
             </p>
           </div>
         </div>
