@@ -5,13 +5,14 @@ def get_vue_app():
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-4 px-4 text-center text-xs text-slate-500">
+    <footer class="bg-[#121212] border-t border-white/10 py-4 px-6 text-center text-xs text-[#8f8888]">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-        <span>Visar Murseli, M.Sc. | Enterprise Knowledge Hub & S/4HANA Career OS</span>
-        <span>Entwickelt in Antigravity IDE | Version 2026.1 | Vollständig lokal & persistent</span>
+        <span class="text-[#c4bebe]">Visar Murseli, M.Sc. | Enterprise Knowledge Hub & S/4HANA Career OS</span>
+        <span class="text-[#bf262e] font-medium">Design System: Portfolioseite (Crimson Hue 358) | 100% lokal & persistent</span>
       </div>
     </footer>
   </div>
+</div>
 
   <!-- Application Logic & Data Injection -->
   <script>
@@ -20,33 +21,52 @@ def get_vue_app():
     createApp({
       setup() {
         const activeTab = ref('dashboard');
+        const isMobileMenuOpen = ref(false);
         const degreeTab = ref('all');
         const searchQuery = ref('');
-        const isDark = ref(false);
+        const isDark = ref(true);
+        const isCommandPaletteOpen = ref(false);
+        const commandSearch = ref('');
+        const wbsFilter = ref('all');
         const pitchMode = ref('short');
         const selectedQACat = ref('Alle');
         const selectedFileCat = ref('Alle');
         const personalNotes = ref('');
 
+        const currentTabName = computed(() => {
+          const found = tabs.find(t => t.id === activeTab.value);
+          return found ? found.label : 'Dashboard';
+        });
+
+        const currentHubName = computed(() => {
+          const tabId = activeTab.value;
+          if (tabId === 'dashboard') return 'Profil & Einstieg';
+          if (['project', 'solution_design', 'migration', 'tools'].includes(tabId)) return 'S/4HANA Transformation';
+          if (['thesis', 'enterprise_arch'].includes(tabId)) return 'Akademische Exzellenz';
+          if (['career', 'cheatsheet'].includes(tabId)) return 'Junior & Trainee Karriere';
+          if (['interview', 'cv_defense', 'files', 'notebook'].includes(tabId)) return 'Interview & Nachweise';
+          return 'Wissensportal';
+        });
+
         const tabs = [
-          { id: 'dashboard', label: 'Dashboard', icon: '📊', badge: '' },
-          { id: 'cv_defense', label: 'CV De-Risking', icon: '🛡️', badge: 'Gefahrenabwehr', badgeColor: 'bg-red-500 text-white' },
-          { id: 'project', label: 'Großprojekt SSB', icon: '🏛️', badge: 'TP1-5' },
-          { id: 'solution_design', label: 'Solution Design', icon: '📐', badge: 'FI/CO' },
-          { id: 'migration', label: 'Datenmigration', icon: '🔄', badge: 'LTMC' },
-          { id: 'tools', label: 'Toolchain Hub', icon: '🛠️', badge: 'CALM/Signavio' },
-          { id: 'thesis', label: 'Masterarbeit 1,0', icon: '🎓', badge: '30 ECTS', badgeColor: 'bg-emerald-600 text-white' },
-          { id: 'enterprise_arch', label: 'EAM & ITIL', icon: '🏛️', badge: 'TOGAF' },
-          { id: 'cheatsheet', label: 'Tech Cheatsheet', icon: '⚡', badge: 'BTP/SQL' },
-          { id: 'career', label: 'Karriere & Gehalt', icon: '🚀', badge: '90 Tage' },
-          { id: 'interview', label: 'Interview Masterclass', icon: '🎙️', badge: 'Pitches' },
-          { id: 'files', label: 'Dokumenten-Vault', icon: '📂', badge: '50+ Files' },
-          { id: 'notebook', label: 'Mein Second Brain', icon: '📝', badge: 'Autosave', badgeColor: 'bg-purple-600 text-white' }
+          { id: 'dashboard', label: 'Profil & Einstieg', icon: '📊', badge: 'Junior & Trainee' },
+          { id: 'project', label: 'TP1–TP5 Steuerung & WBS', icon: '🚆', badge: 'SSB AG' },
+          { id: 'solution_design', label: 'Solution Design (FI/CO)', icon: '📐', badge: 'Trennungsrechnung' },
+          { id: 'migration', label: 'Datenmigration & CVI', icon: '🔄', badge: '0,00 € Saldo' },
+          { id: 'tools', label: 'Toolchain Hub', icon: '🛠️', badge: 'CALM / Signavio' },
+          { id: 'thesis', label: 'Masterarbeit (Note 1,0)', icon: '🎓', badge: '12 Interviews' },
+          { id: 'enterprise_arch', label: 'TOGAF ADM & ITIL 4', icon: '🏛️', badge: 'EAM' },
+          { id: 'career', label: 'Junior & Trainee Karriere', icon: '🎯', badge: '55k–65k €' },
+          { id: 'cheatsheet', label: 'Tech & BTP Cheatsheet', icon: '⚡', badge: 'Architektur' },
+          { id: 'interview', label: 'Interview Masterclass', icon: '🎙️', badge: 'Pitches & STAR' },
+          { id: 'cv_defense', label: 'CV De-Risking', icon: '🛡️', badge: 'Gefahrenabwehr' },
+          { id: 'files', label: 'Deliverables-Register', icon: '📂', badge: 'Katalog' },
+          { id: 'notebook', label: 'Second Brain Notizbuch', icon: '📝', badge: 'Autosave' }
         ];
 
         const qaCategories = ['Alle', 'Architektur & Clean Core', 'Datenmigration', 'Projektmanagement & Governance', 'Persönlich & Verhalten'];
 
-        const fileCategories = ['Alle', 'PMO & Steuerung', 'Explore & Lösungsdesign', 'Datenmigration', 'Tools & Enablement', 'Wissenschaft & Uni'];
+        const fileCategories = ['Alle', 'Aktuelle Bewerbungsunterlagen', 'PMO & Steuerung', 'Explore & Lösungsdesign', 'Finance & Controlling', 'Grants Management', 'Sustainability & EHS', 'Vertrieb & PATRIS', 'Datenmigration', 'Basis & Infrastruktur', 'Vergabe & SektVO', 'Tools & Enablement', 'SAP Fachliteratur (Rheinwerk)', 'Datacenter One (DC1 / ITIL 4)', 'Wissenschaft & Uni', 'Master-Module (120 ECTS)', 'Bachelor-Module (180 ECTS)'];
 
         const defenseScenarios = ref([
           {
@@ -140,7 +160,7 @@ Zusätzlich habe ich in meiner Masterarbeit am Lehrstuhl von Prof. Herzwurm – 
 
 Bei der SSB habe ich die Transformation nicht vom Spielfeldrand beobachtet, sondern die Fäden zwischen den fünf Teilprojekten, der IT-Leitung und unseren Partnern Nagarro, Evora und Axians operativ zusammengehalten. Mein Fokus lag dabei auf der Tool- und Prozess-Governance mit SAP Cloud ALM und Signavio sowie auf der strategischen Übergabe von SAP Enable Now.
 
-Genau diese Schnittstelle aus 24 Monaten Greenfield-Großprojekterfahrung und modernem Architekturwissen nach dem Clean-Core-Prinzip bringe ich mit. Heute suche ich eine Rolle, in der ich dieses Praxiswissen ab dem ersten Tag wertschöpfend in Ihr Team einbringen kann.`;
+Genau diese Schnittstelle aus 24 Monaten Greenfield-Großprojekterfahrung und modernem Architekturwissen nach dem Clean-Core-Prinzip bringe ich mit. Heute suche ich den gezielten Einstieg als Junior SAP Consultant oder in ein anspruchsvolles IT-/Management-Traineeprogramm, um mein Praxiswissen ab Tag 1 wertschöpfend einzubringen und mit hoher Lernbereitschaft schnell zur tragenden Säule in Ihrem Team heranzuwachsen.`;
 
         const pitchDeep = `Wenn Sie mich nach meinem fachlichen Profil fragen, lässt sich das in drei Bausteinen zusammenfassen:
 
@@ -150,7 +170,7 @@ Zweitens: Fundierte Daten- und Migrationskompetenz. Ich habe mich intensiv mit d
 
 Drittens: Strategische Architektur- und Plattformkompetenz. Viele reden über 'Clean Core', verstehen aber die Konsequenzen nicht. In meiner Masterarbeit am Lehrstuhl von Prof. Herzwurm – die mit der Note 1,0 bewertet wurde – habe ich auf Basis von 12 Experteninterviews empirisch untersucht, welche Erfolgsfaktoren die Plattformisierung erfordert. Wer den Kern reinhalten will, muss Side-by-Side-Erweiterungen auf der SAP BTP beherrschen und APIs wie ein Produkt managen.
 
-Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlicher Spitzenleistung und echter Hands-on-ERP-Erfahrung mit. Genau diesen Hebel möchte ich in Ihrem Team ansetzen.`;
+Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftlicher Spitzenleistung und 24 Monaten echter Hands-on-ERP-Erfahrung mit. Für meinen Einstieg suche ich eine Junior-Rolle oder ein anspruchsvolles Traineeprogramm, in dem ich dieses Fundament sofort einbringen und mich mit hoher Motivation und Teamgeist weiterentwickeln kann.`;
 
         const starStories = ref([
           {
@@ -199,6 +219,119 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
             r: 'Ich entwickelte ein 4x3 CSF-Framework, das belegt, dass API-Governance, Event-Driven Architecture und Clean-Core-Richtlinien heute genauso erfolgskritisch sind wie klassischer Top-Management-Support. Die Arbeit wurde am 20.04.2026 mit der Traumnote 1,0 bewertet.'
           }
         ]);
+
+
+        const wbsProjects = ref([
+          {
+            id: 'TP1',
+            wbs: 'WBS 16–63',
+            phase: 'Explore',
+            title: 'TP1: Change Management, People & Enablement',
+            lead: 'Sarah Lozano / Göhring / Cichon (UB AC)',
+            progress: 75,
+            tag: 'People & Change',
+            tagColor: 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300',
+            details: 'Multiplikatoren-Schulungskonzept, Rollout SAP Enable Now (März 2026), Coffee Corners in allen Unternehmensbereichen (UB Z, K, T, W), Berg & Tal Mitarbeiterevents.',
+            milestone: 'Schulungskonzept & Enable Now live (März 2026)'
+          },
+          {
+            id: 'TP2',
+            wbs: 'WBS 64–112',
+            phase: 'Explore',
+            title: 'TP2: Kaufmännische Prozesse & Solution Design',
+            lead: 'Sebastian Neifer / Tim Lopez / Tim Waldberg (Nagarro ES)',
+            progress: 80,
+            tag: 'Fit-to-Standard',
+            tagColor: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300',
+            details: 'Fit-to-Standard Reifegrade: CO 90%, MM 91%, RE-FX 86%, FI 76%, SD 76%, EHS 71%, Cross Topics 58%. BPMN 2.0 Modellierung in Signavio & CALM-Sync auf ES4.400.',
+            milestone: 'Explore-Phase formal abgeschlossen (29.08.2025, Vorgang 110)'
+          },
+          {
+            id: 'TP3',
+            wbs: 'WBS 173–196',
+            phase: 'Explore',
+            title: 'TP3: Technische Prozesse & Asset Management',
+            lead: 'UB W, UB K, UB T / Partner Evora & Nagarro',
+            progress: 100,
+            tag: 'Instandhaltung',
+            tagColor: 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300',
+            details: '100% Freigabe der Kernprozesse für Stadtbahn (SSAM Mobile Instandhaltung auf Tablets), Kraftverkehr (Busse) und Fahrleitung/Gleise. Gebäudewirtschaft (VH) erst nach Go-Live 01.01.2027.',
+            milestone: 'Kernprozesse UB W, K, T 100% freigegeben (30.09.2025)'
+          },
+          {
+            id: 'TP4',
+            wbs: 'WBS 197–202',
+            phase: 'Realize',
+            title: 'TP4: IT-Unterstützung, RISE & Systemlandschaft',
+            lead: 'Dietmar Fillinger / Axians & Nagarro Basis-Architekten',
+            progress: 70,
+            tag: 'Cloud & BTP',
+            tagColor: 'bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300',
+            details: '4-System-Landschaft (ES4.400 Sandbox, QS4.100 Int-Test 1, QS4.210 Int-Test 2/UAT, PS4 Produktiv), SAP Cloud Connector, BTP Integration Suite und SSO via Azure AD.',
+            milestone: 'Staging ES4 -> QS4 -> PS4 bereitgestellt (01.04.2026)'
+          },
+          {
+            id: 'TP5',
+            wbs: 'WBS 203–297',
+            phase: 'Explore',
+            title: 'TP5: Gesamtsteuerung, PMO & Betriebsvereinbarungen',
+            lead: 'Roland Nowak / Dietmar Fillinger / Betriebsrat (Schmidt, Kraus)',
+            progress: 85,
+            tag: 'PMO & Governance',
+            tagColor: 'bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-300',
+            details: 'Gesamtprojektsteuerung in MS Project, C-Level Reporting Steering Board, Meilenstein-Controlling und die beiden historischen Mitbestimmungs-Meilensteine mit dem Betriebsrat.',
+            milestone: 'Pilot-BV in Kraft (01.04.2026) | Finale BV in Kraft (01.01.2027)'
+          }
+        ]);
+
+        const searchCatalog = [
+          // Kaufmännisch & Solution Design
+          { title: 'Trennungsrechnung EU 1370/2007', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Verkehrsvertragliche Trennung eigenwirtschaftlicher vs. gemeinwirtschaftlicher Verkehre (§ 45a PBefG).' },
+          { title: 'Grants Management (GM) & Fördermittel', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Fonds, Förderungsarten (LGVFG/GVFG) und Derivationsregeln für Investitionszuschüsse im ÖPNV.' },
+          { title: 'Universal Journal (ACDOCA)', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Single Source of Truth im Hauptbuch, Ledger 0L (HGB) und 2L (Steuerrecht), Echtzeit-Kostenarten.' },
+          { title: 'Kostenrechnung: PSP-Element vs. Innenauftrag', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Hierarchische Mehrjahres-Großprojekte via PSP versus operative Instandhaltungs-Innenaufträge.' },
+          { title: 'Anlagenbuchhaltung (FI-AA) & Eröffnungsbilanz', cat: 'Kaufmännisch & FI/CO', tab: 'migration', desc: 'SuSa-Bilanzabgleich: 0,00 € Saldo auf dem Datenübernahmekonto nach Altdatenmigration.' },
+          { title: 'Customer Vendor Integration (CVI)', cat: 'Kaufmännisch & FI/CO', tab: 'migration', desc: 'Zentraler SAP Business Partner (Geschäftspartner) für Debitoren, Kreditoren und Personal.' },
+          { title: 'Sustainability & CSRD (EHS)', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Gefahrstoffmanagement, Abfallbilanzierung und ESG-Kennzahlen im S/4HANA Standard.' },
+
+          // Technik & Architektur
+          { title: 'Clean Core Paradigma', cat: 'Technik & Architektur', tab: 'project', desc: 'Modifikationsfreier ERP-Kern, Upgrade-Sicherheit, On-Stack RAP vs. Side-by-Side BTP.' },
+          { title: 'SAP BTP Integration Suite', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Event-driven Architecture, Cloud Integration, OData/REST APIs und Entkopplung von Subsystemen.' },
+          { title: 'Mobile Instandhaltung (SAP SSAM)', cat: 'Technik & Architektur', tab: 'project', desc: 'SAP Service and Asset Management auf robusten Tablets für Stadtbahnwerkstätten und Busdepots.' },
+          { title: 'SAP Migration Cockpit (LTMC)', cat: 'Technik & Architektur', tab: 'migration', desc: 'Staging-Tabellen-Architektur, Delta-Loads, Validierungsregeln und Cutover-Management.' },
+          { title: 'Non-SAP Schnittstellenmatrix', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Subsysteme PATRIS (Vertrieb), xSuite (Rechnungsworkflow), d.velop (DMS), Oracle DWH, EFD4.' },
+          { title: 'Core Data Services (CDS) & ABAP Cloud', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Virtuelle Datenmodelle (VDM), analytische Views und RESTful Application Programming (RAP).' },
+          { title: 'TOGAF 9 ADM Enterprise Architecture', cat: 'Technik & Architektur', tab: 'enterprise_arch', desc: 'Architecture Development Method, Baseline vs. Target Architecture und Architecture Governance.' },
+          { title: 'ITIL 4 Service Operations (Datacenter One)', cat: 'Technik & Architektur', tab: 'enterprise_arch', desc: 'Incident-, Problem- und Change-Management, SLA-Steuerung und 24/7 Rechenzentrums-Monitoring.' },
+
+          // Großprojekt & PMO
+          { title: 'Gesamtprojektplan SAP4SSB (MS Project)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 1–297: Discover bis Run, Phasenplanung, Critical Path und Meilenstein-Tracking.' },
+          { title: 'TP1 Change Management & Enable Now', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 16–63: Change Champions, Coffee Corners in allen 4 Unternehmensbereichen (UB Z/K/T/W).' },
+          { title: 'TP2 Kaufmännische Prozesse WBS Plan', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 64–112: Fit2Standard Reifegrade (CO 90%, MM 91%, RE-FX 86%, FI 76%), Abschluss 29.08.2025.' },
+          { title: 'TP3 Technische Prozesse & Instandhaltung', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 173–196: 100% Freigabe für Stadtbahn, Busse und Netz; Gebäudewirtschaft erst Post-Go-Live.' },
+          { title: 'TP4 IT-Unterstützung & 4-System-Landschaft', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 197–202: ES4.400 Sandbox, QS4.100 Integrationstest 1, QS4.210 UAT, PS4 Produktivsystem.' },
+          { title: 'TP5 Gesamtsteuerung & PMO', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 203–297: Lenkungsausschuss-Reporting, Budgetcontrolling und Meilenstein-Freigaben.' },
+          { title: 'Pilot-Betriebsvereinbarung (01.04.2026)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Vorgang 294: Meilenstein Pilot-BV für Test mit Echtdaten (UAT auf QS4.210) mit Betriebsrat Schmidt & Kraus.' },
+          { title: 'Finale Betriebsvereinbarung (01.01.2027)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Vorgang 297: Finale BV inkraftgetreten exakt zum produktiven Go-Live Neujahr 2027.' },
+          { title: 'Tool-Governance: CALM vs. Signavio', cat: 'Großprojekt & PMO', tab: 'tools', desc: 'BPMN 2.0 Prozessmodellierung in Signavio synchronisiert mit Testskripten in SAP Cloud ALM.' },
+
+          // Masterarbeit & Wissenschaft
+          { title: 'Masterarbeit Note 1,0 (Prof. Herzwurm)', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: '126 Seiten: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme (S/4HANA Plattformisierung).' },
+          { title: '12 empirische Experteninterviews', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Interviews im Großprojekt SAP4SSB mit Gesamt-PL Roland Nowak, TPLs und Lead-Architekten.' },
+          { title: 'Qualitative Inhaltsanalyse nach Mayring', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Deduktiv-induktives Kategoriensystem und wissenschaftliches Codebuch zur Auswertung.' },
+          { title: 'Boundary Resources & Bimodale IT', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Theoretische Fundierung nach Ghazawneh & Henfridsson: ABR, DBR, SBR und lose Kopplung.' },
+          { title: 'Absorptive Capacity & Change Management', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Wissensaufnahme- und Transformationsfähigkeit (Cohen & Levinthal) in traditionsreichen Konzernen.' },
+          { title: 'Masterabschluss M.Sc. 1,6 (120 ECTS)', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Amtliches Zeugnis Universität Stuttgart: Bestnote 1,0 in Masterarbeit und Digitaler Nachhaltigkeit.' },
+
+          // Interview & Karriere
+          { title: '60-Sekunden-Elevator-Pitch', cat: 'Interview & Karriere', tab: 'interview', desc: 'Prägnanter Einstiegspitch für Vorstellungsgespräche: 24 Mo. SSB + 1,0 Masterarbeit Clean Core.' },
+          { title: 'Deep-Dive-Story (3 Minuten)', cat: 'Interview & Karriere', tab: 'interview', desc: 'Ausführliche Karrierestory von Datacenter One über Uni Stuttgart bis zum Großprojekt SAP4SSB.' },
+          { title: 'CV De-Risking & Gefahrenabwehr', cat: 'Interview & Karriere', tab: 'cv_defense', desc: 'Souveräne Pivot-Brücken bei Fangfragen zu Java, SPRO-Customizing, RPA oder Berufserfahrung.' },
+          { title: 'STAR-Stories (Methodische Antworten)', cat: 'Interview & Karriere', tab: 'interview', desc: 'Situation, Task, Action, Result für Konflikte, Scope Creep, Tool-Einführung und Migration.' },
+          { title: '90-Tage Onboarding-Roadmap', cat: 'Interview & Karriere', tab: 'career', desc: 'Strukturierter Fahrplan für die ersten 3 Monate als Consultant oder Enterprise Architekt.' },
+          { title: 'Gehaltskalkulation (65.000 € – 75.000 €)', cat: 'Interview & Karriere', tab: 'career', desc: 'Fundierte Marktwertbegründung, IGM/TVöD Vergleiche und Verhandlungsleitfaden.' },
+          { title: 'Persönliches Second Brain & Notizen', cat: 'Interview & Karriere', tab: 'notebook', desc: 'Interaktives Notizbuch mit Autosave im Browser, Vorlagen für Interviews und Gehalt.' }
+        ];
 
         const allQA = [
           {
@@ -252,15 +385,107 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
         ];
 
         const filesData = [
-          { name: 'SSB Executive Summary Discover Phase.docx', cat: 'Explore & Lösungsdesign', path: 'Desktop/Discover Phase', desc: 'Ergebnisbericht des Digital Discovery Assessments (DDA) mit Nagarro ES GmbH. Definition des S/4HANA Greenfield Scopes.', impact: 'Beweist, dass du die Phase 0 (DDA Scoping) von Grund auf verstanden hast.' },
-          { name: 'SSB Lösungsdesign Dokument.docx', cat: 'Explore & Lösungsdesign', path: 'Desktop/Explore Phase', desc: '82.000 Zeichen starkes Architektur- und Lösungsdesigndokument für TP2 (Kaufmännische Prozesse: FI, CO, MM, RE-FX, Grants Mgmt).', impact: 'Zeigt dein tiefes Verständnis für die Gesamtarchitektur, Clean Core und WRICEFA-Objekte.' },
-          { name: 'Migrationskonzept v0 1 2025_04_28.docx', cat: 'Datenmigration', path: 'Desktop/Explore Phase/Datenmigration', desc: 'Detailkonzept von Nagarro zur Datenmigration. Definition von Staging-Tabellen, Mapping-Regeln, Bilanzabgleich und Cutover.', impact: 'Dein Beleg für fundierte Datenmigrations- und Schnittstellenkompetenz.' },
-          { name: 'SSB_Migrationsobjekte_Vorschlag.xlsx', cat: 'Datenmigration', path: 'Desktop/Explore Phase/Datenmigration', desc: 'Strukturierte Übersicht aller Migrationsobjekte nach Geschäftsobjekttyp, Methode (Staging vs Direct) und Custom Fields.', impact: 'Zeigt, dass du konkrete Datenobjekte (Business Partner, FI-AA, Kostenstellen) im Detail kennst.' },
-          { name: '20251107_SAP_CALM_How2handle_quickguide.docx', cat: 'Tools & Enablement', path: 'Desktop/Uni', desc: 'Von Visar verfasster Quickguide zur Nutzung von SAP Cloud ALM für Projekt-Setup, Quality Gates und Fit-to-Standard Tracking.', impact: 'Echtes Artefakt deiner Tool-Governance-Leistung. Unbedingt im Vorstellungsgespräch erwähnen!' },
-          { name: 'SAP Enable Now Übergabe.docx', cat: 'Tools & Enablement', path: 'Desktop', desc: 'Strategisches Übergabekonzept von UB I (IT) an UB AC (Personalentwicklung) zur Etablierung der Single-Source-Content-Strategie.', impact: 'Beweist deine Fähigkeit zur strategischen Schnittstellenkommunikation zwischen IT und HR.' },
-          { name: 'TP5_Projektsteckbrief.docx', cat: 'PMO & Steuerung', path: 'Desktop/TP5', desc: 'Offizieller Projektauftrag für TP5 unter Roland Nowak: Steuerung von Budget, Ressourcen, Architektur, Vergabe und Berechtigungen.', impact: 'Dokumentiert dein organisatorisches "Zuhause" im Projektmanagement Office.' },
-          { name: '20250922_Projektplan_GAP_Axians_Gerdes.xlsx', cat: 'PMO & Steuerung', path: 'Desktop', desc: 'Trackingliste der technischen Basis-ToDos mit Axians (ES4 System, ADS Formulare, SSO, Transportkonsolidierung).', impact: 'Zeigt deine Hands-on Rolle bei der Steuerung technischer Infrastrukturpartner.' },
-          { name: '20260211_Themensammlung_Priorisierung.xlsx', cat: 'PMO & Steuerung', path: 'Desktop', desc: 'Priorisierungsmatrix mit CalmIDs, T-Shirt-Sizes und Zuweisungen für anstehende S/4-Releases.', impact: 'Beweis für agile Aufwandsschätzung und Releasesteuerung.' },
+          // --- 00 AKTUELLE BEWERBUNGSUNTERLAGEN (Master of Science | 120 ECTS | Gesamtnote 1,6) ---
+          { name: 'Lebenslauf_Murseli_Vsar.pdf', cat: 'Aktuelle Bewerbungsunterlagen', path: '00_Aktuelle_Bewerbungsunterlagen', desc: 'Offizieller, tagesaktueller Haupt-Lebenslauf (M.Sc. Wirtschaftsinformatik, Uni Stuttgart, 24 Monate SSB AG, 12 Monate Datacenter One).', impact: 'Das Herzstück deiner Bewerbung – belegt deinen lückenlosen Werdegang und SAP S/4HANA Spezialisierung.' },
+          { name: 'Zeugnisse_Murseli_Visar.pdf', cat: 'Aktuelle Bewerbungsunterlagen', path: '00_Aktuelle_Bewerbungsunterlagen', desc: 'Vollständiges amtliches Zeugnispaket (Masterurkunde Note 1,6, Bachelorzeugnis, Arbeitszeugnisse SSB AG und Datacenter One, Abitur, alle Zertifikate).', impact: 'Vollständiger amtlicher Nachweis für Spitzenleistungen in Akademie und Praxis.' },
+          { name: 'Zeugnisse_Murseli_kurz.pdf', cat: 'Aktuelle Bewerbungsunterlagen', path: '00_Aktuelle_Bewerbungsunterlagen', desc: 'Kompakter Zeugnisauszug für Bewerbungsportale mit restriktiven Dateigrößen-Limits.', impact: 'Optimiert für maximale Lese- und Upload-Effizienz.' },
+          { name: 'Masterarbeit_Visar_Murseli.pdf', cat: 'Aktuelle Bewerbungsunterlagen', path: '00_Aktuelle_Bewerbungsunterlagen', desc: 'Vollständige Masterarbeit (Note 1,0): Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA (126 Seiten).', impact: 'Belegt herausragende wissenschaftliche Exzellenz und praxisorientierte Forschung.' },
+          { name: 'Lebenslauf_Murseli_Vsar.docx', cat: 'Aktuelle Bewerbungsunterlagen', path: '00_Aktuelle_Bewerbungsunterlagen', desc: 'Editierbare Master-Vorlage zur individuellen Anpassung für spezifische Vakanzen.', impact: 'Flexibles Arbeitsdokument für gezielte Unternehmens-Anpassungen.' },
+          { name: 'Bewerbungsverlauf.xlsx', cat: 'Aktuelle Bewerbungsunterlagen', path: '00_Aktuelle_Bewerbungsunterlagen', desc: 'Interne Steuerung und Übersicht aller laufenden Bewerbungsverfahren, Interviewphasen und Gehaltsbänder.', impact: 'Dein persönliches Cockpit für professionelles Bewerbungsmanagement.' },
+
+          // --- SAP PRESS & RHEINWERK FACHLITERATUR (Offizielle Referenzwerke aus der SSB Transformation) ---
+          { name: 'Enterprise Architecture Transformation with SAP.pdf', cat: 'SAP Fachliteratur (Rheinwerk)', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Fachbuecher_Referenzen', desc: 'Standardwerk von SAP Press zur EAM-Transformation, IT-Landschaftsplanung, Capability Mapping und Plattform-Evolution.', impact: 'Beweist, dass dein Architektur- und Transformationswissen auf den offiziellen weltweiten SAP-Standards basiert.' },
+          { name: 'Migration_nach_SAP_S4HANA.pdf', cat: 'SAP Fachliteratur (Rheinwerk)', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Fachbuecher_Referenzen', desc: 'Umfassendes Handbuch (Rheinwerk): Greenfield, Brownfield, Selective Data Transition, LTMC Staging-Tabellen und Cutover.', impact: 'Zeigt tiefes methodisches Verständnis der Migrationspfade und Datenqualitätsregeln.' },
+          { name: 'SAP_Cloud_ALM.pdf', cat: 'SAP Fachliteratur (Rheinwerk)', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Fachbuecher_Referenzen', desc: 'Offizielles Handbuch für Application Lifecycle Management im Cloud- und Hybrid-Zeitalter (Prozesse, Stories, Testautomation).', impact: 'Fachliches Fundament für deine Tool-Governance in CALM bei der SSB.' },
+          { name: 'SAP_HANA_Cloud.pdf', cat: 'SAP Fachliteratur (Rheinwerk)', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Fachbuecher_Referenzen', desc: 'In-Memory-Architektur, Columnar Storage, ACDOCA Aggregation on-the-fly, Core Data Services (CDS Views) und Calculation Views.', impact: 'Technisches Fundament zum Verständnis von Multi-Model Data Processing und HANA Engine.' },
+          { name: 'Berechtigungen_in_S4HANA_und_Fiori.pdf', cat: 'SAP Fachliteratur (Rheinwerk)', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Fachbuecher_Referenzen', desc: 'Rollen- und Berechtigungsarchitektur (PFCG), Fiori Katalogen, Spaces & Pages, SoD-Konflikte und DSGVO-Schutzmaßnahmen.', impact: 'Echtes Differenzierungsmerkmal für Governance- und Compliance-Gespräche mit C-Level und Betriebsrat.' },
+          { name: 'BPI_mit_SAP.pdf', cat: 'SAP Fachliteratur (Rheinwerk)', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Fachbuecher_Referenzen', desc: 'Business Process Intelligence & SAP Signavio: Process Mining, Process Insights, Plug-and-Gain und kollaboratives Prozessdesign.', impact: 'Verbindet strategisches Prozessmanagement mit datengestütztem Process Mining.' },
+          { name: 'SAP_Enable_Now_Handbuch.pdf', cat: 'SAP Fachliteratur (Rheinwerk)', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Fachbuecher_Referenzen', desc: 'Leitfaden für Single-Source-Content, In-App-Hilfe (Web Assistant), Producer, Desktop Assistant und E-Learning Rollout.', impact: 'Belegt didaktische und funktionale Exzellenz beim Rollout digitaler Lernplattformen.' },
+
+          // --- MASTER OF SCIENCE (120 ECTS | Gesamtnote 1,6 | Uni Stuttgart) ---
+          { name: 'Masterarbeit Wirtschaftsinformatik', cat: 'Master-Module (120 ECTS)', path: '02_Master/Masterarbeit Wirtschaftsinformatik', desc: 'Masterarbeit (Note 1,0, 30 ECTS): Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA (Prof. Dr. Georg Herzwurm). 126 Seiten, 12 Experteninterviews im Großprojekt SAP4SSB.', impact: 'Dein akademisches Meisterstück – belegt deine wissenschaftliche und architektonische Spitzenklasse.' },
+          { name: 'Digitale Nachhaltigkeit', cat: 'Master-Module (120 ECTS)', path: '02_Master/Digitale Nachhaltigkeit', desc: 'Wissenschaftliches Projekt (Note 1,0, 6 ECTS): Nachhaltigkeit durch Automatisierung: Eine Fallstudie zur Optimierung der Abfallbilanz bei der Schmalz GmbH (Dr. Dimitri Petrik). PowerShell-Automatisierung & BPMN 2.0.', impact: 'Nachweis für Green-IT-, Prozessautomatisierungs- und Nachhaltigkeits-Expertise im Industrieumfeld.' },
+          { name: 'Forschungsprojekte in der Wirtschaftsinformatik', cat: 'Master-Module (120 ECTS)', path: '02_Master/Forschungsprojekte in der Wirtschaftsinformatik', desc: 'Forschungsprojekt (Note 1,3, 6 ECTS): Smart Service Blueprinting (SSB) für vernetzte Produkte und cyber-physische Systeme. Research-in-Progress Paper & Abschlusspräsentation.', impact: 'Beweist hohe Forschungskompetenz im Service Engineering und IoT-Ökosystemen.' },
+          { name: 'Advanced Software Engineering', cat: 'Master-Module (120 ECTS)', path: '02_Master/Advanced Software Engineering', desc: 'Vorlesung & Übung (Note 1,6, 6 ECTS): Softwareprozess-Bewertung, Requirements Engineering, agile Skalierung und Qualitätsmetriken (Prof. Dr. Steffen Becker).', impact: 'Fundiertes Software-Engineering-Wissen für die Steuerung komplexer IT-Entwicklungsprojekte.' },
+          { name: 'Applied AI and Upcoming Technologies in Industries', cat: 'Master-Module (120 ECTS)', path: '02_Master/Applied AI and Upcoming Technologies in Industries', desc: 'Projekt & Vorlesung (Note 1,7, 6 ECTS): KI im industriellen Einsatz, AR/VR-Trainingssysteme, LLMs und Transformer-Modelle. Abgabevideo & Paper zum Projekt Yarro.', impact: 'Demonstriert Hands-on KI-Kompetenz und zukunftsorientierte Technologiebewertung.' },
+          { name: 'Forschungsmethoden in der Wirtschaftsinformatik', cat: 'Master-Module (120 ECTS)', path: '02_Master/Forschungsmethoden in der Wirtschaftsinformatik', desc: 'Methodenmodul (Note 1,7, 6 ECTS): Design Science Research (DSR), systematische Literaturanalysen, qualitative Inhaltsanalyse (Mayring) und empirische Hypothesentests (SPSS & SmartPLS).', impact: 'Methodisches Rückgrat für forschungsnahe Beratung und strukturierte Problemzerlegung.' },
+          { name: 'Innovationsmanagement', cat: 'Master-Module (120 ECTS)', path: '02_Master/Innovationsmanagement', desc: 'Modul (Note 1,7, 6 ECTS): Patentbewertung, Technologiediffusion, Quality Function Deployment (QFD/HoQ) und R-gestützte Diffusionsschätzung.', impact: 'Strategisches Innovations-Know-how zur Bewertung von Markt- und Technologiepotenzialen.' },
+          { name: 'Seminar Wirtschaftsinformatik 2', cat: 'Master-Module (120 ECTS)', path: '02_Master/Seminar Wirtschaftsinformatik 2', desc: 'Seminararbeit (Note 1,7, 6 ECTS): Mensch-Roboter-Kollaboration in der Produktion: Eine systematische Literaturanalyse (PRISMA-Flowchart, Konzeptmatrix, 26 Kernstudien).', impact: 'Belegt herausragende Fähigkeiten in strukturierter Literaturarbeit und Synthese komplexer Fachdomänen.' },
+          { name: 'Software-Architektur', cat: 'Master-Module (120 ECTS)', path: '02_Master/Software-Architektur', desc: 'Modul (Note 1,7, 6 ECTS): Quantitative Analyse von Softwaredesigns (QASD), UML-Profile, Markov-Ketten und Queuing Networks (Prof. Dr. Steffen Becker).', impact: 'Tiefes Architekturverständnis für skalierbare, performante und entkoppelte Enterprise-Systeme.' },
+          { name: 'Theorie und Empirie internationaler Unternehmenstätigkeit', cat: 'Master-Module (120 ECTS)', path: '02_Master/Theorie und Empirie internationaler Unternehmenstätigkeit', desc: 'Modul (Note 1,7, 6 ECTS): Internationales Management, OLI-Paradigma, Globalisierungsstrategien und empirische Studien (Prof. Dr. Michael-Jörg Oesterle).', impact: 'Strategisches Verständnis globaler Wertschöpfungsketten und multinationaler Unternehmensführung.' },
+          { name: 'AI4IoT – Artificial Intelligence for the Internet of Things', cat: 'Master-Module (120 ECTS)', path: '02_Master/AI4IoT – Artificial Intelligence for the Internet of Things', desc: 'Modul & Fallstudie (Note 2,0, 6 ECTS): OT-IT-IoT Konvergenz, Edge AI, Fallstudie Bademeister, Trustworthy IoT und wissenschaftliches Shortpaper.', impact: 'Verbindet Sensorik, IoT-Infrastruktur und Edge-KI zu konkreten industriellen Use Cases.' },
+          { name: 'Innovationsmethoden für software- und datenintensive Geschäftsmodelle', cat: 'Master-Module (120 ECTS)', path: '02_Master/Innovationsmethoden für software- und datenintensive Geschäftsmodelle', desc: 'Praxisprojekt Klingele (Note 2,0, 6 ECTS): PatentRadar – Konzeption eines SaaS/RPA-Geschäftsmodells zur KI-gestützten Patentrecherche mit UiPath und DEPATISnet.', impact: 'Echter Business Case: RPA-Entwicklung, Wirtschaftlichkeitskalkulation und C-Level Pitchdeck.' },
+          { name: 'Service Management and Cloud Computing, and Evaluation', cat: 'Master-Module (120 ECTS)', path: '02_Master/Service Management and Cloud Computing, and Evaluation', desc: 'Modul & Paper (Note 2,0, 6 ECTS): AWS Cloud Design Patterns, Serverless Web Apps (WildRydes), Lambda, API Gateway und Gartner Magic Quadrant Bewertung.', impact: 'Praxisnachweis für Cloud-Native-Architekturen, Microservices und moderne Integrationsmuster.' },
+          { name: 'Datenbanken und Informationssysteme', cat: 'Master-Module (120 ECTS)', path: '02_Master/Datenbanken und Informationssysteme', desc: 'Modul (Note 2,7, 6 ECTS): Relationale Datenmodellierung, SQL, Transaktionsmanagement (ACID), Indexierung und moderne DBIS-Architekturen.', impact: 'Fundiertes Datenbank-Fundament – unverzichtbar für das Verständnis von SAP HANA und In-Memory-Tabellen.' },
+          { name: 'Management von IT-Unternehmen', cat: 'Master-Module (120 ECTS)', path: '02_Master/Management von IT-Unternehmen', desc: 'Modul (Note 3,0, 6 ECTS): Geschäftsmodell-Innovation, Finanzierung, Teambildung, Funding und Skalierung von Tech-Startups und IT-Dienstleistern.', impact: 'Unternehmerisches Verständnis für IT-Geschäftsmodelle und agile Unternehmenssteuerung.' },
+          { name: 'Service Operations Management', cat: 'Master-Module (120 ECTS)', path: '02_Master/Service Operations Management', desc: 'Modul (Note 3,0, 6 ECTS): Service Engineering, Service-Qualitätsmessung, Servitization und operative Steuerung industrieller Dienstleistungen.', impact: 'Koppelt Prozess- und Service-Exzellenz für kundenzentrierte B2B-Dienstleistungsmodelle.' },
+
+          // --- BACHELOR OF SCIENCE (180 ECTS | Gesamtnote 3,0 | Uni Stuttgart) ---
+          { name: 'Informationssysteme im E-Business', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Betriebliche Informationssysteme (WI 1)/01_Informationssysteme_im_E-Business_WS19', desc: 'Spitzenprüfung (Note 1,0, Teil von WI 1): E-Commerce Architekturen, elektronische Marktplätze, EDI und digitale Plattformökonomie.', impact: 'Beweist absolute Bestleistung (1,0) im Bereich betrieblicher digitaler Informationssysteme.' },
+          { name: 'Bachelorarbeit Wirtschaftsinformatik', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Bachelorarbeit Wirtschaftsinformatik/01_Erfolgreiche_Bachelorarbeit_Boundary_Resources_Note_1_7', desc: 'Bachelorarbeit (Note 1,7, 12 ECTS): Die Bedeutung von Boundary Resources in Low-Code Entwicklungsplattformen: Eine qualitative Untersuchung am Beispiel von OutSystems und Mendix (Prof. Herzwurm).', impact: 'Theoretisches Fundament in Boundary Resource Theory (ABR, DBR, SBR) und Plattform-Architektur.' },
+          { name: 'Betriebliche Informationssysteme (WI 1)', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Betriebliche Informationssysteme (WI 1)', desc: 'Kernmodul (Note 2,1, 9 ECTS): Management betrieblicher Informationssysteme (MBIS) und E-Business. ERP-Grundlagen, Prozessintegration und Schnittstellendesign.', impact: 'Grundlegendes Fundament für deine Spezialisierung auf Enterprise Resource Planning (ERP).' },
+          { name: 'Modellierung', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Modellierung', desc: 'Informatik-Pflichtmodul (Note 2,3, 6 ECTS): Formale Modellierungsmethoden, Petri-Netze, Zustandsautomaten und konzeptionelle Datenmodellierung (Prof. Dr. Bernhard Mitschang).', impact: 'Methodische Präzision beim Entwurf formaler und konsistenter Systemmodelle.' },
+          { name: 'Seminar interdisziplinäre Themen', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Seminar interdisziplinäre Themen', desc: 'Seminar (Note 2,3, 6 ECTS): Maschinelles Lernen & Big Data. Wissenschaftliches Handout, Regression und Präsentation.', impact: 'Frühzeitige Auseinandersetzung mit Data Science und angewandtem Machine Learning.' },
+          { name: 'Informationsverarbeitungspraktikum', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Informationsverarbeitungspraktikum', desc: 'Praktikum (Note 2,3, 6 ECTS): Praktische Unternehmens- und Systemanalyse, Geschäftsprozessaufnahme und IT-Architekturentwurf.', impact: 'Praxisnahe Erprobung von Anforderungsanalyse und IT-Konzeption im Team.' },
+          { name: 'Einführung in die Wirtschaftsinformatik', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Einführung in die Wirtschaftsinformatik', desc: 'Grundlagenmodul (Note 2,7, 6 ECTS): Informationssysteme in Wirtschaft und Verwaltung, Geschäftsprozessmanagement und Datenorganisation (Prof. Dr. Georg Herzwurm).', impact: 'Der Grundstein deines Studiums am Lehrstuhl für Wirtschaftsinformatik II.' },
+          { name: 'GVWL 1 - Märkte & wirtschaftliche Entscheidungen', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/GVWL 1 - Märkte & wirtschaftliche Entscheidungen', desc: 'VWL-Pflichtmodul (Note 2,7, 6 ECTS): Mikroökonomik, Marktformen, Preisbildung, Wohlfahrtstheorie und strategische Interaktion.', impact: 'Ökonomisches Fundament zum Verständnis von Marktmechanismen und Anreizstrukturen.' },
+          { name: 'GBWL 1 - Strukturen der Betriebswirtschaftslehre', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/GBWL 1 - Strukturen der Betriebswirtschaftslehre', desc: 'BWL-Pflichtmodul (Note 2,7, 6 ECTS): Einführung in die BWL und Einführung in das Rechnungswesen (ReWe: Buchführung, Bilanzierung, GuV, KLR).', impact: 'Unerlässlich für das Verständnis des Finanzwesens (FI) und des Controllings (CO) in SAP.' },
+          { name: 'GBWL 4 - Finanzprozess', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/GBWL 4 - Finanzprozess', desc: 'BWL-Pflichtmodul (Note 2,7, 6 ECTS): Investition und Finanzierung (InFi), Kapitalwertmethode, Annuitäten, Innen-/Außenfinanzierung und Derivate.', impact: 'Finanzwirtschaftliches Rüstzeug für Investitionsrechnungen und Business-Case-Modellierung.' },
+          { name: 'Statistik II', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Statistik II', desc: 'Methodenmodul (Note 2,7, 6 ECTS): Induktive Statistik, Wahrscheinlichkeitsverteilungen, Konfidenzintervalle und statistische Testverfahren.', impact: 'Empirische Datenkompetenz für quantitative Analysen und wissenschaftliches Arbeiten.' },
+          { name: 'Datenstrukturen und Algorithmen', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Datenstrukturen und Algorithmen', desc: 'Informatik-Pflichtmodul (Note 3,0, 9 ECTS): Bäume, Graphen, Sortieralgorithmen, Hashing, Komplexitätsanalyse (O-Notation) und Rekursion (Prof. Dr. Stefan Funke).', impact: 'Fundiertes algorithmisches Denken und Verständnis für Performanzoptimierung.' },
+          { name: 'Programmentwicklung', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Programmentwicklung', desc: 'Informatik-Pflichtmodul (Note 3,0, 6 ECTS): Funktionale und logische Programmierung, Programmiersprachenkonzepte und formale Semantik.', impact: 'Erweitert das Programmierparadigma über die reine OOP hinaus.' },
+          { name: 'Softwarepraktikum', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Softwarepraktikum', desc: 'Team-Projekt (Note 3,0, 6 ECTS): Entwicklung des Projektmanagementsystems taskMasterPro 3 im 5-köpfigen Team. Lastenheft, Spezifikation, Java-Implementierung und Präsentation.', impact: 'Echter Praxisnachweis für Teamarbeit, agile Softwareentwicklung und Software-Life-Cycle.' },
+          { name: 'Informationsmanagement', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Informationsmanagement', desc: 'Kernmodul (Note 3,0, 9 ECTS): Grundlagen des Informationsmanagements (Note 3,3) und Business Intelligence (BIA, Note 2,7: Data Warehouse, Star-Schema, ETL, OLAP).', impact: 'Direkte Brücke zu modernen Reporting- und Analytics-Systemen wie SAP Analytics Cloud.' },
+          { name: 'Profilseminar zum Human Resource Management', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Profilseminar zum Human Resource Management', desc: 'Wahlseminar (Note 3,0, 6 ECTS): Mensch-Roboter-Interaktion und wahrgenommene Servicequalität bei digitalen Service Encountern (Prof. Dr. Marion Büttgen, Uni Hohenheim).', impact: 'Erforscht die Schnittstelle von digitaler Interaktion, Akzeptanz und Servicemanagement.' },
+          { name: 'Mensch-Computer-Interaktion', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Mensch-Computer-Interaktion', desc: 'Informatik-Wahlpflicht (Note 3,3, 6 ECTS): Usability Engineering, User Experience (UX), Gestaltungsrichtlinien, Prototyping und Evaluierungsmethoden.', impact: 'UX-Kompetenz – zentral für die Akzeptanz und Einführung moderner SAP Fiori UIs.' },
+          { name: 'BWL 1 - Organisation, Personalführung, Strategisches Management', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/BWL 1 - Organisation, Personalführung, Strategisches Management', desc: 'BWL-Pflichtmodul (Note 3,3, 9 ECTS): Strategische Unternehmensführung, Organisationsstrukturen, Change Management und Führungstheorien.', impact: 'Management-Wissen zur organisatorischen Verankerung von Transformationsprozessen.' },
+          { name: 'Marketing Management', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Marketing Management', desc: 'BWL-Wahlpflicht (Note 3,3, 6 ECTS): Marktforschung, Marketing-Mix (4Ps), Kundenbindung und marktorientierte Unternehmensführung.', impact: 'Kunden- und marktorientiertes Denken für Produkt- und Servicepositionierung.' },
+          { name: 'Wissensverarbeitung', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Wissensverarbeitung', desc: 'Modul (Note 3,7, 6 ECTS): Wissensrepräsentation, Ontologien, Expertensysteme, Wissensgraphen und logisches Schließen.', impact: 'Theoretische Grundlage für Wissensmanagement, semantische Netze und Knowledge Graphs.' },
+          { name: 'Einführung in die Softwaretechnik', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Einführung in die Softwaretechnik', desc: 'Informatik-Pflichtmodul (Note 3,7, 6 ECTS): Softwarelebenszyklus, V-Modell, Entwurfsmuster (Design Patterns), UML und Testverfahren.', impact: 'Basiswissen über standardisierte Softwareentwicklungsmethoden und Qualitätssicherung.' },
+          { name: 'Automaten und Formale Sprachen', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Automaten und Formale Sprachen', desc: 'Theoretische Informatik (Note 3,7, 6 ECTS): Endliche Automaten (DFA/NFA), reguläre Ausdrücke, kontextfreie Grammatiken, Chomsky-Hierarchie und Turingmaschinen.', impact: 'Höchste formale Abstraktionsfähigkeit und mathematische Denkdisziplin.' },
+          { name: 'Informatikrecht', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Informatikrecht', desc: 'Rechtsmodul (Note 4,0, 3 ECTS): Urheberrecht, Softwarevertragsrecht, Datenschutzrecht (DSGVO), Haftung und Lizenzmodelle (Open Source vs Proprietary).', impact: 'Rechtssicherheit bei Softwarebeschaffung, Lizenz-Governance und DSGVO-Compliance.' },
+          { name: 'Statistik I', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Statistik I', desc: 'Methodenmodul (Note 4,0, 6 ECTS): Deskriptive Statistik, Lage- und Streuungsmaße, Korrelations- und Regressionsanalyse sowie Indexzahlen.', impact: 'Basis-Statistik zur quantitativen Auswertung operativer Kennzahlen.' },
+          { name: 'Mathematik für Wirtschaftswissenschaftler', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Mathematik für Wirtschaftswissenschaftler', desc: 'Höhere Mathematik (Note 4,0, 9 ECTS): Lineare Algebra, Matrizenrechnung, Differential- und Integralrechnung mehrerer Variablen und Optimierung unter Nebenbedingungen.', impact: 'Mathematisches Durchhaltevermögen und analytische Grundschulung.' },
+          { name: 'Programmierung und Software-Entwicklung', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Programmierung und Software-Entwicklung', desc: 'Informatik-Großmodul (Note 4,0, 9 ECTS): Objektorientierte Programmierung (OOP) in Java, Vererbung, Polymorphie, Generics, Collections und Exception Handling.', impact: 'Grundlegendes Verständnis objektorientierter Programmiersprachen und Entwicklerlogik.' },
+          { name: 'Management von Dienstleistungsunternehmen', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Management von Dienstleistungsunternehmen', desc: 'BWL-Modul (Note 4,0, 6 ECTS): Service Delivery, Kapazitäts- und Yield-Management, Dienstleistungsmarketing und Kundenkontaktpunkte.', impact: 'Branchenspezifisches Dienstleistungsverständnis – hochrelevant für ÖPNV und Verkehrsunternehmen.' },
+          { name: 'Schreibwerkstatt: Vom studentischen zum beruflichen Schreiben', cat: 'Bachelor-Module (180 ECTS)', path: '03_Bachelor/Schreibwerkstatt - Vom studentischen zum beruflichen Schreiben', desc: 'Schlüsselqualifikation (3 ECTS, Bestanden): Wissenschaftliches Formulieren, Strukturierung von Fachpublikationen, Exzerpte und berufliche Textsorten.', impact: 'Souveräne schriftliche Ausdrucksstärke und Dokumentationskompetenz.' },
+
+          // --- Neu kuratierte SSB Kern-Deliverables aus Tiefenanalyse ---
+          { name: 'Workshops SSB.docx', cat: 'Explore & Lösungsdesign', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_MM_Materialwirtschaft/Explore_Phase_MM', desc: 'Spezifikation der Beschaffungsworkshops 1-3: 1XF Preisanfragen, BMD Rahmenverträge, BMR Lieferpläne, J45 Lagermaterial, BMY Lohnbearbeitung.', impact: 'Beweist operatives und strategisches MM-Prozesswissen im kommunalen Sektorenumfeld.' },
+          { name: 'SolutionDesign_WorXX_MGe_310725.xlsx', cat: 'Explore & Lösungsdesign', path: '01_SSB/04_Architektur_Methoden_Tools/Datenmigration_LTMC', desc: 'Detailkonzept von Lösungsarchitekt Michael Gehrung zur Migration von Liegenschaften, Gebäuden (VIBDBU), Grundstücken (VIBDPR) und Verträgen (VICNCN).', impact: 'Zeigt tiefes Know-how in RE-FX Liegenschaftsstrukturen, Erbbaurechten und Schnittstellen zur Anlagenbuchhaltung.' },
+          { name: 'CustomCode.xlsx', cat: 'Basis & Infrastruktur', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Readiness_Check_Clean_Core', desc: 'SAP Readiness Check 2.0 Detailreport: 166 Simplification Notes (ME21/ME51, MB-Transaktionen, KONV zu PRCD_ELEMENTS, MATDOC, BCS im Public Sector).', impact: 'Technischer Nachweis für Clean-Core-Governance und Custom Code Remediation.' },
+          { name: '092025_SAP4SSB-Überblick_Regeltermin_BR_v1.pptx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP5_Gesamtsteuerung_Architektur/General/Betriebsrat', desc: 'Regeltermin-Abstimmung mit Betriebsrat Markus Schmidt & Joachim Kraus: Meilensteine Pilot-BV (01.04.2026) und Finale BV (01.01.2027).', impact: 'Beweist Verständnis für institutionalisierte Mitbestimmung und § 87 Abs. 1 Nr. 6 BetrVG in Großprojekten.' },
+          { name: 'Entwurf_Modulbeschreibung_SAP_S4HANA.docx', cat: 'PMO & Steuerung', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/01_Projektleitung_PMO_Masterplan/Projektleiter_Ordner', desc: 'Offizielle Vorlage für den Betriebsrat zur Datenverarbeitung aller S/4HANA Module (FI, CO, SD, MM, PM, EHS, Treasury) mit DSGVO-Schutzmaßnahmen.', impact: 'Demonstriert Datenschutz- und Mitbestimmungs-Governance auf C-Level-Niveau.' },
+          { name: 'Aufstellung der Abwicklung von Fahrausweisverkäufen über das System PATRIS in SAP und deren Abstimmung.pdf', cat: 'Vertrieb & PATRIS', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_SD_Vertrieb_PATRIS/DDA Workshops', desc: 'Detailaufstellung zur Anbindung des Vertriebssystems PATRIS: Automatische Debitoreneinzüge, Fahrausweisverkäufe und VVS-Erlösausgleiche.', impact: 'Beweist Schnittstellenkompetenz bei der Entkopplung proprietärer ÖPNV-Vertriebssysteme ins S/4HANA Hauptbuch.' },
+          { name: '20260420_GM_Entwurf_Fachkonzept_Fördermittelmanagement_12.docx', cat: 'Grants Management', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_Grants_Management_GM/_Fachkonzept_Fördermittelmanagement', desc: 'Fachkonzept Fördermittelmanagement (GM for Grantee): Abbildung von Drittmitteln, LGVFG/GVFG Bundes- und Landeszuschüssen.', impact: 'Zeigt tiefes Know-how in komplexen Spezialmodulen der öffentlichen Hand und Verwendungsnachweisführung.' },
+          { name: '20251006_GM_Entwurf_Ableitungskonzept_Fördermittelmanagement.docx', cat: 'Grants Management', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_Grants_Management_GM/_Ableitungskonzept_Fördermittelmanagement', desc: 'Ableitungsregeln für Zuschüsse: Zuordnung von Sachkonten, Kostenstellen und PSP-Elementen auf spezifische Förderfonds.', impact: 'Beleg für fundiertes Ableitungs- und Kontierungsdesign im Public Sector.' },
+          { name: 'PSP vs Innenauftrag.docx', cat: 'Finance & Controlling', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_CO_Controlling', desc: 'Architektur-Entscheidungsvorlage: Abgrenzung von mehrjährigen Investitionsprojekten (PSP-Elemente) vs. operativer Werkstattinstandhaltung (Innenaufträge).', impact: 'Zeigt deine Kernkompetenz im strategischen Kostenstellen- und Projekt-Controlling.' },
+          { name: 'AfA-Simulation_Makro_und_Daten_20250626.xlsm', cat: 'Finance & Controlling', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_CO_Controlling', desc: 'Simulationsmodell für Anlagenabschreibungen (AfA) im Parallel-Ledger (HGB vs. Steuerrecht) über 30 Jahre Nutzungsdauer.', impact: 'Beweis für quantitative Finanzmodellierung und Anlagenbuchhaltungs-Expertise.' },
+          { name: 'Gefahrstoffverzeichnis.pdf', cat: 'Sustainability & EHS', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_Sustainability_EHS/Workshop 2025.04.30', desc: 'Vollständiges Gefahrstoffkataster der Werkstätten nach EMKG-Standard inkl. Schutzstufen und Lagerklassen.', impact: 'Demonstriert fundierte Praxiserfahrung in integriertem Arbeitsschutz und Umweltmanagement.' },
+          { name: 'EMKG.xlsm', cat: 'Sustainability & EHS', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_Sustainability_EHS/Gefahrgut', desc: 'Einfaches Maßnahmenkonzept Gefahrstoffe (BAuA Standard) zur automatisierten Einstufung von Chemikalien in S/4HANA.', impact: 'EHS-Kompetenz und Verknüpfung von operativer Werkstattrisikoanalyse mit ERP-Daten.' },
+          { name: '20250617Vergabe_Zeitplan_Realize_bis_Run.pdf', cat: 'Vergabe & SektVO', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/04_Ausschreibung_Vergabe_SektVO/Vergabe_Realize_Deploy_Run', desc: 'Gesamtablauf des EU-weiten SektVO-Vergabeverfahrens zur Auswahl des Generalübernehmers für die Realisierungs- und Betriebsphase.', impact: 'Beweist Vergaberecht- und Ausschreibungskompetenz in Milliarden-Infrastrukturunternehmen.' },
+          { name: 'Bewertungsmatrix Teilnahmewettbewerb.xlsx', cat: 'Vergabe & SektVO', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/04_Ausschreibung_Vergabe_SektVO/Vergabe_Realize_Deploy_Run', desc: 'Quantitative Bewertungsmatrix für den Teilnahmewettbewerb mit Gewichtung von Referenzen, Methodenkompetenz und Preis.', impact: 'Zeigt objektive Partnerbewertung und Vendor-Governance auf C-Level-Niveau.' },
+          { name: 'AngebotsauswertungGrundsatzkonzeptionKTW_Murseli.xlsx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP3_Technische_Prozesse_Instandhaltung/Kusevic_Wimpff_Instandhaltung/Kusevic-Wimpff', desc: 'Von Visar Murseli erstellte Angebotsauswertung der Beraterangebote von Evora IT, Nagarro und Orianda für die Instandhaltung K/T/W.', impact: 'Echtes persönliches Arbeitsergebnis im PMO: Vendor Selection, Kostenvergleich und Entscheidungsvorbereitung.' },
+          { name: 'apsolut_SSB_ID3758_V1.0_Workshopreihe_SAP_Ariba_20251125_signed.pdf', cat: 'Vergabe & SektVO', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_MM_Materialwirtschaft/Ariba_Fieldglass', desc: 'Vertrag und Workshopreihe zur Evaluierung von SAP Ariba (indirekte Beschaffung) und Fieldglass (Dienstleister-Steuerung).', impact: 'Belegt Einblicke in moderne Cloud-Procurement- und Workforce-Management-Lösungen.' },
+          { name: 'SAP4SSB_Projektplan.mpp', cat: 'PMO & Steuerung', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/01_Projektleitung_PMO_Masterplan/Projektplaene_MS_Project/Projektplan', desc: 'Offizieller Master-Projektplan in MS Project (WBS 1–297) mit allen Phasen, Vorgängen, Ressourcen und Meilensteinen.', impact: 'Das Herzstück deiner PMO-Tätigkeit: Beherrschung von Multiprojekt-Steuerung und Critical Path.' },
+          { name: 'SSB Nutzerhandbuch SAP Signavio.pdf', cat: 'Tools & Enablement', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Signavio_Process_Manager/Signavio TP2 Dolde', desc: 'Offizielles Handbuch für Prozessmodellierer bei der SSB: Governance, Freigabe-Workflows und Signavio Collaboration Hub.', impact: 'Beweist Tool-Governance und Befähigung von Fachbereichen zur eigenständigen BPMN 2.0 Modellierung.' },
+          { name: 'OnePager Modellierungsregeln.pdf', cat: 'Tools & Enablement', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Signavio_Process_Manager/Signavio TP2 Dolde', desc: 'Kompakter Standard für BPMN 2.0 Syntax, Naming Conventions und Lane-Zuordnungen für alle 5 Teilprojekte.', impact: 'Zeigt deinen Fokus auf strikte Standardisierung und Qualitätskontrolle.' },
+          { name: 'DDA Export - Stuttgarter Straßenbahnen AG (SSB).xlsx', cat: 'Explore & Lösungsdesign', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP2_Kaufmaennische_Prozesse/General/Discover Phase/DDA Results/DDA all info/Excel/Archiv', desc: 'Vollständiger Scope-Katalog aus dem Digital Discovery Assessment mit Zuordnung zu Best Practice Scope-IDs.', impact: 'Belegt, dass du von Phase 0 an den Scope-Umfang für 3.700 Mitarbeiter im Detail überblickst.' },
+          { name: 'Arten von personenbezogenen Daten in SAP S4HANA.pdf', cat: 'Explore & Lösungsdesign', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP2_Kaufmaennische_Prozesse/Explore_Phase_Desktop', desc: 'Datenschutz- und Compliance-Klassifizierung für Mitarbeiter- und Kundendaten im S/4HANA System.', impact: 'Zeigt DSGVO- und Mitbestimmungs-Kompetenz im sensiblen Umgang mit Personaldaten.' },
+          { name: 'SSB_Kontengruppen_Konzept_20250829.xlsx', cat: 'Datenmigration', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_Cross_Topics_Integration/Geschäftspartner', desc: 'Definition der Kontengruppen für Business Partner (Debitoren, Kreditoren, Personal, Verbundunternehmen) und Nummernkreise.', impact: 'Technisches Detailwissen zur Stammdaten-Harmonisierung und CVI.' },
+          { name: 'SSB Datenströme SAP.pdf', cat: 'Explore & Lösungsdesign', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_Cross_Topics_Integration', desc: 'Gesamtübersicht der konzernweiten Datenflüsse zwischen SAP Core, BTP, Archiv (d.velop), PATRIS und Werkstattsystemen.', impact: 'Echter Enterprise-Architecture-Plan: End-to-End Datenfluss-Verständnis im ÖPNV.' },
+          { name: '20250708_LA_SAP4SSBV1.pptx', cat: 'PMO & Steuerung', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/02_Steering_Board_Lenkungsausschuss/Lenkungsausschuss', desc: 'Offizielle Lenkungsausschuss-Präsentation für den Vorstand und IT-Leitung mit Statusampeln und Risiko-Matrix.', impact: 'Belegt deine direkte Zuarbeit für C-Level-Gremien und Vorstandsentscheidungen.' },
+          { name: '20250225_Steering_Board.pptx', cat: 'PMO & Steuerung', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/02_Steering_Board_Lenkungsausschuss/Steering_Board', desc: 'Entscheidungs- und Statusvorlage des Steering Boards zur Budget- und Ressourcenallokation.', impact: 'Beweis für strukturierte Vorbereitung strategischer Management-Entscheidungen.' },
+
+          { name: 'SSB Executive Summary Discover Phase.docx', cat: 'Explore & Lösungsdesign', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP2_Kaufmaennische_Prozesse/General/Discover Phase', desc: 'Ergebnisbericht des Digital Discovery Assessments (DDA) mit Nagarro ES GmbH. Definition des S/4HANA Greenfield Scopes.', impact: 'Beweist, dass du die Phase 0 (DDA Scoping) von Grund auf verstanden hast.' },
+          { name: 'SSB Lösungsdesign Dokument.docx', cat: 'Explore & Lösungsdesign', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP2_Kaufmaennische_Prozesse/Solution_Design_Dokumente', desc: '82.000 Zeichen starkes Architektur- und Lösungsdesigndokument für TP2 (Kaufmännische Prozesse: FI, CO, MM, RE-FX, Grants Mgmt).', impact: 'Zeigt dein tiefes Verständnis für die Gesamtarchitektur, Clean Core und WRICEFA-Objekte.' },
+          { name: 'Migrationskonzept v0 1 2025_04_28.docx', cat: 'Datenmigration', path: '01_SSB/04_Architektur_Methoden_Tools/Datenmigration_LTMC', desc: 'Detailkonzept von Nagarro zur Datenmigration. Definition von Staging-Tabellen, Mapping-Regeln, Bilanzabgleich und Cutover.', impact: 'Dein Beleg für fundierte Datenmigrations- und Schnittstellenkompetenz.' },
+          { name: 'SSB_Migrationsobjekte_Vorschlag.xlsx', cat: 'Datenmigration', path: '01_SSB/04_Architektur_Methoden_Tools/Datenmigration_LTMC', desc: 'Strukturierte Übersicht aller Migrationsobjekte nach Geschäftsobjekttyp, Methode (Staging vs Direct) und Custom Fields.', impact: 'Zeigt, dass du konkrete Datenobjekte (Business Partner, FI-AA, Kostenstellen) im Detail kennst.' },
+          { name: '20251107_SAP_CALM_How2handle_quickguide.docx', cat: 'Tools & Enablement', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Cloud_ALM', desc: 'Von Visar verfasster Quickguide zur Nutzung von SAP Cloud ALM für Projekt-Setup, Quality Gates und Fit-to-Standard Tracking.', impact: 'Echtes Artefakt deiner Tool-Governance-Leistung. Unbedingt im Vorstellungsgespräch erwähnen!' },
+          { name: 'SAP Enable Now Übergabe.docx', cat: 'Tools & Enablement', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Enable_Now', desc: 'Strategisches Übergabekonzept von UB I (IT) an UB AC (Personalentwicklung) zur Etablierung der Single-Source-Content-Strategie.', impact: 'Beweist deine Fähigkeit zur strategischen Schnittstellenkommunikation zwischen IT und HR.' },
+          { name: 'TP5_Projektsteckbrief.docx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP5_Gesamtsteuerung_Architektur/TP5_Desktop', desc: 'Offizieller Projektauftrag für TP5 unter Roland Nowak: Steuerung von Budget, Ressourcen, Architektur, Vergabe und Berechtigungen.', impact: 'Dokumentiert dein organisatorisches "Zuhause" im Projektmanagement Office.' },
+          { name: '20250922_Projektplan_GAP_Axians_Gerdes.xlsx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP4_IT_Infrastruktur_RISE_Basis/Axians_GAP_Tracking', desc: 'Trackingliste der technischen Basis-ToDos mit Axians (ES4 System, ADS Formulare, SSO, Transportkonsolidierung).', impact: 'Zeigt deine Hands-on Rolle bei der Steuerung technischer Infrastrukturpartner.' },
+          { name: '20260211_Themensammlung_Priorisierung.xlsx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP4_IT_Infrastruktur_RISE_Basis/General', desc: 'Priorisierungsmatrix mit CalmIDs, T-Shirt-Sizes und Zuweisungen für anstehende S/4-Releases.', impact: 'Beweis für agile Aufwandsschätzung und Releasesteuerung.' },
           { name: 'Masterzeugnis_Murseli_Visar.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizielles Zeugnis über die Masterprüfung der Universität Stuttgart (17. September 2026, 120 ECTS, Gesamtnote "gut" 1,6).', impact: 'Amtlicher Vollnachweis deines M.Sc. Abschlusses, der Masterarbeit (1,0) und aller 15 Fachprüfungen.' },
           { name: 'Masterarbeit_Visar_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Masterarbeit (126 Seiten, Note 1,0 bei Prof. Herzwurm, Uni Stuttgart) über Kritische Erfolgsfaktoren der S/4HANA Plattformisierung.', impact: 'Dein akademisches Meisterstück – belegt deine methodische Spitzenklasse!' },
           { name: 'DigitaleNachhaltigkeit_Ausarbeitung_Schmalz.docx', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Wissenschaftliche Ausarbeitung (Note 1,0, 6 ECTS): Nachhaltigkeit durch Automatisierung: Eine Fallstudie zur Optimierung der Abfallbilanz bei der Schmalz GmbH (Dr. Dimitri Petrik).', impact: 'Beweist Green-IT-, BPMN- und CSRD/ESG-Expertise direkt am Weltmarktführer J. Schmalz GmbH.' },
@@ -288,7 +513,16 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
           { name: 'Interview_Thomas_Wimpff_TP2_Leitung.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Thomas Wimpff (Teilprojektleiter TP2 Finance & Controlling).', impact: 'Beweist dein Detailwissen über Trennungsrechnung, ACDOCA und kaufmännische Prozesse.' },
           { name: 'Interview_Armin_Heinrich_Basis_Architektur.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Armin Heinrich (Enterprise Architekt & Basis SSB).', impact: 'Belegt dein Verständnis für BTP-Zielarchitektur, SSO und Cloud-Infrastruktur.' },
           { name: 'Interview_Henning_Gerdes_Axians_Lead.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Henning Gerdes (Lead Architect Axians ES4).', impact: 'Dokumentiert deine Schnittstellenkompetenz bei der Steuerung technischer Basispartner.' },
-          { name: 'Zeugnisse_Murseli_Visar.pdf', cat: 'PMO & Steuerung', path: 'Studium_Dokumente', desc: 'Offizielle Leistungsnachweise: M.Sc. Wirtschaftsinformatik 1,6, SSB Zwischenzeugnis (Fillinger/Nowak), Datacenter One, TOGAF.', impact: 'Lückenlose Verifikation aller deiner Erfolge und Top-Referenzen.' }
+          { name: 'Zeugnisse_Murseli_Visar.pdf', cat: 'PMO & Steuerung', path: 'Studium_Dokumente', desc: 'Offizielle Leistungsnachweise: M.Sc. Wirtschaftsinformatik 1,6, SSB Zwischenzeugnis (Fillinger/Nowak), Datacenter One, TOGAF.', impact: 'Lückenlose Verifikation aller deiner Erfolge und Top-Referenzen.' },
+
+          // --- DATACENTER ONE (DC1) | ITIL 4 SERVICE OPERATIONS & INFRASTRUCTURE ---
+          { name: 'HLM_v2.pdf', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/02_Projekte_und_Architektur/01_Hardware_Lifecycle_Management', desc: 'BPMN-Modellierung des Hardware-Lifecycle-Management-Prozesses bei Datacenter One (Beschaffung, Bereitstellung, Betrieb, Decommissioning).', impact: 'Beweist strukturierte Prozessmodellierung und IT-Asset-Management in hochverfügbaren Umgebungen.' },
+          { name: 'Hardware_Lifecycle_Management.vsdx', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/02_Projekte_und_Architektur/01_Hardware_Lifecycle_Management', desc: 'Microsoft Visio Quelldatei des HLM-Prozessdesigns und der Schnittstellen zu Lieferanten und Leitstand.', impact: 'Zeigt Beherrschung von MS Visio und Enterprise Process Modeling.' },
+          { name: 'Dell PoC und Fahrplan.xlsx', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/02_Projekte_und_Architektur/01_Hardware_Lifecycle_Management', desc: 'Proof of Concept und detaillierte Rollout- und Austauschplanung für Client-Hardware im laufenden Betrieb.', impact: 'Demonstriert analytische Projektplanung und Vendor-Evaluation.' },
+          { name: 'Bericht_Notebookaustausch.pdf', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/02_Projekte_und_Architektur/01_Hardware_Lifecycle_Management', desc: 'Abschluss- und Erfahrungsbericht des Hardware-Rollouts im Rechenzentrumsumfeld.', impact: 'Belegt praktische Umsetzungserfahrung und Stakeholder-Kommunikation.' },
+          { name: 'CM_ins_INOC_Projekt_VIM.docx', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/02_Projekte_und_Architektur/02_Carriermanagement_INOC', desc: 'Projektkonzeption zur Übernahme von Carrier-Management- und Netzanbindungsprozessen in den INOC-Leitstand.', impact: 'Zeigt Service-Transition und Prozessoptimierung nach ITIL 4.' },
+          { name: 'Togaf_DC1.pptx', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/02_Projekte_und_Architektur/03_Enterprise_Architecture_TOGAF', desc: 'Architektur-Präsentation von Visar Murseli: Adaption von TOGAF 9 ADM im Rechenzentrumsbetrieb.', impact: 'Verbindet Visars TOGAF-Zertifizierung mit realer Unternehmenspraxis.' },
+          { name: 'Review_Hausmeisterseite.docx', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/01_ITIL4_Service_Operations_INOC/02_Monitoring_und_SOPs', desc: 'SOP-Review und Audit der Betriebsleitfäden für PRTG-Monitoring, Leitungsausfälle und Paketverluste.', impact: 'Belegt 24/7 Monitoring-Kompetenz und strikte Prozessdisziplin.' }
         ];
 
         const filteredQA = computed(() => {
@@ -319,6 +553,42 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
           return list;
         });
 
+
+        const filteredWbsProjects = computed(() => {
+          if (wbsFilter.value === 'all') return wbsProjects.value;
+          return wbsProjects.value.filter(p => p.id.toLowerCase() === wbsFilter.value.toLowerCase() || p.phase.toLowerCase() === wbsFilter.value.toLowerCase());
+        });
+
+        const commandFilteredResults = computed(() => {
+          if (!commandSearch.value) return searchCatalog.slice(0, 8);
+          const q = commandSearch.value.toLowerCase();
+          return searchCatalog.filter(item => 
+            item.title.toLowerCase().includes(q) || 
+            item.desc.toLowerCase().includes(q) || 
+            item.cat.toLowerCase().includes(q)
+          );
+        });
+
+        const openCommandPalette = () => {
+          isCommandPaletteOpen.value = true;
+          commandSearch.value = '';
+          setTimeout(() => {
+            const el = document.getElementById('command-palette-input');
+            if (el) el.focus();
+          }, 50);
+        };
+
+        const closeCommandPalette = () => {
+          isCommandPaletteOpen.value = false;
+          commandSearch.value = '';
+        };
+
+        const selectCommandResult = (item) => {
+          activeTab.value = item.tab;
+          closeCommandPalette();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
         const toggleDarkMode = () => {
           isDark.value = !isDark.value;
           if (isDark.value) {
@@ -338,15 +608,13 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
           localStorage.setItem('vm_second_brain_notes', personalNotes.value);
         };
 
-        const exportNotes = () => {
-          const blob = new Blob([personalNotes.value], { type: 'text/markdown;charset=utf-8' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'Visar_Murseli_Second_Brain_Notes.md';
-          a.click();
-          URL.revokeObjectURL(url);
+        const copyNotesToClipboard = () => {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(personalNotes.value);
+          }
+          alert('Notizen erfolgreich in die Zwischenablage kopiert! 📋');
         };
+        const exportNotes = copyNotesToClipboard;
 
         const clearNotes = () => {
           if (confirm('Möchtest du deine Notizen wirklich leeren?')) {
@@ -372,6 +640,19 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
         };
 
         onMounted(() => {
+          window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+              e.preventDefault();
+              if (isCommandPaletteOpen.value) {
+                closeCommandPalette();
+              } else {
+                openCommandPalette();
+              }
+            } else if (e.key === 'Escape' && isCommandPaletteOpen.value) {
+              closeCommandPalette();
+            }
+          });
+
           const saved = localStorage.getItem('vm_second_brain_notes');
           if (saved) {
             personalNotes.value = saved;
@@ -382,6 +663,9 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
 
         return {
           activeTab,
+          isMobileMenuOpen,
+          currentTabName,
+          currentHubName,
           degreeTab,
           searchQuery,
           isDark,
@@ -402,9 +686,20 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
           toggleDarkMode,
           copyText,
           saveNotes,
+          copyNotesToClipboard,
           exportNotes,
           clearNotes,
-          insertTemplate
+          insertTemplate,
+          isCommandPaletteOpen,
+          commandSearch,
+          wbsFilter,
+          wbsProjects,
+          filteredWbsProjects,
+          searchCatalog,
+          commandFilteredResults,
+          openCommandPalette,
+          closeCommandPalette,
+          selectCommandResult
         };
       }
     }).mount('#app');

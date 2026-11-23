@@ -4,60 +4,85 @@ def get_files_tab():
     return """
       <!-- ================= TAB 12: SSB DOKUMENTEN-EXPLORER ================= -->
       <div v-show="activeTab === 'files'" class="space-y-6">
-        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
-              <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center space-x-2">
-                <span>📂</span>
-                <span>Kuratierter SSB Dokumenten-Explorer (50+ Dateien analysiert)</span>
-              </h3>
-              <p class="text-xs text-slate-500">Alle relevanten Konzeptpapiere, Migrations-Sheets und PMO-Artefakte mit Interview-Impact</p>
+              <div class="flex items-center space-x-2">
+                <span class="text-xl">📂</span>
+                <h3 class="text-base font-bold text-white">
+                  Kuratierter Dokumenten-Explorer & Artefakt-Register
+                </h3>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">1.890 Dateien indexiert</span>
+              </div>
+              <p class="text-xs text-[#8f8888] mt-0.5">Dein persönlicher, lokaler Navigator durch alle Konzepte, Migrations-Sheets, Steuerungsunterlagen und Vergabe-Akten.</p>
             </div>
 
+            <!-- Privacy Notice Badge -->
+            <div class="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center space-x-2 text-[11px] text-amber-300">
+              <span>🔒</span>
+              <span><strong>100% Lokal & Vertraulich:</strong> Verbleibt offline auf deiner Festplatte (kein GitHub-Upload).</span>
+            </div>
+          </div>
+
+          <!-- Filter & Search Controls -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2">
             <!-- Categories -->
-            <div class="flex flex-wrap gap-1">
+            <div class="flex flex-wrap gap-1.5 overflow-x-auto custom-scrollbar">
               <button 
                 v-for="cat in fileCategories" 
                 :key="cat"
                 @click="selectedFileCat = cat"
                 :class="[
-                  'px-2.5 py-1 rounded-md text-xs font-medium transition',
+                  'px-2.5 py-1 rounded-lg text-xs font-semibold transition',
                   selectedFileCat === cat 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
+                    ? 'bg-[#bf262e] text-white shadow-sm' 
+                    : 'bg-white/5 text-[#c4bebe] hover:bg-white/10 border border-white/10'
                 ]"
               >
                 {{ cat }}
               </button>
             </div>
+
+            <!-- Count badge -->
+            <div class="text-xs text-[#8f8888] whitespace-nowrap">
+              Zeige <strong class="text-white">{{ filteredFiles.length }}</strong> kuratierte Schlüssel-Dateien
+            </div>
           </div>
 
           <!-- Files Table -->
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
-              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold">
+            <table class="w-full text-left text-xs border border-white/10 rounded-xl overflow-hidden">
+              <thead class="bg-white/5 text-white font-bold">
                 <tr>
-                  <th class="p-3 border-b dark:border-slate-700">Dateiname</th>
-                  <th class="p-3 border-b dark:border-slate-700">Kategorie</th>
-                  <th class="p-3 border-b dark:border-slate-700">Inhalt & Relevanz</th>
-                  <th class="p-3 border-b dark:border-slate-700">Dein Interview-Impact</th>
+                  <th class="p-3 border-b border-white/10">Dateiname & Schnellzugriff</th>
+                  <th class="p-3 border-b border-white/10">Kategorie</th>
+                  <th class="p-3 border-b border-white/10">Inhalt & Strategische Relevanz</th>
+                  <th class="p-3 border-b border-white/10">Dein Interview- & Praxis-Impact</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-slate-600 dark:text-slate-300">
-                <tr v-for="(file, idx) in filteredFiles" :key="idx" class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                  <td class="p-3 font-semibold text-slate-900 dark:text-white">
-                    <div class="flex items-center space-x-2">
-                      <span>📄</span>
-                      <a v-if="file.path && file.path.startsWith('Studium_Dokumente')" :href="file.path + '/' + file.name" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline font-bold inline-flex items-center space-x-1.5">
-                        <span>{{ file.name }}</span>
-                        <span class="text-[10px] bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 px-1.5 py-0.5 rounded font-mono">Öffnen ↗</span>
-                      </a>
-                      <span v-else>{{ file.name }}</span>
+              <tbody class="divide-y divide-white/10 text-[#c4bebe]">
+                <tr v-for="(file, idx) in filteredFiles" :key="idx" class="hover:bg-white/5 transition">
+                  <td class="p-3 font-semibold text-white">
+                    <div class="space-y-1">
+                      <div class="flex items-center space-x-2">
+                        <span>📄</span>
+                        <span class="text-white font-bold">{{ file.name }}</span>
+                        <span class="text-[9px] bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-mono">🔒 Vertraulich verifiziert</span>
+                      </div>
+
+                      <!-- Confidentiality & Reference Note -->
+                      <div class="flex items-center space-x-2 pt-0.5 text-[10px] text-[#8f8888]">
+                        <span class="font-mono">Status: Internes Archiv</span>
+                        <span>•</span>
+                        <span>Einsichtnahme im Vorstellungsgespräch</span>
+                      </div>
                     </div>
                   </td>
-                  <td class="p-3"><span class="tag-badge bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{{ file.cat }}</span></td>
+                  <td class="p-3">
+                    <span class="tag-badge bg-white/5 text-[#c4bebe] border border-white/10 whitespace-nowrap">{{ file.cat }}</span>
+                  </td>
                   <td class="p-3 leading-relaxed">{{ file.desc }}</td>
-                  <td class="p-3 text-slate-700 dark:text-slate-200 font-medium leading-relaxed">{{ file.impact }}</td>
+                  <td class="p-3 text-white font-medium leading-relaxed">{{ file.impact }}</td>
                 </tr>
               </tbody>
             </table>
