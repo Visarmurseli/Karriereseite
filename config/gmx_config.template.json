@@ -1,6 +1,6 @@
 {
   "email_address": "Visar.murseli@gmx.de",
-  "password": "85st8Q6UY@eRcPK",
+  "password": "",
   "imap_server": "imap.gmx.net",
   "imap_port": 993,
   "use_ssl": true,
@@ -19,5 +19,27 @@
     "Position",
     "Trainee",
     "Consultant"
+  ],
+  "accounts": [
+    {
+      "name": "Konto 1 (visar.murseli@gmx.de)",
+      "email_address": "visar.murseli@gmx.de",
+      "password": "",
+      "imap_server": "imap.gmx.net",
+      "imap_port": 993,
+      "folders": [
+        "INBOX"
+      ]
+    },
+    {
+      "name": "Konto 2 (visarmurseli@gmx.de)",
+      "email_address": "visarmurseli@gmx.de",
+      "password": "",
+      "imap_server": "imap.gmx.net",
+      "imap_port": 993,
+      "folders": [
+        "INBOX"
+      ]
+    }
   ]
 }
