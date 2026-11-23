@@ -61,5 +61,9 @@ def main():
     print(f"     Path: {index_path}")
     print(f"     Size: {size_kb:.2f} KB ({len(full_html)} chars)")
 
+    # Automated Spec-Kit Quality Gate Verification
+    from scripts.test_portal import run_all_tests
+    run_all_tests()
+
 if __name__ == "__main__":
     main()

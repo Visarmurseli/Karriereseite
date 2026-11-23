@@ -92,3 +92,23 @@ Das Webportal ist strikt modular, objektorientiert und wartungsfreundlich aufgeb
    - Keine einseitigen Schlagworte; der wissenschaftliche rote Faden (Plattformisierung, ERP-Transformation, EAM) steht im Mittelpunkt.
 3. **Modulares Patchen:** Änderungen erfolgen **nur** in den betroffenen Modulen in `portal_builder/`.
 4. **Automatischer Rebuild:** Nach jeder Code-Änderung führt der Agent sofort `python build_ultimate_portal.py` aus und prüft den erfolgreichen Build.
+
+---
+
+## 5. Zielstruktur des Workspace (Wissensdatenbank)
+
+Der Workspace ist in 5 disjunkte, nummerierte Kernpfeiler an der Spitze gegliedert, gefolgt von den operativen Systemordnern:
+
+1. `00_Aktuelle_Bewerbungsunterlagen/` -> Verbindliche Master-Bewerbungsunterlagen (Lebenslauf_Murseli_Vsar.pdf/.docx, Zeugnisse_Murseli_Visar.pdf, Zeugnisse_Murseli_kurz.pdf, Masterarbeit_Visar_Murseli.pdf, Bewerbungsverlauf.xlsx).
+2. `01_SSB/` -> Sämtliche Unterlagen des 24-monatigen Großprojekts SAP4SSB (Governance, TP1–TP5, Fachstreams, Tools, HR/Werkstudent, OneNote-Archiv) sowie `00_Knowledge_Mining_NotebookLM/` (aggregierte Volltext-Datenbank, Migrations-Manifest, 12 Strategische Domänen für NotebookLM).
+3. `02_Master/` -> 16 offizielle Curriculum-Module (120 ECTS, M.Sc. Wirtschaftsinformatik, Uni Stuttgart, Gesamtnote 1,6) inklusive Masterarbeit (Note 1,0) sowie 6 Zusatzmodule (`xZusatz_`).
+4. `03_Bachelor/` -> 27 Curriculum-Module (180 ECTS, B.Sc. Wirtschaftsinformatik, Uni Stuttgart) inklusive Bachelorarbeit (Note 1,7) sowie Studienorganisation (`xZusatz_`).
+5. `04_DC1/` -> Unterlagen und Wissensdokumente zur 12-monatigen Station bei der Datacenter One GmbH (INOC / ITIL 4 Service Operations, Carrier- & Hardware-Lifecycle-Management, HR, Lohnabrechnungen).
+
+### Ergänzende System- & App-Ordner:
+- `inbox/` -> Drop-Zone für neue eingehende Dokumente zur automatischen Kuratierung.
+- `portal_builder/` -> Python-basierte Generatoren und Module des interaktiven S/4HANA Career & Intelligence Portals.
+- `s4hana-prep-portal/` -> Kompiliertes Webportal (`index.html`), Icons und Server (`run_portal.py` auf Port 8085).
+- `scripts/` -> Zentrale Tool-Sammlung (`curator_tool.py`, Spec-Kit Quality Gates, Hilfsskripte).
+
+
