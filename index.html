@@ -88,6 +88,17 @@
 
         <!-- Global Search & Actions -->
         <div class="flex items-center space-x-3">
+          <!-- Command Palette Trigger Button -->
+          <button 
+            @click="openCommandPalette" 
+            class="flex items-center space-x-2 px-3 py-1.5 text-xs bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 transition shadow-sm"
+            title="Command Palette öffnen (Ctrl + K)"
+          >
+            <span>⚡</span>
+            <span class="hidden sm:inline font-semibold">Command Palette</span>
+            <kbd class="px-1.5 py-0.5 text-[10px] bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded font-mono text-slate-500 dark:text-slate-400">Ctrl K</kbd>
+          </button>
+
           <div class="relative w-full md:w-80">
             <input 
               v-model="searchQuery" 
@@ -133,6 +144,72 @@
         </button>
       </div>
     </header>
+
+    <!-- Command Palette Modal (Ctrl + K) -->
+    <div 
+      v-if="isCommandPaletteOpen" 
+      @click.self="closeCommandPalette"
+      class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-start justify-center pt-16 sm:pt-24 px-4 overflow-y-auto"
+    >
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
+        <!-- Search Header -->
+        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center space-x-3">
+          <span class="text-lg">🔍</span>
+          <input 
+            id="command-palette-input"
+            v-model="commandSearch" 
+            type="text" 
+            placeholder="Wonach suchst du? (z.B. Trennungsrechnung, Clean Core, WBS, 12 Interviews, Gehalt)..."
+            class="flex-1 bg-transparent text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none"
+          >
+          <button @click="closeCommandPalette" class="px-2 py-1 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 bg-slate-100 dark:bg-slate-800 rounded-lg font-mono">ESC</button>
+        </div>
+
+        <!-- Quick Filters -->
+        <div class="px-4 py-2 bg-slate-50 dark:bg-slate-950/50 border-b border-slate-200 dark:border-slate-800 flex items-center space-x-2 text-[11px] overflow-x-auto custom-scrollbar">
+          <span class="text-slate-400">Direktfilter:</span>
+          <button @click="commandSearch = 'Kaufmännisch'" class="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 font-medium">FI/CO</button>
+          <button @click="commandSearch = 'Clean Core'" class="px-2 py-0.5 rounded bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 font-medium">BTP & Architektur</button>
+          <button @click="commandSearch = 'WBS'" class="px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-300 font-medium">TP1-5 & PMO</button>
+          <button @click="commandSearch = 'Masterarbeit'" class="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 font-medium">Forschung 1,0</button>
+          <button @click="commandSearch = 'Gehalt'" class="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 font-medium">Karriere</button>
+        </div>
+
+        <!-- Results List -->
+        <div class="p-2 overflow-y-auto space-y-1 custom-scrollbar max-h-96">
+          <div 
+            v-for="(item, idx) in commandFilteredResults" 
+            :key="idx"
+            @click="selectCommandResult(item)"
+            class="p-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800/80 cursor-pointer transition flex items-start justify-between space-x-3 group"
+          >
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">{{ item.title }}</span>
+                <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">{{ item.cat }}</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-snug">{{ item.desc }}</p>
+            </div>
+            <div class="text-xs text-slate-400 group-hover:text-blue-500 flex items-center space-x-1 font-medium whitespace-nowrap pt-1">
+              <span>Öffnen</span>
+              <span>➔</span>
+            </div>
+          </div>
+          <div v-if="commandFilteredResults.length === 0" class="p-8 text-center text-xs text-slate-500">
+            Keine Einträge für "{{ commandSearch }}" gefunden. Versuche Begriffe wie "Clean Core", "ACDOCA", "Trennungsrechnung" oder "WBS".
+          </div>
+        </div>
+
+        <!-- Keyboard Hint Footer -->
+        <div class="p-2.5 bg-slate-50 dark:bg-slate-950/60 border-t border-slate-200 dark:border-slate-800 text-[11px] text-slate-500 flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <span>Navigation: <kbd class="px-1 py-0.5 bg-white dark:bg-slate-800 border rounded font-mono text-[10px]">Klick</kbd> zum Öffnen</span>
+            <span>Schließen: <kbd class="px-1 py-0.5 bg-white dark:bg-slate-800 border rounded font-mono text-[10px]">ESC</kbd></span>
+          </div>
+          <span class="text-blue-600 dark:text-blue-400 font-medium">40+ Wissens-Nodes indexiert</span>
+        </div>
+      </div>
+    </div>
 
     <!-- Main Content Area -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-6">
@@ -224,6 +301,52 @@
             <div class="text-xs text-slate-500 font-medium">Empirische Expertenbasis</div>
             <div class="text-xl font-bold text-slate-900 dark:text-white mt-1">12 Interviews</div>
             <div class="text-xs text-amber-600 mt-1 font-medium">Nowak, Nagarro Architekten, TPLs</div>
+          </div>
+        </div>
+
+        <!-- Knowledge Graph & Ecosystem Telemetry Bar -->
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-5 rounded-2xl border border-indigo-900/40 text-white shadow-lg space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div class="flex items-center space-x-2">
+              <span class="text-lg">🧠</span>
+              <div>
+                <h4 class="text-sm font-bold tracking-tight text-white flex items-center gap-2">
+                  <span>Neuronales Second Brain & Enterprise Wissensgraph</span>
+                  <span class="px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 text-[10px] font-mono">Obsidian & Notion Bridge</span>
+                </h4>
+                <p class="text-[11px] text-slate-300">Vollständig vernetztes Wissenssystem: Von empirischen Interviewtranskripten bis zu SDD-Architekturmodellen.</p>
+              </div>
+            </div>
+            <button @click="openCommandPalette" class="self-start sm:self-auto px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center space-x-1.5 transition shadow">
+              <span>⚡ Schnellsuche starten</span>
+              <kbd class="px-1 py-0.5 bg-indigo-800 rounded text-[9px] font-mono">Ctrl K</kbd>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+            <div @click="activeTab = 'notebook'" class="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/10 cursor-pointer">
+              <div class="text-[11px] text-indigo-300 font-medium">Obsidian Deep-Dive Dossiers</div>
+              <div class="text-xl font-extrabold text-white mt-0.5">53 Dossiers</div>
+              <div class="text-[10px] text-emerald-400 mt-0.5">266 bidirektionale Links (0 Broken)</div>
+            </div>
+
+            <div @click="activeTab = 'files'" class="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/10 cursor-pointer">
+              <div class="text-[11px] text-indigo-300 font-medium">Notion Transformation Hub</div>
+              <div class="text-xl font-extrabold text-white mt-0.5">21 Deliverables</div>
+              <div class="text-[10px] text-blue-400 mt-0.5">SSB Großprojekt-Wissensdatenbank</div>
+            </div>
+
+            <div @click="activeTab = 'project'" class="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/10 cursor-pointer">
+              <div class="text-[11px] text-indigo-300 font-medium">Authentische WBS-Steuerung</div>
+              <div class="text-xl font-extrabold text-white mt-0.5">TP1 – TP5</div>
+              <div class="text-[10px] text-amber-400 mt-0.5">Vorgang 1–297 (Explore ➔ Go-Live)</div>
+            </div>
+
+            <div @click="activeTab = 'thesis'" class="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition border border-white/10 cursor-pointer">
+              <div class="text-[11px] text-indigo-300 font-medium">Akademisches Fundament</div>
+              <div class="text-xl font-extrabold text-white mt-0.5">300 ECTS</div>
+              <div class="text-[10px] text-purple-400 mt-0.5">M.Sc. (1,6) + B.Sc. (3,0) Uni Stuttgart</div>
+            </div>
           </div>
         </div>
 
@@ -566,6 +689,96 @@
                 <li><strong>On-Stack Extensibility:</strong> Kundeneigene Logik im Kern erfolgt ausschließlich über freigegebene Schnittstellen (ABAP Cloud, RESTful Application Programming / RAP).</li>
                 <li><strong>Side-by-Side auf der SAP BTP:</strong> Komplexe Individual-Applikationen und Schnittstellen-Orchestrierungen werden auf die SAP Business Technology Platform ausgelagert.</li>
               </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interaktiver WBS Timeline & Meilenstein-Radar -->
+        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span>🎯</span>
+                <span>Interaktiver WBS Meilenstein-Radar & Projektzeitstrahl (TP1–TP5)</span>
+              </h3>
+              <p class="text-xs text-slate-500">Aus dem Original-Projektplan (MS Project WBS 1–297): Phasenfortschritt, Fit-to-Standard Reifegrade und Mitbestimmung.</p>
+            </div>
+            
+            <!-- Filter Tabs -->
+            <div class="flex items-center space-x-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs overflow-x-auto custom-scrollbar">
+              <button 
+                @click="wbsFilter = 'all'" 
+                :class="['px-2.5 py-1 rounded-lg font-medium transition', wbsFilter === 'all' ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white']"
+              >Alle (TP1–5)</button>
+              <button 
+                @click="wbsFilter = 'explore'" 
+                :class="['px-2.5 py-1 rounded-lg font-medium transition', wbsFilter === 'explore' ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white']"
+              >Explore (60%)</button>
+              <button 
+                @click="wbsFilter = 'realize'" 
+                :class="['px-2.5 py-1 rounded-lg font-medium transition', wbsFilter === 'realize' ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white']"
+              >Realize & Staging</button>
+            </div>
+          </div>
+
+          <!-- Highlight Banner: Die Mitbestimmungs-Meilensteine (Betriebsrat PK) -->
+          <div class="p-4 rounded-xl bg-gradient-to-r from-rose-50 via-amber-50 to-emerald-50 dark:from-rose-950/30 dark:via-amber-950/30 dark:to-emerald-950/30 border border-amber-200 dark:border-amber-900/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+            <div class="flex items-start space-x-3">
+              <span class="text-2xl pt-0.5">🤝</span>
+              <div class="space-y-0.5">
+                <div class="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  <span>Meilenstein Mitbestimmung & Betriebsrat (Markus Schmidt & Joachim Kraus)</span>
+                  <span class="px-2 py-0.2 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-300 text-[10px] font-bold">WBS Vorgang 286–297</span>
+                </div>
+                <p class="text-[11px] text-slate-600 dark:text-slate-300">
+                  <strong>Pilot-BV (Vorgang 294):</strong> Inkrafttreten am <strong>01.04.2026</strong> für den UAT-Test mit Echtdaten auf System QS4.210. ➔ 
+                  <strong>Finale BV (Vorgang 297):</strong> Inkrafttreten am <strong>01.01.2027</strong> rechtzeitig zum produktiven Go-Live.
+                </p>
+              </div>
+            </div>
+            <div class="text-right whitespace-nowrap">
+              <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Explore Abschluss</span>
+              <div class="text-xs font-extrabold text-blue-600 dark:text-blue-400">29. August 2025 (Vorgang 110)</div>
+            </div>
+          </div>
+
+          <!-- WBS Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
+            <div 
+              v-for="p in filteredWbsProjects" 
+              :key="p.id"
+              class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 space-y-2.5 hover:shadow-md transition"
+            >
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <span class="font-extrabold text-xs text-blue-600 dark:text-blue-400">{{ p.id }}</span>
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">{{ p.wbs }}</span>
+                </div>
+                <span :class="['text-[10px] font-bold px-2 py-0.5 rounded-full', p.tagColor]">{{ p.tag }}</span>
+              </div>
+
+              <div>
+                <h4 class="text-xs font-bold text-slate-900 dark:text-white">{{ p.title }}</h4>
+                <div class="text-[11px] text-slate-500 mt-0.5">Leitung: {{ p.lead }}</div>
+              </div>
+
+              <!-- Progress bar -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-[10px] font-medium text-slate-500">
+                  <span>Reifegrad / Fortschritt</span>
+                  <span class="font-bold text-slate-700 dark:text-slate-300">{{ p.progress }}%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-blue-600 h-1.5 rounded-full transition-all duration-500" :style="{ width: p.progress + '%' }"></div>
+                </div>
+              </div>
+
+              <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">{{ p.details }}</p>
+
+              <div class="p-2 rounded-lg bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-[10px] flex items-center space-x-1.5">
+                <span class="text-amber-500 font-bold">🏁 Meilenstein:</span>
+                <span class="font-medium text-slate-700 dark:text-slate-300">{{ p.milestone }}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -2716,6 +2929,9 @@
         const degreeTab = ref('all');
         const searchQuery = ref('');
         const isDark = ref(false);
+        const isCommandPaletteOpen = ref(false);
+        const commandSearch = ref('');
+        const wbsFilter = ref('all');
         const pitchMode = ref('short');
         const selectedQACat = ref('Alle');
         const selectedFileCat = ref('Alle');
@@ -2893,6 +3109,119 @@ Ich bringe die seltene Kombination aus strategischem Weitblick, wissenschaftlich
           }
         ]);
 
+
+        const wbsProjects = ref([
+          {
+            id: 'TP1',
+            wbs: 'WBS 16–63',
+            phase: 'Explore',
+            title: 'TP1: Change Management, People & Enablement',
+            lead: 'Sarah Lozano / Göhring / Cichon (UB AC)',
+            progress: 75,
+            tag: 'People & Change',
+            tagColor: 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300',
+            details: 'Multiplikatoren-Schulungskonzept, Rollout SAP Enable Now (März 2026), Coffee Corners in allen Unternehmensbereichen (UB Z, K, T, W), Berg & Tal Mitarbeiterevents.',
+            milestone: 'Schulungskonzept & Enable Now live (März 2026)'
+          },
+          {
+            id: 'TP2',
+            wbs: 'WBS 64–112',
+            phase: 'Explore',
+            title: 'TP2: Kaufmännische Prozesse & Solution Design',
+            lead: 'Sebastian Neifer / Tim Lopez / Tim Waldberg (Nagarro ES)',
+            progress: 80,
+            tag: 'Fit-to-Standard',
+            tagColor: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300',
+            details: 'Fit-to-Standard Reifegrade: CO 90%, MM 91%, RE-FX 86%, FI 76%, SD 76%, EHS 71%, Cross Topics 58%. BPMN 2.0 Modellierung in Signavio & CALM-Sync auf ES4.400.',
+            milestone: 'Explore-Phase formal abgeschlossen (29.08.2025, Vorgang 110)'
+          },
+          {
+            id: 'TP3',
+            wbs: 'WBS 173–196',
+            phase: 'Explore',
+            title: 'TP3: Technische Prozesse & Asset Management',
+            lead: 'UB W, UB K, UB T / Partner Evora & Nagarro',
+            progress: 100,
+            tag: 'Instandhaltung',
+            tagColor: 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300',
+            details: '100% Freigabe der Kernprozesse für Stadtbahn (SSAM Mobile Instandhaltung auf Tablets), Kraftverkehr (Busse) und Fahrleitung/Gleise. Gebäudewirtschaft (VH) erst nach Go-Live 01.01.2027.',
+            milestone: 'Kernprozesse UB W, K, T 100% freigegeben (30.09.2025)'
+          },
+          {
+            id: 'TP4',
+            wbs: 'WBS 197–202',
+            phase: 'Realize',
+            title: 'TP4: IT-Unterstützung, RISE & Systemlandschaft',
+            lead: 'Dietmar Fillinger / Axians & Nagarro Basis-Architekten',
+            progress: 70,
+            tag: 'Cloud & BTP',
+            tagColor: 'bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300',
+            details: '4-System-Landschaft (ES4.400 Sandbox, QS4.100 Int-Test 1, QS4.210 Int-Test 2/UAT, PS4 Produktiv), SAP Cloud Connector, BTP Integration Suite und SSO via Azure AD.',
+            milestone: 'Staging ES4 -> QS4 -> PS4 bereitgestellt (01.04.2026)'
+          },
+          {
+            id: 'TP5',
+            wbs: 'WBS 203–297',
+            phase: 'Explore',
+            title: 'TP5: Gesamtsteuerung, PMO & Betriebsvereinbarungen',
+            lead: 'Roland Nowak / Dietmar Fillinger / Betriebsrat (Schmidt, Kraus)',
+            progress: 85,
+            tag: 'PMO & Governance',
+            tagColor: 'bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-300',
+            details: 'Gesamtprojektsteuerung in MS Project, C-Level Reporting Steering Board, Meilenstein-Controlling und die beiden historischen Mitbestimmungs-Meilensteine mit dem Betriebsrat.',
+            milestone: 'Pilot-BV in Kraft (01.04.2026) | Finale BV in Kraft (01.01.2027)'
+          }
+        ]);
+
+        const searchCatalog = [
+          // Kaufmännisch & Solution Design
+          { title: 'Trennungsrechnung EU 1370/2007', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Verkehrsvertragliche Trennung eigenwirtschaftlicher vs. gemeinwirtschaftlicher Verkehre (§ 45a PBefG).' },
+          { title: 'Grants Management (GM) & Fördermittel', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Fonds, Förderungsarten (LGVFG/GVFG) und Derivationsregeln für Investitionszuschüsse im ÖPNV.' },
+          { title: 'Universal Journal (ACDOCA)', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Single Source of Truth im Hauptbuch, Ledger 0L (HGB) und 2L (Steuerrecht), Echtzeit-Kostenarten.' },
+          { title: 'Kostenrechnung: PSP-Element vs. Innenauftrag', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Hierarchische Mehrjahres-Großprojekte via PSP versus operative Instandhaltungs-Innenaufträge.' },
+          { title: 'Anlagenbuchhaltung (FI-AA) & Eröffnungsbilanz', cat: 'Kaufmännisch & FI/CO', tab: 'migration', desc: 'SuSa-Bilanzabgleich: 0,00 € Saldo auf dem Datenübernahmekonto nach Altdatenmigration.' },
+          { title: 'Customer Vendor Integration (CVI)', cat: 'Kaufmännisch & FI/CO', tab: 'migration', desc: 'Zentraler SAP Business Partner (Geschäftspartner) für Debitoren, Kreditoren und Personal.' },
+          { title: 'Sustainability & CSRD (EHS)', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Gefahrstoffmanagement, Abfallbilanzierung und ESG-Kennzahlen im S/4HANA Standard.' },
+
+          // Technik & Architektur
+          { title: 'Clean Core Paradigma', cat: 'Technik & Architektur', tab: 'project', desc: 'Modifikationsfreier ERP-Kern, Upgrade-Sicherheit, On-Stack RAP vs. Side-by-Side BTP.' },
+          { title: 'SAP BTP Integration Suite', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Event-driven Architecture, Cloud Integration, OData/REST APIs und Entkopplung von Subsystemen.' },
+          { title: 'Mobile Instandhaltung (SAP SSAM)', cat: 'Technik & Architektur', tab: 'project', desc: 'SAP Service and Asset Management auf robusten Tablets für Stadtbahnwerkstätten und Busdepots.' },
+          { title: 'SAP Migration Cockpit (LTMC)', cat: 'Technik & Architektur', tab: 'migration', desc: 'Staging-Tabellen-Architektur, Delta-Loads, Validierungsregeln und Cutover-Management.' },
+          { title: 'Non-SAP Schnittstellenmatrix', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Subsysteme PATRIS (Vertrieb), xSuite (Rechnungsworkflow), d.velop (DMS), Oracle DWH, EFD4.' },
+          { title: 'Core Data Services (CDS) & ABAP Cloud', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Virtuelle Datenmodelle (VDM), analytische Views und RESTful Application Programming (RAP).' },
+          { title: 'TOGAF 9 ADM Enterprise Architecture', cat: 'Technik & Architektur', tab: 'enterprise_arch', desc: 'Architecture Development Method, Baseline vs. Target Architecture und Architecture Governance.' },
+          { title: 'ITIL 4 Service Operations (Datacenter One)', cat: 'Technik & Architektur', tab: 'enterprise_arch', desc: 'Incident-, Problem- und Change-Management, SLA-Steuerung und 24/7 Rechenzentrums-Monitoring.' },
+
+          // Großprojekt & PMO
+          { title: 'Gesamtprojektplan SAP4SSB (MS Project)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 1–297: Discover bis Run, Phasenplanung, Critical Path und Meilenstein-Tracking.' },
+          { title: 'TP1 Change Management & Enable Now', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 16–63: Change Champions, Coffee Corners in allen 4 Unternehmensbereichen (UB Z/K/T/W).' },
+          { title: 'TP2 Kaufmännische Prozesse WBS Plan', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 64–112: Fit2Standard Reifegrade (CO 90%, MM 91%, RE-FX 86%, FI 76%), Abschluss 29.08.2025.' },
+          { title: 'TP3 Technische Prozesse & Instandhaltung', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 173–196: 100% Freigabe für Stadtbahn, Busse und Netz; Gebäudewirtschaft erst Post-Go-Live.' },
+          { title: 'TP4 IT-Unterstützung & 4-System-Landschaft', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 197–202: ES4.400 Sandbox, QS4.100 Integrationstest 1, QS4.210 UAT, PS4 Produktivsystem.' },
+          { title: 'TP5 Gesamtsteuerung & PMO', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 203–297: Lenkungsausschuss-Reporting, Budgetcontrolling und Meilenstein-Freigaben.' },
+          { title: 'Pilot-Betriebsvereinbarung (01.04.2026)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Vorgang 294: Meilenstein Pilot-BV für Test mit Echtdaten (UAT auf QS4.210) mit Betriebsrat Schmidt & Kraus.' },
+          { title: 'Finale Betriebsvereinbarung (01.01.2027)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Vorgang 297: Finale BV inkraftgetreten exakt zum produktiven Go-Live Neujahr 2027.' },
+          { title: 'Tool-Governance: CALM vs. Signavio', cat: 'Großprojekt & PMO', tab: 'tools', desc: 'BPMN 2.0 Prozessmodellierung in Signavio synchronisiert mit Testskripten in SAP Cloud ALM.' },
+
+          // Masterarbeit & Wissenschaft
+          { title: 'Masterarbeit Note 1,0 (Prof. Herzwurm)', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: '126 Seiten: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme (S/4HANA Plattformisierung).' },
+          { title: '12 empirische Experteninterviews', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Interviews im Großprojekt SAP4SSB mit Gesamt-PL Roland Nowak, TPLs und Lead-Architekten.' },
+          { title: 'Qualitative Inhaltsanalyse nach Mayring', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Deduktiv-induktives Kategoriensystem und wissenschaftliches Codebuch zur Auswertung.' },
+          { title: 'Boundary Resources & Bimodale IT', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Theoretische Fundierung nach Ghazawneh & Henfridsson: ABR, DBR, SBR und lose Kopplung.' },
+          { title: 'Absorptive Capacity & Change Management', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Wissensaufnahme- und Transformationsfähigkeit (Cohen & Levinthal) in traditionsreichen Konzernen.' },
+          { title: 'Masterabschluss M.Sc. 1,6 (120 ECTS)', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Amtliches Zeugnis Universität Stuttgart: Bestnote 1,0 in Masterarbeit und Digitaler Nachhaltigkeit.' },
+
+          // Interview & Karriere
+          { title: '60-Sekunden-Elevator-Pitch', cat: 'Interview & Karriere', tab: 'interview', desc: 'Prägnanter Einstiegspitch für Vorstellungsgespräche: 24 Mo. SSB + 1,0 Masterarbeit Clean Core.' },
+          { title: 'Deep-Dive-Story (3 Minuten)', cat: 'Interview & Karriere', tab: 'interview', desc: 'Ausführliche Karrierestory von Datacenter One über Uni Stuttgart bis zum Großprojekt SAP4SSB.' },
+          { title: 'CV De-Risking & Gefahrenabwehr', cat: 'Interview & Karriere', tab: 'cv_defense', desc: 'Souveräne Pivot-Brücken bei Fangfragen zu Java, SPRO-Customizing, RPA oder Berufserfahrung.' },
+          { title: 'STAR-Stories (Methodische Antworten)', cat: 'Interview & Karriere', tab: 'interview', desc: 'Situation, Task, Action, Result für Konflikte, Scope Creep, Tool-Einführung und Migration.' },
+          { title: '90-Tage Onboarding-Roadmap', cat: 'Interview & Karriere', tab: 'career', desc: 'Strukturierter Fahrplan für die ersten 3 Monate als Consultant oder Enterprise Architekt.' },
+          { title: 'Gehaltskalkulation (65.000 € – 75.000 €)', cat: 'Interview & Karriere', tab: 'career', desc: 'Fundierte Marktwertbegründung, IGM/TVöD Vergleiche und Verhandlungsleitfaden.' },
+          { title: 'Persönliches Second Brain & Notizen', cat: 'Interview & Karriere', tab: 'notebook', desc: 'Interaktives Notizbuch mit Autosave im Browser, Vorlagen für Interviews und Gehalt.' }
+        ];
+
         const allQA = [
           {
             q: 'Was genau war Ihre Rolle bei der SSB AG und was haben Sie konkret gemacht?',
@@ -3030,6 +3359,42 @@ Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum get
           return list;
         });
 
+
+        const filteredWbsProjects = computed(() => {
+          if (wbsFilter.value === 'all') return wbsProjects.value;
+          return wbsProjects.value.filter(p => p.id.toLowerCase() === wbsFilter.value.toLowerCase() || p.phase.toLowerCase() === wbsFilter.value.toLowerCase());
+        });
+
+        const commandFilteredResults = computed(() => {
+          if (!commandSearch.value) return searchCatalog.slice(0, 8);
+          const q = commandSearch.value.toLowerCase();
+          return searchCatalog.filter(item => 
+            item.title.toLowerCase().includes(q) || 
+            item.desc.toLowerCase().includes(q) || 
+            item.cat.toLowerCase().includes(q)
+          );
+        });
+
+        const openCommandPalette = () => {
+          isCommandPaletteOpen.value = true;
+          commandSearch.value = '';
+          setTimeout(() => {
+            const el = document.getElementById('command-palette-input');
+            if (el) el.focus();
+          }, 50);
+        };
+
+        const closeCommandPalette = () => {
+          isCommandPaletteOpen.value = false;
+          commandSearch.value = '';
+        };
+
+        const selectCommandResult = (item) => {
+          activeTab.value = item.tab;
+          closeCommandPalette();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
         const toggleDarkMode = () => {
           isDark.value = !isDark.value;
           if (isDark.value) {
@@ -3083,6 +3448,19 @@ Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum get
         };
 
         onMounted(() => {
+          window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+              e.preventDefault();
+              if (isCommandPaletteOpen.value) {
+                closeCommandPalette();
+              } else {
+                openCommandPalette();
+              }
+            } else if (e.key === 'Escape' && isCommandPaletteOpen.value) {
+              closeCommandPalette();
+            }
+          });
+
           const saved = localStorage.getItem('vm_second_brain_notes');
           if (saved) {
             personalNotes.value = saved;
@@ -3115,7 +3493,17 @@ Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum get
           saveNotes,
           exportNotes,
           clearNotes,
-          insertTemplate
+          insertTemplate,
+          isCommandPaletteOpen,
+          commandSearch,
+          wbsFilter,
+          wbsProjects,
+          filteredWbsProjects,
+          searchCatalog,
+          commandFilteredResults,
+          openCommandPalette,
+          closeCommandPalette,
+          selectCommandResult
         };
       }
     }).mount('#app');
