@@ -2756,28 +2756,45 @@
         <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
-              <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center space-x-2">
-                <span>📂</span>
-                <span>Kuratierter SSB Dokumenten-Explorer (50+ Dateien analysiert)</span>
-              </h3>
-              <p class="text-xs text-slate-500">Alle relevanten Konzeptpapiere, Migrations-Sheets und PMO-Artefakte mit Interview-Impact</p>
+              <div class="flex items-center space-x-2">
+                <span class="text-xl">📂</span>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">
+                  Kuratierter SSB Dokumenten-Explorer & Artefakt-Register
+                </h3>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 text-[10px] font-bold">1.890 Dateien indexiert</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-0.5">Dein persönlicher, lokaler Navigator durch alle Konzepte, Migrations-Sheets, Steuerungsunterlagen und Vergabe-Akten.</p>
             </div>
 
+            <!-- Privacy Notice Badge -->
+            <div class="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 flex items-center space-x-2 text-[11px] text-amber-900 dark:text-amber-200">
+              <span>🔒</span>
+              <span><strong>100% Lokal & Vertraulich:</strong> Verbleibt offline auf deiner Festplatte (kein GitHub-Upload).</span>
+            </div>
+          </div>
+
+          <!-- Filter & Search Controls -->
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pt-2">
             <!-- Categories -->
-            <div class="flex flex-wrap gap-1">
+            <div class="flex flex-wrap gap-1.5 overflow-x-auto custom-scrollbar">
               <button 
                 v-for="cat in fileCategories" 
                 :key="cat"
                 @click="selectedFileCat = cat"
                 :class="[
-                  'px-2.5 py-1 rounded-md text-xs font-medium transition',
+                  'px-2.5 py-1 rounded-lg text-xs font-semibold transition',
                   selectedFileCat === cat 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200'
+                    ? 'bg-blue-600 text-white shadow-sm' 
+                    : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
                 ]"
               >
                 {{ cat }}
               </button>
+            </div>
+
+            <!-- Count badge -->
+            <div class="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">
+              Zeige <strong>{{ filteredFiles.length }}</strong> kuratierte Schlüssel-Dateien
             </div>
           </div>
 
@@ -2786,25 +2803,42 @@
             <table class="w-full text-left text-xs border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
               <thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-bold">
                 <tr>
-                  <th class="p-3 border-b dark:border-slate-700">Dateiname</th>
+                  <th class="p-3 border-b dark:border-slate-700">Dateiname & Schnellzugriff</th>
                   <th class="p-3 border-b dark:border-slate-700">Kategorie</th>
-                  <th class="p-3 border-b dark:border-slate-700">Inhalt & Relevanz</th>
-                  <th class="p-3 border-b dark:border-slate-700">Dein Interview-Impact</th>
+                  <th class="p-3 border-b dark:border-slate-700">Inhalt & Strategische Relevanz</th>
+                  <th class="p-3 border-b dark:border-slate-700">Dein Interview- & Praxis-Impact</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-200 dark:divide-slate-700 text-slate-600 dark:text-slate-300">
-                <tr v-for="(file, idx) in filteredFiles" :key="idx" class="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                <tr v-for="(file, idx) in filteredFiles" :key="idx" class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
                   <td class="p-3 font-semibold text-slate-900 dark:text-white">
-                    <div class="flex items-center space-x-2">
-                      <span>📄</span>
-                      <a v-if="file.path && file.path.startsWith('Studium_Dokumente')" :href="file.path + '/' + file.name" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline font-bold inline-flex items-center space-x-1.5">
-                        <span>{{ file.name }}</span>
-                        <span class="text-[10px] bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 px-1.5 py-0.5 rounded font-mono">Öffnen ↗</span>
-                      </a>
-                      <span v-else>{{ file.name }}</span>
+                    <div class="space-y-1">
+                      <div class="flex items-center space-x-2">
+                        <span>📄</span>
+                        <a v-if="file.path && file.path.startsWith('Studium_Dokumente')" :href="file.path + '/' + file.name" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline font-bold inline-flex items-center space-x-1">
+                          <span>{{ file.name }}</span>
+                          <span class="text-[9px] bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300 px-1 py-0.2 rounded font-mono">Öffnen ↗</span>
+                        </a>
+                        <span v-else class="text-slate-900 dark:text-white">{{ file.name }}</span>
+                      </div>
+
+                      <!-- Copy Local Path Button -->
+                      <div class="flex items-center space-x-2 pt-0.5">
+                        <button 
+                          @click="copyText('C:\\Users\\SHQIPTAR634\\Desktop\\SSB Dateien\\' + file.path.replace('/', '\\') + '\\' + file.name)" 
+                          class="inline-flex items-center space-x-1 px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[10px] text-slate-500 dark:text-slate-400 font-mono transition"
+                          title="Lokalen Windows-Pfad kopieren"
+                        >
+                          <span>📋</span>
+                          <span>Pfad kopieren</span>
+                        </button>
+                        <span class="text-[10px] text-slate-400 font-mono truncate max-w-xs">{{ file.path }}</span>
+                      </div>
                     </div>
                   </td>
-                  <td class="p-3"><span class="tag-badge bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">{{ file.cat }}</span></td>
+                  <td class="p-3">
+                    <span class="tag-badge bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 whitespace-nowrap">{{ file.cat }}</span>
+                  </td>
                   <td class="p-3 leading-relaxed">{{ file.desc }}</td>
                   <td class="p-3 text-slate-700 dark:text-slate-200 font-medium leading-relaxed">{{ file.impact }}</td>
                 </tr>
@@ -2955,7 +2989,7 @@
 
         const qaCategories = ['Alle', 'Architektur & Clean Core', 'Datenmigration', 'Projektmanagement & Governance', 'Persönlich & Verhalten'];
 
-        const fileCategories = ['Alle', 'PMO & Steuerung', 'Explore & Lösungsdesign', 'Datenmigration', 'Tools & Enablement', 'Wissenschaft & Uni'];
+        const fileCategories = ['Alle', 'PMO & Steuerung', 'Explore & Lösungsdesign', 'Finance & Controlling', 'Grants Management', 'Sustainability & EHS', 'Vertrieb & PATRIS', 'Datenmigration', 'Basis & Infrastruktur', 'Vergabe & SektVO', 'Tools & Enablement', 'Wissenschaft & Uni'];
 
         const defenseScenarios = ref([
           {
@@ -3292,6 +3326,28 @@ Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum get
         ];
 
         const filesData = [
+          // --- Neu kuratierte SSB Kern-Deliverables aus Tiefenanalyse ---
+          { name: 'Aufstellung der Abwicklung von Fahrausweisverkäufen über PATRIS.pdf', cat: 'Vertrieb & PATRIS', path: 'Teams TP1-TP5 + SAP4SSB/Stream SD/DDA Workshops', desc: 'Detailaufstellung zur Anbindung des Vertriebssystems PATRIS: Automatische Debitoreneinzüge, Fahrausweisverkäufe und VVS-Erlösausgleiche.', impact: 'Beweist Schnittstellenkompetenz bei der Entkopplung proprietärer ÖPNV-Vertriebssysteme ins S/4HANA Hauptbuch.' },
+          { name: '20260420_GM_Entwurf_Fachkonzept_Fördermittelmanagement_12.docx', cat: 'Grants Management', path: 'Teams TP1-TP5 + SAP4SSB/Stream Grants/_Fachkonzept_Fördermittelmanagement', desc: 'Fachkonzept Fördermittelmanagement (GM for Grantee): Abbildung von Drittmitteln, LGVFG/GVFG Bundes- und Landeszuschüssen.', impact: 'Zeigt tiefes Know-how in komplexen Spezialmodulen der öffentlichen Hand und Verwendungsnachweisführung.' },
+          { name: '20251006_GM_Entwurf_Ableitungskonzept_Fördermittelmanagement.docx', cat: 'Grants Management', path: 'Teams TP1-TP5 + SAP4SSB/Stream Grants/_Ableitungskonzept_Fördermittelmanagement', desc: 'Ableitungsregeln für Zuschüsse: Zuordnung von Sachkonten, Kostenstellen und PSP-Elementen auf spezifische Förderfonds.', impact: 'Beleg für fundiertes Ableitungs- und Kontierungsdesign im Public Sector.' },
+          { name: 'PSP vs Innenauftrag.docx', cat: 'Finance & Controlling', path: 'Teams TP1-TP5 + SAP4SSB/Stream Controlling', desc: 'Architektur-Entscheidungsvorlage: Abgrenzung von mehrjährigen Investitionsprojekten (PSP-Elemente) vs. operativer Werkstattinstandhaltung (Innenaufträge).', impact: 'Zeigt deine Kernkompetenz im strategischen Kostenstellen- und Projekt-Controlling.' },
+          { name: 'AfA-Simulation_Makro_und_Daten_20250626.xlsm', cat: 'Finance & Controlling', path: 'Teams TP1-TP5 + SAP4SSB/Stream Controlling', desc: 'Simulationsmodell für Anlagenabschreibungen (AfA) im Parallel-Ledger (HGB vs. Steuerrecht) über 30 Jahre Nutzungsdauer.', impact: 'Beweis für quantitative Finanzmodellierung und Anlagenbuchhaltungs-Expertise.' },
+          { name: 'Gefahrstoffverzeichnis.pdf', cat: 'Sustainability & EHS', path: 'Teams TP1-TP5 + SAP4SSB/Stream Sustainability/Workshop 2025.04.30', desc: 'Vollständiges Gefahrstoffkataster der Werkstätten nach EMKG-Standard inkl. Schutzstufen und Lagerklassen.', impact: 'Demonstriert fundierte Praxiserfahrung in integriertem Arbeitsschutz und Umweltmanagement.' },
+          { name: 'EMKG.xlsm', cat: 'Sustainability & EHS', path: 'Teams TP1-TP5 + SAP4SSB/Stream Sustainability/Gefahrgut', desc: 'Einfaches Maßnahmenkonzept Gefahrstoffe (BAuA Standard) zur automatisierten Einstufung von Chemikalien in S/4HANA.', impact: 'EHS-Kompetenz und Verknüpfung von operativer Werkstattrisikoanalyse mit ERP-Daten.' },
+          { name: '20250617Vergabe_Zeitplan_Realize_bis_Run.pdf', cat: 'Vergabe & SektVO', path: 'Teams TP1-TP5 + SAP4SSB/UP 5.5 Beschaffung - Ausschreibungen/Vergabe Realize-Deploy-Run', desc: 'Gesamtablauf des EU-weiten SektVO-Vergabeverfahrens zur Auswahl des Generalübernehmers für die Realisierungs- und Betriebsphase.', impact: 'Beweist Vergaberecht- und Ausschreibungskompetenz in Milliarden-Infrastrukturunternehmen.' },
+          { name: 'Bewertungsmatrix Teilnahmewettbewerb.xlsx', cat: 'Vergabe & SektVO', path: 'Teams TP1-TP5 + SAP4SSB/UP 5.5 Beschaffung - Ausschreibungen/Vergabe Realize-Deploy-Run', desc: 'Quantitative Bewertungsmatrix für den Teilnahmewettbewerb mit Gewichtung von Referenzen, Methodenkompetenz und Preis.', impact: 'Zeigt objektive Partnerbewertung und Vendor-Governance auf C-Level-Niveau.' },
+          { name: 'AngebotsauswertungGrundsatzkonzeptionKTW_Murseli.xlsx', cat: 'PMO & Steuerung', path: 'Desktop/TP3/Kusevic-Wimpff', desc: 'Von Visar Murseli erstellte Angebotsauswertung der Beraterangebote von Evora IT, Nagarro und Orianda für die Instandhaltung K/T/W.', impact: 'Echtes persönliches Arbeitsergebnis im PMO: Vendor Selection, Kostenvergleich und Entscheidungsvorbereitung.' },
+          { name: 'apsolut_SSB_ID3758_V1.0_Workshopreihe_SAP_Ariba_20251125_signed.pdf', cat: 'Vergabe & SektVO', path: 'Teams TP1-TP5 + SAP4SSB/UP 5.5 Beschaffung - Ausschreibungen/Beratung Ariba Fieldglas', desc: 'Vertrag und Workshopreihe zur Evaluierung von SAP Ariba (indirekte Beschaffung) und Fieldglass (Dienstleister-Steuerung).', impact: 'Belegt Einblicke in moderne Cloud-Procurement- und Workforce-Management-Lösungen.' },
+          { name: 'SAP4SSB_Projektplan.mpp', cat: 'PMO & Steuerung', path: 'Teams TP1-TP5 + SAP4SSB/General/Projektplan', desc: 'Offizieller Master-Projektplan in MS Project (WBS 1–297) mit allen Phasen, Vorgängen, Ressourcen und Meilensteinen.', impact: 'Das Herzstück deiner PMO-Tätigkeit: Beherrschung von Multiprojekt-Steuerung und Critical Path.' },
+          { name: 'SSB Nutzerhandbuch SAP Signavio.pdf', cat: 'Tools & Enablement', path: 'Teams TP1-TP5 + SAP4SSB/TP2/General', desc: 'Offizielles Handbuch für Prozessmodellierer bei der SSB: Governance, Freigabe-Workflows und Signavio Collaboration Hub.', impact: 'Beweist Tool-Governance und Befähigung von Fachbereichen zur eigenständigen BPMN 2.0 Modellierung.' },
+          { name: 'OnePager Modellierungsregeln.pdf', cat: 'Tools & Enablement', path: 'Teams TP1-TP5 + SAP4SSB/TP2/General', desc: 'Kompakter Standard für BPMN 2.0 Syntax, Naming Conventions und Lane-Zuordnungen für alle 5 Teilprojekte.', impact: 'Zeigt deinen Fokus auf strikte Standardisierung und Qualitätskontrolle.' },
+          { name: 'DDA Export - Stuttgarter Straßenbahnen AG (SSB).xlsx', cat: 'Explore & Lösungsdesign', path: 'Desktop/Discover Phase/DDA Results/DDA all info/Excel', desc: 'Vollständiger Scope-Katalog aus dem Digital Discovery Assessment mit Zuordnung zu Best Practice Scope-IDs.', impact: 'Belegt, dass du von Phase 0 an den Scope-Umfang für 3.700 Mitarbeiter im Detail überblickst.' },
+          { name: 'Arten von personenbezogenen Daten in SAP S4HANA.pdf', cat: 'Explore & Lösungsdesign', path: 'Desktop/Explore Phase', desc: 'Datenschutz- und Compliance-Klassifizierung für Mitarbeiter- und Kundendaten im S/4HANA System.', impact: 'Zeigt DSGVO- und Mitbestimmungs-Kompetenz im sensiblen Umgang mit Personaldaten.' },
+          { name: 'SSB_Kontengruppen_Konzept_20250829.xlsx', cat: 'Datenmigration', path: 'Teams TP1-TP5 + SAP4SSB/Stream Cross Topics/Geschäftspartner', desc: 'Definition der Kontengruppen für Business Partner (Debitoren, Kreditoren, Personal, Verbundunternehmen) und Nummernkreise.', impact: 'Technisches Detailwissen zur Stammdaten-Harmonisierung und CVI.' },
+          { name: 'SSB Datenströme SAP.pdf', cat: 'Explore & Lösungsdesign', path: 'Desktop/Explore Phase/Integration', desc: 'Gesamtübersicht der konzernweiten Datenflüsse zwischen SAP Core, BTP, Archiv (d.velop), PATRIS und Werkstattsystemen.', impact: 'Echter Enterprise-Architecture-Plan: End-to-End Datenfluss-Verständnis im ÖPNV.' },
+          { name: '20250708_LA_SAP4SSBV1.pptx', cat: 'PMO & Steuerung', path: 'Teams TP1-TP5 + SAP4SSB/Projektleiter/Lenkungsausschuss', desc: 'Offizielle Lenkungsausschuss-Präsentation für den Vorstand und IT-Leitung mit Statusampeln und Risiko-Matrix.', impact: 'Belegt deine direkte Zuarbeit für C-Level-Gremien und Vorstandsentscheidungen.' },
+          { name: '20250225_Steering_Board.pptx', cat: 'PMO & Steuerung', path: 'Teams TP1-TP5 + SAP4SSB/Projektleiter/Steering_Board', desc: 'Entscheidungs- und Statusvorlage des Steering Boards zur Budget- und Ressourcenallokation.', impact: 'Beweis für strukturierte Vorbereitung strategischer Management-Entscheidungen.' },
+
           { name: 'SSB Executive Summary Discover Phase.docx', cat: 'Explore & Lösungsdesign', path: 'Desktop/Discover Phase', desc: 'Ergebnisbericht des Digital Discovery Assessments (DDA) mit Nagarro ES GmbH. Definition des S/4HANA Greenfield Scopes.', impact: 'Beweist, dass du die Phase 0 (DDA Scoping) von Grund auf verstanden hast.' },
           { name: 'SSB Lösungsdesign Dokument.docx', cat: 'Explore & Lösungsdesign', path: 'Desktop/Explore Phase', desc: '82.000 Zeichen starkes Architektur- und Lösungsdesigndokument für TP2 (Kaufmännische Prozesse: FI, CO, MM, RE-FX, Grants Mgmt).', impact: 'Zeigt dein tiefes Verständnis für die Gesamtarchitektur, Clean Core und WRICEFA-Objekte.' },
           { name: 'Migrationskonzept v0 1 2025_04_28.docx', cat: 'Datenmigration', path: 'Desktop/Explore Phase/Datenmigration', desc: 'Detailkonzept von Nagarro zur Datenmigration. Definition von Staging-Tabellen, Mapping-Regeln, Bilanzabgleich und Cutover.', impact: 'Dein Beleg für fundierte Datenmigrations- und Schnittstellenkompetenz.' },
