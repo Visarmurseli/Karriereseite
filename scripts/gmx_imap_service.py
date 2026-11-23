@@ -20,18 +20,20 @@ def load_config():
         with open(TEMPLATE_PATH, "r", encoding="utf-8") as f:
             cfg = json.load(f)
     else:
-        cfg = {
-            "email_address": "Visar.murseli@gmx.de",
-            "password": "",
-            "imap_server": "imap.gmx.net",
-            "imap_port": 993,
-            "folders": ["INBOX"]
-        }
-    # Allow environment variable override
-    if os.environ.get("GMX_PASSWORD"):
-        cfg["password"] = os.environ.get("GMX_PASSWORD")
-    if os.environ.get("GMX_EMAIL"):
-        cfg["email_address"] = os.environ.get("GMX_EMAIL")
+        cfg = {"accounts": []}
+    
+    # Normalize accounts list
+    accounts = cfg.get("accounts", [])
+    if not accounts and cfg.get("email_address"):
+        accounts = [{
+            "name": "Standard-Konto",
+            "email_address": cfg.get("email_address"),
+            "password": cfg.get("password", ""),
+            "imap_server": cfg.get("imap_server", "imap.gmx.net"),
+            "imap_port": cfg.get("imap_port", 993),
+            "folders": cfg.get("folders", ["INBOX"])
+        }]
+    cfg["accounts"] = accounts
     return cfg
 
 def decode_mime_words(raw_header):
@@ -65,7 +67,6 @@ def extract_body_text(msg):
                 if payload:
                     charset = part.get_content_charset() or "utf-8"
                     html = payload.decode(charset, errors="replace")
-                    # simple tag strip
                     clean = re.sub(r"<[^>]+>", " ", html)
                     body_text += re.sub(r"\s+", " ", clean) + "\n"
     else:
@@ -101,7 +102,6 @@ def classify_application_email(subject, sender, body):
     else:
         status = "In Prüfung"
         
-    # Extract Company from Sender or Subject
     sender_clean = re.sub(r"<[^>]+>", "", sender).strip()
     company = sender_clean
     if "@" in sender:
@@ -110,7 +110,6 @@ def classify_application_email(subject, sender, body):
         if comp_guess.lower() not in ["gmail", "gmx", "web", "outlook", "mail", "postfach", "reply"]:
             company = comp_guess
     
-    # Extract job position candidate
     pos = "SAP Consultant / Trainee"
     m_pos = re.search(r"(?:stelle\s+als|position\s+als|für\s+die\s+stelle|ihre\s+bewerbung\s+als|bewerbung\s+als|bewerbung\s+auf)\s+([^\n\r,\.]+)", subject, re.I)
     if m_pos:
@@ -124,54 +123,43 @@ def classify_application_email(subject, sender, body):
         "sender": sender
     }
 
-def connect_imap(cfg):
-    server = cfg.get("imap_server", "imap.gmx.net")
-    port = cfg.get("imap_port", 993)
-    user = cfg.get("email_address", "Visar.murseli@gmx.de")
-    pwd = cfg.get("password", "")
+def connect_account(acc):
+    server = acc.get("imap_server", "imap.gmx.net")
+    port = acc.get("imap_port", 993)
+    user = acc.get("email_address", "")
+    pwd = acc.get("password", "")
+    name = acc.get("name", user)
     
+    print(f"\n--- [Konto: {name}] ---")
     if not pwd:
-        print("\n" + "!" * 70)
-        print("⚠️ GMX IMAP PASSWORT NICHT HINTERLEGT")
-        print("!" * 70)
-        print("Um die E-Mails automatisch abzurufen, wird ein GMX-Passwort benötigt.")
-        print("Anleitung zur Aktivierung:")
-        print("  1. Logge dich im Browser auf gmx.net ein.")
-        print("  2. Klicke links unten auf 'Einstellungen' (Zahnrad).")
-        print("  3. Wähle 'Zu den Einstellungen' -> 'E-Mail' -> 'POP3/IMAP Abruf'.")
-        print("  4. Aktiviere das Häkchen bei: 'POP3 und IMAP Zugriff erlauben' und speichere.")
-        print("  5. Trage das Passwort in 'config/gmx_config.json' ein oder setze die Umgebungsvariable:")
-        print("     $env:GMX_PASSWORD='dein_passwort'")
-        print("!" * 70)
+        print(f"  ⚠️ Kein Passwort für {user} hinterlegt.")
         return None
     
     try:
-        print(f"Verbinde mit {server}:{port} via SSL...")
+        print(f"  Verbinde mit {server}:{port} via SSL...")
         imap = imaplib.IMAP4_SSL(server, port)
         imap.login(user, pwd)
-        print(f"✅ Erfolgreich angemeldet als {user}!")
+        print(f"  ✅ Erfolgreich angemeldet als {user}!")
         return imap
     except imaplib.IMAP4.error as e:
-        print(f"❌ IMAP Login fehlgeschlagen: {e}")
-        print("Hinweis: Falls das Passwort korrekt ist, überprüfe bitte, ob 'POP3/IMAP Zugriff' in den GMX-Webmail-Einstellungen aktiviert ist.")
+        print(f"  ❌ Login fehlgeschlagen für {user}: {e}")
+        print("  Hinweis: Falls das Passwort korrekt ist, überprüfe bitte, ob 'POP3/IMAP Zugriff' in den GMX-Webmail-Einstellungen dieses Kontos aktiviert ist.")
         return None
     except Exception as e:
-        print(f"❌ Verbindungsfehler: {e}")
+        print(f"  ❌ Verbindungsfehler für {user}: {e}")
         return None
 
-def fetch_pipeline_records(imap, cfg):
+def fetch_account_records(imap, acc, keywords):
     records = []
-    folders = cfg.get("folders", ["INBOX"])
-    keywords = cfg.get("keywords", ["Bewerbung", "Eingangsbestätigung", "Absage", "Interview"])
+    folders = acc.get("folders", ["INBOX"])
+    user = acc.get("email_address", "")
     
     for folder in folders:
         try:
             status, count = imap.select(folder, readonly=True)
             if status != "OK":
                 continue
-            print(f"Durchsuche Ordner '{folder}'...")
             
-            # Search with OR conditions or individual keywords
             all_ids = set()
             for kw in keywords:
                 typ, data = imap.search(None, f'(SUBJECT "{kw}")')
@@ -179,9 +167,8 @@ def fetch_pipeline_records(imap, cfg):
                     for msg_id in data[0].split():
                         all_ids.add(msg_id)
             
-            print(f"  Gefundene relevante E-Mails: {len(all_ids)}")
+            print(f"  Gefundene relevante E-Mails in {folder}: {len(all_ids)}")
             
-            # Fetch each email
             for msg_id in sorted(all_ids, reverse=True)[:50]:
                 typ, msg_data = imap.fetch(msg_id, "(RFC822.PEEK[HEADER.FIELDS (FROM TO SUBJECT DATE)] BODY.PEEK[TEXT])")
                 if typ != "OK":
@@ -196,52 +183,65 @@ def fetch_pipeline_records(imap, cfg):
                 
                 parsed = classify_application_email(subject, sender, body)
                 parsed["date"] = date_str[:16] if len(date_str) >= 16 else date_str
+                parsed["account"] = user
                 records.append(parsed)
                 
         except Exception as e:
-            print(f"Fehler beim Abruf von {folder}: {e}")
+            print(f"  Fehler beim Abruf von {folder}: {e}")
             
     return records
 
 def sync_to_obsidian_cockpit(records):
-    if not os.path.exists(VAULT_COCKPIT_PATH):
-        print(f"Cockpit-Datei nicht gefunden: {VAULT_COCKPIT_PATH}")
-        return
-    
-    with open(VAULT_COCKPIT_PATH, "r", encoding="utf-8") as f:
-        content = f.read()
-    
-    # Save JSON backup
     os.makedirs(os.path.dirname(PIPELINE_JSON_PATH), exist_ok=True)
     with open(PIPELINE_JSON_PATH, "w", encoding="utf-8") as f:
         json.dump(records, f, indent=2, ensure_ascii=False)
-    print(f"Gespeichert: {PIPELINE_JSON_PATH}")
+    print(f"\nPipeline-Datenbank aktualisiert: {PIPELINE_JSON_PATH} ({len(records)} Einträge)")
 
 def print_status_summary():
     cfg = load_config()
-    print("=" * 60)
-    print("📬 GMX IMAP BEWERBUNGS-CONNECTOR STATUS")
-    print("=" * 60)
-    print(f"  Konto:       {cfg.get('email_address')}")
-    print(f"  Server:      {cfg.get('imap_server')}:{cfg.get('imap_port')}")
-    print(f"  Passwort:    {'[Gesetzt/Konfiguriert]' if cfg.get('password') else '[FEHLT - Bitte konfigurieren]'}")
-    print(f"  Suchordner:  {', '.join(cfg.get('folders', []))}")
-    print(f"  Config-Pfad: {CONFIG_PATH}")
-    print("=" * 60)
+    print("=" * 65)
+    print("📬 GMX MULTI-ACCOUNT IMAP BEWERBUNGS-CONNECTOR")
+    print("=" * 65)
+    for i, acc in enumerate(cfg.get("accounts", []), start=1):
+        pwd_set = bool(acc.get("password"))
+        print(f"  [{i}] {acc.get('name', 'Konto')}:")
+        print(f"      E-Mail:    {acc.get('email_address')}")
+        print(f"      Server:    {acc.get('imap_server')}:{acc.get('imap_port')}")
+        print(f"      Passwort:  {'[Konfiguriert]' if pwd_set else '[FEHLT]'}")
+        print(f"      Suchordner: {', '.join(acc.get('folders', []))}")
+    print("=" * 65)
+
+def run_sync():
+    cfg = load_config()
+    keywords = cfg.get("keywords", [
+        "Bewerbung", "Eingangsbestätigung", "Vorstellungsgespräch", 
+        "Interview", "Kennenlernen", "Absage", "Stelle", "Position", "Trainee", "Consultant"
+    ])
+    
+    all_records = []
+    seen_keys = set()
+    
+    for acc in cfg.get("accounts", []):
+        imap = connect_account(acc)
+        if imap:
+            acc_records = fetch_account_records(imap, acc, keywords)
+            for r in acc_records:
+                key = (r["company"].lower(), r["subject"].lower(), r["date"][:10])
+                if key not in seen_keys:
+                    seen_keys.add(key)
+                    all_records.append(r)
+            imap.logout()
+            
+    print(f"\nGesamtergebnis: {len(all_records)} einzigartige Bewerbungs-Vorgänge erfasst.")
+    sync_to_obsidian_cockpit(all_records)
 
 if __name__ == "__main__":
     if "--status" in sys.argv:
         print_status_summary()
     elif "--test" in sys.argv or "--sync" in sys.argv:
-        cfg = load_config()
-        imap = connect_imap(cfg)
-        if imap:
-            records = fetch_pipeline_records(imap, cfg)
-            print(f"Erfolgreich {len(records)} Bewerbungs-Mails analysiert.")
-            sync_to_obsidian_cockpit(records)
-            imap.logout()
+        run_sync()
     else:
         print_status_summary()
         print("\nVerwendung:")
-        print("  python scripts/gmx_imap_service.py --status     # Konfiguration anzeigen")
-        print("  python scripts/gmx_imap_service.py --test       # Verbindung testen & Mails synchronisieren")
+        print("  python scripts/gmx_imap_service.py --status     # Status beider Konten anzeigen")
+        print("  python scripts/gmx_imap_service.py --test       # Verbindungen testen & synchronisieren")
