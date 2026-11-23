@@ -1,0 +1,23 @@
+{
+  "email_address": "Visar.murseli@gmx.de",
+  "password": "85st8Q6UY@eRcPK",
+  "imap_server": "imap.gmx.net",
+  "imap_port": 993,
+  "use_ssl": true,
+  "folders": [
+    "INBOX"
+  ],
+  "poll_interval_minutes": 60,
+  "keywords": [
+    "Bewerbung",
+    "Eingangsbestätigung",
+    "Vorstellungsgespräch",
+    "Interview",
+    "Kennenlernen",
+    "Absage",
+    "Stelle",
+    "Position",
+    "Trainee",
+    "Consultant"
+  ]
+}

@@ -33,3 +33,9 @@ temp_*
 *.rar
 *.tar
 *.gz
+
+# GMX IMAP Credentials
+config/gmx_config.json
+gmx_config.json
+*.credentials
+*.token
