@@ -1,25 +1,35 @@
+# Python & System
 __pycache__/
 *.pyc
+*.pyo
 .env
+.DS_Store
+Thumbs.db
 
-# Strict Confidentiality - No Enterprise or Internal Operational Documents
-*SSB*
-*ssb*
-*Axians*
-*Nagarro*
-*Evora*
-*Discover Phase*
-*Explore Phase*
-*TP1*
-*TP2*
-*TP3*
-*TP4*
-*TP5*
-*.mpp
-*.vsdx
-*.zip
-*.7z
+# Strict Confidentiality - No original documents from University, Work, or Applications
+Studium_Dokumente/
+00_Aktuelle_Bewerbungsunterlagen/
+01_SSB/
+02_Master/
+03_Bachelor/
+04_DC1/
 inbox/
 specs/
 .specify/
 temp_*
+
+# File extensions for documents and confidential data
+*.pdf
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+*.mpp
+*.vsdx
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
