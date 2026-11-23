@@ -124,12 +124,11 @@ def get_header():
   <div id="app" class="min-h-screen flex flex-col bg-[#0d0d0d] text-[#c4bebe]">
     <div class="flex-1 flex flex-col min-h-screen">
       
-      <!-- ================= 1. RESPONSIVE TOP APP BAR ================= -->
+      <!-- ================= 1. SLEEK MINIMALIST TOP APP BAR ================= -->
       <header class="sticky top-0 z-40 bg-[#121212]/95 backdrop-blur-xl border-b border-white/10 shadow-xl">
-        <!-- Top Brand & Telemetry Line -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
           
-          <!-- Brand & Profile Identity -->
+          <!-- Left: Brand & Identity -->
           <div class="flex items-center space-x-3.5 cursor-pointer" @click="activeTab = 'dashboard'">
             <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#bf262e] via-[#cf3840] to-[#7e1218] flex items-center justify-center font-extrabold text-white shadow-lg shadow-[#bf262e]/30 border border-white/20 text-sm">
               VM
@@ -138,19 +137,15 @@ def get_header():
               <div class="flex items-center space-x-2">
                 <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">Visar Murseli</h1>
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="System Online & Bereit"></span>
-                <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-[#bf262e]/20 text-[#f87171] border border-[#bf262e]/40 text-[10px] font-bold">🎯 Junior Einstieg & Traineeprogramm</span>
+                <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-[#c4bebe]">Wissensdatenbank</span>
               </div>
-              <div class="flex items-center space-x-2 text-[11px] text-[#c4bebe]">
-                <span>M.Sc. Note 1,6 (120 ECTS)</span>
-                <span class="text-white/40">•</span>
-                <span class="text-emerald-400 font-medium">Masterarbeit 1,0</span>
-                <span class="text-white/40">•</span>
-                <span class="text-[#8f8888]">24M SSB S/4HANA PMO</span>
-              </div>
+              <p class="text-[11px] text-[#8f8888] hidden sm:block">
+                Akademisches & Berufliches Fundament (300 ECTS • SSB AG • Datacenter One)
+              </p>
             </div>
           </div>
 
-          <!-- Telemetry Badges & Action Controls -->
+          <!-- Right: Search, Dark Mode, Telemetry & Hamburger Button -->
           <div class="flex items-center space-x-2 sm:space-x-3">
             
             <!-- Quality Gate Telemetry Pills (Required by Spec-Kit tests) -->
@@ -161,7 +156,7 @@ def get_header():
               <span class="px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300">300 ECTS</span>
             </div>
 
-            <!-- Command Palette Trigger Button -->
+            <!-- Command Palette Trigger Button (Ctrl + K) -->
             <button 
               @click="openCommandPalette" 
               class="flex items-center space-x-2 px-3 py-1.5 text-xs bg-black/40 hover:bg-[#bf262e]/10 border border-white/10 hover:border-[#bf262e]/50 rounded-xl text-[#c4bebe] hover:text-white transition group shadow-inner"
@@ -182,196 +177,306 @@ def get_header():
               <span v-else>🌙</span>
             </button>
 
-            <!-- Mobile Drawer Hamburger Toggle -->
+            <!-- THE INTUITIVE HAMBURGER MENU BUTTON (☰) -->
             <button 
               @click="isMobileMenuOpen = !isMobileMenuOpen" 
-              class="lg:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10"
-              title="Menü öffnen"
+              class="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-[#bf262e] hover:bg-[#cf3840] text-white font-semibold text-xs shadow-md shadow-[#bf262e]/30 border border-white/20 transition active:scale-95"
+              title="Hauptnavigation öffnen"
             >
-              <span v-if="!isMobileMenuOpen">☰</span>
-              <span v-else>✕</span>
+              <span class="text-base leading-none" v-if="!isMobileMenuOpen">☰</span>
+              <span class="text-base leading-none" v-else>✕</span>
+              <span class="font-medium hidden sm:inline">Menü</span>
             </button>
-          </div>
-        </div>
 
-        <!-- Segmented Navigation: 5 Core Hubs -->
-        <div class="border-t border-white/10 bg-black/40">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto custom-scrollbar py-2">
-            <div class="flex items-center space-x-1.5 sm:space-x-2">
-              
-              <!-- Hub 1: Profil & Einstieg -->
-              <button 
-                @click="activeTab = 'dashboard'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  activeTab === 'dashboard'
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>📊</span>
-                <span>Profil & Einstieg</span>
-              </button>
-
-              <!-- Hub 2: S/4HANA Transformation -->
-              <button 
-                @click="activeTab = 'project'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  ['project', 'solution_design', 'migration', 'tools'].includes(activeTab)
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>🚆</span>
-                <span>S/4HANA Transformation</span>
-              </button>
-
-              <!-- Hub 3: Akademische Exzellenz -->
-              <button 
-                @click="activeTab = 'thesis'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  ['thesis', 'enterprise_arch'].includes(activeTab)
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>🎓</span>
-                <span>Akademische Exzellenz (1,0)</span>
-              </button>
-
-              <!-- Hub 4: Junior & Trainee Karriere -->
-              <button 
-                @click="activeTab = 'career'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  ['career', 'cheatsheet'].includes(activeTab)
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>🎯</span>
-                <span>Junior & Trainee Karriere</span>
-              </button>
-
-              <!-- Hub 5: Interview & Nachweise -->
-              <button 
-                @click="activeTab = 'interview'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  ['interview', 'cv_defense', 'files', 'notebook'].includes(activeTab)
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>🎙️</span>
-                <span>Interview & Nachweise</span>
-              </button>
-            </div>
-
-            <!-- Breadcrumb / Deliverables Jump -->
-            <div class="hidden md:flex items-center space-x-2 pl-4">
-              <button 
-                @click="activeTab = 'files'; selectedFileCat = 'Aktuelle Bewerbungsunterlagen'"
-                class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] font-medium flex items-center space-x-1.5 transition whitespace-nowrap"
-              >
-                <span>📁</span>
-                <span>Deliverables-Register</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Contextual Sub-Navigation Pill Bar -->
-          <div v-if="['project', 'solution_design', 'migration', 'tools'].includes(activeTab)" class="border-t border-white/5 bg-black/60 px-4 sm:px-6 lg:px-8 py-1.5">
-            <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] custom-scrollbar">
-              <span class="text-[#8f8888] font-medium whitespace-nowrap mr-1">Perspektive:</span>
-              <button @click="activeTab = 'project'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'project' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🏛️ TP1–TP5 Steuerung & WBS
-              </button>
-              <button @click="activeTab = 'solution_design'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'solution_design' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                📐 Solution Design (FI/CO & Trennungsrechnung)
-              </button>
-              <button @click="activeTab = 'migration'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'migration' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🔄 Datenmigration & CVI (0,00 € Saldo)
-              </button>
-              <button @click="activeTab = 'tools'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'tools' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🛠️ Toolchain Hub (CALM & Signavio)
-              </button>
-            </div>
-          </div>
-
-          <div v-if="['thesis', 'enterprise_arch'].includes(activeTab)" class="border-t border-white/5 bg-black/60 px-4 sm:px-6 lg:px-8 py-1.5">
-            <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] custom-scrollbar">
-              <span class="text-[#8f8888] font-medium whitespace-nowrap mr-1">Perspektive:</span>
-              <button @click="activeTab = 'thesis'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'thesis' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🎓 Masterarbeit 1,0 (12 Interviews & CSF)
-              </button>
-              <button @click="activeTab = 'enterprise_arch'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'enterprise_arch' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🏛️ TOGAF 9 ADM & ITIL 4 Service Operations
-              </button>
-            </div>
-          </div>
-
-          <div v-if="['career', 'cheatsheet'].includes(activeTab)" class="border-t border-white/5 bg-black/60 px-4 sm:px-6 lg:px-8 py-1.5">
-            <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] custom-scrollbar">
-              <span class="text-[#8f8888] font-medium whitespace-nowrap mr-1">Perspektive:</span>
-              <button @click="activeTab = 'career'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'career' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🎯 Junior & Trainee Zielrollen (55k-65k €)
-              </button>
-              <button @click="activeTab = 'cheatsheet'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'cheatsheet' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                ⚡ Tech & BTP Architecture Cheatsheet
-              </button>
-            </div>
-          </div>
-
-          <div v-if="['interview', 'cv_defense', 'files', 'notebook'].includes(activeTab)" class="border-t border-white/5 bg-black/60 px-4 sm:px-6 lg:px-8 py-1.5">
-            <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] custom-scrollbar">
-              <span class="text-[#8f8888] font-medium whitespace-nowrap mr-1">Perspektive:</span>
-              <button @click="activeTab = 'interview'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'interview' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🎙️ Pitches, STAR-Stories & Q&A
-              </button>
-              <button @click="activeTab = 'cv_defense'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'cv_defense' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🛡️ CV De-Risking & Fangfragen
-              </button>
-              <button @click="activeTab = 'files'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'files' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                📂 Deliverables- & Nachweis-Register
-              </button>
-              <button @click="activeTab = 'notebook'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'notebook' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                📝 Second Brain Notizbuch
-              </button>
-            </div>
           </div>
         </div>
       </header>
 
-      <!-- Mobile Slide-over Drawer for Small Screens -->
-      <div v-if="isMobileMenuOpen" class="lg:hidden fixed inset-0 z-50 flex">
-        <div @click="isMobileMenuOpen = false" class="fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
-        <div class="relative w-72 max-w-[80%] bg-[#121212] border-r border-white/10 h-full overflow-y-auto p-4 flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-white/10">
-              <span class="text-xs font-bold text-white">Navigation</span>
-              <button @click="isMobileMenuOpen = false" class="text-white/60 hover:text-white text-sm">✕</button>
-            </div>
-            <div class="space-y-1">
-              <button 
-                v-for="tab in tabs" 
-                :key="tab.id"
-                @click="activeTab = tab.id; isMobileMenuOpen = false"
-                :class="[
-                  'w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition text-left',
-                  activeTab === tab.id ? 'bg-[#bf262e] text-white font-bold' : 'text-[#c4bebe] hover:bg-white/5'
-                ]"
-              >
-                <div class="flex items-center space-x-2">
-                  <span>{{ tab.icon }}</span>
-                  <span>{{ tab.label }}</span>
+      <!-- ================= 2. SLIDE-OVER NAVIGATION DRAWER (DESKTOP & MOBILE) ================= -->
+      <div v-if="isMobileMenuOpen" class="fixed inset-0 z-50 flex justify-end">
+        <!-- Backdrop blur overlay -->
+        <div @click="isMobileMenuOpen = false" class="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"></div>
+        
+        <!-- Drawer Panel -->
+        <div class="relative w-full max-w-md bg-[#121212] border-l border-white/10 h-full overflow-y-auto p-6 flex flex-col justify-between shadow-2xl z-10 custom-scrollbar">
+          
+          <div class="space-y-6">
+            <!-- Drawer Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-white/10">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-[#bf262e] flex items-center justify-center font-bold text-white text-sm">
+                  VM
                 </div>
-                <span v-if="tab.badge" class="text-[9px] px-1.5 py-0.2 rounded-full bg-white/20 text-white">{{ tab.badge }}</span>
+                <div>
+                  <h3 class="text-sm font-bold text-white">Wissensdatenbank Navigation</h3>
+                  <p class="text-[11px] text-[#8f8888]">Wähle ein Modul zum Direktzugriff</p>
+                </div>
+              </div>
+              <button 
+                @click="isMobileMenuOpen = false" 
+                class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition text-sm font-mono"
+              >
+                ✕
               </button>
             </div>
+
+            <!-- Category 1: Übersicht & Fundament -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8f8888] px-2 mb-1">
+                1. Übersicht & Fundament
+              </div>
+              
+              <button 
+                @click="activeTab = 'dashboard'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'dashboard' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>📊</span>
+                  <div>
+                    <div class="font-medium">Wissensdatenbank Dashboard</div>
+                    <div class="text-[10px] text-white/70">Gesamtüberblick & 4 Wissenspfeiler</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'files'; selectedFileCat = 'Alle'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'files' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>📂</span>
+                  <div>
+                    <div class="font-medium">Deliverables- & Nachweis-Register</div>
+                    <div class="text-[10px] text-white/70">50+ kuratierte SSB- & Studienartefakte</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'notebook'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'notebook' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>📝</span>
+                  <div>
+                    <div class="font-medium">Second Brain Notizbuch</div>
+                    <div class="text-[10px] text-white/70">Persönliche Notizen & Autosave</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+            </div>
+
+            <!-- Category 2: Berufliche Praxis -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8f8888] px-2 mb-1">
+                2. Berufliche Praxisstationen
+              </div>
+
+              <button 
+                @click="activeTab = 'project'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'project' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🚆</span>
+                  <div>
+                    <div class="font-medium">SSB S/4HANA Transformation</div>
+                    <div class="text-[10px] text-white/70">Stand bei Austritt: Ende Explore / SDD vollständig</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'enterprise_arch'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'enterprise_arch' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🖥️</span>
+                  <div>
+                    <div class="font-medium">Datacenter One (DC1 / ITIL 4)</div>
+                    <div class="text-[10px] text-white/70">12 Monate INOC, 24/7 Monitoring & Confluence SOPs</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'solution_design'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'solution_design' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>📐</span>
+                  <div>
+                    <div class="font-medium">Solution Design (FI/CO)</div>
+                    <div class="text-[10px] text-white/70">Trennungsrechnung, ACDOCA, CVI & Grants</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'migration'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'migration' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🔄</span>
+                  <div>
+                    <div class="font-medium">Datenmigration & Cutover</div>
+                    <div class="text-[10px] text-white/70">LTMC Staging, SuSa-Abgleich & 0,00 € Saldo</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'tools'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'tools' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🛠️</span>
+                  <div>
+                    <div class="font-medium">Enterprise Toolchain Hub</div>
+                    <div class="text-[10px] text-white/70">SAP Cloud ALM, SAP Signavio & Enable Now</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+            </div>
+
+            <!-- Category 3: Akademische Exzellenz & Theorie -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8f8888] px-2 mb-1">
+                3. Akademische Erfolge & Theorie
+              </div>
+
+              <button 
+                @click="activeTab = 'thesis'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'thesis' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🎓</span>
+                  <div>
+                    <div class="font-medium">Master & Bachelor (Projekte & Theorie)</div>
+                    <div class="text-[10px] text-white/70">M.Sc. 1,6 | Thesis 1,0 | B.Sc. 3,0 | Thesis 1,7</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+            </div>
+
+            <!-- Category 4: Interview & Karriere -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8f8888] px-2 mb-1">
+                4. Interview & Karriere
+              </div>
+
+              <button 
+                @click="activeTab = 'interview'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'interview' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🎙️</span>
+                  <div>
+                    <div class="font-medium">Interview Masterclass & Großer Q&A-Katalog</div>
+                    <div class="text-[10px] text-white/70">Pitches, STAR-Stories & 40+ Fragen mit Filter</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'cv_defense'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'cv_defense' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🛡️</span>
+                  <div>
+                    <div class="font-medium">CV De-Risking & Fangfragen</div>
+                    <div class="text-[10px] text-white/70">Ampelsystem & Pivot-Brücken</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'career'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'career' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🎯</span>
+                  <div>
+                    <div class="font-medium">Junior & Trainee Einstiegsstrategie</div>
+                    <div class="text-[10px] text-white/70">Zielrollen, 55k-65k € Gehaltsziel & Onboarding</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'cheatsheet'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'cheatsheet' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>⚡</span>
+                  <div>
+                    <div class="font-medium">Tech & BTP Architecture Cheatsheet</div>
+                    <div class="text-[10px] text-white/70">RAP, CDS, OData & Integration Patterns</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+            </div>
+
           </div>
+
+          <!-- Drawer Footer -->
+          <div class="pt-4 border-t border-white/10 text-xs text-[#8f8888] flex items-center justify-between">
+            <span>Visar Murseli, M.Sc.</span>
+            <span class="text-emerald-400 font-mono">100% Offline & Lokal</span>
+          </div>
+
         </div>
       </div>
 
@@ -445,6 +550,22 @@ def get_header():
       <!-- Main Content Area -->
       <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         
+        <!-- Subtle Context Navigation Bar with Hamburger Trigger -->
+        <div class="flex items-center justify-between pb-3 border-b border-white/10 text-xs">
+          <div class="flex items-center space-x-2 text-[#8f8888]">
+            <span>Wissensdatenbank</span>
+            <span>/</span>
+            <span class="text-white font-semibold">{{ currentTabName }}</span>
+          </div>
+          <button 
+            @click="isMobileMenuOpen = true" 
+            class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium flex items-center space-x-1.5 transition text-[11px]"
+          >
+            <span>☰</span>
+            <span>Bereich wechseln</span>
+          </button>
+        </div>
+
         <!-- Search Filter Alert if Active -->
         <div v-if="searchQuery" class="p-3 bg-[#bf262e]/10 border border-[#bf262e]/40 rounded-xl flex items-center justify-between text-xs text-white">
           <div class="flex items-center space-x-2">

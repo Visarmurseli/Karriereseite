@@ -198,6 +198,272 @@ def get_thesis():
           </div>
         </div>
 
+        <!-- ================= SECTION: THEORETISCHE STÄRKEN & WISSENSCHAFTLICHE FUNDIERUNG ================= -->
+        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-lg">🏛️</span>
+                <h3 class="text-base font-bold text-white">
+                  Theoretische Stärken & Wissenschaftliche Fundierung
+                </h3>
+              </div>
+              <p class="text-xs text-slate-500">
+                Die fünf tragenden theoretischen Säulen aus Bachelor- und Masterstudium an der Universität Stuttgart
+              </p>
+            </div>
+            <span class="tag-badge bg-[#bf262e] text-white font-bold text-xs whitespace-nowrap">
+              300 ECTS Theorie-Praxis-Transfer
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+            
+            <!-- Theory 1: Boundary Resources Theory -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-[#f87171] text-xs">1. Boundary Resources Theory</span>
+                  <span class="text-[9px] bg-red-500/20 text-[#f87171] px-1.5 py-0.5 rounded font-mono">Ghazawneh & Henfridsson</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Plattform-Grenzressourcen & Ökosystem-Governance</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Fundiertes Verständnis von Schnittstellen nicht nur als technische APIs, sondern als soziotechnische Grenzressourcen: <strong>Application (ABR)</strong>, <strong>Development (DBR)</strong> und <strong>Social Boundary Resources (SBR)</strong>. Erforscht in der Bachelorarbeit (1,7) und skaliert in der Masterarbeit (1,0) zur Beherrschung von Plattform-Ökosystemen.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: API-Management auf SAP BTP & kontrollierte Drittsystem-Integration (xSuite, PATRIS).
+              </div>
+            </div>
+
+            <!-- Theory 2: Bimodale IT & Clean Core -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-emerald-400 text-xs">2. Bimodale IT & Entkopplung</span>
+                  <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">Gartner / Clean Core</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Zwei-Geschwindigkeiten-Architektur & Standardisierung</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Theoretische Trennung zwischen <strong>Mode 1 (System of Record)</strong> – hohe Stabilität, geringe Änderungsrate, strikter Standard – und <strong>Mode 2 (System of Innovation / Engagement)</strong> – agile, schnelle Innovationszyklen. 
+                  Verhindert technische Verschuldung und sichert kontinuierliche Release-Fähigkeit in Cloud-ERP-Architekturen.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: S/4HANA modifikationsfreier Core + Side-by-Side Erweiterungen auf SAP BTP.
+              </div>
+            </div>
+
+            <!-- Theory 3: Mayring & DSRM Forschungsmethodik -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-purple-400 text-xs">3. Empirische Forschungsmethodik</span>
+                  <span class="text-[9px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded font-mono">Mayring / DSRM Peffers</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Qualitative Inhaltsanalyse & Artefakt-Konstruktion</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Beherrschung der <strong>qualitativen Inhaltsanalyse nach Mayring</strong> (deduktiv-induktives Codebuch, Intercoder-Reliabilität) angewandt auf 12 Enterprise-Interviews. Fundiertes Wissen in der <strong>Design Science Research Methodology (DSRM nach Peffers)</strong> zur wissenschaftlich validierten Konstruktion innovativer IT-Artefakte.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: Strukturierte Anforderungszerlegung, Codebuch-Methodik und objektive Evaluation.
+              </div>
+            </div>
+
+            <!-- Theory 4: Enterprise Architecture & TOGAF -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-blue-400 text-xs">4. TOGAF 9 ADM & Metamodellierung</span>
+                  <span class="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-mono">The Open Group / Scape</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Ganzheitliches Enterprise Architecture Management (EAM)</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Zertifiziertes Wissen im <strong>TOGAF 9 Architecture Development Method (ADM)</strong> Zyklus (Phasen A–H). Strukturierte Verknüpfung der vier Kernarchitekturen: Geschäft (Business), Daten (Data), Anwendungen (Application) und Technologie (Technology) inklusive Gap-Analysen und Architektur-Governance.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: Ausrichtung von IT-Investitionen an Unternehmenszielen & Architecture Review Boards.
+              </div>
+            </div>
+
+            <!-- Theory 5: Absorptive Capacity & Soziotechnik -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-amber-400 text-xs">5. Absorptive Capacity & Change</span>
+                  <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">Cohen & Levinthal</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Wissensaufnahme & Soziotechnische Transformation</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Das Konzept der <strong>Absorptive Capacity</strong>: Eine Organisation kann neue Technologien (wie S/4HANA Cloud) nur dann erfolgreich adoptieren, wenn Vorwissen existiert und kontinuierlich transformiert wird. 
+                  Transformation gelingt nur, wenn Technik, Prozesse und Menschen synchron transformiert werden.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: TP1 Change Management, Mitbestimmung mit Betriebsrat und SAP Enable Now Rollout.
+              </div>
+            </div>
+
+            <!-- Theory 6: KLR, Rechnungslegung & Trennungsrechnung -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-teal-400 text-xs">6. Betriebswirtschaft & Rechnungslegung</span>
+                  <span class="text-[9px] bg-teal-500/20 text-teal-300 px-1.5 py-0.5 rounded font-mono">HGB / EU 1370 / PBefG</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Kosten- und Leistungsrechnung & Rechnungslegung</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Fundierte Kenntnisse im externen und internen Rechnungswesen: Bilanzierung nach HGB, Kostenarten-, Kostenstellen- und Kostenträgerrechnung, Deckungsbeitragsrechnung sowie regulatorische Vorgaben zur <strong>Trennungsrechnung</strong> (EU 1370/2007) zur Vermeidung von Quersubventionierungen.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: Solution Design im FI/CO, Parallel-Ledger (0L/2L) und Verwendungsnachweisführung (GM).
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ================= SECTION: ERFOLGREICH UMGESETZTE PROJEKTE (MASTER & BACHELOR) ================= -->
+        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-lg">🚀</span>
+                <h3 class="text-base font-bold text-white">
+                  Erfolgreich umgesetzte Projekte im Master- und Bachelorstudium
+                </h3>
+              </div>
+              <p class="text-xs text-slate-500">
+                Wissenschaftliche Fallstudien, Prototypen, empirische Forschungsarbeiten und Praxiskonzeptionen
+              </p>
+            </div>
+            <span class="tag-badge bg-emerald-600 text-white font-bold text-xs whitespace-nowrap">
+              100% Akademisch Verifiziert
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+
+            <!-- Project Master 1: Digitale Nachhaltigkeit -->
+            <div class="p-4 rounded-xl bg-white/5 border border-emerald-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-emerald-600 text-white font-bold text-[10px]">Master | Note 1,0 (Sehr Gut)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">J. Schmalz GmbH Fallstudie</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Automatisierte CSRD-Abfallbilanz & Green IT</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Konzeption und Entwicklung einer automatisierten Datenstrecke zur Erstellung der betrieblichen Abfallbilanz und CSRD-Nachhaltigkeitsberichterstattung beim Vakuum-Spezialisten J. Schmalz GmbH.
+                  BPMN 2.0-Ist- und Soll-Prozessmodellierung, Identifikation von Medienbrüchen und Entwicklung von PowerShell-Automatisierungsskripten zur fehlerfreien Extraktion und Aufbereitung von Entsorgungsnachweisen.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-emerald-400 font-semibold">Ergebnis: Eliminierung manueller Eingabefehler & CSRD-Compliance</span>
+                <span class="text-slate-400">Dr. Dimitri Petrik</span>
+              </div>
+            </div>
+
+            <!-- Project Master 2: FPWI Smart Service Blueprinting -->
+            <div class="p-4 rounded-xl bg-white/5 border border-blue-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-[#bf262e] text-white font-bold text-[10px]">Master | Note 1,3 (Sehr Gut)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">DSRM & IoT Services</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Smart Service Blueprinting für vernetzte Produkte</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Entwicklung eines erweiterten Service-Blueprinting-Frameworks zur Modellierung cyber-physischer Systeme (CPS) und IoT-Dienstleistungen nach der Design Science Research Methodology (DSRM nach Peffers).
+                  Integration physischer Sensorebenen, digitaler Cloud-Services und Benutzerinteraktionen. Empirische Evaluation durch Thinking-Aloud-Usability-Tests mit Software-Ingenieuren und Erzielung eines <strong>SUS-Scores von 85/100 (Grade A / Excellent)</strong>.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-blue-400 font-semibold">Ergebnis: Validiertes Architektur-Artefakt für IoT-Ökosysteme</span>
+                <span class="text-slate-400">Forschungsprojekt WI</span>
+              </div>
+            </div>
+
+            <!-- Project Master 3: Advanced Software Engineering & Cloud -->
+            <div class="p-4 rounded-xl bg-white/5 border border-indigo-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-indigo-600 text-white font-bold text-[10px]">Master | Note 1,6 & 2,0</span>
+                  <span class="text-[10px] text-slate-400 font-mono">ASE & Cloud-Native</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Enterprise Software-Architektur & Serverless Cloud</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Konzeption moderner Enterprise-Softwarearchitekturen unter Anwendung von Domain-Driven Design (DDD), Event-Driven Architecture und CI/CD-Qualitätsmetriken (Prof. Dr. Steffen Becker).
+                  Im Modul Cloud Computing: Konzeption und quantitative Evaluation einer hochskalierbaren Serverless-E-Commerce-Architektur nach dem AWS Well-Architected Framework (DynamoDB, EventBridge, Step Functions, Lambda).
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-indigo-400 font-semibold">Ergebnis: Skalierbare Microservice- & Event-Mesh-Patterns</span>
+                <span class="text-slate-400">Uni Stuttgart</span>
+              </div>
+            </div>
+
+            <!-- Project Master 4: PatentRadar Venture Pitch -->
+            <div class="p-4 rounded-xl bg-white/5 border border-purple-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-purple-600 text-white font-bold text-[10px]">Master | Note 2,0 (Gut)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">Klingele Paper & Packaging / ISG</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Digital Venture „PatentRadar“: KI-gestützte Patentrecherche</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Entwicklung eines hybriden Geschäftsmodells (SaaS & Beratungsdienstleistung) für ein führendes Unternehmen der Verpackungsindustrie (Klingele / ISG).
+                  BPMN 2.0-Modellierung der manuellen Recherche- und Überwachungsprozesse, Konzeption einer RPA-Automatisierungsstrecke (UiPath) in Verbindung mit KI-gestützter Volltextrecherche (DEPATISnet/Espacenet) und C-Level Venture-Pitch.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-purple-400 font-semibold">Ergebnis: Vollständiges Business-Case- & Architektur-Pitchdeck</span>
+                <span class="text-slate-400">Prof. Dr. Georg Herzwurm</span>
+              </div>
+            </div>
+
+            <!-- Project Bachelor 1: E-Business B2B-Plattformen -->
+            <div class="p-4 rounded-xl bg-white/5 border border-emerald-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-emerald-600 text-white font-bold text-[10px]">Bachelor | Note 1,0 (Bestnote)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">B2B E-Procurement</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Informationssysteme im E-Business</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Analyse und Konzeption von elektronischen B2B-Marktplätzen, EDI-Standards, E-Procurement-Katalogen und digitalen Mehrseitigen Plattformen.
+                  Anwendung von Aufwandsschätzverfahren (Function-Point-Analyse), Testmanagement-Methoden und Design Thinking zur Optimierung digitaler Geschäftsprozesse.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-emerald-400 font-semibold">Ergebnis: Absolute Bestnote 1,0 im Bachelorcurriculum</span>
+                <span class="text-slate-400">Lehrstuhl WI II</span>
+              </div>
+            </div>
+
+            <!-- Project Bachelor 2: IVP 0x539-Wear Deckungsbeitragsrechnung -->
+            <div class="p-4 rounded-xl bg-white/5 border border-blue-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-[#bf262e] text-white font-bold text-[10px]">Bachelor | Note 2,3 (Gut)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">Unternehmensanalyse 0x539-Wear</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Quantitative Unternehmens- & Deckungsbeitragsanalyse</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Umfassende datengestützte Analyse der betrieblichen Prozesse der 0x539-Wear GmbH:
+                  Durchführung von mehrstufigen Deckungsbeitragsrechnungen, Plan-Ist-Vergleichen, Bestellungsanalysen, Kunden- und Lieferanten-Rentabilitätsanalysen sowie Bestandsoptimierung zur Steigerung der operativen Marge.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-blue-400 font-semibold">Ergebnis: Revisionssicherer Controlling- & BI-Report</span>
+                <span class="text-slate-400">IVP Praktikum</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- ================= SECTION: MASTER-CURRICULUM (120 ECTS | NOTE 1,6) ================= -->
         <div v-show="degreeTab === 'all' || degreeTab === 'master'" class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">

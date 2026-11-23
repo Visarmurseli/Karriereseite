@@ -13,6 +13,56 @@ def get_project():
             <span class="tag-badge bg-[#bf262e]/20 text-[#f87171] border border-[#bf262e]/40">RISE with SAP Private Cloud</span>
           </div>
 
+          <!-- Stand bei Austritt: Meilenstein Ende Explore-Phase & SDD-Abnahme -->
+          <div class="p-5 rounded-xl bg-gradient-to-r from-[#1e1516] via-[#161616] to-[#121c15] border border-emerald-500/30 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+              <div class="flex items-center space-x-2.5">
+                <span class="text-xl">🏁</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                    <span>Projektstand bei Austritt: Explore-Phase erfolgreich abgeschlossen</span>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">Meilenstein erreicht</span>
+                  </h4>
+                  <p class="text-[11px] text-[#8f8888]">Stuttgarter Straßenbahnen AG (SSB AG) • Programm SAP4SSB • Werkstudententätigkeit bis April 2026</p>
+                </div>
+              </div>
+              <div class="text-xs text-right">
+                <span class="text-[#8f8888]">Status:</span>
+                <span class="text-emerald-400 font-bold ml-1">SDD vollständig genehmigt</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
+              <div class="space-y-1.5">
+                <div class="font-bold text-white flex items-center space-x-1.5">
+                  <span class="text-emerald-400">✓</span>
+                  <span>Erreichte Ergebnisse (Ende Explore-Phase):</span>
+                </div>
+                <ul class="text-[#c4bebe] space-y-1 list-disc list-inside text-[11px] leading-relaxed">
+                  <li><strong>Fit-to-Standard abgeschlossen:</strong> Sämtliche Fachworkshops in TP1 bis TP5 erfolgreich moderiert und dokumentiert.</li>
+                  <li><strong>Solution Design Document (SDD):</strong> Kaufmännische Kernprozesse (FI/CO, MM, PM, Trennungsrechnung, ACDOCA) vollständig finalisiert und durch den Lenkungsausschuss freigegeben.</li>
+                  <li><strong>Prozessmodellierung:</strong> Solldokumentation in SAP Signavio (BPMN 2.0) als verbindliche Implementierungsgrundlage eingefroren.</li>
+                  <li><strong>Tool-Governance:</strong> SAP Cloud ALM für Anforderungs-, Test- und Aufgabenmanagement über alle Teilprojekte hinweg etabliert.</li>
+                  <li><strong>Enable Now Übergabe:</strong> Autoren- und Schulungskonzept erfolgreich an die Personalentwicklung (UB AC) übergeben.</li>
+                  <li><strong>Mitbestimmungs-Fahrplan:</strong> Pilot-Betriebsvereinbarung (Vorgang 294) zum 01.04.2026 für UAT-Tests auf QS4.210 vorbereitet.</li>
+                </ul>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="font-bold text-white flex items-center space-x-1.5">
+                  <span class="text-blue-400">➔</span>
+                  <span>Nächster Projektschritt im Masterplan: Realize-Phase</span>
+                </div>
+                <ul class="text-[#c4bebe] space-y-1 list-disc list-inside text-[11px] leading-relaxed">
+                  <li><strong>System-Customizing:</strong> Konfiguration und Aufbau des Entwicklungssystems (DS4.100) im modifikationsfreien Clean-Core-Standard.</li>
+                  <li><strong>Realisierung von Erweiterungen:</strong> On-Stack ABAP Cloud / RAP Entwicklung und Side-by-Side Entkopplung auf der SAP BTP.</li>
+                  <li><strong>Migrations-Staging:</strong> Vorbereitung der Extraktions-Pipelines und Befüllung der Staging-Tabellen im SAP Migration Cockpit (LTMC).</li>
+                  <li><strong>Test-Zyklen (SIT & UAT):</strong> Durchführung der Systemintegrationstests (SIT 1–3) in Cloud ALM und Vorbereitung des Produktiv-Cutovers zum Go-Live (01.01.2027).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           <!-- Why Greenfield & Clean Core -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/30 transition">

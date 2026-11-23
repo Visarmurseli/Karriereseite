@@ -98,30 +98,54 @@ def get_interview():
           </div>
         </div>
 
-        <!-- 15+ Q&A Simulator -->
+        <!-- 40+ Q&A Simulator -->
         <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
               <h3 class="text-base font-bold text-white flex items-center space-x-2">
                 <span>💬</span>
-                <span>Interaktiver Interview-Simulator (15+ Fach- und Verhaltensfragen)</span>
+                <span>Interaktiver Interview- & Wissens-Simulator (40+ fundierte Fach- & Verhaltensfragen)</span>
               </h3>
-              <p class="text-xs text-[#8f8888]">Filtern nach Themengebieten</p>
+              <p class="text-xs text-[#8f8888]">Strukturierter Wissenskatalog: SSB S/4HANA, DC1 ITIL 4, Master, Bachelor, EAM & Verhalten</p>
             </div>
             
-            <div class="flex flex-wrap gap-1">
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-[#8f8888] font-mono whitespace-nowrap">{{ filteredQA.length }} Fragen gefunden</span>
+            </div>
+          </div>
+
+          <!-- Category Filter Bar & Live Search -->
+          <div class="space-y-3 pt-1">
+            <div class="flex flex-wrap gap-1.5">
               <button 
                 v-for="cat in qaCategories" 
                 :key="cat"
                 @click="selectedQACat = cat"
                 :class="[
-                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  'px-3 py-1.5 rounded-lg text-xs font-semibold transition',
                   selectedQACat === cat 
                     ? 'bg-[#bf262e] text-white shadow' 
                     : 'bg-white/5 text-[#c4bebe] hover:bg-white/10 border border-white/10'
                 ]"
               >
                 {{ cat }}
+              </button>
+            </div>
+
+            <!-- Instant Search Input inside QA tab -->
+            <div class="relative">
+              <input 
+                type="text" 
+                v-model="qaSearch" 
+                placeholder="Fragen oder Antworten durchsuchen (z.B. Trennungsrechnung, PRTG, Clean Core, Mayring, BTP, CVI, 0,00 €)..." 
+                class="w-full bg-[#181818] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-[#8f8888] focus:outline-none focus:border-[#bf262e]"
+              >
+              <button 
+                v-if="qaSearch" 
+                @click="qaSearch = ''" 
+                class="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-white"
+              >
+                ✕ Löschen
               </button>
             </div>
           </div>

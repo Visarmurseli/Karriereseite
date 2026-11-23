@@ -121,12 +121,11 @@
   <div id="app" class="min-h-screen flex flex-col bg-[#0d0d0d] text-[#c4bebe]">
     <div class="flex-1 flex flex-col min-h-screen">
       
-      <!-- ================= 1. RESPONSIVE TOP APP BAR ================= -->
+      <!-- ================= 1. SLEEK MINIMALIST TOP APP BAR ================= -->
       <header class="sticky top-0 z-40 bg-[#121212]/95 backdrop-blur-xl border-b border-white/10 shadow-xl">
-        <!-- Top Brand & Telemetry Line -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
           
-          <!-- Brand & Profile Identity -->
+          <!-- Left: Brand & Identity -->
           <div class="flex items-center space-x-3.5 cursor-pointer" @click="activeTab = 'dashboard'">
             <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#bf262e] via-[#cf3840] to-[#7e1218] flex items-center justify-center font-extrabold text-white shadow-lg shadow-[#bf262e]/30 border border-white/20 text-sm">
               VM
@@ -135,19 +134,15 @@
               <div class="flex items-center space-x-2">
                 <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">Visar Murseli</h1>
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="System Online & Bereit"></span>
-                <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-[#bf262e]/20 text-[#f87171] border border-[#bf262e]/40 text-[10px] font-bold">🎯 Junior Einstieg & Traineeprogramm</span>
+                <span class="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[10px] text-[#c4bebe]">Wissensdatenbank</span>
               </div>
-              <div class="flex items-center space-x-2 text-[11px] text-[#c4bebe]">
-                <span>M.Sc. Note 1,6 (120 ECTS)</span>
-                <span class="text-white/40">•</span>
-                <span class="text-emerald-400 font-medium">Masterarbeit 1,0</span>
-                <span class="text-white/40">•</span>
-                <span class="text-[#8f8888]">24M SSB S/4HANA PMO</span>
-              </div>
+              <p class="text-[11px] text-[#8f8888] hidden sm:block">
+                Akademisches & Berufliches Fundament (300 ECTS • SSB AG • Datacenter One)
+              </p>
             </div>
           </div>
 
-          <!-- Telemetry Badges & Action Controls -->
+          <!-- Right: Search, Dark Mode, Telemetry & Hamburger Button -->
           <div class="flex items-center space-x-2 sm:space-x-3">
             
             <!-- Quality Gate Telemetry Pills (Required by Spec-Kit tests) -->
@@ -158,7 +153,7 @@
               <span class="px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300">300 ECTS</span>
             </div>
 
-            <!-- Command Palette Trigger Button -->
+            <!-- Command Palette Trigger Button (Ctrl + K) -->
             <button 
               @click="openCommandPalette" 
               class="flex items-center space-x-2 px-3 py-1.5 text-xs bg-black/40 hover:bg-[#bf262e]/10 border border-white/10 hover:border-[#bf262e]/50 rounded-xl text-[#c4bebe] hover:text-white transition group shadow-inner"
@@ -179,196 +174,306 @@
               <span v-else>🌙</span>
             </button>
 
-            <!-- Mobile Drawer Hamburger Toggle -->
+            <!-- THE INTUITIVE HAMBURGER MENU BUTTON (☰) -->
             <button 
               @click="isMobileMenuOpen = !isMobileMenuOpen" 
-              class="lg:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white border border-white/10"
-              title="Menü öffnen"
+              class="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-[#bf262e] hover:bg-[#cf3840] text-white font-semibold text-xs shadow-md shadow-[#bf262e]/30 border border-white/20 transition active:scale-95"
+              title="Hauptnavigation öffnen"
             >
-              <span v-if="!isMobileMenuOpen">☰</span>
-              <span v-else>✕</span>
+              <span class="text-base leading-none" v-if="!isMobileMenuOpen">☰</span>
+              <span class="text-base leading-none" v-else>✕</span>
+              <span class="font-medium hidden sm:inline">Menü</span>
             </button>
-          </div>
-        </div>
 
-        <!-- Segmented Navigation: 5 Core Hubs -->
-        <div class="border-t border-white/10 bg-black/40">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between overflow-x-auto custom-scrollbar py-2">
-            <div class="flex items-center space-x-1.5 sm:space-x-2">
-              
-              <!-- Hub 1: Profil & Einstieg -->
-              <button 
-                @click="activeTab = 'dashboard'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  activeTab === 'dashboard'
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>📊</span>
-                <span>Profil & Einstieg</span>
-              </button>
-
-              <!-- Hub 2: S/4HANA Transformation -->
-              <button 
-                @click="activeTab = 'project'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  ['project', 'solution_design', 'migration', 'tools'].includes(activeTab)
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>🚆</span>
-                <span>S/4HANA Transformation</span>
-              </button>
-
-              <!-- Hub 3: Akademische Exzellenz -->
-              <button 
-                @click="activeTab = 'thesis'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  ['thesis', 'enterprise_arch'].includes(activeTab)
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>🎓</span>
-                <span>Akademische Exzellenz (1,0)</span>
-              </button>
-
-              <!-- Hub 4: Junior & Trainee Karriere -->
-              <button 
-                @click="activeTab = 'career'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  ['career', 'cheatsheet'].includes(activeTab)
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>🎯</span>
-                <span>Junior & Trainee Karriere</span>
-              </button>
-
-              <!-- Hub 5: Interview & Nachweise -->
-              <button 
-                @click="activeTab = 'interview'"
-                :class="[
-                  'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center space-x-2 whitespace-nowrap',
-                  ['interview', 'cv_defense', 'files', 'notebook'].includes(activeTab)
-                    ? 'bg-[#bf262e] text-white shadow-md shadow-[#bf262e]/30'
-                    : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
-                ]"
-              >
-                <span>🎙️</span>
-                <span>Interview & Nachweise</span>
-              </button>
-            </div>
-
-            <!-- Breadcrumb / Deliverables Jump -->
-            <div class="hidden md:flex items-center space-x-2 pl-4">
-              <button 
-                @click="activeTab = 'files'; selectedFileCat = 'Aktuelle Bewerbungsunterlagen'"
-                class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white text-[11px] font-medium flex items-center space-x-1.5 transition whitespace-nowrap"
-              >
-                <span>📁</span>
-                <span>Deliverables-Register</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Contextual Sub-Navigation Pill Bar -->
-          <div v-if="['project', 'solution_design', 'migration', 'tools'].includes(activeTab)" class="border-t border-white/5 bg-black/60 px-4 sm:px-6 lg:px-8 py-1.5">
-            <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] custom-scrollbar">
-              <span class="text-[#8f8888] font-medium whitespace-nowrap mr-1">Perspektive:</span>
-              <button @click="activeTab = 'project'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'project' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🏛️ TP1–TP5 Steuerung & WBS
-              </button>
-              <button @click="activeTab = 'solution_design'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'solution_design' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                📐 Solution Design (FI/CO & Trennungsrechnung)
-              </button>
-              <button @click="activeTab = 'migration'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'migration' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🔄 Datenmigration & CVI (0,00 € Saldo)
-              </button>
-              <button @click="activeTab = 'tools'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'tools' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🛠️ Toolchain Hub (CALM & Signavio)
-              </button>
-            </div>
-          </div>
-
-          <div v-if="['thesis', 'enterprise_arch'].includes(activeTab)" class="border-t border-white/5 bg-black/60 px-4 sm:px-6 lg:px-8 py-1.5">
-            <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] custom-scrollbar">
-              <span class="text-[#8f8888] font-medium whitespace-nowrap mr-1">Perspektive:</span>
-              <button @click="activeTab = 'thesis'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'thesis' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🎓 Masterarbeit 1,0 (12 Interviews & CSF)
-              </button>
-              <button @click="activeTab = 'enterprise_arch'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'enterprise_arch' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🏛️ TOGAF 9 ADM & ITIL 4 Service Operations
-              </button>
-            </div>
-          </div>
-
-          <div v-if="['career', 'cheatsheet'].includes(activeTab)" class="border-t border-white/5 bg-black/60 px-4 sm:px-6 lg:px-8 py-1.5">
-            <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] custom-scrollbar">
-              <span class="text-[#8f8888] font-medium whitespace-nowrap mr-1">Perspektive:</span>
-              <button @click="activeTab = 'career'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'career' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🎯 Junior & Trainee Zielrollen (55k-65k €)
-              </button>
-              <button @click="activeTab = 'cheatsheet'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'cheatsheet' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                ⚡ Tech & BTP Architecture Cheatsheet
-              </button>
-            </div>
-          </div>
-
-          <div v-if="['interview', 'cv_defense', 'files', 'notebook'].includes(activeTab)" class="border-t border-white/5 bg-black/60 px-4 sm:px-6 lg:px-8 py-1.5">
-            <div class="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] custom-scrollbar">
-              <span class="text-[#8f8888] font-medium whitespace-nowrap mr-1">Perspektive:</span>
-              <button @click="activeTab = 'interview'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'interview' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🎙️ Pitches, STAR-Stories & Q&A
-              </button>
-              <button @click="activeTab = 'cv_defense'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'cv_defense' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                🛡️ CV De-Risking & Fangfragen
-              </button>
-              <button @click="activeTab = 'files'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'files' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                📂 Deliverables- & Nachweis-Register
-              </button>
-              <button @click="activeTab = 'notebook'" :class="['px-2.5 py-0.5 rounded-lg font-medium transition whitespace-nowrap', activeTab === 'notebook' ? 'bg-white/20 text-white font-bold' : 'text-[#8f8888] hover:text-white']">
-                📝 Second Brain Notizbuch
-              </button>
-            </div>
           </div>
         </div>
       </header>
 
-      <!-- Mobile Slide-over Drawer for Small Screens -->
-      <div v-if="isMobileMenuOpen" class="lg:hidden fixed inset-0 z-50 flex">
-        <div @click="isMobileMenuOpen = false" class="fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
-        <div class="relative w-72 max-w-[80%] bg-[#121212] border-r border-white/10 h-full overflow-y-auto p-4 flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-white/10">
-              <span class="text-xs font-bold text-white">Navigation</span>
-              <button @click="isMobileMenuOpen = false" class="text-white/60 hover:text-white text-sm">✕</button>
-            </div>
-            <div class="space-y-1">
-              <button 
-                v-for="tab in tabs" 
-                :key="tab.id"
-                @click="activeTab = tab.id; isMobileMenuOpen = false"
-                :class="[
-                  'w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition text-left',
-                  activeTab === tab.id ? 'bg-[#bf262e] text-white font-bold' : 'text-[#c4bebe] hover:bg-white/5'
-                ]"
-              >
-                <div class="flex items-center space-x-2">
-                  <span>{{ tab.icon }}</span>
-                  <span>{{ tab.label }}</span>
+      <!-- ================= 2. SLIDE-OVER NAVIGATION DRAWER (DESKTOP & MOBILE) ================= -->
+      <div v-if="isMobileMenuOpen" class="fixed inset-0 z-50 flex justify-end">
+        <!-- Backdrop blur overlay -->
+        <div @click="isMobileMenuOpen = false" class="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity"></div>
+        
+        <!-- Drawer Panel -->
+        <div class="relative w-full max-w-md bg-[#121212] border-l border-white/10 h-full overflow-y-auto p-6 flex flex-col justify-between shadow-2xl z-10 custom-scrollbar">
+          
+          <div class="space-y-6">
+            <!-- Drawer Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-white/10">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-lg bg-[#bf262e] flex items-center justify-center font-bold text-white text-sm">
+                  VM
                 </div>
-                <span v-if="tab.badge" class="text-[9px] px-1.5 py-0.2 rounded-full bg-white/20 text-white">{{ tab.badge }}</span>
+                <div>
+                  <h3 class="text-sm font-bold text-white">Wissensdatenbank Navigation</h3>
+                  <p class="text-[11px] text-[#8f8888]">Wähle ein Modul zum Direktzugriff</p>
+                </div>
+              </div>
+              <button 
+                @click="isMobileMenuOpen = false" 
+                class="p-2 rounded-lg bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition text-sm font-mono"
+              >
+                ✕
               </button>
             </div>
+
+            <!-- Category 1: Übersicht & Fundament -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8f8888] px-2 mb-1">
+                1. Übersicht & Fundament
+              </div>
+              
+              <button 
+                @click="activeTab = 'dashboard'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'dashboard' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>📊</span>
+                  <div>
+                    <div class="font-medium">Wissensdatenbank Dashboard</div>
+                    <div class="text-[10px] text-white/70">Gesamtüberblick & 4 Wissenspfeiler</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'files'; selectedFileCat = 'Alle'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'files' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>📂</span>
+                  <div>
+                    <div class="font-medium">Deliverables- & Nachweis-Register</div>
+                    <div class="text-[10px] text-white/70">50+ kuratierte SSB- & Studienartefakte</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'notebook'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'notebook' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>📝</span>
+                  <div>
+                    <div class="font-medium">Second Brain Notizbuch</div>
+                    <div class="text-[10px] text-white/70">Persönliche Notizen & Autosave</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+            </div>
+
+            <!-- Category 2: Berufliche Praxis -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8f8888] px-2 mb-1">
+                2. Berufliche Praxisstationen
+              </div>
+
+              <button 
+                @click="activeTab = 'project'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'project' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🚆</span>
+                  <div>
+                    <div class="font-medium">SSB S/4HANA Transformation</div>
+                    <div class="text-[10px] text-white/70">Stand bei Austritt: Ende Explore / SDD vollständig</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'enterprise_arch'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'enterprise_arch' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🖥️</span>
+                  <div>
+                    <div class="font-medium">Datacenter One (DC1 / ITIL 4)</div>
+                    <div class="text-[10px] text-white/70">12 Monate INOC, 24/7 Monitoring & Confluence SOPs</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'solution_design'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'solution_design' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>📐</span>
+                  <div>
+                    <div class="font-medium">Solution Design (FI/CO)</div>
+                    <div class="text-[10px] text-white/70">Trennungsrechnung, ACDOCA, CVI & Grants</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'migration'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'migration' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🔄</span>
+                  <div>
+                    <div class="font-medium">Datenmigration & Cutover</div>
+                    <div class="text-[10px] text-white/70">LTMC Staging, SuSa-Abgleich & 0,00 € Saldo</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'tools'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'tools' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🛠️</span>
+                  <div>
+                    <div class="font-medium">Enterprise Toolchain Hub</div>
+                    <div class="text-[10px] text-white/70">SAP Cloud ALM, SAP Signavio & Enable Now</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+            </div>
+
+            <!-- Category 3: Akademische Exzellenz & Theorie -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8f8888] px-2 mb-1">
+                3. Akademische Erfolge & Theorie
+              </div>
+
+              <button 
+                @click="activeTab = 'thesis'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'thesis' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🎓</span>
+                  <div>
+                    <div class="font-medium">Master & Bachelor (Projekte & Theorie)</div>
+                    <div class="text-[10px] text-white/70">M.Sc. 1,6 | Thesis 1,0 | B.Sc. 3,0 | Thesis 1,7</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+            </div>
+
+            <!-- Category 4: Interview & Karriere -->
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold uppercase tracking-wider text-[#8f8888] px-2 mb-1">
+                4. Interview & Karriere
+              </div>
+
+              <button 
+                @click="activeTab = 'interview'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'interview' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🎙️</span>
+                  <div>
+                    <div class="font-medium">Interview Masterclass & Großer Q&A-Katalog</div>
+                    <div class="text-[10px] text-white/70">Pitches, STAR-Stories & 40+ Fragen mit Filter</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'cv_defense'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'cv_defense' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🛡️</span>
+                  <div>
+                    <div class="font-medium">CV De-Risking & Fangfragen</div>
+                    <div class="text-[10px] text-white/70">Ampelsystem & Pivot-Brücken</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'career'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'career' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>🎯</span>
+                  <div>
+                    <div class="font-medium">Junior & Trainee Einstiegsstrategie</div>
+                    <div class="text-[10px] text-white/70">Zielrollen, 55k-65k € Gehaltsziel & Onboarding</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
+              <button 
+                @click="activeTab = 'cheatsheet'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'cheatsheet' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>⚡</span>
+                  <div>
+                    <div class="font-medium">Tech & BTP Architecture Cheatsheet</div>
+                    <div class="text-[10px] text-white/70">RAP, CDS, OData & Integration Patterns</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+            </div>
+
           </div>
+
+          <!-- Drawer Footer -->
+          <div class="pt-4 border-t border-white/10 text-xs text-[#8f8888] flex items-center justify-between">
+            <span>Visar Murseli, M.Sc.</span>
+            <span class="text-emerald-400 font-mono">100% Offline & Lokal</span>
+          </div>
+
         </div>
       </div>
 
@@ -442,6 +547,22 @@
       <!-- Main Content Area -->
       <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         
+        <!-- Subtle Context Navigation Bar with Hamburger Trigger -->
+        <div class="flex items-center justify-between pb-3 border-b border-white/10 text-xs">
+          <div class="flex items-center space-x-2 text-[#8f8888]">
+            <span>Wissensdatenbank</span>
+            <span>/</span>
+            <span class="text-white font-semibold">{{ currentTabName }}</span>
+          </div>
+          <button 
+            @click="isMobileMenuOpen = true" 
+            class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium flex items-center space-x-1.5 transition text-[11px]"
+          >
+            <span>☰</span>
+            <span>Bereich wechseln</span>
+          </button>
+        </div>
+
         <!-- Search Filter Alert if Active -->
         <div v-if="searchQuery" class="p-3 bg-[#bf262e]/10 border border-[#bf262e]/40 rounded-xl flex items-center justify-between text-xs text-white">
           <div class="flex items-center space-x-2">
@@ -452,151 +573,178 @@
         </div>
 
 
-      <!-- ================= TAB 1: EXECUTIVE BRIEFING ================= -->
+      <!-- ================= TAB 1: WISSENSDATENBANK ÜBERSICHT ================= -->
       <div v-show="activeTab === 'dashboard'" class="space-y-6">
         
-        <!-- Hero Banner: The Strategic Triangle -->
-        <div class="bg-gradient-to-br from-[#181818] via-[#141414] to-[#1c080a] text-white rounded-2xl p-6 lg:p-8 shadow-2xl border border-[#bf262e]/30 relative overflow-hidden">
-          <div class="relative z-10 max-w-4xl space-y-4">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="bg-[#bf262e] text-white px-2.5 py-0.5 rounded-md text-xs font-bold uppercase tracking-wider shadow-md shadow-[#bf262e]/30">🎯 Junior Einstieg & Trainee</span>
-              <span class="bg-white/5 text-[#fecdd3] border border-[#bf262e]/30 px-2.5 py-0.5 rounded-md text-xs font-medium">Stuttgarter Straßenbahnen AG (3.700 MA)</span>
-              <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-md text-xs font-medium">24 Monate Greenfield S/4HANA</span>
-              <span class="bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2.5 py-0.5 rounded-md text-xs font-medium">Masterarbeit Note 1,0 (30 ECTS)</span>
+        <!-- Hero Banner: Objektive Wissensdatenbank-Übersicht -->
+        <div class="bg-gradient-to-br from-[#181818] via-[#141414] to-[#1a1213] text-white rounded-2xl p-6 lg:p-8 shadow-xl border border-white/10 relative overflow-hidden">
+          <div class="relative z-10 max-w-5xl space-y-4">
+            
+            <!-- Objective Credentials Badges -->
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <span class="bg-white/10 text-white px-2.5 py-1 rounded-lg font-medium border border-white/15">
+                🏛️ Universität Stuttgart
+              </span>
+              <span class="bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-lg font-medium">
+                M.Sc. Wirtschaftsinformatik: Note 1,6 (120 ECTS)
+              </span>
+              <span class="bg-emerald-500/25 text-emerald-200 border border-emerald-500/40 px-2.5 py-1 rounded-lg font-bold">
+                Masterarbeit: Note 1,0 (30 ECTS)
+              </span>
+              <span class="bg-blue-500/15 text-blue-300 border border-blue-500/30 px-2.5 py-1 rounded-lg font-medium">
+                B.Sc. Wirtschaftsinformatik: Note 3,0 (180 ECTS)
+              </span>
+              <span class="bg-blue-500/25 text-blue-200 border border-blue-500/40 px-2.5 py-1 rounded-lg font-bold">
+                Bachelorarbeit: Note 1,7 (12 ECTS)
+              </span>
             </div>
             
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#f5f3f3]">
-              Das Enterprise Knowledge & Career Operating System
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              Persönliche Wissensdatenbank: Akademisches & Berufliches Fundament
             </h2>
             <p class="text-[#c4bebe] text-xs sm:text-sm leading-relaxed">
-              Dieses Wissensportal bündelt dein gesamtes Know-how für den <strong>zielgerichteten Direkteinstieg als Junior SAP Consultant oder in ein IT-/Management-Traineeprogramm</strong>: <strong>Zwei Jahre operative IT-PMO Praxis bei der SSB AG (3.700 MA)</strong>, deine <strong>mit 1,0 bewertete Masterarbeit (Prof. Herzwurm)</strong>, deine <strong>TOGAF-Zertifizierung</strong> und <strong>12 Monate ITIL 4 Service Operations bei Datacenter One</strong>.
+              Dieses Wissensportal bündelt alle Unterlagen, Projekt-Deliverables und theoretischen Grundlagen aus meinem Werdegang als Wirtschaftsinformatiker: <strong>300 ECTS universitäre Ausbildung an der Universität Stuttgart</strong> (Master & Bachelor), <strong>24 Monate Großprojekterfahrung bei der Stuttgarter Straßenbahnen AG</strong> (S/4HANA Transformation bis zum Abschluss der Explore-Phase), <strong>12 Monate ITIL 4 Service Operations bei Datacenter One</strong> sowie die <strong>TOGAF 9 ADM-Zertifizierung</strong>.
             </p>
 
-            <!-- 3 Pillars -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
-              <div @click="activeTab = 'project'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer backdrop-blur rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
+            <!-- 4 Equal Pillars of Knowledge -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+              
+              <!-- Pillar 1: SSB S/4HANA Transformation -->
+              <div @click="activeTab = 'project'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
                 <div class="text-[#f87171] font-bold text-xs uppercase flex items-center justify-between">
-                  <span>1. Enterprise Praxis</span>
+                  <span>1. S/4HANA Transformation</span>
                   <span class="group-hover:translate-x-1 transition">➔</span>
                 </div>
-                <div class="font-semibold text-sm mt-1 text-white">24 Mo. IT-PMO (TP5)</div>
-                <div class="text-[11px] text-[#c4bebe] mt-1">TP1–TP5 Koordination, Lenkungsausschuss, Meilensteine, Tool-Governance (CALM, Signavio, SEN).</div>
+                <div class="font-semibold text-sm mt-1 text-white">SSB AG (24 Monate)</div>
+                <div class="text-[11px] text-[#c4bebe] mt-1">Stand bei Austritt: Explore-Phase abgeschlossen, Solution Design Document (SDD) vollständig genehmigt.</div>
               </div>
 
-              <div @click="activeTab = 'thesis'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer backdrop-blur rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
+              <!-- Pillar 2: Datacenter One ITIL Operations -->
+              <div @click="activeTab = 'enterprise_arch'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
                 <div class="text-[#f87171] font-bold text-xs uppercase flex items-center justify-between">
-                  <span>2. Akademische Spitze</span>
+                  <span>2. IT-Operations & RZ</span>
                   <span class="group-hover:translate-x-1 transition">➔</span>
                 </div>
-                <div class="font-semibold text-sm mt-1 text-white">Masterarbeit Note 1,0</div>
-                <div class="text-[11px] text-[#c4bebe] mt-1">126 Seiten, 12 Experteninterviews, empirische ERP-Transformation & Plattform-Governance.</div>
+                <div class="font-semibold text-sm mt-1 text-white">Datacenter One (12 Monate)</div>
+                <div class="text-[11px] text-[#c4bebe] mt-1">24/7 INOC Leitstand, ITIL 4 Incident Management, Confluence SOPs, PRTG Monitoring & HLM.</div>
               </div>
 
-              <div @click="activeTab = 'solution_design'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer backdrop-blur rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
+              <!-- Pillar 3: Masterstudium & Forschung -->
+              <div @click="activeTab = 'thesis'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
                 <div class="text-[#f87171] font-bold text-xs uppercase flex items-center justify-between">
-                  <span>3. Architektur & Daten</span>
+                  <span>3. Masterstudium (1,6)</span>
                   <span class="group-hover:translate-x-1 transition">➔</span>
                 </div>
-                <div class="font-semibold text-sm mt-1 text-white">Solution Design & Migration</div>
-                <div class="text-[11px] text-[#c4bebe] mt-1">Trennungsrechnung, Staging-Tabellen, SuSa-Abgleich (0,00 € Übernahmekonto), CVI & Drittsysteme.</div>
+                <div class="font-semibold text-sm mt-1 text-white">M.Sc. Uni Stuttgart</div>
+                <div class="text-[11px] text-[#c4bebe] mt-1">Masterarbeit Note 1,0 (12 Interviews, Mayring), Digitale Nachhaltigkeit (1,0), Advanced SE (1,6).</div>
               </div>
+
+              <!-- Pillar 4: Bachelorstudium & Methoden -->
+              <div @click="activeTab = 'thesis'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
+                <div class="text-[#f87171] font-bold text-xs uppercase flex items-center justify-between">
+                  <span>4. Bachelorstudium (3,0)</span>
+                  <span class="group-hover:translate-x-1 transition">➔</span>
+                </div>
+                <div class="font-semibold text-sm mt-1 text-white">B.Sc. Uni Stuttgart</div>
+                <div class="text-[11px] text-[#c4bebe] mt-1">Bachelorarbeit Note 1,7 (Low-Code), E-Business (1,0), Unternehmensanalyse (2,3), BPMN 2.0 & SQL.</div>
+              </div>
+
             </div>
           </div>
-          <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-[#bf262e]/10 to-transparent pointer-events-none"></div>
         </div>
 
-        <!-- KPI Grid -->
+        <!-- Objective Key Metrics Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
-            <div class="text-xs text-[#8f8888] font-medium">Praxiserfahrung SSB AG</div>
-            <div class="text-xl font-bold text-white mt-1">24 Monate</div>
-            <div class="text-xs text-emerald-400 mt-1 font-medium">01.05.2024 – 30.04.2026</div>
+            <div class="text-xs text-[#8f8888] font-medium">Akademisches Gesamtvolumen</div>
+            <div class="text-xl font-bold text-white mt-1">300 ECTS</div>
+            <div class="text-xs text-purple-400 mt-1 font-medium">M.Sc. (120) + B.Sc. (180)</div>
           </div>
 
           <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
-            <div class="text-xs text-[#8f8888] font-medium">Konzern-Scope SSB</div>
-            <div class="text-xl font-bold text-white mt-1">3.700 MA</div>
-            <div class="text-xs text-[#f87171] mt-1 font-medium">5 Teilprojekte (TP1–TP5)</div>
-          </div>
-
-          <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
-            <div class="text-xs text-[#8f8888] font-medium">Masterabschluss (Uni Stuttgart)</div>
-            <div class="text-xl font-bold text-white mt-1">M.Sc. 1,6</div>
-            <div class="text-xs text-purple-400 mt-1 font-medium">Masterarbeit Note 1,0 (30 ECTS)</div>
+            <div class="text-xs text-[#8f8888] font-medium">Berufliche Praxiserfahrung</div>
+            <div class="text-xl font-bold text-white mt-1">36 Monate</div>
+            <div class="text-xs text-emerald-400 mt-1 font-medium">24M SSB AG + 12M DC1</div>
           </div>
 
           <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
             <div class="text-xs text-[#8f8888] font-medium">Empirische Expertenbasis</div>
             <div class="text-xl font-bold text-white mt-1">12 Interviews</div>
-            <div class="text-xs text-amber-400 mt-1 font-medium">Nowak, Nagarro Architekten, TPLs</div>
+            <div class="text-xs text-amber-400 mt-1 font-medium">Gesamt-PL, TPLs, Lead Architects</div>
+          </div>
+
+          <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
+            <div class="text-xs text-[#8f8888] font-medium">Enterprise Architektur</div>
+            <div class="text-xl font-bold text-white mt-1">TOGAF 9 ADM</div>
+            <div class="text-xs text-blue-400 mt-1 font-medium">Zertifiziert bei Scape Consulting</div>
           </div>
         </div>
 
         <!-- Knowledge Graph & Ecosystem Telemetry Bar -->
-        <div class="bg-gradient-to-r from-[#141414] via-[#1a0e10] to-[#141414] p-5 rounded-2xl border border-[#bf262e]/30 text-white shadow-lg space-y-3">
+        <div class="bg-[#141414] p-5 rounded-2xl border border-white/10 text-white shadow-lg space-y-3">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div class="flex items-center space-x-2">
               <span class="text-lg">🧠</span>
               <div>
-                <h4 class="text-sm font-bold tracking-tight text-[#f5f3f3] flex items-center gap-2">
-                  <span>Neuronales Second Brain & Enterprise Wissensgraph</span>
-                  <span class="px-2 py-0.5 rounded-full bg-[#bf262e]/20 text-[#f87171] border border-[#bf262e]/40 text-[10px] font-mono">Obsidian & Notion Bridge</span>
+                <h4 class="text-sm font-bold tracking-tight text-white flex items-center gap-2">
+                  <span>Wissensgraph & Second Brain Index</span>
+                  <span class="px-2 py-0.5 rounded-full bg-white/10 text-[#c4bebe] text-[10px] font-mono">Obsidian & Notizdatenbank</span>
                 </h4>
-                <p class="text-[11px] text-[#c4bebe]">Vollständig vernetztes Wissenssystem: Von empirischen Interviewtranskripten bis zu SDD-Architekturmodellen.</p>
+                <p class="text-[11px] text-[#8f8888]">Strukturierte Text-Dossiers und Querverbindungen über alle beruflichen und akademischen Unterlagen.</p>
               </div>
             </div>
             <button @click="openCommandPalette" class="self-start sm:self-auto px-3 py-1.5 rounded-lg bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-semibold flex items-center space-x-1.5 transition shadow-md shadow-[#bf262e]/30">
-              <span>⚡ Schnellsuche starten</span>
+              <span>⚡ Schnellsuche öffnen</span>
               <kbd class="px-1 py-0.5 bg-black/40 rounded text-[9px] font-mono">Ctrl K</kbd>
             </button>
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
             <div @click="activeTab = 'notebook'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
-              <div class="text-[11px] text-[#fecdd3] font-medium">Obsidian Deep-Dive Dossiers</div>
+              <div class="text-[11px] text-[#8f8888] font-medium">Obsidian Text-Dossiers</div>
               <div class="text-xl font-extrabold text-white mt-0.5">53 Dossiers</div>
-              <div class="text-[10px] text-emerald-400 mt-0.5">266 bidirektionale Links (0 Broken)</div>
+              <div class="text-[10px] text-emerald-400 mt-0.5">266 bidirektionale Links</div>
             </div>
 
             <div @click="activeTab = 'files'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
-              <div class="text-[11px] text-[#fecdd3] font-medium">Notion Transformation Hub</div>
+              <div class="text-[11px] text-[#8f8888] font-medium">Kuratierte Dokumente</div>
               <div class="text-xl font-extrabold text-white mt-0.5">21 Deliverables</div>
-              <div class="text-[10px] text-blue-400 mt-0.5">SSB Großprojekt-Wissensdatenbank</div>
+              <div class="text-[10px] text-blue-400 mt-0.5">SSB Großprojekt-Artefakte</div>
             </div>
 
             <div @click="activeTab = 'project'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
-              <div class="text-[11px] text-[#fecdd3] font-medium">Authentische WBS-Steuerung</div>
+              <div class="text-[11px] text-[#8f8888] font-medium">SSB S/4HANA Steuerung</div>
               <div class="text-xl font-extrabold text-white mt-0.5">TP1 – TP5</div>
-              <div class="text-[10px] text-amber-400 mt-0.5">Vorgang 1–297 (Explore ➔ Go-Live)</div>
+              <div class="text-[10px] text-amber-400 mt-0.5">Ende Explore / SDD vollständig</div>
             </div>
 
             <div @click="activeTab = 'thesis'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
-              <div class="text-[11px] text-[#fecdd3] font-medium">Akademisches Fundament</div>
+              <div class="text-[11px] text-[#8f8888] font-medium">Akademisches Curriculum</div>
               <div class="text-xl font-extrabold text-white mt-0.5">300 ECTS</div>
-              <div class="text-[10px] text-purple-400 mt-0.5">M.Sc. (1,6) + B.Sc. (3,0) Uni Stuttgart</div>
+              <div class="text-[10px] text-purple-400 mt-0.5">M.Sc. (1,6) + B.Sc. (3,0)</div>
             </div>
           </div>
         </div>
 
-        <!-- Quick Jump Navigation Grid -->
+        <!-- Schnellzugriff auf alle Wissensbereiche (11 Module) -->
         <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-bold text-white flex items-center space-x-2">
               <span>🧭</span>
-              <span>Wissens-Module: Direktzugriff auf alle Bereiche</span>
+              <span>Direktzugriff auf alle Fach- und Wissensmodule</span>
             </h3>
-            <span class="text-xs text-[#8f8888]">12 strukturierte Fachbereiche</span>
+            <span class="text-xs text-[#8f8888]">11 Themenbereiche</span>
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-xs">
-            <button @click="activeTab = 'cv_defense'" class="p-3 text-left rounded-xl border border-red-500/30 bg-red-500/10 hover:border-red-500 transition">
-              <div class="text-red-400 font-bold mb-0.5">🛡️ CV De-Risking</div>
-              <div class="text-[11px] text-[#8f8888]">Ampelsystem, Pivot-Brücken & Fangfragen</div>
+            <button @click="activeTab = 'project'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+              <div class="font-bold text-white mb-0.5">🚆 SSB S/4HANA</div>
+              <div class="text-[11px] text-[#8f8888]">Ende Explore, SDD & TP1–TP5</div>
             </button>
 
-            <button @click="activeTab = 'project'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🏛️ Großprojekt SSB</div>
-              <div class="text-[11px] text-[#8f8888]">Greenfield, Clean Core & TP1–TP5</div>
+            <button @click="activeTab = 'enterprise_arch'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+              <div class="font-bold text-white mb-0.5">🖥️ Datacenter One (DC1)</div>
+              <div class="text-[11px] text-[#8f8888]">ITIL 4, 24/7 Monitoring & Confluence</div>
             </button>
 
             <button @click="activeTab = 'solution_design'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
@@ -606,7 +754,7 @@
 
             <button @click="activeTab = 'migration'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
               <div class="font-bold text-white mb-0.5">🔄 Datenmigration</div>
-              <div class="text-[11px] text-[#8f8888]">Staging, SuSa-Abgleich & 0,00 € Konto</div>
+              <div class="text-[11px] text-[#8f8888]">LTMC Staging & 0,00 € Konto</div>
             </button>
 
             <button @click="activeTab = 'tools'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
@@ -615,38 +763,33 @@
             </button>
 
             <button @click="activeTab = 'thesis'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🎓 Masterarbeit 1,0</div>
-              <div class="text-[11px] text-[#8f8888]">12 Interviews, Theorien & CSF-Matrix</div>
-            </button>
-
-            <button @click="activeTab = 'enterprise_arch'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🏛️ EAM & ITIL 4</div>
-              <div class="text-[11px] text-[#8f8888]">TOGAF ADM & Datacenter One INOC</div>
-            </button>
-
-            <button @click="activeTab = 'cheatsheet'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">⚡ Tech Cheatsheet</div>
-              <div class="text-[11px] text-[#8f8888]">Fiori Apps, BTP Services & SQL Spickzettel</div>
-            </button>
-
-            <button @click="activeTab = 'career'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🚀 Karriere & Gehalt</div>
-              <div class="text-[11px] text-[#8f8888]">Zielrollen Stuttgart & 90-Tage-Plan</div>
+              <div class="font-bold text-white mb-0.5">🎓 Master & Bachelor</div>
+              <div class="text-[11px] text-[#8f8888]">300 ECTS, Arbeiten & Projekte</div>
             </button>
 
             <button @click="activeTab = 'interview'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
               <div class="font-bold text-white mb-0.5">🎙️ Interview Masterclass</div>
-              <div class="text-[11px] text-[#8f8888]">Pitches, STAR-Stories & 15+ Q&A</div>
+              <div class="text-[11px] text-[#8f8888]">Pitches, STAR-Stories & 40+ Q&A</div>
+            </button>
+
+            <button @click="activeTab = 'cv_defense'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+              <div class="font-bold text-white mb-0.5">🛡️ CV De-Risking</div>
+              <div class="text-[11px] text-[#8f8888]">Ampelsystem & Pivot-Brücken</div>
+            </button>
+
+            <button @click="activeTab = 'career'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+              <div class="font-bold text-white mb-0.5">🎯 Einstiegsstrategie</div>
+              <div class="text-[11px] text-[#8f8888]">Junior & Trainee (55k-65k €)</div>
             </button>
 
             <button @click="activeTab = 'files'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">📂 Dokumenten-Vault</div>
-              <div class="text-[11px] text-[#8f8888]">50+ kuratierte SSB-Originaldateien</div>
+              <div class="font-bold text-white mb-0.5">📂 Deliverables-Register</div>
+              <div class="text-[11px] text-[#8f8888]">50+ kuratierte Nachweis-Akten</div>
             </button>
 
             <button @click="activeTab = 'notebook'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">📝 Mein Second Brain</div>
-              <div class="text-[11px] text-[#8f8888]">Interaktives Notizbuch mit Autosave</div>
+              <div class="font-bold text-white mb-0.5">📝 Second Brain</div>
+              <div class="text-[11px] text-[#8f8888]">Interaktiver Notiz-Speicher</div>
             </button>
           </div>
         </div>
@@ -891,6 +1034,56 @@
               <p class="text-xs text-[#8f8888]">Das Herzstück deiner Praxiserfahrung bei der Stuttgarter Straßenbahnen AG</p>
             </div>
             <span class="tag-badge bg-[#bf262e]/20 text-[#f87171] border border-[#bf262e]/40">RISE with SAP Private Cloud</span>
+          </div>
+
+          <!-- Stand bei Austritt: Meilenstein Ende Explore-Phase & SDD-Abnahme -->
+          <div class="p-5 rounded-xl bg-gradient-to-r from-[#1e1516] via-[#161616] to-[#121c15] border border-emerald-500/30 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+              <div class="flex items-center space-x-2.5">
+                <span class="text-xl">🏁</span>
+                <div>
+                  <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                    <span>Projektstand bei Austritt: Explore-Phase erfolgreich abgeschlossen</span>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">Meilenstein erreicht</span>
+                  </h4>
+                  <p class="text-[11px] text-[#8f8888]">Stuttgarter Straßenbahnen AG (SSB AG) • Programm SAP4SSB • Werkstudententätigkeit bis April 2026</p>
+                </div>
+              </div>
+              <div class="text-xs text-right">
+                <span class="text-[#8f8888]">Status:</span>
+                <span class="text-emerald-400 font-bold ml-1">SDD vollständig genehmigt</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs pt-1">
+              <div class="space-y-1.5">
+                <div class="font-bold text-white flex items-center space-x-1.5">
+                  <span class="text-emerald-400">✓</span>
+                  <span>Erreichte Ergebnisse (Ende Explore-Phase):</span>
+                </div>
+                <ul class="text-[#c4bebe] space-y-1 list-disc list-inside text-[11px] leading-relaxed">
+                  <li><strong>Fit-to-Standard abgeschlossen:</strong> Sämtliche Fachworkshops in TP1 bis TP5 erfolgreich moderiert und dokumentiert.</li>
+                  <li><strong>Solution Design Document (SDD):</strong> Kaufmännische Kernprozesse (FI/CO, MM, PM, Trennungsrechnung, ACDOCA) vollständig finalisiert und durch den Lenkungsausschuss freigegeben.</li>
+                  <li><strong>Prozessmodellierung:</strong> Solldokumentation in SAP Signavio (BPMN 2.0) als verbindliche Implementierungsgrundlage eingefroren.</li>
+                  <li><strong>Tool-Governance:</strong> SAP Cloud ALM für Anforderungs-, Test- und Aufgabenmanagement über alle Teilprojekte hinweg etabliert.</li>
+                  <li><strong>Enable Now Übergabe:</strong> Autoren- und Schulungskonzept erfolgreich an die Personalentwicklung (UB AC) übergeben.</li>
+                  <li><strong>Mitbestimmungs-Fahrplan:</strong> Pilot-Betriebsvereinbarung (Vorgang 294) zum 01.04.2026 für UAT-Tests auf QS4.210 vorbereitet.</li>
+                </ul>
+              </div>
+
+              <div class="space-y-1.5">
+                <div class="font-bold text-white flex items-center space-x-1.5">
+                  <span class="text-blue-400">➔</span>
+                  <span>Nächster Projektschritt im Masterplan: Realize-Phase</span>
+                </div>
+                <ul class="text-[#c4bebe] space-y-1 list-disc list-inside text-[11px] leading-relaxed">
+                  <li><strong>System-Customizing:</strong> Konfiguration und Aufbau des Entwicklungssystems (DS4.100) im modifikationsfreien Clean-Core-Standard.</li>
+                  <li><strong>Realisierung von Erweiterungen:</strong> On-Stack ABAP Cloud / RAP Entwicklung und Side-by-Side Entkopplung auf der SAP BTP.</li>
+                  <li><strong>Migrations-Staging:</strong> Vorbereitung der Extraktions-Pipelines und Befüllung der Staging-Tabellen im SAP Migration Cockpit (LTMC).</li>
+                  <li><strong>Test-Zyklen (SIT & UAT):</strong> Durchführung der Systemintegrationstests (SIT 1–3) in Cloud ALM und Vorbereitung des Produktiv-Cutovers zum Go-Live (01.01.2027).</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           <!-- Why Greenfield & Clean Core -->
@@ -1844,6 +2037,272 @@
           </div>
         </div>
 
+        <!-- ================= SECTION: THEORETISCHE STÄRKEN & WISSENSCHAFTLICHE FUNDIERUNG ================= -->
+        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-lg">🏛️</span>
+                <h3 class="text-base font-bold text-white">
+                  Theoretische Stärken & Wissenschaftliche Fundierung
+                </h3>
+              </div>
+              <p class="text-xs text-slate-500">
+                Die fünf tragenden theoretischen Säulen aus Bachelor- und Masterstudium an der Universität Stuttgart
+              </p>
+            </div>
+            <span class="tag-badge bg-[#bf262e] text-white font-bold text-xs whitespace-nowrap">
+              300 ECTS Theorie-Praxis-Transfer
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+            
+            <!-- Theory 1: Boundary Resources Theory -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-[#f87171] text-xs">1. Boundary Resources Theory</span>
+                  <span class="text-[9px] bg-red-500/20 text-[#f87171] px-1.5 py-0.5 rounded font-mono">Ghazawneh & Henfridsson</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Plattform-Grenzressourcen & Ökosystem-Governance</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Fundiertes Verständnis von Schnittstellen nicht nur als technische APIs, sondern als soziotechnische Grenzressourcen: <strong>Application (ABR)</strong>, <strong>Development (DBR)</strong> und <strong>Social Boundary Resources (SBR)</strong>. Erforscht in der Bachelorarbeit (1,7) und skaliert in der Masterarbeit (1,0) zur Beherrschung von Plattform-Ökosystemen.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: API-Management auf SAP BTP & kontrollierte Drittsystem-Integration (xSuite, PATRIS).
+              </div>
+            </div>
+
+            <!-- Theory 2: Bimodale IT & Clean Core -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-emerald-400 text-xs">2. Bimodale IT & Entkopplung</span>
+                  <span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">Gartner / Clean Core</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Zwei-Geschwindigkeiten-Architektur & Standardisierung</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Theoretische Trennung zwischen <strong>Mode 1 (System of Record)</strong> – hohe Stabilität, geringe Änderungsrate, strikter Standard – und <strong>Mode 2 (System of Innovation / Engagement)</strong> – agile, schnelle Innovationszyklen. 
+                  Verhindert technische Verschuldung und sichert kontinuierliche Release-Fähigkeit in Cloud-ERP-Architekturen.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: S/4HANA modifikationsfreier Core + Side-by-Side Erweiterungen auf SAP BTP.
+              </div>
+            </div>
+
+            <!-- Theory 3: Mayring & DSRM Forschungsmethodik -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-purple-400 text-xs">3. Empirische Forschungsmethodik</span>
+                  <span class="text-[9px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded font-mono">Mayring / DSRM Peffers</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Qualitative Inhaltsanalyse & Artefakt-Konstruktion</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Beherrschung der <strong>qualitativen Inhaltsanalyse nach Mayring</strong> (deduktiv-induktives Codebuch, Intercoder-Reliabilität) angewandt auf 12 Enterprise-Interviews. Fundiertes Wissen in der <strong>Design Science Research Methodology (DSRM nach Peffers)</strong> zur wissenschaftlich validierten Konstruktion innovativer IT-Artefakte.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: Strukturierte Anforderungszerlegung, Codebuch-Methodik und objektive Evaluation.
+              </div>
+            </div>
+
+            <!-- Theory 4: Enterprise Architecture & TOGAF -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-blue-400 text-xs">4. TOGAF 9 ADM & Metamodellierung</span>
+                  <span class="text-[9px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-mono">The Open Group / Scape</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Ganzheitliches Enterprise Architecture Management (EAM)</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Zertifiziertes Wissen im <strong>TOGAF 9 Architecture Development Method (ADM)</strong> Zyklus (Phasen A–H). Strukturierte Verknüpfung der vier Kernarchitekturen: Geschäft (Business), Daten (Data), Anwendungen (Application) und Technologie (Technology) inklusive Gap-Analysen und Architektur-Governance.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: Ausrichtung von IT-Investitionen an Unternehmenszielen & Architecture Review Boards.
+              </div>
+            </div>
+
+            <!-- Theory 5: Absorptive Capacity & Soziotechnik -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-amber-400 text-xs">5. Absorptive Capacity & Change</span>
+                  <span class="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">Cohen & Levinthal</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Wissensaufnahme & Soziotechnische Transformation</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Das Konzept der <strong>Absorptive Capacity</strong>: Eine Organisation kann neue Technologien (wie S/4HANA Cloud) nur dann erfolgreich adoptieren, wenn Vorwissen existiert und kontinuierlich transformiert wird. 
+                  Transformation gelingt nur, wenn Technik, Prozesse und Menschen synchron transformiert werden.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: TP1 Change Management, Mitbestimmung mit Betriebsrat und SAP Enable Now Rollout.
+              </div>
+            </div>
+
+            <!-- Theory 6: KLR, Rechnungslegung & Trennungsrechnung -->
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-teal-400 text-xs">6. Betriebswirtschaft & Rechnungslegung</span>
+                  <span class="text-[9px] bg-teal-500/20 text-teal-300 px-1.5 py-0.5 rounded font-mono">HGB / EU 1370 / PBefG</span>
+                </div>
+                <h4 class="text-white font-semibold text-xs mt-1">Kosten- und Leistungsrechnung & Rechnungslegung</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed mt-1">
+                  Fundierte Kenntnisse im externen und internen Rechnungswesen: Bilanzierung nach HGB, Kostenarten-, Kostenstellen- und Kostenträgerrechnung, Deckungsbeitragsrechnung sowie regulatorische Vorgaben zur <strong>Trennungsrechnung</strong> (EU 1370/2007) zur Vermeidung von Quersubventionierungen.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 text-[10px] text-slate-400">
+                ➔ Praxisbezug: Solution Design im FI/CO, Parallel-Ledger (0L/2L) und Verwendungsnachweisführung (GM).
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ================= SECTION: ERFOLGREICH UMGESETZTE PROJEKTE (MASTER & BACHELOR) ================= -->
+        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+            <div>
+              <div class="flex items-center space-x-2">
+                <span class="text-lg">🚀</span>
+                <h3 class="text-base font-bold text-white">
+                  Erfolgreich umgesetzte Projekte im Master- und Bachelorstudium
+                </h3>
+              </div>
+              <p class="text-xs text-slate-500">
+                Wissenschaftliche Fallstudien, Prototypen, empirische Forschungsarbeiten und Praxiskonzeptionen
+              </p>
+            </div>
+            <span class="tag-badge bg-emerald-600 text-white font-bold text-xs whitespace-nowrap">
+              100% Akademisch Verifiziert
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+
+            <!-- Project Master 1: Digitale Nachhaltigkeit -->
+            <div class="p-4 rounded-xl bg-white/5 border border-emerald-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-emerald-600 text-white font-bold text-[10px]">Master | Note 1,0 (Sehr Gut)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">J. Schmalz GmbH Fallstudie</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Automatisierte CSRD-Abfallbilanz & Green IT</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Konzeption und Entwicklung einer automatisierten Datenstrecke zur Erstellung der betrieblichen Abfallbilanz und CSRD-Nachhaltigkeitsberichterstattung beim Vakuum-Spezialisten J. Schmalz GmbH.
+                  BPMN 2.0-Ist- und Soll-Prozessmodellierung, Identifikation von Medienbrüchen und Entwicklung von PowerShell-Automatisierungsskripten zur fehlerfreien Extraktion und Aufbereitung von Entsorgungsnachweisen.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-emerald-400 font-semibold">Ergebnis: Eliminierung manueller Eingabefehler & CSRD-Compliance</span>
+                <span class="text-slate-400">Dr. Dimitri Petrik</span>
+              </div>
+            </div>
+
+            <!-- Project Master 2: FPWI Smart Service Blueprinting -->
+            <div class="p-4 rounded-xl bg-white/5 border border-blue-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-[#bf262e] text-white font-bold text-[10px]">Master | Note 1,3 (Sehr Gut)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">DSRM & IoT Services</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Smart Service Blueprinting für vernetzte Produkte</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Entwicklung eines erweiterten Service-Blueprinting-Frameworks zur Modellierung cyber-physischer Systeme (CPS) und IoT-Dienstleistungen nach der Design Science Research Methodology (DSRM nach Peffers).
+                  Integration physischer Sensorebenen, digitaler Cloud-Services und Benutzerinteraktionen. Empirische Evaluation durch Thinking-Aloud-Usability-Tests mit Software-Ingenieuren und Erzielung eines <strong>SUS-Scores von 85/100 (Grade A / Excellent)</strong>.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-blue-400 font-semibold">Ergebnis: Validiertes Architektur-Artefakt für IoT-Ökosysteme</span>
+                <span class="text-slate-400">Forschungsprojekt WI</span>
+              </div>
+            </div>
+
+            <!-- Project Master 3: Advanced Software Engineering & Cloud -->
+            <div class="p-4 rounded-xl bg-white/5 border border-indigo-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-indigo-600 text-white font-bold text-[10px]">Master | Note 1,6 & 2,0</span>
+                  <span class="text-[10px] text-slate-400 font-mono">ASE & Cloud-Native</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Enterprise Software-Architektur & Serverless Cloud</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Konzeption moderner Enterprise-Softwarearchitekturen unter Anwendung von Domain-Driven Design (DDD), Event-Driven Architecture und CI/CD-Qualitätsmetriken (Prof. Dr. Steffen Becker).
+                  Im Modul Cloud Computing: Konzeption und quantitative Evaluation einer hochskalierbaren Serverless-E-Commerce-Architektur nach dem AWS Well-Architected Framework (DynamoDB, EventBridge, Step Functions, Lambda).
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-indigo-400 font-semibold">Ergebnis: Skalierbare Microservice- & Event-Mesh-Patterns</span>
+                <span class="text-slate-400">Uni Stuttgart</span>
+              </div>
+            </div>
+
+            <!-- Project Master 4: PatentRadar Venture Pitch -->
+            <div class="p-4 rounded-xl bg-white/5 border border-purple-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-purple-600 text-white font-bold text-[10px]">Master | Note 2,0 (Gut)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">Klingele Paper & Packaging / ISG</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Digital Venture „PatentRadar“: KI-gestützte Patentrecherche</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Entwicklung eines hybriden Geschäftsmodells (SaaS & Beratungsdienstleistung) für ein führendes Unternehmen der Verpackungsindustrie (Klingele / ISG).
+                  BPMN 2.0-Modellierung der manuellen Recherche- und Überwachungsprozesse, Konzeption einer RPA-Automatisierungsstrecke (UiPath) in Verbindung mit KI-gestützter Volltextrecherche (DEPATISnet/Espacenet) und C-Level Venture-Pitch.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-purple-400 font-semibold">Ergebnis: Vollständiges Business-Case- & Architektur-Pitchdeck</span>
+                <span class="text-slate-400">Prof. Dr. Georg Herzwurm</span>
+              </div>
+            </div>
+
+            <!-- Project Bachelor 1: E-Business B2B-Plattformen -->
+            <div class="p-4 rounded-xl bg-white/5 border border-emerald-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-emerald-600 text-white font-bold text-[10px]">Bachelor | Note 1,0 (Bestnote)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">B2B E-Procurement</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Informationssysteme im E-Business</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Analyse und Konzeption von elektronischen B2B-Marktplätzen, EDI-Standards, E-Procurement-Katalogen und digitalen Mehrseitigen Plattformen.
+                  Anwendung von Aufwandsschätzverfahren (Function-Point-Analyse), Testmanagement-Methoden und Design Thinking zur Optimierung digitaler Geschäftsprozesse.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-emerald-400 font-semibold">Ergebnis: Absolute Bestnote 1,0 im Bachelorcurriculum</span>
+                <span class="text-slate-400">Lehrstuhl WI II</span>
+              </div>
+            </div>
+
+            <!-- Project Bachelor 2: IVP 0x539-Wear Deckungsbeitragsrechnung -->
+            <div class="p-4 rounded-xl bg-white/5 border border-blue-500/30 space-y-2 flex flex-col justify-between">
+              <div class="space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="tag-badge bg-[#bf262e] text-white font-bold text-[10px]">Bachelor | Note 2,3 (Gut)</span>
+                  <span class="text-[10px] text-slate-400 font-mono">Unternehmensanalyse 0x539-Wear</span>
+                </div>
+                <h4 class="text-white font-bold text-sm">Quantitative Unternehmens- & Deckungsbeitragsanalyse</h4>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Umfassende datengestützte Analyse der betrieblichen Prozesse der 0x539-Wear GmbH:
+                  Durchführung von mehrstufigen Deckungsbeitragsrechnungen, Plan-Ist-Vergleichen, Bestellungsanalysen, Kunden- und Lieferanten-Rentabilitätsanalysen sowie Bestandsoptimierung zur Steigerung der operativen Marge.
+                </p>
+              </div>
+              <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px]">
+                <span class="text-blue-400 font-semibold">Ergebnis: Revisionssicherer Controlling- & BI-Report</span>
+                <span class="text-slate-400">IVP Praktikum</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- ================= SECTION: MASTER-CURRICULUM (120 ECTS | NOTE 1,6) ================= -->
         <div v-show="degreeTab === 'all' || degreeTab === 'master'" class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -2498,111 +2957,173 @@
       </div>
 
 
-      <!-- ================= TAB 8: ENTERPRISE ARCHITECTURE & ITIL ================= -->
+      <!-- ================= TAB 8: DATACENTER ONE (DC1) & ENTERPRISE ARCHITECTURE ================= -->
       <div v-show="activeTab === 'enterprise_arch'" class="space-y-6">
         
+        <!-- Header Banner: Datacenter One (DC1) - 12 Monate Werkstudent -->
         <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              <h3 class="text-lg font-bold text-white">Enterprise Architecture (TOGAF) & IT-Operations (ITIL 4)</h3>
-              <p class="text-xs text-[#8f8888]">Methodisches Fundament aus TOGAF-Zertifizierung und 12 Monaten Rechenzentrumserfahrung (Datacenter One)</p>
+              <div class="flex items-center space-x-2">
+                <span class="text-xl">🖥️</span>
+                <h3 class="text-lg font-bold text-white">Datacenter One GmbH (DC1) – 12 Monate ITIL 4 Service Operations</h3>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">05/2023 – 04/2024</span>
+              </div>
+              <p class="text-xs text-[#8f8888] mt-1">
+                Werkstudent im Information Network Operation Center (INOC unter Leitung von Helmut Schmidpeter) • Hochverfügbare Colocation-Rechenzentren (Stuttgart, Düsseldorf, Leverkusen, Hamburg).
+              </p>
             </div>
-            <span class="tag-badge bg-[#bf262e]/20 text-[#f87171] border border-[#bf262e]/40">Scape Consulting & Datacenter One</span>
+            <span class="tag-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 whitespace-nowrap self-start sm:self-auto">
+              24/7 Mission Critical ITIL 4
+            </span>
           </div>
 
-          <!-- TOGAF ADM Cycle -->
-          <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3 hover:border-[#bf262e]/30 transition">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <h4 class="text-sm font-bold text-white flex items-center space-x-2">
-                <span>🏛️</span>
-                <span>Der TOGAF Architecture Development Method (ADM) Zyklus</span>
-              </h4>
+          <!-- 4 Core Tasks at Datacenter One -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/30 transition space-y-2">
               <div class="flex items-center space-x-2">
-                <span class="text-[11px] text-[#8f8888]">Intensivkurs Scape Consulting (Dr. Daniel Simon, Jan 2020)</span>
-                <span class="px-2.5 py-1 rounded bg-white/10 text-white font-bold text-[11px] inline-flex items-center space-x-1 border border-white/10 shadow-sm">
-                  <span>📜</span>
-                  <span>Zertifikat verifiziert</span>
-                </span>
+                <span class="text-[#f87171] font-bold">1.</span>
+                <h4 class="font-bold text-white text-xs sm:text-sm">24/7 Monitoring & Infrastructure Event Management</h4>
+              </div>
+              <p class="text-xs text-[#c4bebe] leading-relaxed">
+                Kontinuierliche Überwachung der gesamten Rechenzentrums-Infrastruktur über PRTG Network Monitor: USV-Anlagen (Unterbrechungsfreie Stromversorgung), Diesel-Notstromgeneratoren, Klimatechnik, Kaltgangeinhausungen, Brandfrüherkennung (RAS) sowie Core-Switche und Glasfaser-Trassen.
+              </p>
+              <div class="text-[11px] text-[#8f8888] pt-1 border-t border-white/10">
+                Fokus: Frühzeitige Erkennung von Lastspitzen, Schwellenwert-Überschreitungen und Auslösen von Vor-Ort-Bereitschaften.
               </div>
             </div>
-            <p class="text-xs text-[#c4bebe] leading-relaxed">
-              TOGAF ist dein strategischer Kompass, um komplexe IT-Landschaften ganzheitlich zu strukturieren. Bei der SSB hast du diesen Zyklus im Programm SAP4SSB in der Praxis erlebt:
-            </p>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 text-xs pt-1">
-              <div class="p-3 bg-black/40 rounded-lg border border-white/10">
-                <div class="font-bold text-[#f87171]">Phase A: Architecture Vision</div>
-                <div class="text-[11px] text-[#8f8888] mt-0.5">Greenfield S/4HANA Private Cloud, Clean Core Leitbild und Business Case mit Nagarro.</div>
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/30 transition space-y-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-[#f87171] font-bold">2.</span>
+                <h4 class="font-bold text-white text-xs sm:text-sm">ITIL 4 Incident- & Service-Desk-Management (SPoC)</h4>
+              </div>
+              <p class="text-xs text-[#c4bebe] leading-relaxed">
+                Single Point of Contact (SPoC) für B2B-Kunden, Colocation-Mieter und interne Service-Techniker im Jira Service Management. Annahme, Priorisierung, Dokumentation und Zuweisung von Incidents und Service Requests unter strikter Einhaltung vertraglich garantierter SLAs (99,99% Verfügbarkeit).
+              </p>
+              <div class="text-[11px] text-[#8f8888] pt-1 border-t border-white/10">
+                Fokus: Einhaltung von Reaktionszeiten, Major Incident Eskalation nach Eskalationsmatrix und saubere Schichtübergaben.
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/30 transition space-y-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-[#f87171] font-bold">3.</span>
+                <h4 class="font-bold text-white text-xs sm:text-sm">Aufbau & Standardisierung der Confluence-Wissensdatenbank</h4>
+              </div>
+              <p class="text-xs text-[#c4bebe] leading-relaxed">
+                Konzeption und redaktioneller Aufbau eines zentralen Prozess- und Wissensportals in Atlassian Confluence. Erstellung von Standard Operating Procedures (SOPs) für Notfallszenarien, Netzausfälle, DDoS-Attacken, Zutrittskontrollen und Carrier-Eskalationspfade.
+              </p>
+              <div class="text-[11px] text-[#8f8888] pt-1 border-t border-white/10">
+                Fokus: Beseitigung von Wissensinseln, Vereinheitlichung der Betriebsführung und strukturierte Einarbeitung neuer INOC-Mitarbeiter.
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/30 transition space-y-2">
+              <div class="flex items-center space-x-2">
+                <span class="text-[#f87171] font-bold">4.</span>
+                <h4 class="font-bold text-white text-xs sm:text-sm">Hardware-Lifecycle-Management (HLM) & Carriermanagement</h4>
+              </div>
+              <p class="text-xs text-[#c4bebe] leading-relaxed">
+                Planung und operative Durchführung eines unternehmensweiten Hardware-Rollouts: Koordination des Austauschs von über 100 Notebooks und Workstations (Dell PoC, Rollout-Fahrplan, Migration von Benutzerprofilen, datenschutzkonforme Entsorgung nach BSI-Standards). Koordination von Carriern (Telekom, Colt, Vodafone) bei Trassenstörungen.
+              </p>
+              <div class="text-[11px] text-[#8f8888] pt-1 border-t border-white/10">
+                Fokus: Reibungsloser Austausch im laufenden 24/7 Betrieb ohne Unterbrechung kritischer Leitstand-Funktionen.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Key Learnings from Datacenter One -->
+          <div class="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2 mt-2">
+            <h4 class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center space-x-1.5">
+              <span>💡</span>
+              <span>Zentrale Learnings für Visars Profil als IT- & ERP-Consultant:</span>
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-1">
+              <div class="p-3 bg-white/5 rounded-lg border border-white/10">
+                <div class="font-semibold text-white mb-0.5">1. Hochverfügbarkeits-Disziplin</div>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Tiefes Verständnis für N+1 Redundanzen und SLA-Verbindlichkeiten. Übertragung auf ERP-Systeme: Warum Downtimes Millionen kosten und Cutover-Pläne sekundengenau getaktet sein müssen.
+                </p>
               </div>
 
-              <div class="p-3 bg-black/40 rounded-lg border border-white/10">
-                <div class="font-bold text-[#f87171]">Phase B: Business Architecture</div>
-                <div class="text-[11px] text-[#8f8888] mt-0.5">Fit-to-Standard Workshops, Soll-Prozessmodellierung in SAP Signavio (BPMN 2.0).</div>
+              <div class="p-3 bg-white/5 rounded-lg border border-white/10">
+                <div class="font-semibold text-white mb-0.5">2. Standardisierte Dokumentation</div>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  In kritischen Betriebslagen entscheiden standardisierte SOPs in Confluence über Minuten. Bei der SSB bildete dieses Mindset das Fundament für saubere Signavio- und ALM-Prozesse.
+                </p>
               </div>
 
-              <div class="p-3 bg-black/40 rounded-lg border border-white/10">
-                <div class="font-bold text-[#f87171]">Phase C: Information Systems</div>
-                <div class="text-[11px] text-[#8f8888] mt-0.5">Datenarchitektur (CVI Business Partner, ACDOCA) und Applikationslandschaft (xSuite, d.velop).</div>
-              </div>
-
-              <div class="p-3 bg-black/40 rounded-lg border border-white/10">
-                <div class="font-bold text-[#f87171]">Phase D: Technology Architecture</div>
-                <div class="text-[11px] text-[#8f8888] mt-0.5">SAP BTP, Axians ES4 Systeme, Cloud-Infrastruktur, Single Sign-On und ADS-Druckdienste.</div>
-              </div>
-
-              <div class="p-3 bg-black/40 rounded-lg border border-white/10">
-                <div class="font-bold text-purple-400">Phase E: Opportunities & Solutions</div>
-                <div class="text-[11px] text-[#8f8888] mt-0.5">Bewertung von Standard vs. Side-by-Side BTP Erweiterungen und Partnersichtung.</div>
-              </div>
-
-              <div class="p-3 bg-black/40 rounded-lg border border-white/10">
-                <div class="font-bold text-purple-400">Phase F: Migration Planning</div>
-                <div class="text-[11px] text-[#8f8888] mt-0.5">Cutover-Drehbuch, Staging-Datenmigration, Freeze-Perioden und SuSa-Bilanzabgleich.</div>
-              </div>
-
-              <div class="p-3 bg-black/40 rounded-lg border border-white/10">
-                <div class="font-bold text-purple-400">Phase G: Implementation Governance</div>
-                <div class="text-[11px] text-[#8f8888] mt-0.5">Dein IT-PMO Kerngeschäft: Quality Gates in SAP Cloud ALM, Meilenstein-Tracking.</div>
-              </div>
-
-              <div class="p-3 bg-black/40 rounded-lg border border-white/10">
-                <div class="font-bold text-purple-400">Phase H: Change Management</div>
-                <div class="text-[11px] text-[#8f8888] mt-0.5">TP1 Enablement, SAP Enable Now Übergabe an HR (UB AC) und Anwenderbefähigung.</div>
+              <div class="p-3 bg-white/5 rounded-lg border border-white/10">
+                <div class="font-semibold text-white mb-0.5">3. Ruhe unter Eskalationsdruck</div>
+                <p class="text-[#c4bebe] text-[11px] leading-relaxed">
+                  Professionelles Krisenmanagement bei Störungsmeldungen an B2B-Kunden und Führungskräfte. Fähigkeit, technische Sachverhalte schnell und sachlich auf den Punkt zu bringen.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Datacenter One & ITIL Service Management -->
+        <!-- Enterprise Architecture Framework: TOGAF 9 ADM -->
         <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
-            <h3 class="text-base font-bold text-white flex items-center space-x-2">
-              <span>🖥️</span>
-              <span>ITIL 4 Service Operations (Datacenter One - 12 Monate INOC)</span>
-            </h3>
-            <span class="tag-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">24/7 Mission Critical Operations</span>
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                <span>🏛️</span>
+                <span>Enterprise Architecture: TOGAF 9 ADM Zyklus</span>
+              </h3>
+              <p class="text-xs text-[#8f8888]">Intensivkurs Scape Consulting (Dr. Daniel Simon, Universität Stuttgart, Januar 2020)</p>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-white/10 text-white font-bold text-[11px] border border-white/10">
+              📜 Zertifikat verifiziert
+            </span>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-            <div class="p-3.5 rounded-xl border border-white/10 bg-white/5 space-y-1.5 hover:border-[#bf262e]/30 transition">
-              <div class="font-bold text-white">1. Incident & Problem Management</div>
-              <p class="text-[#c4bebe] leading-relaxed text-[11px]">
-                Erfassung, Klassifizierung und Behebung von Störungen im Integrated Network Operation Center (INOC). Einhaltung strikter SLAs (Service Level Agreements) für Colocation- und Cloud-Kunden. Unterscheidung zwischen Sofort-Workaround (Incident) und Ursachenanalyse (Root Cause Analysis / Problem Management).
-              </p>
+          <p class="text-xs text-[#c4bebe] leading-relaxed">
+            TOGAF (The Open Group Architecture Framework) liefert den methodischen Rahmen, um Geschäftsstrategie und IT-Infrastruktur systematisch in Einklang zu bringen. Der Architecture Development Method (ADM) Zyklus wurde bei der SSB im Großprojekt SAP4SSB in der Praxis durchlaufen:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 text-xs pt-1">
+            <div class="p-3 bg-black/40 rounded-lg border border-white/10">
+              <div class="font-bold text-[#f87171]">Phase A: Architecture Vision</div>
+              <div class="text-[11px] text-[#8f8888] mt-0.5">Greenfield S/4HANA Private Cloud, Clean Core Leitbild und Business Case mit Nagarro.</div>
             </div>
 
-            <div class="p-3.5 rounded-xl border border-white/10 bg-white/5 space-y-1.5 hover:border-[#bf262e]/30 transition">
-              <div class="font-bold text-white">2. Monitoring & Event Management</div>
-              <p class="text-[#c4bebe] leading-relaxed text-[11px]">
-                Proaktive Überwachung von Rechenzentrums-Infrastruktur: USV-Anlagen, Klimatechnik, Glasfaser-Trassen und Core-Switche. Alarmierungsketten, Eskalationsmanagement nach Matrix und Kommunikation an Notfall-Bereitschaften.
-              </p>
+            <div class="p-3 bg-black/40 rounded-lg border border-white/10">
+              <div class="font-bold text-[#f87171]">Phase B: Business Architecture</div>
+              <div class="text-[11px] text-[#8f8888] mt-0.5">Fit-to-Standard Workshops, Soll-Prozessmodellierung in SAP Signavio (BPMN 2.0).</div>
             </div>
 
-            <div class="p-3.5 rounded-xl border border-white/10 bg-white/5 space-y-1.5 hover:border-[#bf262e]/30 transition">
-              <div class="font-bold text-white">3. Tool-Stack: Jira & Confluence</div>
-              <p class="text-[#c4bebe] leading-relaxed text-[11px]">
-                Lückenlose Dokumentation von Störungsberichten und Notfallhandbüchern (Standard Operating Procedures / SOPs). Revisionssichere Übergabeprotokolle bei Schichtwechseln unter Leitung von Helmut Schmidpeter.
-              </p>
+            <div class="p-3 bg-black/40 rounded-lg border border-white/10">
+              <div class="font-bold text-[#f87171]">Phase C: Information Systems</div>
+              <div class="text-[11px] text-[#8f8888] mt-0.5">Datenarchitektur (CVI Business Partner, ACDOCA) und Applikationslandschaft (xSuite, d.velop).</div>
+            </div>
+
+            <div class="p-3 bg-black/40 rounded-lg border border-white/10">
+              <div class="font-bold text-[#f87171]">Phase D: Technology Architecture</div>
+              <div class="text-[11px] text-[#8f8888] mt-0.5">SAP BTP, Axians ES4 Systeme, Cloud-Infrastruktur, Single Sign-On und ADS-Druckdienste.</div>
+            </div>
+
+            <div class="p-3 bg-black/40 rounded-lg border border-white/10">
+              <div class="font-bold text-purple-400">Phase E: Opportunities & Solutions</div>
+              <div class="text-[11px] text-[#8f8888] mt-0.5">Bewertung von Standard vs. Side-by-Side BTP Erweiterungen und Partnersichtung.</div>
+            </div>
+
+            <div class="p-3 bg-black/40 rounded-lg border border-white/10">
+              <div class="font-bold text-purple-400">Phase F: Migration Planning</div>
+              <div class="text-[11px] text-[#8f8888] mt-0.5">Cutover-Drehbuch, Staging-Datenmigration, Freeze-Perioden und SuSa-Bilanzabgleich.</div>
+            </div>
+
+            <div class="p-3 bg-black/40 rounded-lg border border-white/10">
+              <div class="font-bold text-purple-400">Phase G: Implementation Governance</div>
+              <div class="text-[11px] text-[#8f8888] mt-0.5">Dein IT-PMO Kerngeschäft: Quality Gates in SAP Cloud ALM, Meilenstein-Tracking.</div>
+            </div>
+
+            <div class="p-3 bg-black/40 rounded-lg border border-white/10">
+              <div class="font-bold text-purple-400">Phase H: Change Management</div>
+              <div class="text-[11px] text-[#8f8888] mt-0.5">TP1 Enablement, SAP Enable Now Übergabe an HR (UB AC) und Anwenderbefähigung.</div>
             </div>
           </div>
         </div>
@@ -3062,30 +3583,54 @@
           </div>
         </div>
 
-        <!-- 15+ Q&A Simulator -->
+        <!-- 40+ Q&A Simulator -->
         <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
               <h3 class="text-base font-bold text-white flex items-center space-x-2">
                 <span>💬</span>
-                <span>Interaktiver Interview-Simulator (15+ Fach- und Verhaltensfragen)</span>
+                <span>Interaktiver Interview- & Wissens-Simulator (40+ fundierte Fach- & Verhaltensfragen)</span>
               </h3>
-              <p class="text-xs text-[#8f8888]">Filtern nach Themengebieten</p>
+              <p class="text-xs text-[#8f8888]">Strukturierter Wissenskatalog: SSB S/4HANA, DC1 ITIL 4, Master, Bachelor, EAM & Verhalten</p>
             </div>
             
-            <div class="flex flex-wrap gap-1">
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-[#8f8888] font-mono whitespace-nowrap">{{ filteredQA.length }} Fragen gefunden</span>
+            </div>
+          </div>
+
+          <!-- Category Filter Bar & Live Search -->
+          <div class="space-y-3 pt-1">
+            <div class="flex flex-wrap gap-1.5">
               <button 
                 v-for="cat in qaCategories" 
                 :key="cat"
                 @click="selectedQACat = cat"
                 :class="[
-                  'px-2.5 py-1 rounded-lg text-xs font-medium transition',
+                  'px-3 py-1.5 rounded-lg text-xs font-semibold transition',
                   selectedQACat === cat 
                     ? 'bg-[#bf262e] text-white shadow' 
                     : 'bg-white/5 text-[#c4bebe] hover:bg-white/10 border border-white/10'
                 ]"
               >
                 {{ cat }}
+              </button>
+            </div>
+
+            <!-- Instant Search Input inside QA tab -->
+            <div class="relative">
+              <input 
+                type="text" 
+                v-model="qaSearch" 
+                placeholder="Fragen oder Antworten durchsuchen (z.B. Trennungsrechnung, PRTG, Clean Core, Mayring, BTP, CVI, 0,00 €)..." 
+                class="w-full bg-[#181818] border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-[#8f8888] focus:outline-none focus:border-[#bf262e]"
+              >
+              <button 
+                v-if="qaSearch" 
+                @click="qaSearch = ''" 
+                class="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-white"
+              >
+                ✕ Löschen
               </button>
             </div>
           </div>
@@ -3337,6 +3882,7 @@
         const selectedQACat = ref('Alle');
         const selectedFileCat = ref('Alle');
         const personalNotes = ref('');
+        const qaSearch = ref('');
 
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
@@ -3369,7 +3915,7 @@
           { id: 'notebook', label: 'Second Brain Notizbuch', icon: '📝', badge: 'Autosave' }
         ];
 
-        const qaCategories = ['Alle', 'Architektur & Clean Core', 'Datenmigration', 'Projektmanagement & Governance', 'Persönlich & Verhalten'];
+        const qaCategories = ['Alle', 'SSB S/4HANA & Explore-Phase', 'Datacenter One & ITIL 4', 'Master & Plattformisierung', 'Bachelor & Methodenkompetenz', 'Enterprise Architecture & TOGAF', 'Persönlich & Trainee-Einstieg'];
 
         const fileCategories = ['Alle', 'Aktuelle Bewerbungsunterlagen', 'PMO & Steuerung', 'Explore & Lösungsdesign', 'Finance & Controlling', 'Grants Management', 'Sustainability & EHS', 'Vertrieb & PATRIS', 'Datenmigration', 'Basis & Infrastruktur', 'Vergabe & SektVO', 'Tools & Enablement', 'SAP Fachliteratur (Rheinwerk)', 'Datacenter One (DC1 / ITIL 4)', 'Wissenschaft & Uni', 'Master-Module (120 ECTS)', 'Bachelor-Module (180 ECTS)'];
 
@@ -3638,72 +4184,505 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
           { title: 'Persönliches Second Brain & Notizen', cat: 'Interview & Karriere', tab: 'notebook', desc: 'Interaktives Notizbuch mit Autosave im Browser, Vorlagen für Interviews und Gehalt.' }
         ];
 
-        const allQA = [
+                const allQA = [
           {
-            q: 'Was genau war Ihre Rolle bei der SSB AG und was haben Sie konkret gemacht?',
-            cat: 'Projektmanagement & Governance',
+            q: 'Was genau war Ihre Rolle bei der SSB AG und wie war das Transformationsprogramm SAP4SSB strukturiert?',
+            cat: 'SSB S/4HANA & Explore-Phase',
             open: true,
-            a: `Ich war 24 Monate lang als Werkstudent im IT-PMO (Teilprojekt 5: Gesamtsteuerung & Architektur) unter Gesamtprojektleiter Roland Nowak tätig. Meine Hauptaufgabe war die operative Klammer zwischen den fünf Teilprojekten (Change, Finance, Instandhaltung, HR, IT-PMO) und unseren Implementierungspartnern Nagarro, Evora und Axians.
+            a: `Ich war 24 Monate lang als Werkstudent im IT-PMO (Teilprojekt 5: Gesamtsteuerung & Architektur) unter Gesamtprojektleiter Roland Nowak und IT-Leiter Dietmar Fillinger tätig.
 
-Konkret habe ich die Tool-Governance verantwortet: Ich habe den verbindlichen Quickguide für SAP Cloud ALM verfasst, die Verknüpfung von Signavio-Prozessmodellen mit Testfällen koordiniert und das strategische Übergabekonzept von SAP Enable Now an die Personalentwicklung ausgearbeitet. Außerdem habe ich die Migrationskataloge analysiert und das Meilenstein-Tracking für den Lenkungsausschuss vorbereitet.`,
-            do: 'Betone die 24 Monate Laufzeit, die Schnittstellenrolle und deine konkreten Artefakte (CALM Guide, Enable Now Konzept).',
-            dont: 'Stelle dich nicht als bloßer Protokollant dar – du hast Governance-Vorgaben aktiv erarbeitet!'
+Das Programm SAP4SSB gliederte sich in 5 disjunkte Teilprojekte:
+- TP1: Change Management & Enablement (Rollout SAP Enable Now, Coffee Corners, Key-User-Befähigung)
+- TP2: Kaufmännische Prozesse & Solution Design (FI/CO/MM/RE-FX mit Nagarro ES)
+- TP3: Technische Prozesse & Asset Management (Instandhaltung Stadtbahn/Busse/Fahrleitung mit Evora & Nagarro)
+- TP4: IT-Unterstützung & Systemlandschaft (4-System-Landschaft ES4/QS4/PS4 mit Axians)
+- TP5: Gesamtsteuerung, PMO, Vergabe & Mitbestimmung mit Betriebsrat
+
+Meine Aufgabe war die operative Klammer: Tool-Governance (Quickguide für SAP Cloud ALM, Enable Now Übergabekonzept), Analyse der Migrationsobjekte und Statusreporting für den Lenkungsausschuss.`,
+            do: 'Betone die 24 Monate Laufzeit, die 5 Teilprojekte (TP1-TP5) und konkrete Artefakte (CALM How2Handle, Enable Now Konzept).',
+            dont: 'Stelle dich nicht als reiner Zuarbeiter dar – du hast Governance-Vorgaben aktiv erarbeitet und bereichsübergreifend abgestimmt!'
           },
           {
-            q: 'Warum hat sich die SSB für Greenfield und nicht für eine Systemkonvertierung (Brownfield) entschieden?',
-            cat: 'Architektur & Clean Core',
+            q: 'Welcher Meilenstein markierte Ihren Projektaustritt bei der SSB und wie ging es danach weiter?',
+            cat: 'SSB S/4HANA & Explore-Phase',
             open: false,
-            a: `Das bestehende SAP ECC 6.0 der SSB war über 20 Jahre historisch gewachsen und wies tausende Z-Modifikationen, ungenutzte Altdaten und veraltete Berechtigungsstrukturen auf. Ein Brownfield-Ansatz hätte diese technische Schuld 1:1 in die neue Welt mitgeschleift und zukünftige Cloud-Upgrades massiv erschwert.
+            a: `Mein Austritt erfolgte zum formalen und erfolgreichen Abschluss der Explore-Phase:
+Das umfassende Solution Design Document (SDD) für die kaufmännischen und technischen Prozesse (inklusive aller Prozessmodelle in Signavio, Schnittstellenmatrizen und WRICEFA-Entwicklungsobjekte) war zu 100% finalisiert und vom Lenkungsausschuss (Steering Board) abgenommen.
 
-Mit dem Greenfield-Ansatz in einer RISE with SAP Private Cloud Edition konnte die SSB tabula rasa machen: Rückkehr zum Best-Practice-Standard durch Fit-to-Standard Workshops, Bereinigung der Stammdaten (CVI) und strikte Einhaltung des Clean-Core-Paradigmas.`,
-            do: 'Verwende Fachbegriffe: Technische Schuld, Modifikationsfreier Kern, Fit-to-Standard, Best-Practice-Standard.',
-            dont: 'Sage nicht einfach: "Brownfield war zu alt." Begründe es mit Upgrade-Sicherheit und Wartungskosten.'
+Der unmittelbar anschließende nächste Projektschritt war der Eintritt in die Realize-Phase (WBS 197-202): Das Customizing im System, die Bereitstellung des Integrations-Testsystems QS4.100 durch Axians, die iterative Datenmigration via LTMC-Staging-Tabellen und die Vorbereitung der Pilot-Betriebsvereinbarung zum 01.04.2026 für die End-to-End-Tests.`,
+            do: 'Nenne den exakten Meilenstein: SDD vollständig finalisiert & genehmigt, formaler Explore-Abschluss, direkter Übergang in die Realize-Phase.',
+            dont: 'Verwechsle die Phasen nicht – du hast die Konzeption bis zur vollständigen Genehmigung begleitet, nicht erst mittendrin aufgehört.'
           },
           {
-            q: 'Was bedeutet Clean Core für Sie in der Praxis und wie verhindert man Wildwuchs?',
-            cat: 'Architektur & Clean Core',
+            q: "Was bedeutet 'Clean Core' im S/4HANA Private Cloud Kontext und wie verhindert man Wildwuchs?",
+            cat: 'SSB S/4HANA & Explore-Phase',
             open: false,
-            a: `Clean Core bedeutet, dass der ERP-Kern frei von Modifikationen bleibt und ausschließlich über stabile, freigegebene Schnittstellen (APIs und CDS Views) angesprochen wird. Dadurch bleibt das System jederzeit upgradefähig, was in Cloud-Releases essenziell ist.
+            a: `Clean Core bedeutet, dass der ERP-Kern modifikationsfrei bleibt und ausschließlich über stabile, von SAP freigegebene Schnittstellen (APIs und CDS Views) angesprochen wird. Dadurch bleibt das System upgradefähig, was in Cloud-Releases essenziell ist.
 
 In der Praxis teilt sich das auf:
 1. On-Stack Extensibility: Erweiterungen im Kern erfolgen nur über ABAP Cloud und das RESTful Application Programming Model (RAP).
 2. Side-by-Side Extensibility: Komplexe Eigenentwicklungen, Fiori-Frontends und Drittsystem-Integrationen laufen auf der SAP BTP.
 
-Um Wildwuchs zu verhindern, braucht es eine strikte Governance: Jede Z-Anforderung muss durch ein Architecture Review Board, in dem geprüft wird: Geht es im Standard? Wenn nein, warum nicht BTP?`,
+Um Wildwuchs zu verhindern, braucht es eine strikte Governance: Jede Z-Anforderung muss durch ein Architecture Review Board (ARB), in dem geprüft wird: Geht es im Best-Practice-Standard? Wenn nein, warum nicht BTP?`,
             do: 'Erwähne die Unterscheidung On-Stack vs. Side-by-Side und das ARB (Architecture Review Board).',
-            dont: 'Behaupte nicht, dass man bei Clean Core gar nichts mehr programmieren darf – es geht um das "Wo" und "Wie"!'
+            dont: "Behaupte nicht, dass man bei Clean Core gar nichts mehr programmieren darf – es geht um das 'Wo' und 'Wie'!"
           },
           {
-            q: 'Wie lief die Datenmigration bei der SSB ab und welche Risiken gab es?',
-            cat: 'Datenmigration',
+            q: 'Warum hat sich die SSB für Greenfield und nicht für eine Systemkonvertierung (Brownfield) entschieden?',
+            cat: 'SSB S/4HANA & Explore-Phase',
             open: false,
-            a: `Die Migration erfolgte über das SAP Migration Cockpit (LTMC) primär nach dem Staging-Tabellen-Prinzip. Wir haben die Altdaten aus dem ECC 6.0 extrahiert, bereinigt und in Staging-Tabellen geladen. Dort wurden Feld- und Werte-Mappings durchgeführt – beispielsweise die Zusammenführung historischer Debitoren und Kreditoren zum zentralen Business Partner (CVI) und die Zuordnung alter Buchungskreise.
+            a: `Das bestehende SAP ECC 6.0 der SSB war über 20 Jahre historisch gewachsen und wies hunderte Z-Modifikationen, ungenutzte Altdaten und veraltete Berechtigungsstrukturen auf. Ein Brownfield-Ansatz hätte diese technische Schuld 1:1 in die neue Welt mitgeschleift und zukünftige Cloud-Upgrades massiv erschwert.
 
-Das größte Risiko im FI-Bereich war der Eröffnungsbilanz-Abgleich: Nach der Übernahme von Sachkontensalden, offenen Posten und Anlagenwerten (FI-AA) gegen das zentrale Datenübernahmekonto muss dieses exakt 0,00 € aufweisen. Wir haben durch iterative Testmigrationen sichergestellt, dass die SuSa-Listen centgenau übereinstimmen.`,
-            do: 'Erkläre den Ablauf: Extraktion -> Staging -> Mapping -> Simulation -> Import -> Abstimmung (0,00 € Übernahmekonto).',
-            dont: 'Sage nicht, dass Datenmigration einfach "Excel-Hochladen" ist – es ist ein hochgradig revisionssicherer Prozess.'
+Mit dem Greenfield-Ansatz in einer RISE with SAP Private Cloud Edition konnte die SSB tabula rasa machen: Rückkehr zum Best-Practice-Standard durch Fit-to-Standard Workshops, Bereinigung der Stammdaten (CVI) und strikte Einhaltung des Clean-Core-Paradigmas.`,
+            do: 'Verwende Fachbegriffe: Technische Schuld, Modifikationsfreier Kern, Fit-to-Standard, Best-Practice-Standard.',
+            dont: "Sage nicht einfach: 'Brownfield war zu alt.' Begründe es mit Upgrade-Sicherheit und Wartungskosten."
           },
           {
-            q: 'Wie sind Sie mit Widerständen im Projekt oder zwischen Abteilungen umgegangen?',
-            cat: 'Projektmanagement & Governance',
+            q: 'Was versteht man unter der Trennungsrechnung nach EU-Verordnung 1370/2007 im ÖPNV?',
+            cat: 'SSB S/4HANA & Explore-Phase',
             open: false,
-            a: `In einem öffentlichen Verkehrsunternehmen wie der SSB ist der Betriebsrat (BR und SBV) von Tag 1 an über eine formelle Betriebsvereinbarung und Sitze im Lenkungsausschuss eingebunden.
+            a: `Die Trennungsrechnung nach EU-VO 1370/2007 und § 45a PBefG verpflichtet Verkehrsunternehmen wie die SSB, die Buchführung strikt zwischen eigenwirtschaftlichen Verkehren (z.B. kommerzieller Gelegenheitsverkehr) und gemeinwirtschaftlichen, durch die öffentliche Hand bezuschussten Verkehren (ÖPNV-Linienverkehr) zu trennen.
 
-Typische Widerstände entstanden z.B. bei der Standardisierung: Fachbereiche wollten ihre vertrauten ECC-Masken und Z-Transaktionen behalten. Wir haben in TP1 und TP5 auf Transparenz und Einbindung gesetzt: Durch Fit-to-Standard Demos direkt am System haben wir gezeigt, warum Fiori Apps Prozesse beschleunigen. Bei Berechtigungskonzepten haben wir Datenschutz und Revisionssicherheit von vornherein transparent mit dem BR abgestimmt, statt ihn vor vollendete Tatsachen zu stellen.`,
-            do: 'Hebe die Rolle von TP1 (Change Management) und die frühe Einbindung des Betriebsrats hervor.',
-            dont: 'Tue nicht so, als gäbe es in Großprojekten keine Widerstände – das wirkt unprofessionell.'
+Dadurch wird europarechtlich sichergestellt, dass keine verbotenen Quersubventionierungen öffentlicher Ausgleichsleistungen in den freien Wettbewerb fließen. Im S/4HANA-Lösungsdesign (TP2) wurde dies durch eine saubere Kostenstellen-, Profit-Center- und Buchungskreis-Segmentierung sowie parallele Ledger im Hauptbuch realisiert.`,
+            do: 'Nenne die EU-Verordnung 1370/2007, § 45a PBefG und die Vermeidung von Quersubventionierungen.',
+            dont: 'Tue nicht so, als sei Trennungsrechnung eine rein technische SAP-Einstellung – es ist eine rechtlich zwingende Compliance-Vorgabe.'
           },
           {
-            q: 'Welche Rolle spielt SAP Signavio im Zusammenspiel mit SAP Cloud ALM?',
-            cat: 'Projektmanagement & Governance',
+            q: 'Was sind die architektonischen Vorteile des Universal Journal (ACDOCA) gegenüber der klassischen Tabellenwelt?',
+            cat: 'SSB S/4HANA & Explore-Phase',
             open: false,
-            a: `Signavio und Cloud ALM ergänzen sich perfekt:
-- SAP Signavio ist die Business- und Prozessplattform. Hier wird der Ist-Zustand analysiert (z.B. via Process Insights und plug-and-gain) und der Soll-Prozess in BPMN 2.0 modelliert.
-- SAP Cloud ALM ist die Ausführungs- und Implementierungsplattform. Die Prozessmodelle aus Signavio werden nach CALM synchronisiert, wo sie direkt mit Projektphasen, User Stories, funktionalen Anforderungen und Testfällen verknüpft werden.
+            a: `Im alten ECC 6.0 waren Finanzdaten auf unzählige Tabellen verteilt: BSEG und BKPF für Hauptbuch, BSIS/BSAS für offene Posten, KNC1/LFC1 für Debitoren/Kreditoren und COEP für das Controlling. Das erforderte komplexe Abstimmungsarbeiten (Reconciliation) zwischen FI und CO am Monatsende.
 
-Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum getesteten Fiori-Klick.`,
-            do: 'Erkläre die Trennung: Signavio = "Was wollen wir?" (Prozess), Cloud ALM = "Wie setzen wir es um und testen es?" (Ausführung).',
-            dont: 'Verwechsle die beiden Tools nicht oder stelle sie als Konkurrenten dar.'
+Das Universal Journal (Tabelle ACDOCA) vereint Hauptbuch, Kostenrechnung, Anlagenbuchhaltung (FI-AA) und Material-Ledger in einer einzigen, spaltenbasierten 'Single Source of Truth' auf der SAP HANA In-Memory-Datenbank. FI und CO sind von vornherein abgestimmt; Berichte aggregieren Millionen Zeilen in Millisekunden on-the-fly.`,
+            do: "Nenne konkrete Tabellen (BSEG, COEP, ACDOCA) und das Prinzip 'Single Source of Truth'.",
+            dont: 'Vergiss nicht die betriebswirtschaftliche Konsequenz: Wegfall von zeitaufwändigen Abstimmungsarbeiten zum Periodenabschluss.'
+          },
+          {
+            q: 'Wie unterscheiden sich PSP-Elemente und Innenaufträge in der SSB-Kostenrechnung?',
+            cat: 'SSB S/4HANA & Explore-Phase',
+            open: false,
+            a: `In der alten ECC-Welt wurden häufig Innenaufträge für alles Mögliche genutzt, was zu unübersichtlichen Auftragsfriedhöfen führte.
+
+Im S/4HANA-Lösungsdesign wurde eine klare Trennung definiert:
+- PSP-Elemente (Projektstrukturplan im Projektsystem PS): Werden für mehrjährige, investive Großprojekte genutzt (z.B. Neubau von Stadtbahntrassen, Anschaffung neuer Fahrzeugflotten). Sie erlauben hierarchische Budgetierung, Fördermittelzuordnung (Grants Management) und Abrechnung auf Anlagen im Bau (AiB).
+- Innenaufträge: Werden ausschließlich für operative, kurzfristige Gemeinkosten- oder Instandhaltungsmaßnahmen mit begrenzter Laufzeit eingesetzt.`,
+            do: 'Erkläre die strategische Trennung: PSP = mehrjährige Investitionen mit Budgetierung; Innenaufträge = operative Kostenverrechnung.',
+            dont: 'Verwechsle nicht PS (Projektsystem) mit PM (Plant Maintenance / Instandhaltung).'
+          },
+          {
+            q: 'Wie funktionierte die Customer Vendor Integration (CVI) bei der SSB?',
+            cat: 'SSB S/4HANA & Explore-Phase',
+            open: false,
+            a: `Unter ECC gab es getrennte Stammdatensätze für Kunden (Debitoren, Tabelle KNA1) und Lieferanten (Kreditoren, Tabelle LFA1). War ein Partner beides, gab es redundante Datensätze.
+
+In S/4HANA ist der Business Partner (Geschäftspartner) das führende Objekt. Im Rahmen der CVI haben wir die Nummernkreise und Kontengruppen harmonisiert. Ein einzelner Geschäftspartner erhält verschiedene Rollen (z.B. FLCU00 für Debitor, FLVN00 für Kreditor) unter derselben ID. Das war eine zentrale Vorbedingung für die Datenmigration mit LTMC.`,
+            do: 'Nenne das Führende-Objekt-Prinzip, Rollen (FLCU00, FLVN00) und die Konsolidierung redundanter Altdaten.',
+            dont: 'Bezeichne CVI nicht als einfache Datenkopie – es ist eine zwingende Datenharmonisierung.'
+          },
+          {
+            q: 'Wie lief die Datenmigration mit dem SAP Migration Cockpit (LTMC) ab und warum ist das 0,00 € Saldo entscheidend?',
+            cat: 'SSB S/4HANA & Explore-Phase',
+            open: false,
+            a: `Die Migration erfolgte über das SAP Migration Cockpit (LTMC) primär nach dem Staging-Tabellen-Prinzip: Altdaten aus ECC wurden in Staging-Tabellen auf der HANA-DB geladen, dort über Mapping-Regeln transformiert und validiert.
+
+Im Finanzbereich (FI) ist der Eröffnungsbilanz-Abgleich die kritischste Revisionsprüfung: Sachkontensalden, offene Posten (OP) und Anlagenbuchwerte (FI-AA) werden gegen ein zentrales Datenübernahmekonto gebucht. Nach erfolgreichem Cutover muss dieses Übernahmekonto centgenau einen Saldo von 0,00 € aufweisen. Jeder Cent Abweichung bedeutet eine unvollständige oder asynchrone Buchung, die das Testat der Wirtschaftsprüfer gefährdet.`,
+            do: 'Erkläre den Cutover-Ablauf: Staging -> Mappings -> Simulation -> Import -> Abstimmung des Datenübernahmekontos auf 0,00 €.',
+            dont: "Tue nicht so, als ob Datenmigration per 'Excel-Upload' erledigt wäre – es ist ein hochgradig revisionssicherer Prozess."
+          },
+          {
+            q: 'Welche Rolle spielten die Mitbestimmungs-Meilensteine mit dem Betriebsrat?',
+            cat: 'SSB S/4HANA & Explore-Phase',
+            open: false,
+            a: `In einem öffentlichen Verkehrsunternehmen unterliegt die Einführung eines ERP-Systems, das potenziell Leistungs- und Verhaltensdaten von Mitarbeitern verarbeiten kann, der zwingenden Mitbestimmung nach § 87 Abs. 1 Nr. 6 BetrVG.
+
+Im Programm SAP4SSB haben Gesamtprojektleiter Roland Nowak und IT-Leiter Dietmar Fillinger den Betriebsrat (Vorsitzende Schmidt & Kraus) von Beginn an eingebunden. Wir hatten zwei verbindliche Meilensteine im Masterplan:
+1. Pilot-Betriebsvereinbarung (01.04.2026): Regelung für den Testbetrieb mit anonymisierten/pseudonymisierten Echtdaten im UAT auf QS4.210.
+2. Finale Betriebsvereinbarung (01.01.2027): Regelung für den Produktivbetrieb zum Go-Live mit klarem Rollen- und Berechtigungskonzept.`,
+            do: 'Erwähne § 87 BetrVG, die Pilot-BV (01.04.2026) und die Finale BV (01.01.2027) sowie das Rollen-/Berechtigungskonzept.',
+            dont: 'Unterschätze niemals die Mitbestimmung – in deutschen Konzernen ist das ein zentraler Erfolgsfaktor!'
+          },
+          {
+            q: 'Welche Aufgaben hatten Sie 12 Monate lang bei Datacenter One im INOC?',
+            cat: 'Datacenter One & ITIL 4',
+            open: false,
+            a: `Ich war 12 Monate lang als Werkstudent im Information Network Operation Center (INOC) unter Helmut Schmidpeter tätig.
+
+Meine Hauptaufgaben umfassten:
+- 24/7 Monitoring von Core-Netzwerken, Serverfarmen, USV-Anlagen (Unterbrechungsfreie Stromversorgung) und RZ-Klimatechnik.
+- Single Point of Contact (SPoC) für Enterprise-Kunden und Tier-1 Carrier bei Störungen nach ITIL 4 Service Operations.
+- Konzeption und Aufbau einer zentralen Wissensdatenbank in Confluence zur Prozessstandardisierung.
+- Hands-on Incident- und Problem-Management via Jira Service Management.`,
+            do: 'Betone die 24/7 Leitstands-Verantwortung, ITIL 4 Prinzipien und den Single Point of Contact (SPoC).',
+            dont: "Reduziere den Leitstand nicht auf 'Kabel stecken' – es ging um unternehmenskritisches SLA-Management."
+          },
+          {
+            q: 'Wie sind Sie bei Netzwerk- und Verbindungsausfällen konkret vorgegangen?',
+            cat: 'Datacenter One & ITIL 4',
+            open: false,
+            a: `Trat im PRTG-Monitoring ein Alarm auf (z.B. Packet Loss oder Leitungsunterbrechung auf einer Glasfaserstrecke), folgte das Vorgehen einer strikten Standard Operating Procedure (SOP):
+1. Verifikation & Triage: Prüfen, ob es sich um einen lokalen Port, einen Switch oder eine externe Carrier-Leitung handelt.
+2. Ticket-Erstellung: Sofortige Erfassung im Jira Service Management mit Severity-Einstufung und Zuweisung an die zuständige Carrier-Eskalationsstufe.
+3. Stakeholder-Kommunikation: Proaktive Kundeninformation innerhalb der vertraglichen Reaktionszeit (SLA).
+4. Entstörung & Dokumentation: Koordination mit Field Service Technikern vor Ort und Revisionssichere Abschlussdokumentation im Ticket.`,
+            do: 'Beschreibe die Schritte strukturiert: Alarm -> Triage -> Ticket -> Carrier-Eskalation -> SLA-Einhaltung.',
+            dont: 'Antworte nicht unstrukturiert – im Leitstand zählt methodische Ruhe und standardisierte Vorgehensweise.'
+          },
+          {
+            q: 'Wie haben Sie die Prozessstandardisierung im INOC vorangetrieben?',
+            cat: 'Datacenter One & ITIL 4',
+            open: false,
+            a: `Vor meiner Initiative lag viel Erfahrungswissen isoliert bei einzelnen Schichtleitern. Ich habe die Initiative ergriffen, dieses Wissen in Confluence zu systematisieren.
+
+Ich habe Standard Operating Procedures (SOPs) für wiederkehrende Störungsbilder erstellt – darunter Leitfäden für Carrier-Ausfälle, USV-Alarme, Notfall-Paging und das Onboarding neuer Rechenzentrums-Kunden. Dadurch sank die Einarbeitungszeit neuer Mitarbeiter deutlich und die Erstlösungsquote (First Contact Resolution) stieg messbar.`,
+            do: 'Erwähne die Confluence-Wissensdatenbank, SOPs und die Steigerung der First Contact Resolution.',
+            dont: 'Behaupte nicht, du hättest das Rechenzentrum alleine betrieben – stelle deinen Beitrag zur Standardisierung heraus.'
+          },
+          {
+            q: 'Was war das Projekt Hardware Lifecycle Management (HLM) bei Datacenter One?',
+            cat: 'Datacenter One & ITIL 4',
+            open: false,
+            a: `Im Rahmen des Projekts Hardware Lifecycle Management (HLM) habe ich den gesamten Lebenszyklus der Client- und Leitstands-Hardware (über 100 Systeme) analysiert und optimiert.
+
+Ich habe den Soll-Prozess in Microsoft Visio modelliert: Von der Bedarfsanforderung über die Beschaffung, Staging/Betankung, Rollout im laufenden Betrieb bis hin zum datenschutzkonformen Decommissioning (Zertifizierte Datenlöschung). Zudem habe ich eine Excel-basierte PoC-Rollout-Matrix erstellt, um Ausfallzeiten im 24/7 Betrieb zu verhindern.`,
+            do: 'Nenne die Phasen: Beschaffung -> Staging -> Rollout -> Decommissioning und die Modellierung in MS Visio.',
+            dont: 'Stelle es nicht als reines Schrauben an PCs dar – es war ein strukturiertes IT-Asset-Management-Projekt.'
+          },
+          {
+            q: 'Wie funktionierte das Carriermanagement und die Netzanbindung im Leitstand?',
+            cat: 'Datacenter One & ITIL 4',
+            open: false,
+            a: `Datacenter One betreibt Colocation- und Rechenzentrumsflächen, in denen Kunden Leitungen unterschiedlichster Carrier (Telekom, Vodafone, Colt, GasLINE etc.) nutzen.
+
+Im Carriermanagement ging es um die Überwachung der Meet-Me-Rooms (MMR), das Patching von Cross-Connects und die Sicherstellung vereinbarter Service Level Agreements (SLAs). Kam es zu Baggerunfällen oder Faserrissen, musste die Umschaltung auf redundante Strecken überwacht und der Ticket-Lifecycle mit dem jeweiligen Carrier koordiniert werden.`,
+            do: 'Nenne Meet-Me-Room (MMR), Cross-Connects, Carrier-SLAs und Redundanzschaltungen.',
+            dont: 'Verwechsle Carriermanagement nicht mit reinem Telemarketing – es ist kritische Glasfaser-Infrastruktur.'
+          },
+          {
+            q: 'Was waren Ihre drei wichtigsten Learnings aus der Zeit bei Datacenter One?',
+            cat: 'Datacenter One & ITIL 4',
+            open: false,
+            a: `Erstens: Absolute SLA-Disziplin. Bei einer vertraglichen Verfügbarkeit von 99,99% kosten wenige Minuten ungeplante Ausfallzeit tausende Euro Vertragsstrafen. Man lernt, unter Druck extrem präzise zu arbeiten.
+
+Zweitens: Dokumentationsqualität ist die Lebensversicherung. Im 24/7 Schichtbetrieb muss die nachfolgende Schicht ein Ticket in 30 Sekunden vollständig verstehen, ohne nachfragen zu müssen.
+
+Drittens: Deeskalierende Krisenkommunikation. Wenn ein Kunde anruft, dessen Kernsysteme stehen, braucht er keine Ausreden, sondern einen ruhigen Ansprechpartner, der klare Zeithorizonte und Maßnahmen kommuniziert.`,
+            do: 'Nenne die 3 Punkte: 1. SLA-Disziplin, 2. Dokumentation im Schichtbetrieb, 3. Deeskalierende Kundenkommunikation.',
+            dont: 'Wähle keine rein technischen Schlagworte – zeige deine persönliche Reife und Verlässlichkeit.'
+          },
+          {
+            q: 'Wie schlägt Ihre Erfahrung bei DC1 die Brücke zu Ihrer späteren SAP-Tätigkeit?',
+            cat: 'Datacenter One & ITIL 4',
+            open: false,
+            a: `Viele Wirtschaftsinformatiker betrachten Cloud-Systeme wie S/4HANA nur als abstrakte Software im Browser. Durch meine 12 Monate im Rechenzentrum kenne ich das physische Fundament: Ich weiß, was Latenzen, redundante Netzanbindungen, USV-Pufferung und Tier-3/Tier-4 Klassifizierungen in der Praxis bedeuten.
+
+Als wir bei der SSB mit Axians über die Bereitstellung der Private-Cloud-Infrastruktur (ES4) und mit Nagarro über Schnittstellen diskutierten, konnte ich ITIL 4 Incident- und Change-Prozesse nahtlos mit den SAP Cloud ALM Quality Gates verbinden.`,
+            do: 'Stelle die Brücke her: Physische RZ-Infrastruktur + ITIL 4 Prozessdisziplin ➔ Verständnis für Enterprise-Cloud-Architekturen.',
+            dont: 'Spiele die Station bei DC1 nicht herunter – sie zeigt dein tiefes technisches Fundament vor der SAP-Spezialisierung!'
+          },
+          {
+            q: 'Wie lautet der offizielle Titel Ihrer Masterarbeit und worum ging es im Kern?',
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `Der offizielle Titel lautet:
+'Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA'
+(126 Seiten, Note 1,0 'sehr gut', Erstprüfer Prof. Dr. Georg Herzwurm, Lehrstuhl für Wirtschaftsinformatik II, Universität Stuttgart).
+
+Im Kern untersucht die Arbeit auf Basis von 12 leitfadengestützten Experteninterviews im Großprojekt SAP4SSB und einer qualitativen Inhaltsanalyse nach Mayring, welche organisatorischen, technischen, personellen und projektsteuernden Faktoren über den Erfolg einer ERP-Plattformisierung entscheiden.`,
+            do: 'Zitiere den Titel exakt und nenne Umfang (126 Seiten), Note (1,0) und Lehrstuhl (Prof. Herzwurm).',
+            dont: 'Verkürze die Arbeit niemals auf ein einzelnes Modul oder Schlagwort – es ist eine ganzheitliche Transformationsuntersuchung!'
+          },
+          {
+            q: "Warum darf die Masterarbeit niemals auf das Schlagwort 'Clean Core' reduziert werden?",
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `Weil 'Clean Core' nur eine technische Facette einer viel größeren architektonischen und organisatorischen Herausforderung ist!
+
+Eine moderne ERP-Transformation zur digitalen Plattform umfasst:
+1. Plattform-Governance: Wie werden Schnittstellen (APIs) als Boundary Resources gesteuert?
+2. Bimodale IT: Wie entkoppelt man stabile Core-Systeme (Mode 1) von agilen Innovationsschichten (Mode 2 / BTP)?
+3. Soziotechnischer Wandel & Absorptive Capacity: Wie nimmt die Belegschaft neue Prozesse an (Betriebsrat, Change Management, Key User)?
+4. Multiprojekt-Steuerung (PMO): Wie orchestriert man komplexe Partner-Ökosysteme (Nagarro, Evora, Axians)?
+
+Meine Masterarbeit liefert ein ganzheitliches 4x3-Erfolgsfaktorenmodell, das all diese Dimensionen empirisch fundiert integriert.`,
+            do: 'Betone die 4 Dimensionen: Organisation, Technik, Mensch und PMO.',
+            dont: "Lass dich nicht in die rein technische 'Clean-Core-Schublade' stecken – deine Arbeit ist ganzheitlich strategisch."
+          },
+          {
+            q: 'Wie haben Sie die qualitative Inhaltsanalyse nach Mayring methodisch umgesetzt?',
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `Ich habe 12 leitfadengestützte Experteninterviews transkribiert und nach Mayring strukturiert analysiert:
+1. Deduktive Kategorienbildung: Ableitung vorläufiger Hauptkategorien aus der theoretischen Literatur (CSF-Forschung, Boundary Resources, EAM).
+2. Induktive Kategorienanpassung: Während der Codierung wurden neue, praxisgetriebene Subkategorien direkt aus den Transkripten entwickelt.
+3. Erstellung eines standardisierten Codebuchs: Jede Kategorie erhielt eine präzise Definition, Ankerbeispiele aus den Interviews und explizite Abgrenzungsregeln.
+4. Paraphrasierung und Generalisierung: Verdichtung der Aussagen zu Kern-Erfolgsfaktoren und Validierung durch Methoden-Triangulation.`,
+            do: 'Erkläre den methodischen Dreischritt: Deduktiv-induktive Kategorien, Codebuch mit Ankerbeispielen, Triangulation.',
+            dont: "Beschreibe Mayring nicht als bloßes 'Texte markieren' – es ist ein streng wissenschaftliches, reliables Verfahren."
+          },
+          {
+            q: 'Welche Kern-Erkenntnisse lieferten die Interviews mit Roland Nowak, Thomas Wimpff und Armin Heinrich?',
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `Die Interviews mit den Schlüsselakteuren der SSB zeigten komplementäre Perspektiven:
+- Roland Nowak (Gesamtprojektleiter): Unterstrich, dass ERP-Transformationen zu 80% ein Führungs- und Kommunikationsproblem sind. Die formelle Mitbestimmung mit dem Betriebsrat und ein rigoroses Scope-Management in den Fit-to-Standard Workshops sind der Schlüssel.
+- Thomas Wimpff (TPL TP2 Finance): Betonte die Notwendigkeit, das Universal Journal (ACDOCA) und die Trennungsrechnung frühzeitig architektonisch abzusichern, um spätere Steuer- und Bilanzierungsrisiken auszuschließen.
+- Armin Heinrich (Basisarchitekt): Verwies auf die zwingende Trennung zwischen Core und BTP sowie die Notwendigkeit stabiler SSO- und Authentifizierungs-Infrastrukturen.`,
+            do: 'Nenne die Namen der Experten und ihre spezifischen strategischen Schwerpunkte.',
+            dont: 'Behandle die Interviews nicht abstrakt – zeige, dass du mit echten C-Level- und Architektur-Verantwortlichen auf Augenhöhe gesprochen hast.'
+          },
+          {
+            q: 'Wie hängen Boundary Resources Theory und ERP-Plattformisierung zusammen?',
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `Die Boundary Resources Theory (Ghazawneh & Henfridsson) erklärt, wie Plattformbetreiber externe Akteure befähigen, Innovationen auf der Plattform zu bauen, ohne die Stabilität der Plattform zu gefährden.
+
+Im ERP-Kontext ist die SAP BTP die 'Boundary Resource':
+- Application Boundary Resources (ABR): Freigegebene OData- und REST-APIs, Business Accelerators.
+- Development Boundary Resources (DBR): Cloud SDKs, Business Application Studio, CAP/RAP Frameworks.
+- Social Boundary Resources (SBR): Architektur-Richtlinien, Clean-Core-Governance und Community-Standards.
+
+Durch diese Grenzressourcen können Fachbereiche und Partner wie Nagarro maßgeschneiderte Apps bauen, während der S/4HANA-Kern modifikationsfrei und upgrade-sicher bleibt.`,
+            do: 'Erkläre die 3 Klassen: ABR, DBR, SBR und wende sie direkt auf SAP BTP und APIs an.',
+            dont: 'Vergiss nicht die theoretische Quelle: Ghazawneh & Henfridsson.'
+          },
+          {
+            q: "Was haben Sie im Masterprojekt 'Digitale Nachhaltigkeit' (Note 1,0) bei Schmalz GmbH erarbeitet?",
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `In der wissenschaftlichen Fallstudie (betreut durch Dr. Dimitri Petrik) ging es um die Optimierung der betrieblichen Abfallbilanz und CSRD-Nachhaltigkeitsberichterstattung beim Weltmarktführer J. Schmalz GmbH.
+
+Ich habe die bestehenden, manuellen Erfassungsprozesse in BPMN 2.0 modelliert, Medienbrüche identifiziert und eine automatisierte Datenextraktionsstrecke mittels PowerShell konzipiert und implementiert. Dadurch wurden Entsorgungsnachweise automatisiert extrahiert, typisiert und fehlerfrei aggregiert – eine direkte Einsparung manueller Aufwände und revisionssichere Datenbasis für den CSRD-Nachhaltigkeitsbericht.`,
+            do: 'Nenne Schmalz GmbH, CSRD-Berichterstattung, BPMN 2.0 Modellierung und PowerShell-Automatisierung.',
+            dont: 'Wichtig: Dies war eine Fallstudie bei der J. Schmalz GmbH – ordne das Projekt präzise diesem Unternehmen zu!'
+          },
+          {
+            q: 'Was war das Ergebnis Ihres Forschungsprojekts FPWI (Note 1,3)?',
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `Im Forschungsprojekt Wirtschaftsinformatik (FPWI) habe ich ein Framework für 'Smart Service Blueprinting' zur Modellierung vernetzter cyber-physischer Systeme (CPS) und IoT-Dienstleistungen entwickelt.
+
+Methodisch basierte die Arbeit auf der Design Science Research Methodology (DSRM nach Peffers). Das konstruierte Artefakt integriert Sensorebenen, Datenflüsse und Service-Touchpoints. In Thinking-Aloud-Tests mit Fachexperten erzielte das Framework einen empirischen System Usability Scale (SUS) Score von 85/100, was der Bestbewertung 'Grade A / Excellent' entspricht.`,
+            do: 'Nenne DSRM nach Peffers, Smart Service Blueprinting, Thinking-Aloud Usability Tests und den SUS-Score 85/100.',
+            dont: 'Bleibe präzise bei den Methodenbegriffen – das belegt dein universitäres Spitzenforschungs-Niveau.'
+          },
+          {
+            q: "Was haben Sie im Projekt 'PatentRadar' für Klingele Paper & Packaging konzipiert?",
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `Im Rahmen der Innovationsmethoden für software- und datenintensive Geschäftsmodelle (ISG) entwickelten wir das Venture-Konzept 'PatentRadar' für die Verpackungsindustrie (Klingele Paper & Packaging).
+
+Wir konzipierten ein hybrides Geschäftsmodell (SaaS & Beratungsdienstleistung), das manuelle Patentrecherchen und Fristenüberwachungen durch eine automatisierte RPA-Strecke (UiPath) in Verbindung mit KI-gestützter Relevanzfilterung (DEPATISnet) ablöst. Ich verantwortete die BPMN 2.0 Prozessanalyse, die Schnittstellendefinition und die wirtschaftliche Business-Case-Kalkulation für das finale Pitchdeck vor C-Level.`,
+            do: 'Betone Klingele Paper & Packaging, das hybride Geschäftsmodell, RPA/UiPath-Prozessmodellierung und Wirtschaftlichkeitskalkulation.',
+            dont: 'Verwechsle dieses Industrieprojekt nicht mit einem Praktikum – es war ein hochkarätiges universitäres Praxis-Innovationsprojekt.'
+          },
+          {
+            q: 'Wie beurteilen Sie den Notensprung von 3,0 im Bachelor auf 1,6 im Master?',
+            cat: 'Master & Plattformisierung',
+            open: false,
+            a: `Der Notensprung von 3,0 auf 1,6 (+1,4 Notenpunkte) belegt meine außerordentliche Lernkurve und Zielstrebigkeit!
+
+Im Bachelorstudium (180 ECTS) habe ich das breite, harte Fundament erworben: Höhere Mathematik, Theoretische Informatik, Algorithmen, Datenstrukturen und Buchführung. Im Masterstudium (120 ECTS) konnte ich meine Spezialisierung voll entfalten: Software-Architektur (1,7), Advanced Software Engineering (1,6), Digitale Nachhaltigkeit (1,0) und die Masterarbeit mit der Traumnote 1,0.
+
+Ich habe bewiesen, dass ich mich in hochkomplexe Themen verbeiße, mich kontinuierlich steigere und in meiner Fachdomäne zu absoluten Spitzenleistungen fähig bin.`,
+            do: 'Framing: Bachelor = breites forderndes Fundament; Master = fokussierte Exzellenz (+1,4 Notenpunkte Leistungssteigerung).',
+            dont: 'Entschuldige dich nicht für die 3,0 im Bachelor – die Universität Stuttgart ist bekannt für ihr anspruchsvolles ingenieurwissenschaftliches Niveau!'
+          },
+          {
+            q: 'Was war der Gegenstand Ihrer Bachelorarbeit bei Prof. Herzwurm?',
+            cat: 'Bachelor & Methodenkompetenz',
+            open: false,
+            a: `Meine Bachelorarbeit trug den Titel:
+'Die Bedeutung von Boundary Resources in Low-Code Entwicklungsplattformen: Eine qualitative Untersuchung am Beispiel von OutSystems und Mendix'
+(Note 1,7 'gut', Lehrstuhl für ABWL und Wirtschaftsinformatik II, Prof. Dr. Georg Herzwurm).
+
+Ich untersuchte, wie führende Low-Code-Plattformen Grenzressourcen bereitstellen, um Citizen Developers und professionelle Software-Ingenieure in die Lage zu versetzen, Anwendungen schnell und architektonisch sauber zu erstellen.`,
+            do: 'Nenne den vollen Titel, Note 1,7, die Plattformen OutSystems & Mendix sowie den Lehrstuhl Herzwurm.',
+            dont: 'Vergiss nicht die Verbindung zur Masterarbeit: Die Bachelorarbeit legte das theoretische Fundament für Plattform-Architekturen!'
+          },
+          {
+            q: 'Was sind die 14 Klassen von Boundary Resources nach Ghazawneh & Henfridsson?',
+            cat: 'Bachelor & Methodenkompetenz',
+            open: false,
+            a: `In meiner Bachelorarbeit habe ich 14 distinkte Grenzressourcen-Klassen identifiziert und den drei Dimensionen zugeordnet:
+1. Application Boundary Resources (ABR): REST/SOAP APIs, Webhooks, Datenkonnektoren und Integrationskomponenten.
+2. Development Boundary Resources (DBR): Visuelle Entwicklungsumgebungen (IDE), SDKs, Komponenten-Bibliotheken, Debugging-Tools und Test-Harnesses.
+3. Social Boundary Resources (SBR): Marktplätze (z.B. OutSystems Forge), Entwickler-Foren, Dokumentationen, Styleguides und Zertifizierungsprogramme.
+
+Diese Taxonomie belegt, wie Plattform-Ökosysteme technisch und sozial gesteuert werden.`,
+            do: 'Strukturiere klar nach ABR, DBR und SBR und nenne konkrete Beispiele wie Marktplätze, SDKs und APIs.',
+            dont: 'Bleibe nicht bei der reinen Aufzählung stehen – erkläre den Nutzen für die Plattform-Governance.'
+          },
+          {
+            q: "Wie haben Sie im Bachelor die Bestnote 1,0 in 'Informationssysteme im E-Business' erreicht?",
+            cat: 'Bachelor & Methodenkompetenz',
+            open: false,
+            a: `Informationssysteme im E-Business (Teil von WI 1) war eines der Kernmodule meines Bachelorstudiums. Ich habe mich intensiv mit den Architekturen digitaler B2B- und B2C-Marktplätze, EDI-Standards (EDIFACT), E-Procurement-Katalogen und Plattformökonomie befasst.
+
+Zudem gehörten formale Methoden des Software-Projektmanagements zum Prüfungsstoff: Function-Point-Analyse zur Aufwandsschätzung, Testmanagement-Strategien und agile Entwicklung. Mit der Traumnote 1,0 habe ich bewiesen, dass ich betriebliche Informationssysteme von Grund auf durchdrungen habe.`,
+            do: 'Erwähne B2B-Marktplätze, EDIFACT, E-Procurement und die Function-Point-Analyse.',
+            dont: "Reduziere E-Business nicht auf einfachen 'Online-Handel' – es geht um komplexe elektronische Wertschöpfungsketten."
+          },
+          {
+            q: 'Was haben Sie im Informationsverarbeitungspraktikum (IVP) bei der 0x539-Wear GmbH analysiert?',
+            cat: 'Bachelor & Methodenkompetenz',
+            open: false,
+            a: `Im Informationsverarbeitungspraktikum (Note 2,3, Lehrstuhl Abteilung VII) führten wir eine tiefgehende datengestützte Unternehmensanalyse der fiktiven 0x539-Wear GmbH durch.
+
+Ich analysierte umfangreiche relationale Bestelldaten und erstellte mehrstufige Deckungsbeitragsrechnungen (DB I bis DB IV). Wir führten Plan-Ist-Vergleiche, ABC-Kunden- und Artikelanalysen sowie Lieferantenbewertungen durch, um margenschwache Produkte und Engpässe im Beschaffungsprozess aufzudecken. Das war mein praktischer Einstieg in Business Intelligence und operatives Controlling.`,
+            do: 'Nenne mehrstufige Deckungsbeitragsrechnung, Plan-Ist-Vergleiche und relationale Datenanalysen.',
+            dont: 'Tue nicht so, als sei das nur Theorie gewesen – es war ein handfestes BI- und Controlling-Projekt.'
+          },
+          {
+            q: 'Welche Modellierungsmethoden beherrschen Sie aus dem Bachelorstudium?',
+            cat: 'Bachelor & Methodenkompetenz',
+            open: false,
+            a: `Im Modul 'Modellierung' (Note 2,3 bei Prof. Dr. Bernhard Mitschang) und in nachfolgenden Praxisprojekten habe ich ein breites Repertoire formaler Modellierungsmethoden erlernt:
+- Geschäftsprozesse: BPMN 2.0 (Gateways, Pools, Lanes, Zwischenereignisse, Nachrichtenflüsse) und erweiterte Ereignisgesteuerte Prozessketten (eEPK).
+- Software- und Systemarchitektur: UML 2.0 (Klassendiagramme, Sequenzdiagramme, Zustandsautomaten, Aktivitätsdiagramme).
+- Formale Systeme: Petrinetze (Erreichbarkeitsgraphen, Lebendigkeit, Verklemmungsfreiheit).
+- Datenmodellierung: Entity-Relationship-Modelle (ERM), Relationale Algebra, Normalisierung (1NF bis BCNF) und SQL.`,
+            do: 'Nenne BPMN 2.0, UML, Petrinetze, ERM und Normalformen.',
+            dont: "Stelle Modellierung nicht als 'bunte Kästchen malen' dar – es ist die formale Semantik für fehlerfreie IT-Architekturen."
+          },
+          {
+            q: 'Worum ging es in Ihrer Seminararbeit bei Prof. Dr. Marion Büttgen (Hohenheim)?',
+            cat: 'Bachelor & Methodenkompetenz',
+            open: false,
+            a: `Am Lehrstuhl für Unternehmensführung der Universität Hohenheim (Prof. Dr. Marion Büttgen) verfasste ich meine Seminararbeit zum Thema Mensch-Roboter-Interaktion und Servicequalität bei digitalen Service Encountern.
+
+Ich untersuchte auf Basis des Expectation-Confirmation-Modells (ECM) und der Servqual-Dimensionen, wie Kunden die Interaktion mit Servicerobotern und KI-Assistenten wahrnehmen und welche Faktoren die Akzeptanz und Zufriedenheit im Dienstleistungssektor determinieren. Diese Arbeit schärfte meinen Blick für User Acceptance und Human-Computer-Interaction.`,
+            do: 'Nenne Prof. Büttgen, Expectation-Confirmation-Modell (ECM) und Service Encounters.',
+            dont: 'Vergiss nicht den Nutzen: Akzeptanzforschung ist direkt relevant für die Einführung neuer SAP Fiori Apps bei Anwendern.'
+          },
+          {
+            q: 'Welche mathematisch-statistischen Methoden beherrschen Sie?',
+            cat: 'Bachelor & Methodenkompetenz',
+            open: false,
+            a: `Mein Studium umfasste 30 ECTS mathematisch-methodische Grundlagen:
+- Höhere Mathematik: Lineare Algebra, Matrizenrechnung, Vektorräume, Differential- und Integralrechnung mehrerer Variablen und Optimierung unter Nebenbedingungen (Lagrange-Multiplikatoren).
+- Deskriptive & Induktive Statistik: Wahrscheinlichkeitsverteilungen (Normal-, t-, Chi-Quadrat-Verteilung), Konfidenzintervalle, parametrische und nicht-parametrische Hypothesentests, lineare und multivariate Regression sowie Zeitreihenanalysen.
+- Algorithmik: Analyse der asymptotischen Laufzeit- und Speicherkomplexität (O-Notation) in Datenstrukturen und Algorithmen.`,
+            do: 'Betone die quantitative Denkdisziplin und das Durchhaltevermögen bei anspruchsvollen mathematischen Methoden.',
+            dont: "Lass dich nicht als 'reiner BWLer' abstempeln – du hast das volle informationstechnische Mathe-Programm absolviert!"
+          },
+          {
+            q: 'Was beinhaltet Ihre TOGAF 9 ADM Zertifizierung bei Scape Consulting?',
+            cat: 'Enterprise Architecture & TOGAF',
+            open: false,
+            a: `Ich habe den TOGAF 9 ADM-Intensivkurs an der Universität Stuttgart bei Dr. Daniel Simon (Scape Consulting GmbH, 16.01.2020) erfolgreich absolviert.
+
+Der Kurs vermittelte den vollständigen Architektur-Entwicklungszyklus (Architecture Development Method ADM):
+- Vorphase: Architecture Principles & Governance Framework
+- Phase A: Architecture Vision & Stakeholder Management
+- Phase B: Business Architecture (Geschäftsprozesse, Fähigkeiten)
+- Phase C: Information Systems Architecture (Data & Application Architecture)
+- Phase D: Technology Architecture (Infrastruktur, Plattformen)
+- Phase E & F: Opportunities & Solutions, Migration Planning
+- Phase G & H: Implementation Governance & Architecture Change Management`,
+            do: 'Nenne Scape Consulting, Dr. Daniel Simon, die ADM-Phasen A-H und die 4 Kernarchitekturen.',
+            dont: 'Beschreibe TOGAF nicht nur theoretisch – erkläre, wie du diese Struktur im Solution Design bei der SSB genutzt hast.'
+          },
+          {
+            q: 'Was versteht man unter dem TOGAF Architecture Metamodel?',
+            cat: 'Enterprise Architecture & TOGAF',
+            open: false,
+            a: `Das TOGAF Architecture Metamodel definiert die formalen Objekttypen und deren Beziehungen innerhalb einer Unternehmensarchitektur.
+
+Es verknüpft strukturiert:
+- Business Architecture: Business Capabilities, Business Actors, Rollen und Geschäftsprozesse.
+- Information Systems Architecture: Data Entities, Logical Data Models und Application Components.
+- Technology Architecture: Technology Services, Nodes und Netzwerke.
+
+Dieses Metamodell verhindert Insellösungen, weil jede Software-Komponente und jedes Datenobjekt exakt einem Geschäftsziel und Geschäftsprozess zugeordnet ist.`,
+            do: 'Erkläre die vertikale Durchgängigkeit: Business Goal -> Capability -> Process -> Application -> Data -> Technology Node.',
+            dont: 'Verliere dich nicht in Fachchinesisch – der Kern ist die lückenlose Verknüpfung von Business und IT.'
+          },
+          {
+            q: 'Was ist der Unterschied zwischen Baseline Architecture und Target Architecture?',
+            cat: 'Enterprise Architecture & TOGAF',
+            open: false,
+            a: `Die Baseline Architecture beschreibt den aktuellen Ist-Zustand der Anwendungs-, Daten- und Technologie-Landschaft (inklusive historischer Z-Modifikationen, redundanter Systeme und technischer Schulden).
+
+Die Target Architecture definiert den strategischen Soll-Zustand (z.B. Greenfield S/4HANA Private Cloud, Clean Core, BTP-Integration).
+
+Der Wert entsteht durch die Gap-Analyse: Was fällt weg? Was wird neu aufgebaut? Wie sehen die Transition Architectures (Übergangszustände) aus, um das Geschäft während der mehrjährigen Transformation ohne Unterbrechung am Laufen zu halten?`,
+            do: 'Nenne Gap-Analyse, Transition Architectures und die Risikominimierung im laufenden Geschäftsbetrieb.',
+            dont: 'Vergiss nicht die Transition Architectures – Großunternehmen können nicht über Nacht den Schalter umlegen.'
+          },
+          {
+            q: 'Wie funktioniert Architecture Governance in der Praxis?',
+            cat: 'Enterprise Architecture & TOGAF',
+            open: false,
+            a: `Architecture Governance stellt sicher, dass laufende Projekte nicht an den Unternehmensrichtlinien vorbeientwickeln.
+
+In der Praxis wird dazu ein Architecture Review Board (ARB) etabliert. Wenn ein Projektteam oder Fachbereich eine neue Anforderung hat, die vom Standard abweicht, muss ein Architecture Compliance Review durchlaufen werden. Es wird geprüft: Entspricht die Lösung den Clean-Core-Richtlinien? Gibt es Sicherheits- oder Datenrisiken? Werden bestehende BTP-Dienste genutzt? Erst mit ARB-Freigabe darf die Implementierung beginnen.`,
+            do: 'Nenne das Architecture Review Board (ARB), Architecture Compliance Reviews und Clean-Core-Gates.',
+            dont: 'Stelle Governance nicht als bürokratische Bremse dar – sie schützt das Unternehmen vor Millionenverlusten durch Fehlinvestitionen.'
+          },
+          {
+            q: 'Wie grenzt sich Enterprise Architecture von reiner Softwareentwicklung ab?',
+            cat: 'Enterprise Architecture & TOGAF',
+            open: false,
+            a: `Klassische Softwareentwicklung fokussiert auf die Implementierung eines konkreten Systems: Code-Qualität, Frameworks, Klassen, Algorithmen und Sprint-Deliverables im Zeithorizont von Wochen bis Monaten.
+
+Enterprise Architecture Management (EAM) blickt aus der Vogelperspektive auf das gesamte Ökosystem im Zeithorizont von 3 bis 7 Jahren: Wie spielen 50 verschiedene Systeme, ERP-Kerne, Cloud-Plattformen, Schnittstellen, regulatorische Vorgaben und Business-Fähigkeiten zusammen? EAM fragt nicht 'Wie schreibe ich den Code?', sondern 'Sollte diese Funktion überhaupt im Kern gebaut werden oder gehört sie auf die BTP?'`,
+            do: 'Klarer Kontrast: Softwareentwicklung = lokale Systemimplementierung; EAM = strategische Gesamtsystem- und Portfolio-Steuerung.',
+            dont: 'Werte die Softwareentwicklung nicht ab – betone, dass EAM das Dach bildet, unter dem Entwickler sauber arbeiten können.'
+          },
+          {
+            q: 'Warum bewerben Sie sich bewusst auf eine Junior-Position oder ein Traineeprogramm?',
+            cat: 'Persönlich & Trainee-Einstieg',
+            open: false,
+            a: `Weil ich realistische Selbsteinschätzung mit hoher Leistungsbereitschaft verbinde!
+
+Ich bringe zwar durch 24 Monate S/4HANA Großprojekt im IT-PMO, 12 Monate Rechenzentrumsbetrieb bei DC1 und meine mit 1,0 bewertete Masterarbeit ein außergewöhnlich starkes Fundament mit. Aber: Jedes Unternehmen hat eigene Prozesse, eigene Unternehmenskulturen und spezifische Systemlandschaften.
+
+Ich suche den Einstieg als Junior Consultant oder in einem anspruchsvollen Traineeprogramm, um mit einer gesunden Mischung aus Demut, Neugier und Engagement Ihr Unternehmen von Grund auf kennenzulernen. Ich möchte nicht mit vorgefertigten Meinungen auftreten, sondern zuhören, schnell lernen und mit hoher Verlässlichkeit binnen kürzester Zeit zur tragenden Säule in Ihrem Team heranwachsen.`,
+            do: 'Betone die Haltung: Fundiertes Vorwissen vorhanden, aber bewusste Offenheit, Lernbegierde und Respekt vor der Firmenkultur.',
+            dont: "Trete nicht arrogant auf ('Ich weiß schon alles wegen meiner 1,0'). Reife Absolventen zeigen Lernbereitschaft!"
+          },
+          {
+            q: 'Wie reagieren Sie, wenn Sie in einem Projekt auf eine völlig unbekannte SAP- oder IT-Frage stoßen?',
+            cat: 'Persönlich & Trainee-Einstieg',
+            open: false,
+            a: `Ich verfalle weder in Aktionismus noch sitze ich das Problem aus, sondern gehe in einem 4-Stufen-Modell vor:
+1. Problem strukturieren: Exakte Definition des Gaps – handelt es sich um ein Prozess-, Konfigurations- oder Schnittstellenthema?
+2. Eigenrecherche im Standard: Analyse der SAP Best Practice Explorer Scope-IDs, SAP Learning Hub und offizieller SAP Press Referenzen.
+3. Lösungsoptionen erarbeiten: Ich erarbeite mindestens 2 fundierte Handlungsoptionen inklusive Vor- und Nachteilen.
+4. Gezielte Abstimmung: Mit diesen vorstrukturierten Optionen gehe ich auf Seniorkollegen oder Fachexperten zu. So stehle ich niemandem Zeit, sondern ermögliche eine fundierte Entscheidung.`,
+            do: 'Beschreibe die 4 Stufen: Strukturieren -> Eigenrecherche -> Optionen formulieren -> Gezieltes Sparring.',
+            dont: "Sage niemals 'Ich frage sofort meinen Chef' (unselbstständig) oder 'Ich probiere einfach rum' (gefährlich im Produktivsystem)."
+          },
+          {
+            q: 'Wie vermitteln Sie zwischen rein technischen Beratern und konservativen Fachbereichen?',
+            cat: 'Persönlich & Trainee-Einstieg',
+            open: false,
+            a: `Das war genau meine tägliche Rolle im IT-PMO bei der SSB!
+
+Fachbereiche denken in ihren gewohnten Buchungsabläufen, Belegen und Arbeitszeitplänen; technische Berater von Partnern wie Nagarro denken in CDS Views, OData-Services und RAP-Objekten. Meine Stärke ist die 'bilinguale' Vermittlung:
+Ich übersetze die Anforderungen des Fachbereichs in präzise User Stories und Akzeptanzkriterien für die Entwickler. Umgekehrt erkläre ich dem Fachbereich technische Einschränkungen nicht mit IT-Jargon, sondern anhand der konkreten Auswirkungen auf ihren täglichen Arbeitsablauf in SAP Fiori.`,
+            do: "Framing: Du bist der 'Bilinguale Übersetzer' zwischen Fachbereichs-Sprache und IT-Architektur.",
+            dont: "Wähle keine Partei – weder Fachbereich noch IT sind 'schuld', wenn Kommunikation hakt; es braucht Empathie für beide Seiten."
+          },
+          {
+            q: 'Welche Gehaltserwartung bringen Sie für den Berufseinstieg mit?',
+            cat: 'Persönlich & Trainee-Einstieg',
+            open: false,
+            a: `Auf Basis meiner soliden Qualifikation – Master of Science Wirtschaftsinformatik an der Universität Stuttgart (Note 1,6), Masterarbeit mit Note 1,0 sowie insgesamt 36 Monaten relevanter Praxiserfahrung in Großprojekt (SSB) und Rechenzentrum (DC1) – sehe ich ein Einstiegsgehalt im Bereich von 55.000 € bis 65.000 € brutto pro Jahr als fair und marktüblich an.
+
+Für mich steht jedoch der inhaltliche Fit, die Qualität des Teams, anspruchsvolle Projekte und gezielte Weiterentwicklungsmöglichkeiten klar an erster Stelle. Wenn das Gesamtpaket stimmt, finden wir mit Sicherheit eine gemeinsame Basis.`,
+            do: 'Nenne die Spanne 55.000 € - 65.000 € ruhig, begründe sie sachlich mit 300 ECTS + 36 Mo. Praxis und betone die Priorität der Lernperspektive.',
+            dont: 'Nenne keine überzogenen 75k-80k Senior-Forderungen und sei nicht unverschämt flexibel nach unten (unter Wert verkaufen).'
+          },
+          {
+            q: 'Wo sehen Sie sich in 3 bis 5 Jahren in unserer Organisation?',
+            cat: 'Persönlich & Trainee-Einstieg',
+            open: false,
+            a: `In 3 bis 5 Jahren sehe ich mich als fachlich etablierte und geschätzte Stütze in Ihrem Beratungsteam oder Enterprise-Architecture-Bereich.
+
+Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruchsvolle Teilprojekte und Workstreams führen, die Schnittstelle zwischen Business und IT gestalten und mein Wissen über moderne Cloud-Architekturen und Clean Core kontinuierlich vertiefen. Zudem liegt es mir am Herzen, neue Trainees und Werkstudenten an Bord zu holen und als Mentor die nächste Generation mit der gleichen Begeisterung zu unterstützen, die ich heute mitbringe.`,
+            do: 'Skizziere einen klaren Entwicklungspfad: Verantwortung übernehmen -> Fachthemen prägen -> Mentoring für Nachwuchs.',
+            dont: "Sage nicht 'Ich will Partner / Geschäftsführer werden' – zeige Loyalität, Teamorientierung und fachliche Reife."
           }
         ];
 
@@ -3853,9 +4832,13 @@ Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum get
           if (selectedQACat.value !== 'Alle') {
             list = list.filter(item => item.cat === selectedQACat.value);
           }
-          if (searchQuery.value) {
-            const q = searchQuery.value.toLowerCase();
-            list = list.filter(item => item.q.toLowerCase().includes(q) || item.a.toLowerCase().includes(q));
+          const term = (qaSearch.value || searchQuery.value || '').trim().toLowerCase();
+          if (term) {
+            list = list.filter(item => 
+              item.q.toLowerCase().includes(term) || 
+              item.a.toLowerCase().includes(term) ||
+              (item.cat && item.cat.toLowerCase().includes(term))
+            );
           }
           return list;
         });
@@ -3997,6 +4980,7 @@ Dadurch entsteht eine lückenlose Traceability vom Geschäftsprozess bis zum get
           qaCategories,
           fileCategories,
           selectedQACat,
+          qaSearch,
           selectedFileCat,
           personalNotes,
           pitch60,
