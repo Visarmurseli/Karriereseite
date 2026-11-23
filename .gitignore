@@ -1,3 +1,25 @@
 __pycache__/
 *.pyc
 .env
+
+# Strict Confidentiality - No Enterprise or Internal Operational Documents
+*SSB*
+*ssb*
+*Axians*
+*Nagarro*
+*Evora*
+*Discover Phase*
+*Explore Phase*
+*TP1*
+*TP2*
+*TP3*
+*TP4*
+*TP5*
+*.mpp
+*.vsdx
+*.zip
+*.7z
+inbox/
+specs/
+.specify/
+temp_*
