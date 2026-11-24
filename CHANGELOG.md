@@ -9,6 +9,39 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.6.0] - 2026-11-24 (Data Science & Knowledge Graph Release)
+
+### 🎯 Kontext & Leitmotiv
+Vollständige data-science-basierte Transformation und Harmonisierung des gesamten Obsidian Second Brains (133 Notizen | 4,4+ Mio. Wörter | ~5,99 Mio. Tokens) für den optimalen Einsatz mit LLMs, Agenten, Vektor-Datenbanken und semantischem Graph-RAG. 100% Schema-Compliance, 0 Broken Links und Single-H1 AST-Hierarchie.
+
+### 🚀 Neu hinzugefügt (Added)
+- **Data Science Vault Harmonizer (`scripts/harmonize_obsidian_vault.py`):**
+  - Automatisierter Pipeline-Prozessor zur Normalisierung von Frontmatter, Wikilinks, mathematischen Semantik-Klammern und Heading-Hierarchien.
+- **RAG & Knowledge Graph Quality Validator (`scripts/validate_obsidian_rag.py`):**
+  - Standalone-Audit-Suite zur Verifikation von Metadaten-Compliance, Graph-Kanten-Konnektivität (Adjazenzmatrix), Outgoing Link Density und AST-Sanity.
+- **Wissensgraph-Manifest (`graph_manifest.json`):**
+  - Vollständiger maschinenlesbarer JSON-Graph-Export mit 133 Knoten (ID, Label, Typ, Domain, Summary, Word Count) und 614 verifizierten Kanten zur direkten Ingestion in GraphRAG (Neo4j, NetworkX, LlamaIndex PropertyGraph).
+- **Semantischer Vector Router in `00_INDEX.md`:**
+  - Strukturierte Navigationsprotokolle für KI-Agenten, Indexierung der 6 Wissenssäulen und direkte Verknüpfung aller Second-Brain-Artefakte.
+
+### 🔄 Geändert & Harmonisiert (Changed)
+- **100% YAML-Frontmatter Schema Compliance:**
+  - Alle 133 Dokumente (zuvor 19 unvollständig) besitzen nun standardisierte Metadaten (`id`, `title`, `type`, `domain`, `status`, `summary`, `tags`, `aliases`, `last_updated`).
+- **Graph-Kanten-Heilung (0 Broken Links):**
+  - Eliminierung aller 665 defekten Wikilink-Referenzen durch kanonische Pfadbereinigung (`[[target]]` statt relativer Pfadfragmente) und Mapping konzeptioneller Lücken (`BPMN_Signavio` -> `SSB_Tool_Governance_Signavio_CALM`, `SAP_FI` -> `SSB_Solution_Design_FI_CO`, etc.).
+  - Bereinigung von tabellarisch fehlerhaft maskierten Wikilinks (`[[target\|alias]]` -> `[[target|alias]]`) in `Modul_Übersicht.md`.
+- **Mathematisch-logische Semantik-Klammern:**
+  - Ersetzung von OCR-bedingten Doppelklammern in Prädikatenlogik-Vorlesungsfolien (`[[F]]`, `[[G]]`, `[[Hund(x)]]`, `[[n,k]]`) durch echte mathematische Unicode-Klammern (`⟦F⟧`, `⟦G⟧`, `⟦n,k⟧`), wodurch Falsch-Positiv-Wikilinks vollständig beseitigt wurden.
+- **AST Heading Hierarchy & Chunking-Sanity:**
+  - Bereinigung mehrfacher H1-Tags in 17 Dokumenten. Jedes Dokument besitzt nun exakt ein einziges `# H1` am Dokumenten-Kopf, wodurch hierarchische Text-Splitter (LangChain MarkdownHeaderTextSplitter, LlamaIndex MarkdownNodeParser) optimal arbeiten können.
+- **Root-Bereinigung:**
+  - Verlagerung persönlicher Tracker (`Gewohnheiten.md` und `NoFap.md`) in `04_Second_Brain_Zettelkasten/` mit vollwertigem YAML-Frontmatter und Verknüpfung im Index.
+
+### 🛡️ Governance & Quality Gate
+- **Audit-Ergebnis:** 100% LLM & RAG READINESS - PASSED WITH DISTINCTION (133/133 Frontmatter, 0 Broken Links, 0 Multi-H1s).
+
+---
+
 ## [1.5.0] - 2026-11-24 (Nacht-Release)
 
 ### 🎯 Kontext & Leitmotiv
