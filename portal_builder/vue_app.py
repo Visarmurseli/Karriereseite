@@ -37,7 +37,11 @@ def get_vue_app(public_mode=False):
         const ragQuery = ref('');
         const ragResults = ref([]);
         const ragLoading = ref(false);
+        const ragAskLoading = ref(false);
+        const ragAnswer = ref('');
+        const ragModel = ref('');
         const ragStatusMsg = ref('');
+        const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
 
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
@@ -1075,6 +1079,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           localStorage.setItem('vm_second_brain_notes', personalNotes.value);
         };
 
+        // PRIVATE_RAG_START
         const saveNotesToObsidian = async () => {
           saveNotes();
           if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
@@ -1088,7 +1093,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
               body: JSON.stringify({ notes: personalNotes.value })
             });
             const res = await resp.json();
-            ragStatusMsg.value = res.ok ? '✅ Erfolgreich direkt in Obsidian 00_Inbox/Webapp_Notizen.md gespeichert!' : ('⚠️ Fehler: ' + res.error);
+            ragStatusMsg.value = res.ok ? '✅ Erfolgreich in Obsidian 00_Inbox/Webapp_Notizen.md gespeichert & in FTS5-RAG indexiert!' : ('⚠️ Fehler: ' + res.error);
           } catch (e) {
             ragStatusMsg.value = '⚠️ Lokaler Portal-Server unter localhost:8085 nicht erreichbar.';
           }
@@ -1106,13 +1111,54 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             const resp = await fetch('/api/rag?limit=10&q=' + encodeURIComponent(q));
             const data = await resp.json();
             ragResults.value = data.results || [];
-            ragStatusMsg.value = `${ragResults.value.length} Treffer aus 137.000+ Obsidian-Chunks für "${q}" geladen.`;
+            ragStatusMsg.value = `${ragResults.value.length} gewichtete Hybrid-Treffer aus Obsidian FTS5 für "${q}" geladen.`;
           } catch (e) {
             ragStatusMsg.value = '⚠️ Fehler bei RAG-Anfrage.';
           } finally {
             ragLoading.value = false;
           }
         };
+
+        const runRagAsk = async () => {
+          const q = (ragQuery.value || '').trim();
+          if (!q) return;
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            ragStatusMsg.value = 'KI-Synthese steht nur auf localhost:8085 bereit.';
+            return;
+          }
+          ragAskLoading.value = true;
+          try {
+            const resp = await fetch('/api/ask?limit=6&q=' + encodeURIComponent(q));
+            const data = await resp.json();
+            ragAnswer.value = data.answer || '';
+            ragModel.value = data.model || '';
+            if (data.sources && data.sources.length) {
+              const r2 = await fetch('/api/rag?limit=8&q=' + encodeURIComponent(q));
+              const d2 = await r2.json();
+              ragResults.value = d2.results || [];
+            }
+            ragStatusMsg.value = `🤖 Gemini-Synthese (${ragModel.value || 'local'}) auf Basis verifizierter Obsidian-Quellen erstellt.`;
+          } catch (e) {
+            ragStatusMsg.value = '⚠️ Fehler bei KI-Synthese.';
+          } finally {
+            ragAskLoading.value = false;
+          }
+        };
+
+        const loadPipeline = async () => {
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) return;
+          try {
+            const resp = await fetch('/api/pipeline');
+            const data = await resp.json();
+            if (data.ok) pipelineData.value = data;
+          } catch (e) {}
+        };
+
+        const prepInterview = async (company, role) => {
+          ragQuery.value = `${company} ${role} Masterarbeit SSB Projekt Transformation`;
+          await runRagAsk();
+        };
+        // PRIVATE_RAG_END
 
         const copyNotesToClipboard = () => {
           if (navigator.clipboard) {
@@ -1165,6 +1211,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           } else {
             personalNotes.value = `# Visar Murseli | Mein persönliches Second Brain\\n\\nWillkommen in deinem persönlichen Karriere-Notizbuch!\\nHier kannst du Notizen zu Vorstellungsgesprächen, Gehaltsverhandlungen und SAP-Architekturen festhalten.\\n\\nAlles, was du hier eintippst, wird automatisch in deinem Browser gespeichert.\\n`;
           }
+          loadPipeline();
         });
 
         return {
@@ -1186,8 +1233,15 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           ragQuery,
           ragResults,
           ragLoading,
+          ragAskLoading,
+          ragAnswer,
+          ragModel,
           ragStatusMsg,
+          pipelineData,
           runRagSearch,
+          runRagAsk,
+          loadPipeline,
+          prepInterview,
           saveNotesToObsidian,
           pitch60,
           pitchDeep,
@@ -1224,6 +1278,9 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
     if public_mode:
         tpl = tpl.replace('%%PRIVATE_HUB_LINE%%', '')
         tpl = re.sub(r'// PRIVATE_TABS_START.*?// PRIVATE_TABS_END', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_RAG_START.*?// PRIVATE_RAG_END',
+                     "const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const loadPipeline = () => {};\n        const prepInterview = () => {};",
+                     tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_DEFENSE_START.*?// PRIVATE_DEFENSE_END',
                      "const defenseScenarios = ref([]);\n        const cvImprovements = [];\n        const pitch60 = '';\n        const pitchDeep = '';\n        const starStories = ref([]);",
                      tpl, flags=re.DOTALL)

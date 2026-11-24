@@ -27,6 +27,31 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.11.0] - 2026-11-24 (Hybrid RAG v2, KI-Synthese-API, Live-Pipeline-Cockpit, KPMG Interview-Prep & Obsidian Graph-Farben)
+
+### 🎯 Kontext & Leitmotiv
+Weiterentwicklung des gesamten Career OS vom reinen Dokumenten-Index zu einer **aktiven, zweistufig gewichteten Retrieval-&-Synthese-Plattform** inklusive gezielter Vorbereitung auf das bevorstehende **KPMG-Interview am 27.11.2026**, drei neuer tiefgehender Architektur-Zettel, Echtzeit-RAG-Inkrementalindexierung sowie farbcodierter Obsidian-Graph-Topologie.
+
+### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
+- **Hybrid RAG Engine V2 (`scripts/local_rag_engine.py`):**
+  - **2-Stage FTS5 Query Strategy:** Kombiniert präzise Multi-Term-`AND`-Treffer (`1.28x`) mit Broad-Recall-`OR`-BM25, gekoppelt mit **Document-Type Authority Weighting** (`zettel` `1.45x`, `interview-prep` `1.42x`, `moc/hub` `1.25x`, `module` `1.15x`, `log` `0.45x`), Term-Coverage-Multiplikator, **Per-File Diversity Cap (`max_per_file=2`)** und Keyword-zentrierten Snippets.
+  - **Real-Time Incremental Upsert (`upsert_note`):** Einzelne Markdown-Notizen aus Webportal (`/api/save-note`) und Telegram (`/notiz`) werden per FTS5 External-Content-Delete/Insert in `< 20 ms` nachindexiert, ohne die komplette 773-MB-DB neu zu bauen.
+  - **Gemeinsamer Pipeline-Reader (`get_pipeline_data`):** Zentrale Auswertung von `00_Aktuelle_Bewerbungsunterlagen/Bewerbungsverlauf.xlsx` für Webportal und Telegram (Deduplizierung früherer Excel-Logik).
+- **Webportal V2 & Telegram V3.1 (`s4hana-prep-portal/run_portal.py`, `portal_builder/notebook.py`, `portal_builder/vue_app.py`, `telegram_career_agent.py`):**
+  - Neue lokale API-Endpoints `/api/ask` (Gemini-3-Synthese mit Quellenbelegen) und `/api/pipeline` (Live-Interview-Radar mit 1-Klick-„Prep via RAG + KI laden“) — strikt auf `localhost:8085` gekapselt (0 Leaks in `public_index.html`).
+  - Telegram Career Agent V3.1 um `/stats` und Real-Time-`upsert_note()` bei `/notiz` sowie Upload-Analysen erweitert.
+- **Obsidian Vault Knowledge & Visualisierung:**
+  - Neues Interview-Dossier für **KPMG (`27.11.2026`)**: `01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-11-27_KPMG_IT_Transformation_ERP_Audit.md`.
+  - **3 neue atomare Zettel:** `Data_Migration_CVI_LTMC_Selective_Transition.md`, `Solution_Design_Signavio_CloudALM_Governance.md`, `TOGAF_9_ADM_Enterprise_Architecture_ERP.md`.
+  - `.obsidian/graph.json` mit 5 semantischen Farbgruppen (Zettelkasten Gold, Karriere Smaragd, SAP-Architektur Blau, 300 ECTS Violett, MOCs Crimson) und optimierter Physik konfiguriert; `00_INDEX.md` und `00_Bewerbungsmanagement_Cockpit.md` verlinkt.
+- **Notion CRM:** `Porsche AG`, `MHP (Porsche Company)`, `Bosch Group (JMP)` und `Mercedes-Benz` ergänzt (17 Einträge live im Notion CRM; restliche 50 deduplizierte Zeilen in `config/notion_crm_remaining.csv`).
+
+### ✅ Verifikation & Compliance-Nachweise
+- **Obsidian Audit (`validate_obsidian_rag.py`):** **282 / 282** Dokumente mit validem YAML-Frontmatter (**100,0 %**), **1.612 Wikilinks (0 Broken Links)**, **0 Multiple H1**, **0 übergroße Dateien (> 10 MB)**, **0 Graph-Orphans**, **60.576.455 Wörter (~81,78 Mio. Tokens)** -> *PASSED WITH DISTINCTION*.
+- **Dual-Mode Privacy Gate & Syntax (`test_portal.py` & JS/Py Checks):** `index.html` (`392,33 KB`) & `public_index.html` (`231,06 KB` | `0` Leaks inkl. `/api/pipeline`, `/api/ask`, `/api/save-note`), alle 6 Spec-Kit-Checks bestanden.
+
+---
+
 ## [1.10.0] - 2026-11-24 (Obsidian RAG Optimization, Hybrid SQLite FTS5 Engine, Dual-Mode Portal & CRM Integration | Commit f7deb31)
 
 ### 🎯 Kontext & Leitmotiv

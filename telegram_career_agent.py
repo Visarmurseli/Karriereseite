@@ -34,7 +34,12 @@ if SCRIPTS_DIR not in sys.path:
     sys.path.insert(0, SCRIPTS_DIR)
 
 try:
-    from local_rag_engine import search as rag_search, get_stats as rag_stats
+    from local_rag_engine import (
+        search as rag_search,
+        get_stats as rag_stats,
+        upsert_note as rag_upsert,
+        get_pipeline_data as rag_pipeline_data,
+    )
     RAG_AVAILABLE = True
 except Exception:
     RAG_AVAILABLE = False
@@ -72,32 +77,20 @@ def load_env():
 
 
 def get_pipeline_summary(max_items=12):
-    """Liest laufende Interviews und Top-Bewerbungen direkt aus Bewerbungsverlauf.xlsx."""
-    if not OPENPYXL_AVAILABLE or not os.path.exists(EXCEL_PIPELINE_PATH):
+    """Liest laufende Interviews und Top-Bewerbungen über die gemeinsame Career-OS Pipeline-Engine."""
+    if not RAG_AVAILABLE:
         return "Bewerbungspipeline aktuell nicht ladbar."
-    try:
-        wb = openpyxl.load_workbook(EXCEL_PIPELINE_PATH, data_only=True)
-        ws = wb["Bewerbungsverlauf"]
-        interviews = []
-        active = []
-        for r in range(2, ws.max_row + 1):
-            comp = str(ws.cell(r, 1).value or "").strip()
-            role = str(ws.cell(r, 2).value or "").strip()
-            g1 = str(ws.cell(r, 5).value or "-").strip()
-            g2 = str(ws.cell(r, 6).value or "-").strip()
-            status = str(ws.cell(r, 7).value or "").strip()
-            if not comp or comp == "Terminerinnerung":
-                continue
-            line = f"• {comp} ({role[:48]}): {status}"
-            if any(k in status for k in ["⭐", "🚀", "Gespräch", "Interview", "Einladung"]) and "Absage" not in status:
-                interviews.append(f"{line} [Termine: G1={g1}, G2={g2}]")
-            elif "Absage" not in status:
-                active.append(line)
-        summary = "AKTIVE INTERVIEWS & TOP-RUNDEN:\n" + ("\n".join(interviews) or "• Keine")
-        summary += f"\n\nWEITERE OFFENE BEWERBUNGEN ({len(active)} aktiv, Auszug):\n" + "\n".join(active[:max_items])
-        return summary
-    except Exception as e:
-        return f"Pipeline-Fehler: {e}"
+    data = rag_pipeline_data(EXCEL_PIPELINE_PATH, max_active=max_items)
+    if not data.get("ok"):
+        return f"Pipeline-Fehler: {data.get('error', 'unbekannt')}"
+    interviews = [
+        f"• {x['company']} ({x['role'][:48]}): {x['status']} [Termine: G1={x['g1']}, G2={x['g2']}]"
+        for x in data.get("interviews", [])
+    ]
+    active = [f"• {x['company']} ({x['role'][:48]}): {x['status']}" for x in data.get("open_tier1", [])]
+    summary = "AKTIVE INTERVIEWS & TOP-RUNDEN:\n" + ("\n".join(interviews) or "• Keine")
+    summary += f"\n\nWEITERE OFFENE BEWERBUNGEN ({data.get('open_count', 0)} aktiv, {data.get('closed_count', 0)} archiviert):\n" + "\n".join(active)
+    return summary
 
 
 def get_system_prompt():
@@ -304,6 +297,8 @@ last_updated: "{today_iso}"
 
     with open(OBSIDIAN_MOBILE_NOTE, "a", encoding="utf-8") as f:
         f.write(f"\n## 📝 Notiz ({today_hr})\n\n{text.strip()}\n\n---\n")
+    if RAG_AVAILABLE:
+        rag_upsert(OBSIDIAN_MOBILE_NOTE)
 
 
 def run():
@@ -384,14 +379,29 @@ def run():
 
                         if user_text.lower() in ["/start", "/hilfe", "help"]:
                             welcome = (
-                                f"Hallo {sender}! 🚀 *Career OS Agent V3 (RAG Connected)*\n\n"
-                                "• *Freie Frage:* Durchsucht automatisch 137.000+ Chunks aus Obsidian & antwortet mit Quellen.\n"
-                                "• `/rag <Begriff>` — Direkte Volltext-Treffer aus Studium, SSB & DC1\n"
+                                f"Hallo {sender}! 🚀 *Career OS Agent V3.1 (Hybrid RAG Live)*\n\n"
+                                "• *Freie Frage:* Durchsucht automatisch 137.000+ Chunks & antwortet mit Quellen.\n"
+                                "• `/rag <Begriff>` — Direkte Volltext-Treffer aus Studium, SSB, DC1 & Zettelkasten\n"
                                 "• `/pipeline` — Live-Bewerbungsstatus & nächste Gespräche\n"
-                                "• `Notiere: <Text>` oder `/notiz <Text>` — Direkt in Obsidian `00_Inbox/Mobile_Notizen.md`\n"
+                                "• `/stats` — Live-Status von Obsidian RAG-Index & Pipeline\n"
+                                "• `Notiere: <Text>` oder `/notiz <Text>` — In Obsidian Inbox + Echtzeit-RAG indexiert\n"
                                 "• `/deploy` — Lokales Portal + öffentliche Showcase-Seite sicher live aktualisieren"
                             )
                             send_message(bot_token, chat_id, welcome)
+                            continue
+
+                        elif user_text.lower() == "/stats":
+                            st = rag_stats() if RAG_AVAILABLE else {}
+                            pl = rag_pipeline_data(EXCEL_PIPELINE_PATH) if RAG_AVAILABLE else {}
+                            msg_stats = (
+                                "📊 *Career OS System-Telemetrie*\n\n"
+                                f"• *Obsidian Notizen:* {st.get('total_files', 0)}\n"
+                                f"• *FTS5 Chunks:* {st.get('total_chunks', 0):,}\n"
+                                f"• *RAG DB Größe:* {st.get('size_mb', 0)} MB\n"
+                                f"• *Aktive Interviews:* {len(pl.get('interviews', []))}\n"
+                                f"• *Offene Bewerbungen:* {pl.get('open_count', 0)}"
+                            )
+                            send_message(bot_token, chat_id, msg_stats)
                             continue
 
                         elif user_text.lower() == "/pipeline":

@@ -3211,7 +3211,11 @@
         const ragQuery = ref('');
         const ragResults = ref([]);
         const ragLoading = ref(false);
+        const ragAskLoading = ref(false);
+        const ragAnswer = ref('');
+        const ragModel = ref('');
         const ragStatusMsg = ref('');
+        const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
 
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
@@ -3446,44 +3450,11 @@
           localStorage.setItem('vm_second_brain_notes', personalNotes.value);
         };
 
-        const saveNotesToObsidian = async () => {
-          saveNotes();
-          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
-            ragStatusMsg.value = 'Obsidian Sync steht nur im lokalen Portal (localhost:8085) zur Verfügung.';
-            return;
-          }
-          try {
-            const resp = await fetch('/api/save-note', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ notes: personalNotes.value })
-            });
-            const res = await resp.json();
-            ragStatusMsg.value = res.ok ? '✅ Erfolgreich direkt in Obsidian 00_Inbox/Webapp_Notizen.md gespeichert!' : ('⚠️ Fehler: ' + res.error);
-          } catch (e) {
-            ragStatusMsg.value = '⚠️ Lokaler Portal-Server unter localhost:8085 nicht erreichbar.';
-          }
-        };
-
-        const runRagSearch = async () => {
-          const q = (ragQuery.value || '').trim();
-          if (!q) return;
-          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
-            ragStatusMsg.value = 'Local RAG steht nur auf localhost:8085 bereit.';
-            return;
-          }
-          ragLoading.value = true;
-          try {
-            const resp = await fetch('/api/rag?limit=10&q=' + encodeURIComponent(q));
-            const data = await resp.json();
-            ragResults.value = data.results || [];
-            ragStatusMsg.value = `${ragResults.value.length} Treffer aus 137.000+ Obsidian-Chunks für "${q}" geladen.`;
-          } catch (e) {
-            ragStatusMsg.value = '⚠️ Fehler bei RAG-Anfrage.';
-          } finally {
-            ragLoading.value = false;
-          }
-        };
+        const saveNotesToObsidian = () => {};
+        const runRagSearch = () => {};
+        const runRagAsk = () => {};
+        const loadPipeline = () => {};
+        const prepInterview = () => {};
 
         const copyNotesToClipboard = () => {
           if (navigator.clipboard) {
@@ -3536,6 +3507,7 @@
           } else {
             personalNotes.value = `# Visar Murseli | Mein persönliches Second Brain\n\nWillkommen in deinem persönlichen Karriere-Notizbuch!\nHier kannst du Notizen zu Vorstellungsgesprächen, Gehaltsverhandlungen und SAP-Architekturen festhalten.\n\nAlles, was du hier eintippst, wird automatisch in deinem Browser gespeichert.\n`;
           }
+          loadPipeline();
         });
 
         return {
@@ -3557,8 +3529,15 @@
           ragQuery,
           ragResults,
           ragLoading,
+          ragAskLoading,
+          ragAnswer,
+          ragModel,
           ragStatusMsg,
+          pipelineData,
           runRagSearch,
+          runRagAsk,
+          loadPipeline,
+          prepInterview,
           saveNotesToObsidian,
           pitch60,
           pitchDeep,
