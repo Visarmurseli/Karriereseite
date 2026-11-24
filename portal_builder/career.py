@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 
-def get_career():
-    return """
+def get_career(public_mode=False):
+    salary_badge = "Junior & Trainee Einstieg" if public_mode else "Gehaltsziel: 55.000 € – 75.000 € (Konzern/IGM bis 75k €)"
+    s_role1 = "Markt- & tarifgerechte Junior-Vergütung (IGM / TVöD)" if public_mode else "58.000 € – 75.000 € (IGM EG 12/13 / Konzern)"
+    s_role2 = "Strukturiertes Trainee-Vergütungspaket (+ Weiterbildung)" if public_mode else "55.000 € – 68.000 € (+ Weiterbildungsbudget)"
+    s_role3 = "Marktübliches Consulting-Einstiegspaket" if public_mode else "55.000 € – 68.000 € (Fixum + Bonus)"
+    s_role4 = "Tarifliche / konzernübliche Einstiegsvergütung" if public_mode else "55.000 € – 65.000 €"
+    return f"""
       <!-- ================= TAB 10: KARRIERE- & EINSTIEGSSTRATEGIE ================= -->
       <div v-show="activeTab === 'career'" class="space-y-6">
         
@@ -19,7 +24,7 @@ def get_career():
               </p>
             </div>
             <div class="px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold whitespace-nowrap self-start sm:self-auto">
-              Gehaltsziel: 55.000 € – 65.000 €
+              {salary_badge}
             </div>
           </div>
 
@@ -39,8 +44,8 @@ def get_career():
                 <strong class="text-white">Aufgabenbereich:</strong> Strukturierte Einarbeitung und operative Betreuung von S/4-Kernmodulen (FI/CO, MM, PM) oder Unterstützung im Bereich SAP BTP Integration und Fiori Extensions.
               </p>
               <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                <span class="text-[#8f8888]">Einstiegsgehalt:</span>
-                <span class="font-bold text-emerald-400">56.000 € – 65.000 € (IGM EG 12/13 / TVöD E12)</span>
+                <span class="text-[#8f8888]">Vergütungsrahmen:</span>
+                <span class="font-bold text-emerald-400">{s_role1}</span>
               </div>
             </div>
 
@@ -57,8 +62,8 @@ def get_career():
                 <strong class="text-white">Aufgabenbereich:</strong> 12–24 Monate Rotation durch IT-Strategie, SAP-Transformation, Enterprise Architecture (EAM) und PMO zur Ausbildung künftiger Führungs- und Fachkräfte.
               </p>
               <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                <span class="text-[#8f8888]">Einstiegsgehalt:</span>
-                <span class="font-bold text-blue-400">54.000 € – 62.000 € (+ Weiterbildungsbudget)</span>
+                <span class="text-[#8f8888]">Vergütungsrahmen:</span>
+                <span class="font-bold text-blue-400">{s_role2}</span>
               </div>
             </div>
 
@@ -75,8 +80,8 @@ def get_career():
                 <strong class="text-white">Aufgabenbereich:</strong> Unterstützung bei S/4HANA Transformationsprojekten, Prozessaufnahme in SAP Signavio, Fit-to-Standard Vorbereitung und Begleitung von Datenmigrationen.
               </p>
               <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                <span class="text-[#8f8888]">Einstiegsgehalt:</span>
-                <span class="font-bold text-[#f87171]">55.000 € – 65.000 € (Fixum + Bonus)</span>
+                <span class="text-[#8f8888]">Vergütungsrahmen:</span>
+                <span class="font-bold text-[#f87171]">{s_role3}</span>
               </div>
             </div>
 
@@ -93,8 +98,8 @@ def get_career():
                 <strong class="text-white">Aufgabenbereich:</strong> Unterstützung des Projektleiters bei Meilenstein-Controlling (MS Project), Status-Reporting, Risikomanagement und Tool-Governance (SAP Cloud ALM).
               </p>
               <div class="pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                <span class="text-[#8f8888]">Einstiegsgehalt:</span>
-                <span class="font-bold text-amber-400">52.000 € – 60.000 €</span>
+                <span class="text-[#8f8888]">Vergütungsrahmen:</span>
+                <span class="font-bold text-amber-400">{s_role4}</span>
               </div>
             </div>
 

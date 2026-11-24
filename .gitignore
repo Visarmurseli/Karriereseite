@@ -40,5 +40,8 @@ gmx_config.json
 *.credentials
 *.token
 
-# Build Artifacts
+# Build Artifacts & Local RAG Databases
 s4hana-prep-portal/
+config/career_os_rag.db*
+*.db
+*.sqlite*

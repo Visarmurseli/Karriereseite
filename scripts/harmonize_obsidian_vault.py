@@ -585,12 +585,13 @@ def harmonize_vault():
     updated_files = build_vault_inventory()
     nodes = []
     edges = []
+    bname_to_node_id = {}
+    file_contents_cache = {}
 
-    for bname, (fname, rel, fullpath) in updated_files.items():
+    for bname, (fname, rel, fullpath) in sorted(updated_files.items()):
         with open(fullpath, "r", encoding="utf-8", errors="ignore") as f:
             content = f.read()
 
-        # Parse frontmatter
         fm_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
         fm_dict = {}
         if fm_match:
@@ -599,48 +600,54 @@ def harmonize_vault():
                     k, v = line.split(":", 1)
                     fm_dict[k.strip()] = v.strip().strip('"\'')
 
-        node_id = fm_dict.get("id", bname)
-        title = fm_dict.get("title", fname)
-        domain = fm_dict.get("domain", "general")
-        ntype = fm_dict.get("type", "concept")
-        summary = fm_dict.get("summary", "")
-        word_count = len(content.split())
+        node_id = fm_dict.get("id", bname).strip()
+        bname_to_node_id[bname] = node_id
+        file_contents_cache[bname] = (node_id, content)
 
         nodes.append({
             "id": node_id,
-            "label": title,
+            "label": fm_dict.get("title", fname),
             "file": rel,
-            "type": ntype,
-            "domain": domain,
-            "summary": summary,
-            "words": word_count
+            "type": fm_dict.get("type", "concept"),
+            "domain": fm_dict.get("domain", "general"),
+            "summary": fm_dict.get("summary", ""),
+            "words": len(content.split())
         })
 
-        # Edges
+    seen_edges = set()
+    for bname, (node_id, content) in file_contents_cache.items():
         links = re.findall(r'\[\[(.*?)\]\]', content)
         for l in links:
-            raw_target = l.split("|")[0].split("#")[0].strip().lower()
-            if raw_target in updated_files:
-                target_base = raw_target
-                target_id = updated_files[target_base][0].replace(".md", "").lower()
-                edges.append({
-                    "source": node_id,
-                    "target": target_id,
-                    "relation": "references"
-                })
+            raw_target = os.path.splitext(os.path.basename(l.split("|")[0].split("#")[0].strip()))[0].lower()
+            if raw_target in bname_to_node_id:
+                target_id = bname_to_node_id[raw_target]
+                if target_id == node_id:
+                    continue
+                edge_key = (node_id, target_id)
+                if edge_key not in seen_edges:
+                    seen_edges.add(edge_key)
+                    edges.append({
+                        "source": node_id,
+                        "target": target_id,
+                        "relation": "references"
+                    })
+
+    connected_ids = {e["source"] for e in edges} | {e["target"] for e in edges}
+    orphan_count = sum(1 for n in nodes if n["id"] not in connected_ids)
 
     manifest = {
         "vault_name": "Visar Murseli | Enterprise Knowledge Hub & Second Brain",
         "generated_at": datetime.now().isoformat(),
         "total_nodes": len(nodes),
         "total_edges": len(edges),
+        "orphan_nodes": orphan_count,
         "nodes": nodes,
         "edges": edges
     }
 
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2, ensure_ascii=False)
-    print(f"  [OK] Graph Manifest saved: {MANIFEST_PATH} ({len(nodes)} nodes, {len(edges)} verified edges)")
+    print(f"  [OK] Graph Manifest saved: {MANIFEST_PATH} ({len(nodes)} nodes, {len(edges)} unique verified edges, {orphan_count} orphans)")
 
 if __name__ == "__main__":
     harmonize_vault()

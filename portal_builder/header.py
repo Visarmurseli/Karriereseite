@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-def get_header():
-    return """<!DOCTYPE html>
+def get_header(public_mode=False):
+    tpl = """<!DOCTYPE html>
 <html lang="de" class="h-full dark">
 <head>
   <meta charset="UTF-8">
@@ -243,6 +243,7 @@ def get_header():
                 <span class="text-xs">➔</span>
               </button>
 
+              <!-- PRIVATE_NAV_BLOCK_START -->
               <button 
                 @click="activeTab = 'files'; selectedFileCat = 'Alle'; isMobileMenuOpen = false"
                 :class="[
@@ -270,12 +271,13 @@ def get_header():
                 <div class="flex items-center space-x-2.5">
                   <span>📝</span>
                   <div>
-                    <div class="font-medium">Second Brain Notizbuch</div>
-                    <div class="text-[10px] text-white/70">Persönliche Notizen & Autosave</div>
+                    <div class="font-medium">Second Brain & Local RAG</div>
+                    <div class="text-[10px] text-white/70">Persönliche Notizen, Obsidian Sync & FTS5 Suche</div>
                   </div>
                 </div>
                 <span class="text-xs">➔</span>
               </button>
+              <!-- PRIVATE_NAV_BLOCK_END -->
             </div>
 
             <!-- Category 2: Berufliche Praxis -->
@@ -400,6 +402,7 @@ def get_header():
                 4. Interview & Karriere
               </div>
 
+              <!-- PRIVATE_CAREER_NAV_START -->
               <button 
                 @click="activeTab = 'interview'; isMobileMenuOpen = false"
                 :class="[
@@ -433,6 +436,7 @@ def get_header():
                 </div>
                 <span class="text-xs">➔</span>
               </button>
+              <!-- PRIVATE_CAREER_NAV_END -->
 
               <button 
                 @click="activeTab = 'career'; isMobileMenuOpen = false"
@@ -445,7 +449,7 @@ def get_header():
                   <span>🎯</span>
                   <div>
                     <div class="font-medium">Junior & Trainee Einstiegsstrategie</div>
-                    <div class="text-[10px] text-white/70">Zielrollen, 55k-65k € Gehaltsziel & Onboarding</div>
+                    <div class="text-[10px] text-white/70">%%CAREER_SUB%%</div>
                   </div>
                 </div>
                 <span class="text-xs">➔</span>
@@ -575,3 +579,11 @@ def get_header():
           <button @click="searchQuery = ''" class="font-bold underline text-[#bf262e] hover:text-white">Filter zurücksetzen</button>
         </div>
 """
+    import re
+    if public_mode:
+        tpl = re.sub(r'<!-- PRIVATE_NAV_BLOCK_START -->.*?<!-- PRIVATE_NAV_BLOCK_END -->', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'<!-- PRIVATE_CAREER_NAV_START -->.*?<!-- PRIVATE_CAREER_NAV_END -->', '', tpl, flags=re.DOTALL)
+        tpl = tpl.replace('%%CAREER_SUB%%', 'Zielrollen & 90-Tage Onboarding-Roadmap')
+    else:
+        tpl = tpl.replace('%%CAREER_SUB%%', 'Zielrollen, 55k–75k € Gehaltsziel & Onboarding')
+    return tpl

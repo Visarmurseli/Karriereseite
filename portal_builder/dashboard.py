@@ -1,7 +1,30 @@
 # -*- coding: utf-8 -*-
 
-def get_dashboard():
-    return """
+def get_dashboard(public_mode=False):
+    dossier_target = "thesis" if public_mode else "notebook"
+    files_target = "tools" if public_mode else "files"
+    career_sub = "Junior & Trainee Einstieg" if public_mode else "Junior & Trainee (55k–75k €)"
+    private_cards = "" if public_mode else """
+            <button @click="activeTab = 'interview'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+              <div class="font-bold text-white mb-0.5">🎙️ Interview Masterclass</div>
+              <div class="text-[11px] text-[#8f8888]">Pitches, STAR-Stories & 40+ Q&A</div>
+            </button>
+
+            <button @click="activeTab = 'cv_defense'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+              <div class="font-bold text-white mb-0.5">🛡️ CV De-Risking</div>
+              <div class="text-[11px] text-[#8f8888]">Ampelsystem & Pivot-Brücken</div>
+            </button>"""
+    private_tail_cards = "" if public_mode else """
+            <button @click="activeTab = 'files'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+              <div class="font-bold text-white mb-0.5">📂 Deliverables-Register</div>
+              <div class="text-[11px] text-[#8f8888]">50+ kuratierte Nachweis-Akten</div>
+            </button>
+
+            <button @click="activeTab = 'notebook'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+              <div class="font-bold text-white mb-0.5">📝 Second Brain & RAG</div>
+              <div class="text-[11px] text-[#8f8888]">Local RAG Suche & Obsidian Sync</div>
+            </button>"""
+    return f"""
       <!-- ================= TAB 1: WISSENSDATENBANK ÜBERSICHT ================= -->
       <div v-show="activeTab === 'dashboard'" class="space-y-6">
         
@@ -129,13 +152,13 @@ def get_dashboard():
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-            <div @click="activeTab = 'notebook'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
+            <div @click="activeTab = '{dossier_target}'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
               <div class="text-[11px] text-[#8f8888] font-medium">Obsidian Text-Dossiers</div>
               <div class="text-xl font-extrabold text-white mt-0.5">53 Dossiers</div>
               <div class="text-[10px] text-emerald-400 mt-0.5">266 bidirektionale Links</div>
             </div>
 
-            <div @click="activeTab = 'files'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
+            <div @click="activeTab = '{files_target}'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
               <div class="text-[11px] text-[#8f8888] font-medium">Kuratierte Dokumente</div>
               <div class="text-xl font-extrabold text-white mt-0.5">21 Deliverables</div>
               <div class="text-[10px] text-blue-400 mt-0.5">SSB Großprojekt-Artefakte</div>
@@ -195,31 +218,12 @@ def get_dashboard():
               <div class="font-bold text-white mb-0.5">🎓 Master & Bachelor</div>
               <div class="text-[11px] text-[#8f8888]">300 ECTS, Arbeiten & Projekte</div>
             </button>
-
-            <button @click="activeTab = 'interview'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🎙️ Interview Masterclass</div>
-              <div class="text-[11px] text-[#8f8888]">Pitches, STAR-Stories & 40+ Q&A</div>
-            </button>
-
-            <button @click="activeTab = 'cv_defense'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🛡️ CV De-Risking</div>
-              <div class="text-[11px] text-[#8f8888]">Ampelsystem & Pivot-Brücken</div>
-            </button>
-
+{private_cards}
             <button @click="activeTab = 'career'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
               <div class="font-bold text-white mb-0.5">🎯 Einstiegsstrategie</div>
-              <div class="text-[11px] text-[#8f8888]">Junior & Trainee (55k-65k €)</div>
+              <div class="text-[11px] text-[#8f8888]">{career_sub}</div>
             </button>
-
-            <button @click="activeTab = 'files'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">📂 Deliverables-Register</div>
-              <div class="text-[11px] text-[#8f8888]">50+ kuratierte Nachweis-Akten</div>
-            </button>
-
-            <button @click="activeTab = 'notebook'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">📝 Second Brain</div>
-              <div class="text-[11px] text-[#8f8888]">Interaktiver Notiz-Speicher</div>
-            </button>
+{private_tail_cards}
           </div>
         </div>
 

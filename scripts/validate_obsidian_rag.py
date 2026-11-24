@@ -110,17 +110,34 @@ def run_validation():
     for t, c in sorted(types.items(), key=lambda x: x[1], reverse=True):
         print(f"    - {t}: {c} notes")
 
-    print(f"\n[6] INFORMATION CAPACITY:")
+    print(f"\n[6] INFORMATION CAPACITY & FILE CHUNKING HEALTH:")
     print(f"    - Total Word Count: {sum(word_counts):,} words")
     print(f"    - Total Token Estimate: ~{int(sum(word_counts) * 1.35):,} tokens")
+    oversized = [(rel, round(os.path.getsize(full) / (1024 * 1024), 2)) for _, rel, full in md_files if os.path.getsize(full) > 10 * 1024 * 1024]
+    print(f"    - Oversized Files (>10 MB): {len(oversized)}")
+    for rel, mb in oversized:
+        print(f"        ⚠️ {rel}: {mb:.2f} MB")
+
+    manifest_path = os.path.join(VAULT_DIR, "graph_manifest.json")
+    orphan_count = 0
+    if os.path.exists(manifest_path):
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as mf:
+                mdata = json.load(mf)
+            node_ids = {n["id"] for n in mdata.get("nodes", [])}
+            connected = {e["source"] for e in mdata.get("edges", [])} | {e["target"] for e in mdata.get("edges", [])}
+            orphan_count = len(node_ids - connected)
+            print(f"    - Graph Orphans (0 in & 0 out in manifest): {orphan_count}")
+        except Exception:
+            pass
 
     # Overall verdict
-    is_success = (valid_fm_count == total_files) and (len(broken_links) == 0) and (len(multi_h1_files) == 0)
+    is_success = (valid_fm_count == total_files) and (len(broken_links) == 0) and (len(multi_h1_files) == 0) and (len(oversized) == 0) and (orphan_count == 0)
     print("\n" + "=" * 70)
     if is_success:
         print("🎯 FINAL VERDICT: 100% LLM & RAG READINESS - PASSED WITH DISTINCTION")
     else:
-        print(f"⚠️ FINAL VERDICT: PASS WITH REMAINING ATTENTION ITEMS ({len(broken_links)} links, {len(multi_h1_files)} headings)")
+        print(f"⚠️ FINAL VERDICT: ATTENTION NEEDED ({len(broken_links)} links, {len(multi_h1_files)} headings, {len(oversized)} oversized, {orphan_count} orphans)")
     print("=" * 70)
 
 if __name__ == "__main__":

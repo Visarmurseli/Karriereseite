@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-def get_vue_app():
-    return """
+def get_vue_app(public_mode=False):
+    tpl = """
     </main>
 
     <!-- Footer -->
@@ -34,6 +34,11 @@ def get_vue_app():
         const personalNotes = ref('');
         const qaSearch = ref('');
 
+        const ragQuery = ref('');
+        const ragResults = ref([]);
+        const ragLoading = ref(false);
+        const ragStatusMsg = ref('');
+
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
           return found ? found.label : 'Dashboard';
@@ -45,7 +50,7 @@ def get_vue_app():
           if (['project', 'solution_design', 'migration', 'tools'].includes(tabId)) return 'S/4HANA Transformation';
           if (['thesis', 'enterprise_arch'].includes(tabId)) return 'Akademische Exzellenz';
           if (['career', 'cheatsheet'].includes(tabId)) return 'Junior & Trainee Karriere';
-          if (['interview', 'cv_defense', 'files', 'notebook'].includes(tabId)) return 'Interview & Nachweise';
+          %%PRIVATE_HUB_LINE%%
           return 'Wissensportal';
         });
 
@@ -57,18 +62,21 @@ def get_vue_app():
           { id: 'tools', label: 'Toolchain Hub', icon: '🛠️', badge: 'CALM / Signavio' },
           { id: 'thesis', label: 'Masterarbeit (Note 1,0)', icon: '🎓', badge: '12 Interviews' },
           { id: 'enterprise_arch', label: 'TOGAF ADM & ITIL 4', icon: '🏛️', badge: 'EAM' },
-          { id: 'career', label: 'Junior & Trainee Karriere', icon: '🎯', badge: '55k–65k €' },
+          { id: 'career', label: 'Junior & Trainee Karriere', icon: '🎯', badge: '%%CAREER_BADGE%%' },
           { id: 'cheatsheet', label: 'Tech & BTP Cheatsheet', icon: '⚡', badge: 'Architektur' },
+          // PRIVATE_TABS_START
           { id: 'interview', label: 'Interview Masterclass', icon: '🎙️', badge: 'Pitches & STAR' },
           { id: 'cv_defense', label: 'CV De-Risking', icon: '🛡️', badge: 'Gefahrenabwehr' },
           { id: 'files', label: 'Deliverables-Register', icon: '📂', badge: 'Katalog' },
-          { id: 'notebook', label: 'Second Brain Notizbuch', icon: '📝', badge: 'Autosave' }
+          { id: 'notebook', label: 'Second Brain & RAG', icon: '📝', badge: 'Obsidian Sync' }
+          // PRIVATE_TABS_END
         ];
 
         const qaCategories = ['Alle', 'SSB S/4HANA & Explore-Phase', 'Datacenter One & ITIL 4', 'Master & Plattformisierung', 'Bachelor & Methodenkompetenz', 'Enterprise Architecture & TOGAF', 'Persönlich & Trainee-Einstieg'];
 
         const fileCategories = ['Alle', 'Aktuelle Bewerbungsunterlagen', 'PMO & Steuerung', 'Explore & Lösungsdesign', 'Finance & Controlling', 'Grants Management', 'Sustainability & EHS', 'Vertrieb & PATRIS', 'Datenmigration', 'Basis & Infrastruktur', 'Vergabe & SektVO', 'Tools & Enablement', 'SAP Fachliteratur (Rheinwerk)', 'Datacenter One (DC1 / ITIL 4)', 'Wissenschaft & Uni', 'Master-Module (120 ECTS)', 'Bachelor-Module (180 ECTS)'];
 
+        // PRIVATE_DEFENSE_START
         const defenseScenarios = ref([
           {
             icon: '☕',
@@ -220,6 +228,7 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
             r: 'Ich entwickelte ein 4x3 CSF-Framework, das belegt, dass API-Governance, Event-Driven Architecture und Clean-Core-Richtlinien heute genauso erfolgskritisch sind wie klassischer Top-Management-Support. Die Arbeit wurde am 20.04.2026 mit der Traumnote 1,0 bewertet.'
           }
         ]);
+        // PRIVATE_DEFENSE_END
 
 
         const wbsProjects = ref([
@@ -323,18 +332,19 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
           { title: 'Boundary Resources & Bimodale IT', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Theoretische Fundierung nach Ghazawneh & Henfridsson: ABR, DBR, SBR und lose Kopplung.' },
           { title: 'Absorptive Capacity & Change Management', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Wissensaufnahme- und Transformationsfähigkeit (Cohen & Levinthal) in traditionsreichen Konzernen.' },
           { title: 'Masterabschluss M.Sc. 1,6 (120 ECTS)', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Amtliches Zeugnis Universität Stuttgart: Bestnote 1,0 in Masterarbeit und Digitaler Nachhaltigkeit.' },
-
-          // Interview & Karriere
+          // PRIVATE_CATALOG_START
           { title: '60-Sekunden-Elevator-Pitch', cat: 'Interview & Karriere', tab: 'interview', desc: 'Prägnanter Einstiegspitch für Vorstellungsgespräche: 24 Mo. SSB + 1,0 Masterarbeit Clean Core.' },
           { title: 'Deep-Dive-Story (3 Minuten)', cat: 'Interview & Karriere', tab: 'interview', desc: 'Ausführliche Karrierestory von Datacenter One über Uni Stuttgart bis zum Großprojekt SAP4SSB.' },
           { title: 'CV De-Risking & Gefahrenabwehr', cat: 'Interview & Karriere', tab: 'cv_defense', desc: 'Souveräne Pivot-Brücken bei Fangfragen zu Java, SPRO-Customizing, RPA oder Berufserfahrung.' },
           { title: 'STAR-Stories (Methodische Antworten)', cat: 'Interview & Karriere', tab: 'interview', desc: 'Situation, Task, Action, Result für Konflikte, Scope Creep, Tool-Einführung und Migration.' },
           { title: '90-Tage Onboarding-Roadmap', cat: 'Interview & Karriere', tab: 'career', desc: 'Strukturierter Fahrplan für die ersten 3 Monate als Consultant oder Enterprise Architekt.' },
-          { title: 'Gehaltskalkulation (65.000 € – 75.000 €)', cat: 'Interview & Karriere', tab: 'career', desc: 'Fundierte Marktwertbegründung, IGM/TVöD Vergleiche und Verhandlungsleitfaden.' },
-          { title: 'Persönliches Second Brain & Notizen', cat: 'Interview & Karriere', tab: 'notebook', desc: 'Interaktives Notizbuch mit Autosave im Browser, Vorlagen für Interviews und Gehalt.' }
+          { title: 'Gehaltskalkulation (55.000 € – 75.000 €)', cat: 'Interview & Karriere', tab: 'career', desc: 'Fundierte Marktwertbegründung (Junior 55–65k € | Konzern/IGM 65–75k €) und Verhandlungsleitfaden.' },
+          { title: 'Persönliches Second Brain & Local RAG', cat: 'Interview & Karriere', tab: 'notebook', desc: 'Interaktives Notizbuch mit Obsidian-Sync + SQLite FTS5 Volltextsuche über alle 4.980 Dokumente.' }
+          // PRIVATE_CATALOG_END
         ];
 
-                const allQA = [
+        // PRIVATE_QA_FILES_START
+        const allQA = [
           {
             q: 'Was genau war Ihre Rolle bei der SSB AG und wie war das Transformationsprogramm SAP4SSB strukturiert?',
             cat: 'SSB S/4HANA & Explore-Phase',
@@ -976,6 +986,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           { name: 'Togaf_DC1.pptx', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/02_Projekte_und_Architektur/03_Enterprise_Architecture_TOGAF', desc: 'Architektur-Präsentation von Visar Murseli: Adaption von TOGAF 9 ADM im Rechenzentrumsbetrieb.', impact: 'Verbindet Visars TOGAF-Zertifizierung mit realer Unternehmenspraxis.' },
           { name: 'Review_Hausmeisterseite.docx', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/01_ITIL4_Service_Operations_INOC/02_Monitoring_und_SOPs', desc: 'SOP-Review und Audit der Betriebsleitfäden für PRTG-Monitoring, Leitungsausfälle und Paketverluste.', impact: 'Belegt 24/7 Monitoring-Kompetenz und strikte Prozessdisziplin.' }
         ];
+        // PRIVATE_QA_FILES_END
 
         const filteredQA = computed(() => {
           let list = allQA;
@@ -1064,6 +1075,45 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           localStorage.setItem('vm_second_brain_notes', personalNotes.value);
         };
 
+        const saveNotesToObsidian = async () => {
+          saveNotes();
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            ragStatusMsg.value = 'Obsidian Sync steht nur im lokalen Portal (localhost:8085) zur Verfügung.';
+            return;
+          }
+          try {
+            const resp = await fetch('/api/save-note', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ notes: personalNotes.value })
+            });
+            const res = await resp.json();
+            ragStatusMsg.value = res.ok ? '✅ Erfolgreich direkt in Obsidian 00_Inbox/Webapp_Notizen.md gespeichert!' : ('⚠️ Fehler: ' + res.error);
+          } catch (e) {
+            ragStatusMsg.value = '⚠️ Lokaler Portal-Server unter localhost:8085 nicht erreichbar.';
+          }
+        };
+
+        const runRagSearch = async () => {
+          const q = (ragQuery.value || '').trim();
+          if (!q) return;
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            ragStatusMsg.value = 'Local RAG steht nur auf localhost:8085 bereit.';
+            return;
+          }
+          ragLoading.value = true;
+          try {
+            const resp = await fetch('/api/rag?limit=10&q=' + encodeURIComponent(q));
+            const data = await resp.json();
+            ragResults.value = data.results || [];
+            ragStatusMsg.value = `${ragResults.value.length} Treffer aus 137.000+ Obsidian-Chunks für "${q}" geladen.`;
+          } catch (e) {
+            ragStatusMsg.value = '⚠️ Fehler bei RAG-Anfrage.';
+          } finally {
+            ragLoading.value = false;
+          }
+        };
+
         const copyNotesToClipboard = () => {
           if (navigator.clipboard) {
             navigator.clipboard.writeText(personalNotes.value);
@@ -1133,6 +1183,12 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           qaSearch,
           selectedFileCat,
           personalNotes,
+          ragQuery,
+          ragResults,
+          ragLoading,
+          ragStatusMsg,
+          runRagSearch,
+          saveNotesToObsidian,
           pitch60,
           pitchDeep,
           starStories,
@@ -1164,3 +1220,19 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
 </body>
 </html>
 """
+    import re
+    if public_mode:
+        tpl = tpl.replace('%%PRIVATE_HUB_LINE%%', '')
+        tpl = re.sub(r'// PRIVATE_TABS_START.*?// PRIVATE_TABS_END', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_DEFENSE_START.*?// PRIVATE_DEFENSE_END',
+                     "const defenseScenarios = ref([]);\n        const cvImprovements = [];\n        const pitch60 = '';\n        const pitchDeep = '';\n        const starStories = ref([]);",
+                     tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_CATALOG_START.*?// PRIVATE_CATALOG_END', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_QA_FILES_START.*?// PRIVATE_QA_FILES_END',
+                     "const allQA = [];\n        const filesData = [];",
+                     tpl, flags=re.DOTALL)
+        tpl = tpl.replace('%%CAREER_BADGE%%', 'Einstieg & Roadmap')
+    else:
+        tpl = tpl.replace('%%PRIVATE_HUB_LINE%%', "if (['interview', 'cv_defense', 'files', 'notebook'].includes(tabId)) return 'Interview & Nachweise';")
+        tpl = tpl.replace('%%CAREER_BADGE%%', '55k–75k €')
+    return tpl

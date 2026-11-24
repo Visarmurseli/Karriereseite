@@ -27,6 +27,33 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.10.0] - 2026-11-24 (Obsidian RAG Optimization, Hybrid SQLite FTS5 Engine, Dual-Mode Portal & CRM Integration)
+
+### 🎯 Kontext & Leitmotiv
+Umfassende Härtung und Veredelung des gesamten Career OS Stacks (Obsidian Second Brain, Notion CRM, Webapp-Cockpit, GitHub Showcase und Telegram Career Agent). Der Wissensgraph von 60,57 Mio. Wörtern wurde durch verlustfreies Splitting übergroßer Monolithen, Bereinigung von macOS/Office-Artefakten, Behebung des Graph-Manifest-ID-Mismatches und neue atomare Zettel-Karten auf 100 % Graph- & Electron-Kompatibilität gebracht. Gleichzeitig schlägt eine lokale SQLite-FTS5-Hybrid-RAG-Engine (137.332 Chunks) die Brücke zwischen Obsidian, Webportal und Telegram, während ein strenges Dual-Mode-Build-Gate private Interview-Taktiken konsequent aus dem öffentlichen GitHub-Pages-Showcase fernhält.
+
+### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
+- **Obsidian Vault Architektur & Graph-Vollendung (`scripts/optimize_obsidian_vault.py`, `scripts/harmonize_obsidian_vault.py`, `scripts/validate_obsidian_rag.py`):**
+  - **22** macOS/Office-Junk-Einträge (`16 ._*`, `6 ~$*`) aus `config/ingestion_registry.json` (`4.980` verbleibende Quelldateien) sowie aus 5 Volltext-Dossiers entfernt; `scripts/knowledge_harvester.py` filtert diese Dateien nun bereits im Scanner.
+  - **3 Monolith-Dossiers (> 25 MB)** verlustfrei in **85 Electron-sichere Teilbände (< 4 MB)** inkl. TOC-Hubs gesplittet (`Master_Seminar_MRK_Industrie50_Volltext`, `Bachelor_Bachelorarbeit_Boundary_Resources_Volltext`, `Master_Cloud_Computing_Service_Management_Volltext`).
+  - **Graph-Reparatur & Zettelkasten:** `nodes[].id` vs. `edges[].target`-Mismatch in `harmonize_obsidian_vault.py` behoben, bidirektionale `[[Wikilinks]]` in 59 Dossiers ergänzt und **4 atomare Zettel** (`SAP_HCM_Berechtigungsarchitektur_IAM.md`, `Bimodale_ERP_Plattformisierung_BTP.md`, `Third_Level_Support_Incident_Root_Cause.md`, `SAP_Trennungsrechnung_Public_Sector_EU1370.md`) sowie den Live-Debrief **Schwarz Digits (24.11.2026)** angelegt (`01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-11-24_Schwarz_Digits_SAP_HCM_IAM.md`).
+  - Core-Plugins `properties` und `slash-command` aktiviert; leere `Unbenannt*.base`-Dateien entfernt.
+- **Lokale Hybrid-RAG Engine & Live-APIs (`scripts/local_rag_engine.py`, `s4hana-prep-portal/run_portal.py`, `telegram_career_agent.py`):**
+  - Lokaler SQLite FTS5 BM25 Chunk-Index (`config/career_os_rag.db`: **773,42 MB**, **278 Notizen**, **137.332 Chunks**, **392.615.574 Zeichen**).
+  - Multi-Threaded Portal-Server (Port `8085`) um `/api/health`, `/api/rag` und `/api/save-note` (`Obsidian Vault/00_Inbox/Webapp_Notizen.md`) erweitert.
+  - **Telegram Career OS Agent V3:** Mit `local_rag_engine`, Live-Excel-Pipeline (`/pipeline`), `/rag`, Obsidian Inbox (`/notiz`), Windows-UTF-8-Console-Reconfigure, aktiv verifizierten Gemini-Modellen (`gemini-3-flash-preview`, `gemini-3.1-flash-lite`) und sicherem Public-Deploy (`/deploy`).
+- **Dual-Mode Portal & Public Security (`build_ultimate_portal.py`, `portal_builder/*`):**
+  - Striktes Privacy-Gate trennt internes Cockpit (`s4hana-prep-portal/index.html`, `386,98 KB` mit `cv_defense`, `interview`, `files`, `notebook`, Local RAG & Gehaltsstrategie) von der öffentlichen GitHub-Pages-Edition (`s4hana-prep-portal/public_index.html`, `232,19 KB`, `0` geleakte vertrauliche Begriffe).
+  - `.gitignore` im Repository um `config/career_os_rag.db*`, `*.db` und `*.sqlite*` erweitert.
+- **Notion CRM Synchronisation (`Bewerbungs-Pipeline & CRM`):**
+  - Top-Interviews & Tier-1-Bewerbungen direkt nach Notion synchronisiert (`Schwarz Digits – AI PO`, `HORBACH`, `Manß & Partner`, `KPMG`, `TRUMPF`, `EY`, `msg systems`, `Computacenter`, `Schwarz Digits – SAP ALM`); komplette deduplizierte Restliste aus `Bewerbungsverlauf.xlsx` als `config/notion_crm_remaining.csv` (UTF-8 BOM) bereitgestellt.
+
+### ✅ Verifikation & Compliance-Nachweise
+- **Obsidian RAG Readiness Audit (`validate_obsidian_rag.py`):** 278 / 278 Dokumente mit validem YAML-Frontmatter (**100,0 %**), **1.588 semantische Kanten (0 Broken Links)**, **0 Multiple H1**, **0 übergroße Dateien (> 10 MB)**, **0 Graph-Orphans**, **60.574.632 Wörter (~81,78 Mio. Tokens)** -> *PASSED WITH DISTINCTION*.
+- **Portal- & Script-Checks (`test_portal.py` & API-Tests):** Alle 6 Privacy-/Integritäts-Assertions bestanden; `py_compile`, JS-Syntaxbalance sowie Live-RAG-Synthese über `gemini-3-flash-preview` (`HTTP 200 OK`) erfolgreich verifiziert.
+
+---
+
 ## [1.9.0] - 2026-11-24 (100% Omni-Corpus Ingestion & Total LLM Knowledge Lake Release | Commit fa4e6ee)
 
 ### 🎯 Kontext & Leitmotiv

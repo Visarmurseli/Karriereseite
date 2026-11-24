@@ -1,10 +1,10 @@
 {
   "version": "1.0",
   "created_at": "2026-11-24T04:50:42.686288",
-  "last_updated": "2026-11-24T11:25:29.300067",
-  "total_files": 5002,
-  "processed_files": 5002,
-  "total_chars_extracted": 373485771,
+  "last_updated": "2026-11-24T21:40:37.969312",
+  "total_files": 4980,
+  "processed_files": 4980,
+  "total_chars_extracted": 373485448,
   "files": {
     "01_SSB\\README.md": {
       "rel_path": "01_SSB\\README.md",
@@ -4037,20 +4037,6 @@
       "target_note": "SSB_PMO_Projektleitung_Masterplan_Volltext.md",
       "discovered_at": "2026-11-24T04:50:42.792887",
       "processed_at": "2026-11-24T05:11:14.416406"
-    },
-    "01_SSB\\01_Gesamtprojekt_SAP4SSB_Governance\\01_Projektleitung_PMO_Masterplan\\Vorlagen_Projektstandards\\P-SAP4SSB\\Lenkungsausschuss\\~$LA01_23052024_06062024_v1.pptx": {
-      "rel_path": "01_SSB\\01_Gesamtprojekt_SAP4SSB_Governance\\01_Projektleitung_PMO_Masterplan\\Vorlagen_Projektstandards\\P-SAP4SSB\\Lenkungsausschuss\\~$LA01_23052024_06062024_v1.pptx",
-      "filename": "~$LA01_23052024_06062024_v1.pptx",
-      "ext": ".pptx",
-      "size_bytes": 165,
-      "pillar": "01_SSB",
-      "sub_folder": "01_SSB\\01_Gesamtprojekt_SAP4SSB_Governance\\01_Projektleitung_PMO_Masterplan\\Vorlagen_Projektstandards\\P-SAP4SSB\\Lenkungsausschuss",
-      "hash": "155a377196c542bc0adc9391b90b9a3b",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "SSB_Gesamtprojekt_S4HANA_Ergaenzungen_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:42.793387",
-      "processed_at": "2026-11-24T11:25:22.268728"
     },
     "01_SSB\\01_Gesamtprojekt_SAP4SSB_Governance\\01_Projektleitung_PMO_Masterplan\\Vorlagen_Projektstandards\\P-SAP4SSB\\Projektauftrag\\Anlage_Projektauftrag_062024.pptx": {
       "rel_path": "01_SSB\\01_Gesamtprojekt_SAP4SSB_Governance\\01_Projektleitung_PMO_Masterplan\\Vorlagen_Projektstandards\\P-SAP4SSB\\Projektauftrag\\Anlage_Projektauftrag_062024.pptx",
@@ -11094,20 +11080,6 @@
       "discovered_at": "2026-11-24T04:50:43.007828",
       "processed_at": "2026-11-24T04:53:08.902912"
     },
-    "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\EvoraIT\\~$Evora_Preisblatt Grundsatzkonzeption K,T,W_Evora.xlsx": {
-      "rel_path": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\EvoraIT\\~$Evora_Preisblatt Grundsatzkonzeption K,T,W_Evora.xlsx",
-      "filename": "~$Evora_Preisblatt Grundsatzkonzeption K,T,W_Evora.xlsx",
-      "ext": ".xlsx",
-      "size_bytes": 165,
-      "pillar": "01_SSB",
-      "sub_folder": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\EvoraIT",
-      "hash": "09386eade9280635cd279111a7ac426c",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "SSB_Gesamtprojekt_S4HANA_Ergaenzungen_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:43.007828",
-      "processed_at": "2026-11-24T11:25:22.268405"
-    },
     "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Nagarro\\3_Preisblatt Grundsatzkonzeption K,T,W.xlsx": {
       "rel_path": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Nagarro\\3_Preisblatt Grundsatzkonzeption K,T,W.xlsx",
       "filename": "3_Preisblatt Grundsatzkonzeption K,T,W.xlsx",
@@ -11191,20 +11163,6 @@
       "target_note": "SSB_TP3_Technische_Instandhaltung_EAM_Volltext.md",
       "discovered_at": "2026-11-24T04:50:43.009829",
       "processed_at": "2026-11-24T04:53:09.182518"
-    },
-    "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Nagarro\\~$3_Preisblatt Grundsatzkonzeption K,T,W_Nagarro.xlsx": {
-      "rel_path": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Nagarro\\~$3_Preisblatt Grundsatzkonzeption K,T,W_Nagarro.xlsx",
-      "filename": "~$3_Preisblatt Grundsatzkonzeption K,T,W_Nagarro.xlsx",
-      "ext": ".xlsx",
-      "size_bytes": 165,
-      "pillar": "01_SSB",
-      "sub_folder": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Nagarro",
-      "hash": "09386eade9280635cd279111a7ac426c",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "SSB_Gesamtprojekt_S4HANA_Ergaenzungen_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:43.009829",
-      "processed_at": "2026-11-24T11:25:22.267403"
     },
     "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Orianda\\3_Preisblatt Grundsatzkonzeption K,T,W.xlsx": {
       "rel_path": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Orianda\\3_Preisblatt Grundsatzkonzeption K,T,W.xlsx",
@@ -11373,20 +11331,6 @@
       "target_note": "SSB_TP3_Technische_Instandhaltung_EAM_Volltext.md",
       "discovered_at": "2026-11-24T04:50:43.013336",
       "processed_at": "2026-11-24T04:53:09.597829"
-    },
-    "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Orianda\\~$3_Preisblatt Grundsatzkonzeption K,T,W_Orianda.xlsx": {
-      "rel_path": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Orianda\\~$3_Preisblatt Grundsatzkonzeption K,T,W_Orianda.xlsx",
-      "filename": "~$3_Preisblatt Grundsatzkonzeption K,T,W_Orianda.xlsx",
-      "ext": ".xlsx",
-      "size_bytes": 165,
-      "pillar": "01_SSB",
-      "sub_folder": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP3_Technische_Prozesse_Instandhaltung\\Kusevic_Wimpff_Instandhaltung\\Kusevic-Wimpff\\Orianda",
-      "hash": "09386eade9280635cd279111a7ac426c",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "SSB_Gesamtprojekt_S4HANA_Ergaenzungen_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:43.013845",
-      "processed_at": "2026-11-24T11:25:22.267903"
     },
     "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP4_IT_Infrastruktur_RISE_Basis\\Axians_GAP_Tracking\\20250922_Projektplan_GAP_Axians_Gerdes.xlsx": {
       "rel_path": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP4_IT_Infrastruktur_RISE_Basis\\Axians_GAP_Tracking\\20250922_Projektplan_GAP_Axians_Gerdes.xlsx",
@@ -13375,20 +13319,6 @@
       "target_note": "SSB_TP5_Gesamtsteuerung_Architektur_PMO_Volltext.md",
       "discovered_at": "2026-11-24T04:50:43.070370",
       "processed_at": "2026-11-24T04:53:29.041930"
-    },
-    "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP5_Gesamtsteuerung_Architektur\\TP5_Desktop\\VV I\\~$SAP4SSB_Masterfolien.pptx": {
-      "rel_path": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP5_Gesamtsteuerung_Architektur\\TP5_Desktop\\VV I\\~$SAP4SSB_Masterfolien.pptx",
-      "filename": "~$SAP4SSB_Masterfolien.pptx",
-      "ext": ".pptx",
-      "size_bytes": 165,
-      "pillar": "01_SSB",
-      "sub_folder": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP5_Gesamtsteuerung_Architektur\\TP5_Desktop\\VV I",
-      "hash": "5bcc18648be52e3de61818e7f6708372",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "SSB_Gesamtprojekt_S4HANA_Ergaenzungen_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:43.070370",
-      "processed_at": "2026-11-24T11:25:22.269405"
     },
     "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP5_Gesamtsteuerung_Architektur\\UP5_4_Plattformarchitektur\\UBI_Vollversammlung_17_12_2024.pdf": {
       "rel_path": "01_SSB\\02_Teilprojekte_TP1_bis_TP5\\TP5_Gesamtsteuerung_Architektur\\UP5_4_Plattformarchitektur\\UBI_Vollversammlung_17_12_2024.pdf",
@@ -29784,20 +29714,6 @@
       "discovered_at": "2026-11-24T04:50:43.384604",
       "processed_at": "2026-11-24T05:39:00.248728"
     },
-    "02_Master\\Seminar Wirtschaftsinformatik 2\\01_Erfolgreiche_Seminararbeit_MRK_SS25\\~$sterprompt_Ghostwriter.docx": {
-      "rel_path": "02_Master\\Seminar Wirtschaftsinformatik 2\\01_Erfolgreiche_Seminararbeit_MRK_SS25\\~$sterprompt_Ghostwriter.docx",
-      "filename": "~$sterprompt_Ghostwriter.docx",
-      "ext": ".docx",
-      "size_bytes": 162,
-      "pillar": "02_Master",
-      "sub_folder": "02_Master\\Seminar Wirtschaftsinformatik 2\\01_Erfolgreiche_Seminararbeit_MRK_SS25",
-      "hash": "74e7c2012ae6bab37c68c03da355a186",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Master_Zusatzmodule_Quantum_SmartCities_AIProto_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:43.385103",
-      "processed_at": "2026-11-24T11:14:45.999489"
-    },
     "02_Master\\Seminar Wirtschaftsinformatik 2\\01_Erfolgreiche_Seminararbeit_MRK_SS25\\01_Finale_Abgabe_und_Praesentation\\20250705175915_Seminarpräsentation_JohannesBahne_JohannesBerndt_VisarMurseli.pptx": {
       "rel_path": "02_Master\\Seminar Wirtschaftsinformatik 2\\01_Erfolgreiche_Seminararbeit_MRK_SS25\\01_Finale_Abgabe_und_Praesentation\\20250705175915_Seminarpräsentation_JohannesBahne_JohannesBerndt_VisarMurseli.pptx",
       "filename": "20250705175915_Seminarpräsentation_JohannesBahne_JohannesBerndt_VisarMurseli.pptx",
@@ -38771,20 +38687,6 @@
       "target_note": "Master_Cloud_Computing_Service_Management_Volltext.md",
       "discovered_at": "2026-11-24T04:50:43.670708",
       "processed_at": "2026-11-24T11:04:22.384983"
-    },
-    "02_Master\\Service Management and Cloud Computing, and Evaluation\\02_Exercises_und_Workshops\\Code_and_Workshops\\WildRydes\\wildrides-site\\__MACOSX\\._robots.txt": {
-      "rel_path": "02_Master\\Service Management and Cloud Computing, and Evaluation\\02_Exercises_und_Workshops\\Code_and_Workshops\\WildRydes\\wildrides-site\\__MACOSX\\._robots.txt",
-      "filename": "._robots.txt",
-      "ext": ".txt",
-      "size_bytes": 323,
-      "pillar": "02_Master",
-      "sub_folder": "02_Master\\Service Management and Cloud Computing, and Evaluation\\02_Exercises_und_Workshops\\Code_and_Workshops\\WildRydes\\wildrides-site\\__MACOSX",
-      "hash": "8d62bd6e7fc2e9c5433337509fe450cf",
-      "status": "processed",
-      "extracted_chars": 323,
-      "target_note": "Master_Cloud_Computing_Service_Management_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:43.671709",
-      "processed_at": "2026-11-24T10:56:21.942271"
     },
     "02_Master\\Service Management and Cloud Computing, and Evaluation\\03_Exam_Paper_Hausarbeit\\Aufgabenstellung_Cloud.docx": {
       "rel_path": "02_Master\\Service Management and Cloud Computing, and Evaluation\\03_Exam_Paper_Hausarbeit\\Aufgabenstellung_Cloud.docx",
@@ -61172,146 +61074,6 @@
       "discovered_at": "2026-11-24T04:50:44.133968",
       "processed_at": "2026-11-24T11:22:00.080710"
     },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._bc110809[1].pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._bc110809[1].pdf",
-      "filename": "._bc110809[1].pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "00cf4f0b480e40110f1eb9d1897e5bfd",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.133968",
-      "processed_at": "2026-11-24T11:21:35.073326"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._klausur1_2011.pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._klausur1_2011.pdf",
-      "filename": "._klausur1_2011.pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "a41e50ea934fd1ec7eaf0de4b067aed0",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.134468",
-      "processed_at": "2026-11-24T11:21:35.073826"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._klausur1_2011_lsg.pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._klausur1_2011_lsg.pdf",
-      "filename": "._klausur1_2011_lsg.pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "d5e477d94ffb94e02bab60a61a0447bf",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.134468",
-      "processed_at": "2026-11-24T11:21:35.073826"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._klausur1_2012_lsg.pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._klausur1_2012_lsg.pdf",
-      "filename": "._klausur1_2012_lsg.pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "87e539b062ae8fba547eac147b536b50",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.134468",
-      "processed_at": "2026-11-24T11:21:35.074326"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._Klausuren und Lo╠êsungen komplett.pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._Klausuren und Lo╠êsungen komplett.pdf",
-      "filename": "._Klausuren und Lo╠êsungen komplett.pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "dbc412e1bfdd01164c87cad3d83e8a08",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.134968",
-      "processed_at": "2026-11-24T11:21:35.072826"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._Sommer2011.pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._Sommer2011.pdf",
-      "filename": "._Sommer2011.pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "0cd6f9c01f003396ae42aad8e85ab80f",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.134968",
-      "processed_at": "2026-11-24T11:21:35.072826"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._Sommer2011_Lsg.pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._Sommer2011_Lsg.pdf",
-      "filename": "._Sommer2011_Lsg.pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "f1344fe2d9dce8dc937268f6219c5c12",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.134968",
-      "processed_at": "2026-11-24T11:21:35.073326"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._vorbereitung_klausur1_2012.pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._vorbereitung_klausur1_2012.pdf",
-      "filename": "._vorbereitung_klausur1_2012.pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "5a9f00a9bbaecc6cd8d7bef422294510",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.134968",
-      "processed_at": "2026-11-24T11:21:35.074825"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._wsk2 (Skript).pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\._wsk2 (Skript).pdf",
-      "filename": "._wsk2 (Skript).pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX",
-      "hash": "d28bbeff3226c32150618659cdf58503",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.135467",
-      "processed_at": "2026-11-24T11:21:35.074825"
-    },
-    "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\Klausur 14_15\\._klausur_winf.pdf": {
-      "rel_path": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\Klausur 14_15\\._klausur_winf.pdf",
-      "filename": "._klausur_winf.pdf",
-      "ext": ".pdf",
-      "size_bytes": 239,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Mathematik für Wirtschaftswissenschaftler\\03_Klausurvorbereitung_und_Altklausuren\\__MACOSX\\Klausur 14_15",
-      "hash": "be026b793e465417be35b40cb7460047",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.135467",
-      "processed_at": "2026-11-24T11:21:35.074326"
-    },
     "03_Bachelor\\Mensch-Computer-Interaktion\\01_Vorlesungsfolien\\2020-04-20.pdf": {
       "rel_path": "03_Bachelor\\Mensch-Computer-Interaktion\\01_Vorlesungsfolien\\2020-04-20.pdf",
       "filename": "2020-04-20.pdf",
@@ -67052,62 +66814,6 @@
       "discovered_at": "2026-11-24T04:50:44.262972",
       "processed_at": "2026-11-24T11:17:21.804235"
     },
-    "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\._PSE Feedback Uebungsblatt 1 - Erzengin, Fischer, Zick.pdf": {
-      "rel_path": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\._PSE Feedback Uebungsblatt 1 - Erzengin, Fischer, Zick.pdf",
-      "filename": "._PSE Feedback Uebungsblatt 1 - Erzengin, Fischer, Zick.pdf",
-      "ext": ".pdf",
-      "size_bytes": 1081,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project",
-      "hash": "24489a061ba8b87aa8b2593cfb92698e",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_PSE_Programmierung_Java_OOP_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.265467",
-      "processed_at": "2026-11-24T11:16:24.520165"
-    },
-    "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\._PSE Feedback Uebungsblatt 2 - Erzengin, Fischer, Zick.pdf": {
-      "rel_path": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\._PSE Feedback Uebungsblatt 2 - Erzengin, Fischer, Zick.pdf",
-      "filename": "._PSE Feedback Uebungsblatt 2 - Erzengin, Fischer, Zick.pdf",
-      "ext": ".pdf",
-      "size_bytes": 919,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project",
-      "hash": "056c310cb3c7c4db980ca26a3c4d3875",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_PSE_Programmierung_Java_OOP_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.265467",
-      "processed_at": "2026-11-24T11:16:24.521169"
-    },
-    "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\._PSE_2016_01_Slot_25_ErzenginFischerZick_project.pdf": {
-      "rel_path": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\._PSE_2016_01_Slot_25_ErzenginFischerZick_project.pdf",
-      "filename": "._PSE_2016_01_Slot_25_ErzenginFischerZick_project.pdf",
-      "ext": ".pdf",
-      "size_bytes": 174,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project",
-      "hash": "a454925fd76bed98327ffa2083497d16",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_PSE_Programmierung_Java_OOP_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.265968",
-      "processed_at": "2026-11-24T11:16:24.522162"
-    },
-    "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\._Uebungsblatt 1.pdf": {
-      "rel_path": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\._Uebungsblatt 1.pdf",
-      "filename": "._Uebungsblatt 1.pdf",
-      "ext": ".pdf",
-      "size_bytes": 336,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 1\\PSE_2016_01_Slot_25_ErzenginFischerZick_project\\__MACOSX\\PSE_2016_01_Slot_25_ErzenginFischerZick_project",
-      "hash": "ff2edd333dba55cf3b81eb2cbf814b3a",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_PSE_Programmierung_Java_OOP_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.265968",
-      "processed_at": "2026-11-24T11:16:24.523170"
-    },
     "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 2\\EX02_KablanMurseliPiros.docx": {
       "rel_path": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblatt 2\\EX02_KablanMurseliPiros.docx",
       "filename": "EX02_KablanMurseliPiros.docx",
@@ -67681,20 +67387,6 @@
       "target_note": "Bachelor_PSE_Programmierung_Java_OOP_Volltext.md",
       "discovered_at": "2026-11-24T04:50:44.298967",
       "processed_at": "2026-11-24T11:16:32.042595"
-    },
-    "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblätter\\PSE_2016_10_Slot_25_ErzenginFischerZick_project\\__MACOSX\\._PSE_2016_10_Slot_25_ErzenginFischerZick_project.pdf": {
-      "rel_path": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblätter\\PSE_2016_10_Slot_25_ErzenginFischerZick_project\\__MACOSX\\._PSE_2016_10_Slot_25_ErzenginFischerZick_project.pdf",
-      "filename": "._PSE_2016_10_Slot_25_ErzenginFischerZick_project.pdf",
-      "ext": ".pdf",
-      "size_bytes": 187,
-      "pillar": "03_Bachelor",
-      "sub_folder": "03_Bachelor\\Programmierung und Software-Entwicklung\\03_Projekt_Abgaben\\Übungsblätter\\PSE_2016_10_Slot_25_ErzenginFischerZick_project\\__MACOSX",
-      "hash": "5ec4fca4c291238cdafe0741d6eb2892",
-      "status": "processed",
-      "extracted_chars": 0,
-      "target_note": "Bachelor_PSE_Programmierung_Java_OOP_Volltext.md",
-      "discovered_at": "2026-11-24T04:50:44.300473",
-      "processed_at": "2026-11-24T11:16:24.522662"
     },
     "03_Bachelor\\Programmierung und Software-Entwicklung\\04_Klausurvorbereitung\\2013WiSe_Februar.pdf": {
       "rel_path": "03_Bachelor\\Programmierung und Software-Entwicklung\\04_Klausurvorbereitung\\2013WiSe_Februar.pdf",

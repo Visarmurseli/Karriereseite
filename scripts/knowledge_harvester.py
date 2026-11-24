@@ -97,6 +97,8 @@ def scan_workspace():
             rel_folder = os.path.relpath(root, BASE_DIR)
             
             for f in files:
+                if f.startswith("._") or f.startswith("~$"):
+                    continue
                 ext = os.path.splitext(f)[1].lower()
                 if ext not in EXTRACTABLE_EXTENSIONS:
                     continue
