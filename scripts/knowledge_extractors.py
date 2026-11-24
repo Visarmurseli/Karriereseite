@@ -15,6 +15,8 @@ import openpyxl
 def clean_text(text):
     if not text:
         return ""
+    # Sanitize lone surrogates or unencodable characters
+    text = text.encode('utf-8', 'replace').decode('utf-8')
     # Normalize excessive whitespace while preserving paragraph breaks
     text = re.sub(r'[ \t]+', ' ', text)
     text = re.sub(r'\n{3,}', '\n\n', text)
@@ -159,8 +161,10 @@ def extract_xlsx(path, max_rows=30):
             ws = wb[sheetname]
             rows_data = []
             row_count = 0
-            for row in ws.iter_rows(values_only=True):
-                if any(v is not None for v in row):
+            empty_streak = 0
+            # Guard against worksheets formatted down to 1,048,576 rows
+            for row in ws.iter_rows(values_only=True, max_row=max_rows * 3):
+                if any(v is not None and str(v).strip() != "" for v in row):
                     cells = [str(v).strip() if v is not None else "" for v in row]
                     # Trim empty trailing cells
                     while cells and cells[-1] == "":
@@ -168,6 +172,11 @@ def extract_xlsx(path, max_rows=30):
                     if cells:
                         rows_data.append(cells)
                         row_count += 1
+                        empty_streak = 0
+                else:
+                    empty_streak += 1
+                    if empty_streak >= 10:
+                        break
                 if row_count >= max_rows:
                     break
                     

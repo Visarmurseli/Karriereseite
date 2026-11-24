@@ -27,6 +27,45 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.8.0] - 2026-11-24 (Omni-Corpus Academic & Enterprise Knowledge Explosion Release)
+
+### 🎯 Kontext & Leitmotiv
+Monumentaler Ausbau der Volltext-Ingestion über alle akademischen und operativen Säulen des Workspaces. Systematischer Durchlauf der Groß-Batches `ssb_pmo`, `master` und `bachelor`. Erhöhung der verarbeiteten Dokumente von 723 auf **2.677 Originaldokumente (53,5 % des Gesamtbestands)** und Vervierzehnfachung der extrahierten Zeichen auf **292.550.377 Zeichen (~73,14 Millionen Tokens)**. Der Obsidian Knowledge Graph Data Lake wächst auf **161 Dokumente mit 49.265.681 Wörtern (~66,51 Millionen Tokens)** bei makelloser **100 % RAG- & LLM-Readiness (161/161 valides Frontmatter, 0 Broken Links bei 647 Kanten, 0 Multi-H1s)**.
+
+### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
+- **Pillar 01 (SSB Großprojekt SAP4SSB | 94,5 % abgeschlossen | 1.177 Dokumente, 38,2 Mio. Zeichen):**
+  - `SSB_PMO_Projektleitung_Masterplan_Volltext.md` (7,6 MB): Gesamtsteuerung, Projektsteckbriefe, WBS-Strukturen, Grundlagenschulungen, Ressourcenplanung und operative PMO-Governance (306 Artefakte).
+  - `SSB_SektVO_Ausschreibung_Vergabe_Volltext.md` (1,5 MB): EU-Bekanntmachungen (2025-OJS075), Vergabeunterlagen, Bewertungsmatrizen Axians/Nagarro, Bieterfragen und Vergabeentscheidungen (118 Artefakte).
+  - `SSB_Architektur_Methoden_Tools_Volltext.md` (8,7 MB): Datenmigration LTMC, SAP Cloud ALM Migration Tracker, Signavio Prozesshierarchien, Readiness Check Clean Core und Enable Now Übergabedokumentation (118 Artefakte).
+- **Pillar 02 (Masterstudium | 54,0 % abgeschlossen | 949 Dokumente, 157,7 Mio. Zeichen):**
+  - `Master_Seminar_MRK_Industrie50_Volltext.md` (151,3 MB): Volltext von 439 internationalen Forschungsarbeiten zu Mensch-Roboter-Kollaboration in Industrie 5.0 (PRISMA Systematic Literature Review, IEEE, ScienceDirect, Springer, Tagungsbände).
+  - `Master_Masterarbeit_Literatur_Fundierung_Volltext.md` (8,8 MB): Wissenschaftliche Kernliteratur, theoretische Grundlagen (Boundary Resources, Absorptive Capacity, Bimodale IT) und qualitative Inhaltsanalyse nach Mayring (115 Artefakte, Note 1,0).
+  - `Master_Forschungsmethoden_Algorithm_Aversion_Volltext.md` (4,8 MB): Empirische Studie zu Algorithm Aversion, quantitatives Forschungsdesign, Hypothesenmodelle und statistische Erhebungen (108 Artefakte, Note 1,7).
+  - `Master_Digitale_Nachhaltigkeit_Schmalz_Volltext.md` (4,0 MB): CSRD-Abfallbilanz und Prozessmodellierung für die J. Schmalz GmbH inklusive PowerShell-Automatisierungskonzepten (135 Artefakte, Note 1,0).
+  - `Master_ISG_PatentRadar_Klingele_Volltext.md` (2,3 MB): Digital Venture PatentRadar für Klingele Paper & Packaging (Hybrides SaaS- & Consulting-Geschäftsmodell, BPMN-Prozesse; 164 Artefakte, Note 2,0).
+- **Pillar 03 (Bachelorstudium | 26,5 % abgeschlossen | 520 Dokumente, 96,4 Mio. Zeichen):**
+  - `Bachelor_Bachelorarbeit_Boundary_Resources_Volltext.md` (87,6 MB): Volltext der 103-seitigen Bachelorarbeit bei Prof. Herzwurm, Boundary Resource Theory (Ghazawneh & Henfridsson), 14 Boundary Resource Klassen (ABR, DBR, SBR), Experteninterviews mit Lead-Entwicklern von OutSystems/Mendix und Standardwerke der Informatik (360 Artefakte, Note 1,7).
+  - `Bachelor_IVP_0x539_Wear_Unternehmensanalyse_Volltext.md` (7,6 MB): Quantitative Unternehmensanalyse 0x539-Wear GmbH, mehrstufige Deckungsbeitragsrechnung, Make-or-Buy Analysen und Controlling-Fallstudien (56 Artefakte, Note 2,3).
+  - `Bachelor_WI1_Betriebliche_Informationssysteme_Volltext.md` (834 KB): Betriebliche Informationssysteme WI 1: ERP-Architekturen, ARIS-Modellierung, SAP R/3 & S/4HANA Vorläufer, EPK-Prozesse (54 Artefakte).
+  - `Bachelor_Informationsmanagement_Architektur_Volltext.md` (530 KB): Strategisches Informationsmanagement, IT-Governance, Informationslogistik, EAM-Grundlagen und ITIL-Services (64 Artefakte).
+  - `Bachelor_EBusiness_Bestnote_1_0_Volltext.md` (206 KB): Informationssysteme im E-Business (Bestnote 1,0 bei Prof. Dr. Georg Herzwurm), B2B-Plattformen, EDIFACT, XML-Standards und elektronische Marktplätze (15 Artefakte).
+- **Master Knowledge Graph Navigation (`00_INDEX.md`):**
+  - Vollständige Integration aller 13 neuen Masterdossiers in die Säulen 01, 02 und 03.
+- **Graph-Manifest (`graph_manifest.json`):**
+  - Aktualisiert für Vektordatenbanken und LLM-Tools auf **161 Knoten und 644 verifizierte Kanten**.
+
+### 🔧 Performance & Data Science Fixes (Changed & Fixed)
+- **XML-Streaming & Row Bounding in `extract_xlsx`:**
+  - Behebung eines Hängers bei Tabellen mit Datenvalidierung bis Zeile 1.048.576 durch `max_row`-Bounding und Schwellenwert für leere Zeilen (`consecutive_empty >= 10`). Lesezeit sank von Minuten auf 16 Millisekunden.
+- **UTF-8 Lone Surrogate Sanitizer:**
+  - Behebung von `UnicodeEncodeError` beim Speichern von Großdossiers durch Bereinigung unvollständiger Unicode-Surrogates (`\ud800`–`\udfff`) in `clean_text` und `errors="replace"` beim Schreiben.
+- **2D-Matrix & Code-Bracket Healing:**
+  - Behebung von 145 fälschlicherweise als Wikilinks interpretierten 2D-Python-Arrays und mathematischen Intervallen (`[[1, 2, 3]]`, `[[i]]`, `[[·]]`) durch automatische Konvertierung in semantische Code-Klammern `⟦...⟧`.
+- **AST Heading Hierarchy:**
+  - Bereinigung von 4 nicht-alphanumerischen Steuerzeichen-Überschriften in `Master_Masterarbeit_Literatur_Fundierung_Volltext.md` -> **0 Multi-H1 Notizen im gesamten Vault**.
+
+---
+
 ## [1.7.0] - 2026-11-24 (Enterprise Fulltext Ingestion & Knowledge Harvester Release)
 
 ### 🎯 Kontext & Leitmotiv

@@ -388,8 +388,9 @@ def canonicalize_wikilinks(text, all_files):
             else:
                 return f"[[{canon_base}{anchor}]]"
 
-        # Return original if unresolved
-        return match.group(0)
+        # 3. If unresolved in vault inventory or canonical map, it's code, math, or array literal
+        # Convert to semantic brackets `⟦raw⟧` so it preserves original text without broken wikilinks
+        return f"`⟦{raw}⟧`"
 
     pattern = re.compile(r'\[\[(.*?)\]\]')
     return pattern.sub(link_replacer, text)
@@ -417,15 +418,19 @@ def normalize_heading_hierarchy(text, title):
     for line in lines:
         stripped = line.strip()
         if line.startswith("# ") and not line.startswith("##"):
+            heading_text = line[2:].strip()
+            # Filter out rogue binary/control char lines
+            if not re.search(r'[a-zA-Z0-9\u00C0-\u017F]', heading_text):
+                continue
             if not found_first_h1:
                 found_first_h1 = True
-                new_lines.append(line)
+                new_lines.append(f"# {heading_text}")
             else:
                 # Check if it's an interview partner in SSB_Interviews or slide junk
-                if re.match(r'^#\s+\d+\.\s+Interviewpartner', line):
-                    new_lines.append("#" + line) # Demote to H2
+                if re.match(r'^\d+\.\s+Interviewpartner', heading_text):
+                    new_lines.append(f"## {heading_text}")
                 else:
-                    new_lines.append("### " + line[2:].strip()) # Demote slide commands to H3
+                    new_lines.append(f"### {heading_text}")
         elif stripped == "#":
             continue
         else:
@@ -566,7 +571,7 @@ def harmonize_vault():
         final_text = normalize_heading_hierarchy(step3_text, default_title)
 
         if final_text != original_text:
-            with open(fullpath, "w", encoding="utf-8") as f:
+            with open(fullpath, "w", encoding="utf-8", errors="replace") as f:
                 f.write(final_text)
             modified_count += 1
 

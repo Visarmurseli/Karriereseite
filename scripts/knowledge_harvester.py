@@ -644,6 +644,359 @@ last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
     print("\n[OK] SSB TEILPROJEKTE HARVESTING COMPLETE!")
 
 # ==============================================================================
+# BATCH 5: PILLAR 01 SSB PMO GOVERNANCE, SEKTVO & ARCHITEKTUR-TOOLS
+# ==============================================================================
+
+def ingest_batch_ssb_pmo_governance():
+    print("=" * 70)
+    print("🚀 STARTING PILLAR 01 (SSB) PMO GOVERNANCE, SEKTVO & TOOLS HARVESTING")
+    print("=" * 70)
+    
+    registry = load_registry()
+    files = registry.get("files", {})
+    
+    batches = [
+        (
+            "04_Ausschreibung_Vergabe_SektVO",
+            "SSB_SektVO_Ausschreibung_Vergabe_Volltext.md",
+            "sap-transformation",
+            "EU-SektVO Ausschreibung & Vergabe",
+            "EU-Bekanntmachungen (2025-OJS075), Vergabeunterlagen, Bewertungsmatrizen Axians/Nagarro, Bieterfragen und Vergabeentscheidungen"
+        ),
+        (
+            "04_Architektur_Methoden_Tools",
+            "SSB_Architektur_Methoden_Tools_Volltext.md",
+            "sap-transformation",
+            "Architektur-Methoden & Tool-Katalog",
+            "Datenmigration LTMC, SAP Cloud ALM Migration Tracker, Signavio Prozesshierarchien, Readiness Check Clean Core und Enable Now"
+        ),
+        (
+            "01_Projektleitung_PMO_Masterplan",
+            "SSB_PMO_Projektleitung_Masterplan_Volltext.md",
+            "sap-transformation",
+            "PMO Gesamtsteuerung & Masterplan",
+            "Projektsteckbriefe, WBS-Strukturen, Grundlagenschulungen, Ressourcenplanung und operative PMO-Governance"
+        )
+    ]
+    
+    for folder_keyword, target_note_name, domain, title_clean, desc in batches:
+        match_files = [f for f in files.values() if f["pillar"] == "01_SSB" and folder_keyword in f["rel_path"]]
+        print(f"\nProcessing {len(match_files)} files in {folder_keyword} ({title_clean})...")
+        
+        blocks = []
+        processed_files = []
+        
+        for item in sorted(match_files, key=lambda x: x["filename"]):
+            fpath = os.path.join(BASE_DIR, item["rel_path"])
+            res = extract_document(fpath)
+            if res["success"] and res["text"]:
+                fname = item["filename"]
+                blocks.append(f"""### 📑 Dokument: `{fname}`
+- **Datei:** `{item["rel_path"]}`
+- **Extrahierte Zeichen:** {res["chars"]:,} Zeichen
+
+{res["text"]}
+""")
+                item["status"] = "processed"
+                item["extracted_chars"] = res["chars"]
+                item["target_note"] = target_note_name
+                item["processed_at"] = datetime.now().isoformat()
+                processed_files.append(fname)
+                print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
+                
+        if blocks:
+            note_target = os.path.join(VAULT_DIR, "03_SAP_EnterpriseArchitecture", target_note_name)
+            slug = target_note_name.replace(".md", "").lower().replace("_", "-")
+            
+            content = f"""---
+id: {slug}
+title: "{title_clean}"
+type: concept
+domain: {domain}
+status: verified
+summary: "Volltext-Archiv für {title_clean} ({desc}) im Großprojekt SAP4SSB."
+tags:
+  - ssb
+  - sap4ssb
+  - {folder_keyword.lower()}
+  - s4hana
+  - governance
+aliases:
+  - {title_clean}
+  - {folder_keyword}
+last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
+---
+
+# 🚆 SSB | {title_clean}
+
+> [!SUMMARY] **Governance-Archiv: {desc}**
+> Umfassende Volltext-Dokumentation aus den Originalakten und Arbeitsdokumenten für {folder_keyword}.
+
+## 📋 Enthaltene Dokumente ({len(processed_files)} Artefakte)
+""" + "\n".join([f"- `{f}`" for f in processed_files]) + """
+
+---
+
+## 📜 Volltext-Transkripte der Dokumente
+
+""" + "\n\n---\n\n".join(blocks)
+
+            with open(note_target, "w", encoding="utf-8") as f:
+                f.write(content)
+            print(f"  [OK] Saved Master Dossier: {note_target}")
+
+    save_registry(registry)
+    print("\n[OK] SSB PMO GOVERNANCE, SEKTVO & TOOLS HARVESTING COMPLETE!")
+
+# ==============================================================================
+# BATCH 6: PILLAR 02 MASTERSTUDIUM (AKADEMISCHE DEEP-DIVE PROJEKTE)
+# ==============================================================================
+
+def ingest_batch_master_academic():
+    print("=" * 70)
+    print("🚀 STARTING PILLAR 02 (MASTER) ACADEMIC DEEP-DIVE HARVESTING")
+    print("=" * 70)
+    
+    registry = load_registry()
+    files = registry.get("files", {})
+    
+    master_targets = [
+        (
+            "Masterarbeit Wirtschaftsinformatik",
+            "Master_Masterarbeit_Literatur_Fundierung_Volltext.md",
+            "Masterarbeit: Wissenschaftliche Literatur, Codebuch & Forschungsdokumente (Note 1,0)",
+            "Volltext der Kern-Literatur, theoretischen Grundlagen (Boundary Resources, Absorptive Capacity, Bimodale IT) und qualitative Inhaltsanalyse nach Mayring"
+        ),
+        (
+            "Seminar Wirtschaftsinformatik 2",
+            "Master_Seminar_MRK_Industrie50_Volltext.md",
+            "Seminararbeit: Mensch-Roboter-Kollaboration in Industrie 5.0 (Note 1,7)",
+            "Systematic Literature Review nach PRISMA-Richtlinien, qualitative Kodierung, Akzeptanzmodelle und Forschungsagenda für Mensch-Roboter-Kollaboration"
+        ),
+        (
+            "Digitale Nachhaltigkeit",
+            "Master_Digitale_Nachhaltigkeit_Schmalz_Volltext.md",
+            "Fallstudie Digitale Nachhaltigkeit: CSRD-Abfallbilanz J. Schmalz GmbH (Note 1,0)",
+            "Volltext der Nachhaltigkeitsberichterstattung, Prozessmodellierung der Ist-Abfallbilanz und PowerShell-basierte Automatisierungskonzepte"
+        ),
+        (
+            "Innovationsmethoden für software- und datenintensive Geschäftsmodelle",
+            "Master_ISG_PatentRadar_Klingele_Volltext.md",
+            "Praxisprojekt ISG: Digital Venture PatentRadar für Klingele (Note 2,0)",
+            "Hybrides Geschäftsmodell (SaaS & Consulting) für KI-gestützte Patentrecherche und BPMN-Prozessmodellierung für die Verpackungsindustrie"
+        ),
+        (
+            "Forschungsmethoden in der Wirtschaftsinformatik",
+            "Master_Forschungsmethoden_Algorithm_Aversion_Volltext.md",
+            "Forschungsmethoden: Empirische Studie zu Algorithm Aversion (Note 1,7)",
+            "Hypothesenentwicklung, empirische Erhebungsdesigns, statistische Auswertungsverfahren und quantitatives Forschungsdesign"
+        )
+    ]
+    
+    for folder_keyword, target_note_name, title_clean, desc in master_targets:
+        match_files = [f for f in files.values() if f["pillar"] == "02_Master" and folder_keyword in f["rel_path"]]
+        note_target = os.path.join(VAULT_DIR, "02_Wirtschaftsinformatik_300ECTS", target_note_name)
+        
+        if os.path.exists(note_target) and os.path.getsize(note_target) > 10000:
+            print(f"\n[i] Note {target_note_name} already exists ({os.path.getsize(note_target):,} bytes). Updating registry and continuing...")
+            for item in match_files:
+                item["status"] = "processed"
+                item["target_note"] = target_note_name
+                item["processed_at"] = datetime.now().isoformat()
+            save_registry(registry)
+            continue
+
+        print(f"\nProcessing {len(match_files)} files in {folder_keyword} ({title_clean})...")
+        
+        blocks = []
+        processed_files = []
+        
+        for item in sorted(match_files, key=lambda x: x["filename"]):
+            fpath = os.path.join(BASE_DIR, item["rel_path"])
+            res = extract_document(fpath)
+            if res["success"] and res["text"]:
+                fname = item["filename"]
+                blocks.append(f"""### 📑 Akademisches Dokument: `{fname}`
+- **Datei:** `{item["rel_path"]}`
+- **Extrahierte Zeichen:** {res["chars"]:,} Zeichen
+
+{res["text"]}
+""")
+                item["status"] = "processed"
+                item["extracted_chars"] = res["chars"]
+                item["target_note"] = target_note_name
+                item["processed_at"] = datetime.now().isoformat()
+                processed_files.append(fname)
+                print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
+                
+        if blocks:
+            slug = target_note_name.replace(".md", "").lower().replace("_", "-")
+            
+            content = f"""---
+id: {slug}
+title: "{title_clean}"
+type: concept
+domain: academic-curriculum
+status: verified
+summary: "Volltext-Archiv für {title_clean}: {desc}."
+tags:
+  - master_of_science
+  - academic_research
+  - universitaet_stuttgart
+  - wirtschaftsinformatik
+aliases:
+  - {title_clean}
+  - {folder_keyword}
+last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
+---
+
+# 🎓 Master of Science | {title_clean}
+
+> [!SUMMARY] **Akademisches Forschungs- & Projektdossier**
+> {desc} an der Universität Stuttgart (M.Sc. Wirtschaftsinformatik | Gesamtnote 1,6).
+
+## 📋 Enthaltene Forschungsartefakte ({len(processed_files)} Dokumente)
+""" + "\n".join([f"- `{f}`" for f in processed_files]) + """
+
+---
+
+## 📜 Volltext-Transkripte der wissenschaftlichen Ausarbeitungen
+
+""" + "\n\n---\n\n".join(blocks)
+
+            with open(note_target, "w", encoding="utf-8", errors="replace") as f:
+                f.write(content)
+            print(f"  [OK] Saved Master Dossier: {note_target}")
+            save_registry(registry)
+
+    save_registry(registry)
+    print("\n[OK] MASTER ACADEMIC HARVESTING COMPLETE!")
+
+# ==============================================================================
+# BATCH 7: PILLAR 03 BACHELORSTUDIUM (BOUNDARY RESOURCES & PRAXISPROJEKTE)
+# ==============================================================================
+
+def ingest_batch_bachelor_academic():
+    print("=" * 70)
+    print("🚀 STARTING PILLAR 03 (BACHELOR) ACADEMIC DEEP-DIVE HARVESTING")
+    print("=" * 70)
+    
+    registry = load_registry()
+    files = registry.get("files", {})
+    
+    bachelor_targets = [
+        (
+            "Bachelorarbeit Wirtschaftsinformatik",
+            "Bachelor_Bachelorarbeit_Boundary_Resources_Volltext.md",
+            "Bachelorarbeit: Boundary Resources in Low-Code Plattformen OutSystems & Mendix (Note 1,7)",
+            "Volltext der 103-seitigen Bachelorarbeit bei Prof. Herzwurm, Boundary Resource Theory (Ghazawneh & Henfridsson), 14 Boundary Resource Klassen (ABR, DBR, SBR) und Experteninterviews"
+        ),
+        (
+            "Informationssysteme_im_E-Business",
+            "Bachelor_EBusiness_Bestnote_1_0_Volltext.md",
+            "Informationssysteme im E-Business (Bestnote 1,0 | Prof. Dr. Georg Herzwurm)",
+            "Volltext aller Fallstudien, E-Procurement-Konzepte, B2B-Plattformen, EDIFACT, XML-Standards und elektronische Marktplätze"
+        ),
+        (
+            "Informationsverarbeitungspraktikum",
+            "Bachelor_IVP_0x539_Wear_Unternehmensanalyse_Volltext.md",
+            "IVP: Quantitative Unternehmensanalyse 0x539-Wear GmbH (Note 2,3)",
+            "Deckungsbeitragsrechnung, Make-or-Buy Analysen, mehrstufige Divisionskalkulation und Controlling-Fallstudie"
+        ),
+        (
+            "Betriebliche Informationssysteme (WI 1)",
+            "Bachelor_WI1_Betriebliche_Informationssysteme_Volltext.md",
+            "Betriebliche Informationssysteme WI 1: ERP, SAP-Grundlagen & EPK-Prozessmodellierung",
+            "Volltext aller Vorlesungen und Übungen zu ERP-Architekturen, ARIS-Modellierung, SAP R/3 und S/4HANA Vorläufern und Workflow-Management"
+        ),
+        (
+            "Informationsmanagement",
+            "Bachelor_Informationsmanagement_Architektur_Volltext.md",
+            "Informationsmanagement: Strategisches IM, IT-Governance & Informationsarchitekturen",
+            "Volltext der Module zu Informationslogistik, EAM-Grundlagen, ITIL-Services und strategischem IT-Management"
+        )
+    ]
+    
+    for folder_keyword, target_note_name, title_clean, desc in bachelor_targets:
+        match_files = [f for f in files.values() if f["pillar"] == "03_Bachelor" and folder_keyword in f["rel_path"]]
+        note_target = os.path.join(VAULT_DIR, "02_Wirtschaftsinformatik_300ECTS", target_note_name)
+        
+        if os.path.exists(note_target) and os.path.getsize(note_target) > 10000:
+            print(f"\n[i] Note {target_note_name} already exists ({os.path.getsize(note_target):,} bytes). Updating registry and continuing...")
+            for item in match_files:
+                item["status"] = "processed"
+                item["target_note"] = target_note_name
+                item["processed_at"] = datetime.now().isoformat()
+            save_registry(registry)
+            continue
+
+        print(f"\nProcessing {len(match_files)} files in {folder_keyword} ({title_clean})...")
+        
+        blocks = []
+        processed_files = []
+        
+        for item in sorted(match_files, key=lambda x: x["filename"]):
+            fpath = os.path.join(BASE_DIR, item["rel_path"])
+            res = extract_document(fpath)
+            if res["success"] and res["text"]:
+                fname = item["filename"]
+                blocks.append(f"""### 📑 Bachelor-Dokument: `{fname}`
+- **Datei:** `{item["rel_path"]}`
+- **Extrahierte Zeichen:** {res["chars"]:,} Zeichen
+
+{res["text"]}
+""")
+                item["status"] = "processed"
+                item["extracted_chars"] = res["chars"]
+                item["target_note"] = target_note_name
+                item["processed_at"] = datetime.now().isoformat()
+                processed_files.append(fname)
+                print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
+                
+        if blocks:
+            slug = target_note_name.replace(".md", "").lower().replace("_", "-")
+            
+            content = f"""---
+id: {slug}
+title: "{title_clean}"
+type: concept
+domain: academic-curriculum
+status: verified
+summary: "Volltext-Archiv für {title_clean}: {desc}."
+tags:
+  - bachelor_of_science
+  - academic_research
+  - universitaet_stuttgart
+  - wirtschaftsinformatik
+aliases:
+  - {title_clean}
+  - {folder_keyword}
+last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
+---
+
+# 🏛️ Bachelor of Science | {title_clean}
+
+> [!SUMMARY] **Bachelor Forschungs- & Fallstudiendossier**
+> {desc} an der Universität Stuttgart (B.Sc. Wirtschaftsinformatik).
+
+## 📋 Enthaltene Dokumente ({len(processed_files)} Artefakte)
+""" + "\n".join([f"- `{f}`" for f in processed_files]) + """
+
+---
+
+## 📜 Volltext-Transkripte der wissenschaftlichen Arbeiten
+
+""" + "\n\n---\n\n".join(blocks)
+
+            with open(note_target, "w", encoding="utf-8", errors="replace") as f:
+                f.write(content)
+            print(f"  [OK] Saved Master Dossier: {note_target}")
+            save_registry(registry)
+
+    save_registry(registry)
+    print("\n[OK] BACHELOR ACADEMIC HARVESTING COMPLETE!")
+
+# ==============================================================================
 # MAIN CLI
 # ==============================================================================
 
@@ -651,7 +1004,7 @@ def main():
     parser = argparse.ArgumentParser(description="Enterprise Knowledge Harvester & Ingestion Engine")
     parser.add_argument("--scan", action="store_true", help="Scans workspace and builds/updates ingestion registry")
     parser.add_argument("--status", action="store_true", help="Displays current registry ingestion status report")
-    parser.add_argument("--batch", type=str, choices=["dc1", "ssb_steering", "ssb_streams", "ssb_tp", "all"], help="Executes a specific ingestion batch")
+    parser.add_argument("--batch", type=str, choices=["dc1", "ssb_steering", "ssb_streams", "ssb_tp", "ssb_pmo", "master", "bachelor", "all"], help="Executes a specific ingestion batch")
     
     args = parser.parse_args()
     
@@ -667,12 +1020,21 @@ def main():
         ingest_batch_ssb_fachstreams()
     elif args.batch == "ssb_tp":
         ingest_batch_ssb_teilprojekte()
+    elif args.batch == "ssb_pmo":
+        ingest_batch_ssb_pmo_governance()
+    elif args.batch == "master":
+        ingest_batch_master_academic()
+    elif args.batch == "bachelor":
+        ingest_batch_bachelor_academic()
     elif args.batch == "all":
         scan_workspace()
         ingest_batch_dc1()
         ingest_batch_ssb_steering()
         ingest_batch_ssb_fachstreams()
         ingest_batch_ssb_teilprojekte()
+        ingest_batch_ssb_pmo_governance()
+        ingest_batch_master_academic()
+        ingest_batch_bachelor_academic()
         print_status()
     else:
         # Default behavior: scan and show status
