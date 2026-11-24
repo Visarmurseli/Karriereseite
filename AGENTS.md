@@ -92,6 +92,7 @@ Das Webportal ist strikt modular, objektorientiert und wartungsfreundlich aufgeb
    - Keine einseitigen Schlagworte; der wissenschaftliche rote Faden (Plattformisierung, ERP-Transformation, EAM) steht im Mittelpunkt.
 3. **Modulares Patchen:** Änderungen erfolgen **nur** in den betroffenen Modulen in `portal_builder/`.
 4. **Automatischer Rebuild:** Nach jeder Code-Änderung führt der Agent sofort `python build_ultimate_portal.py` aus und prüft den erfolgreichen Build.
+5. **Lückenlose Release- & Änderungsprotokollierung (`CHANGELOG.md`):** Bei jeder Aktualisierung, jedem Commit und jedem Push auf den Branch `main` ist verpflichtend die Datei `CHANGELOG.md` im Projektstamm zu aktualisieren (Datum, Commit-Hash, Kontext, detaillierte Änderungen je Komponente und Compliance-Nachweise).
 
 ---
 
