@@ -351,6 +351,9 @@ def canonicalize_wikilinks(text, all_files):
     # Fix Quantum information code bracket: [[n,k]] -> `⟦n,k⟧`
     text = text.replace("[[n,k]]", "`⟦n,k⟧`")
 
+    # Guard against oversized code blocks / minified JS arrays being treated as wikilinks
+    text = re.sub(r'\[\[(.*?)\]\]', lambda m: f"`⟦{m.group(1)}⟧`" if len(m.group(1)) > 200 else m.group(0), text, flags=re.DOTALL)
+
     def link_replacer(match):
         raw = match.group(1).strip()
         if "|" in raw:

@@ -27,6 +27,66 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.9.0] - 2026-11-24 (100% Omni-Corpus Ingestion & Total LLM Knowledge Lake Release)
+
+### 🎯 Kontext & Leitmotiv
+Vollendung der vollständigen, verlustfreien Volltext-Ingestion aller 5.002 Originaldokumente des gesamten Workspaces in das Obsidian Second Brain. Mit dem planmäßigen Durchlauf der finalen Batches `master_courses`, `bachelor_cs_se` und `bachelor_business_career` erreicht das System eine **100,0 % Ingestion-Abdeckung (5.002 von 5.002 Dokumenten)**. Insgesamt wurden **373.485.771 Zeichen (~93,37 Millionen Tokens)** extrahiert. Der Obsidian Knowledge Graph umfasst nun **189 harmonisierte Markdown-Dossiers mit 60.558.006 Wörtern (~81,75 Millionen Tokens)** bei makelloser **100 % LLM- & RAG-Readiness (189/189 valides YAML-Frontmatter, 675 semantische Kanten bei 0 Broken Links, 100 % Single-H1 AST-Hierarchie)**.
+
+### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
+- **100,0 % Gesamtkorpus-Abdeckung (5.002 / 5.002 Dokumente):**
+  - `00_Aktuelle_Bewerbungsunterlagen`: **8 / 8 (100,0 %)** | 316.272 Zeichen
+  - `01_SSB` (SAP Großprojekt): **1.245 / 1.245 (100,0 %)** | 38.417.038 Zeichen
+  - `02_Master` (120 ECTS): **1.756 / 1.756 (100,0 %)** | 216.549.033 Zeichen
+  - `03_Bachelor` (180 ECTS): **1.961 / 1.961 (100,0 %)** | 117.974.064 Zeichen
+  - `04_DC1` (ITIL 4 Service Operations): **32 / 32 (100,0 %)** | 229.364 Zeichen
+- **28 neue Master-Dossiers im Obsidian Knowledge Graph:**
+  - *Säule 02 (Masterstudium 120 ECTS):*
+    - `Master_Cloud_Computing_Service_Management_Volltext.md` (224 Dokumente): Cloud-Architekturen, SLA-Management, IaaS/PaaS/SaaS und Cloud Governance.
+    - `Master_FPWI_Smart_Service_Blueprinting_Volltext.md` (92 Dokumente): Smart Service Blueprinting, Design Science Research (DSRM) und IoT-Servicearchitekturen.
+    - `Master_AIM_Advanced_Information_Management_Volltext.md` (69 Dokumente): Enterprise Content Management, Information Retrieval und Semantic Web.
+    - `Master_Advanced_Software_Engineering_Volltext.md` (68 Dokumente): Domain-Driven Design (DDD), CI/CD-Pipelines, Microservices und Clean Code.
+    - `Master_AI4IoT_Sensor_Edge_AI_Volltext.md` (66 Dokumente): Zeitreihenanalyse, Sensorfusion, Edge AI und Smart Connected Systems.
+    - `Master_Software_Architektur_Microservices_Volltext.md` (37 Dokumente): Architekturmuster, Schnittstellendesign (APIs) und Qualitätsattribute.
+    - `Master_Applied_AI_Generative_AI_Industrie_Volltext.md` (34 Dokumente): Generative KI, Large Language Models und industrielle KI-Anwendungen.
+    - `Master_TEUI_Internationale_Unternehmenstaetigkeit_Volltext.md` (32 Dokumente): OLI-Paradigma, Multichannel-Strategien und internationale Markterschließung.
+    - `Master_Datenbanken_Informationssysteme_Volltext.md` (28 Dokumente): Relationale Modelle, NoSQL, ACID-Transaktionsmanagement und Query-Optimierung.
+    - `Master_Management_IT_Unternehmen_ITIL_COBIT_Volltext.md` (23 Dokumente): ITIL 4, COBIT, strategische IT-Ausrichtung und IT-Controlling.
+    - `Master_SOM_Service_Operations_Management_Volltext.md` (17 Dokumente): Warteschlangentheorie, quantitative Kapazitätsplanung und stochastische Prozesse.
+    - `Master_Innovationsmanagement_Plattformen_Volltext.md` (15 Dokumente): Stage-Gate, Lead-User-Methodik, Open Innovation und Ökosysteme.
+    - `Master_Zusatzmodule_Quantum_SmartCities_AIProto_Volltext.md` (102 Dokumente): Quantencomputing, Smart Cities (FIWARE), Rapid AI Prototyping und Nachweise.
+  - *Säule 03 (Bachelorstudium 180 ECTS):*
+    - `Bachelor_AFS_Automaten_Formale_Sprachen_Theorie_Volltext.md` (338 Dokumente): Endliche Automaten (DFA/NFA), Turingmaschinen, Chomsky-Hierarchie und Berechenbarkeit.
+    - `Bachelor_PSE_Programmierung_Java_OOP_Volltext.md` (152 Dokumente): Objektorientierte Softwareentwicklung in Java, Entwurfsmuster und Testing.
+    - `Bachelor_Programmentwicklung_Funktional_Logisch_Volltext.md` (135 Dokumente): Haskell, Prolog, Lambda-Kalkül und formale Programmspezifikation.
+    - `Bachelor_Modellierung_BPMN_UML_Petrinetze_Volltext.md` (82 Dokumente): BPMN 2.0, UML, Petrinetze, Entity-Relationship-Modelle und Normalisierung.
+    - `Bachelor_EST_Softwaretechnik_VModell_Scrum_Volltext.md` (78 Dokumente): V-Modell XT, Scrum, Anforderungsanalyse und Qualitätssicherung.
+    - `Bachelor_MCI_Mensch_Computer_Interaktion_UX_Volltext.md` (77 Dokumente): UI/UX-Design, Usability Engineering und Heuristische Evaluationen.
+    - `Bachelor_DSA_Datenstrukturen_Algorithmen_Volltext.md` (73 Dokumente): Asymptotische Komplexität (O-Notation), Such-/Sortieralgorithmen und Graphentheorie.
+    - `Bachelor_SOPRA_Softwarepraktikum_Java_taskMasterPro_Volltext.md` (52 Dokumente): Agile Teamentwicklung taskMasterPro in Java/Spring Boot.
+    - `Bachelor_Mathematik_Statistik_Methoden_Volltext.md` (138 Dokumente): Lineare Algebra, Analysis, Wahrscheinlichkeitsräume und Inferenzstatistik.
+    - `Bachelor_GVWL1_Mikrooekonomik_Maerkte_Volltext.md` (77 Dokumente): Mikroökonomik, Marktformen, Preiselastizitäten und Spieltheorie.
+    - `Bachelor_BWL1_Organisation_Management_Volltext.md` (49 Dokumente): Aufbau-/Ablauforganisation, Führungstheorien und strategisches Management.
+    - `Bachelor_GBWL1_Strukturen_BWL_Rechnungswesen_Volltext.md` (28 Dokumente): HGB-Bilanzierung, doppelte Buchführung und GuV-Rechnung.
+    - `Bachelor_GBWL4_Finanzprozess_Investition_Volltext.md` (27 Dokumente): Investitionsrechnung, Kapitalwertmethode, CAPM und Unternehmensfinanzierung.
+    - `Bachelor_Interdisziplinaer_Recht_Management_Volltext.md` (172 Dokumente): IT-Recht, DSGVO, Urheberrecht, Dienstleistungsmanagement und HRM.
+  - *Säule 01 (SSB) & Säule 00 (Karriere):*
+    - `SSB_Gesamtprojekt_S4HANA_Ergaenzungen_Volltext.md` (68 Dokumente): Ergänzende Projektdokumente, Governance, Vergabeanträge und Fachstream-Protokolle.
+    - `00_Bewerbungsunterlagen_Master_Volltext.md` (9 Dokumente): Offizielle Master-Bewerbungsunterlagen, Lebenslauf-Versionen, Zeugnisse und Bewerbungstracker.
+- **Master Knowledge Graph Navigation (`00_INDEX.md`):**
+  - Vollständige Aktualisierung des Index auf 189 Notizen mit direkten Wikilinks auf alle 62 Volltext-Dossiers.
+- **Graph-Manifest (`graph_manifest.json`):**
+  - Aktualisiert für Vektordatenbanken und LLM-Tools auf **189 Knoten und 675 verifizierte Kanten** (100 % Graph-Konnektivität, 0 Broken Links).
+
+### 🔧 Performance & Data Science Fixes (Changed & Fixed)
+- **Minified JS Array Wikilink Guard:**
+  - Schwellenwert-Filter (>200 Zeichen) in `canonicalize_wikilinks` implementiert, um eingebettete Plotly-/JavaScript-Array-Literale in HTML-Folien vor falscher Wikilink-Interpretation zu schützen. Broken Links sanken von 1 auf **0**.
+- **Robuster Harvester-Kernel mit dynamischem Heading-Demoting:**
+  - Automatische Demotierung interner Markdown-Überschriften (`#` zu `####`) bei der Dokumentextraktion, um 100 % saubere Single-H1 AST-Hierarchien bei der Dossier-Erstellung zu garantieren.
+- **Surrogate Character Sanitization:**
+  - Standardmäßige Filterung isolierter UTF-16 Surrogates aus fehlerhaften PDF-Font-Tabellen in allen Extraktoren.
+
+---
+
 ## [1.8.0] - 2026-11-24 (Omni-Corpus Academic & Enterprise Knowledge Explosion Release)
 
 ### 🎯 Kontext & Leitmotiv

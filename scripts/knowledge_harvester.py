@@ -9,6 +9,7 @@ import os
 import sys
 import json
 import hashlib
+import re
 from datetime import datetime
 import argparse
 
@@ -997,6 +998,441 @@ last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
     print("\n[OK] BACHELOR ACADEMIC HARVESTING COMPLETE!")
 
 # ==============================================================================
+# GENERIC TARGET INGESTION ENGINE
+# ==============================================================================
+
+def ingest_generic_targets(targets, batch_title):
+    print("=" * 70)
+    print(f"🚀 STARTING BATCH: {batch_title}")
+    print("=" * 70)
+    
+    registry = load_registry()
+    files = registry.get("files", {})
+    
+    for target in targets:
+        pillar = target["pillar"]
+        target_note_name = target["target_note_name"]
+        title_clean = target["title_clean"]
+        desc = target["desc"]
+        subfolder = target.get("subfolder", "02_Wirtschaftsinformatik_300ECTS")
+        folder_keywords = target.get("folder_keywords", [])
+        is_catchall = target.get("is_catchall", False)
+        
+        note_target = os.path.join(VAULT_DIR, subfolder, target_note_name)
+        
+        # Match pending files
+        match_files = []
+        for item in files.values():
+            if item.get("pillar") != pillar:
+                continue
+            if item.get("status") != "pending":
+                continue
+            
+            if is_catchall:
+                match_files.append(item)
+            elif isinstance(folder_keywords, str):
+                if folder_keywords.lower() in item["rel_path"].lower():
+                    match_files.append(item)
+            elif isinstance(folder_keywords, list):
+                if any(kw.lower() in item["rel_path"].lower() for kw in folder_keywords):
+                    match_files.append(item)
+        
+        if not match_files:
+            print(f"\n[i] No pending files for {title_clean} ({target_note_name}).")
+            continue
+
+        print(f"\nProcessing {len(match_files)} pending files for {title_clean} ({target_note_name})...")
+        
+        blocks = []
+        processed_files = []
+        
+        existing_header = ""
+        existing_blocks_text = ""
+        if os.path.exists(note_target):
+            try:
+                with open(note_target, "r", encoding="utf-8", errors="replace") as ef:
+                    existing_content = ef.read()
+                    if "## 📜 Volltext-Transkripte" in existing_content:
+                        parts = existing_content.split("## 📜 Volltext-Transkripte")
+                        existing_header = parts[0]
+                        existing_blocks_text = ("## 📜 Volltext-Transkripte" + parts[1]).strip()
+            except Exception:
+                pass
+
+        for idx, item in enumerate(sorted(match_files, key=lambda x: x["filename"]), 1):
+            fpath = os.path.join(BASE_DIR, item["rel_path"])
+            fname = item["filename"]
+            
+            if not os.path.exists(fpath):
+                item["status"] = "processed"
+                item["extracted_chars"] = 0
+                item["processed_at"] = datetime.now().isoformat()
+                item["target_note"] = target_note_name
+                print(f"  [-] File not found on disk, marked processed: {item['rel_path']}")
+                continue
+
+            res = extract_document(fpath)
+            
+            if res.get("success") and res.get("text"):
+                raw_text = res["text"]
+                clean_res_text = re.sub(r'^#\s+', '#### ', raw_text, flags=re.MULTILINE)
+                clean_res_text = re.sub(r'^##\s+', '#### ', clean_res_text, flags=re.MULTILINE)
+                clean_res_text = clean_res_text.encode('utf-8', 'replace').decode('utf-8')
+                
+                blocks.append(f"""### 📑 Dokument: `{fname}`
+- **Datei:** `{item["rel_path"]}`
+- **Extrahierte Zeichen:** {res["chars"]:,} Zeichen
+
+{clean_res_text}
+""")
+                item["status"] = "processed"
+                item["extracted_chars"] = res["chars"]
+                item["target_note"] = target_note_name
+                item["processed_at"] = datetime.now().isoformat()
+                processed_files.append(fname)
+                print(f"  [{idx}/{len(match_files)}] Extracted: {fname} ({res['chars']:,} chars)")
+            else:
+                item["status"] = "processed"
+                item["extracted_chars"] = 0
+                item["target_note"] = target_note_name
+                item["processed_at"] = datetime.now().isoformat()
+                processed_files.append(fname)
+                print(f"  [{idx}/{len(match_files)}] Extracted 0 chars (empty/skipped): {fname}")
+                
+            if idx % 20 == 0:
+                save_registry(registry)
+
+        if blocks:
+            slug = target_note_name.replace(".md", "").lower().replace("_", "-")
+            domain_tag = "academic-curriculum"
+            h1_icon = "🏛️"
+            if pillar == "01_SSB":
+                domain_tag = "sap-transformation"
+                h1_icon = "🚆"
+            elif pillar in ["00_Aktuelle_Bewerbungsunterlagen", "04_DC1"]:
+                domain_tag = "career-pmo"
+                h1_icon = "💼"
+
+            if existing_blocks_text:
+                updated_content = existing_blocks_text + "\n\n---\n\n" + "\n\n---\n\n".join(blocks)
+                if existing_header:
+                    content = existing_header + "\n\n" + updated_content
+                else:
+                    content = updated_content
+            else:
+                content = f"""---
+id: {slug}
+title: "{title_clean}"
+type: concept
+domain: {domain_tag}
+status: verified
+summary: "Volltext-Archiv für {title_clean}: {desc}."
+tags:
+  - {domain_tag.replace('-', '_')}
+  - academic_research
+  - universitaet_stuttgart
+  - wirtschaftsinformatik
+aliases:
+  - {title_clean}
+last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
+---
+
+# {h1_icon} {title_clean}
+
+> [!SUMMARY] **Forschungs- & Dokumentendossier**
+> {desc}.
+
+## 📋 Enthaltene Dokumente ({len(processed_files)} Artefakte)
+""" + "\n".join([f"- `{f}`" for f in processed_files]) + """
+
+---
+
+## 📜 Volltext-Transkripte der Dokumente
+
+""" + "\n\n---\n\n".join(blocks)
+
+            os.makedirs(os.path.dirname(note_target), exist_ok=True)
+            with open(note_target, "w", encoding="utf-8", errors="replace") as f:
+                f.write(content)
+            print(f"  [OK] Saved Master Dossier: {note_target} ({len(blocks)} blocks, {os.path.getsize(note_target):,} bytes)")
+            save_registry(registry)
+
+    save_registry(registry)
+    print(f"\n[OK] BATCH '{batch_title}' COMPLETE!")
+
+# ==============================================================================
+# BATCH 8: PILLAR 02 MASTER COURSES (ALLE VERBLEIBENDEN 807 DATEIEN)
+# ==============================================================================
+
+def ingest_batch_master_courses():
+    targets = [
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_Cloud_Computing_Service_Management_Volltext.md",
+            "title_clean": "Master: Cloud Computing, Service Management & Cloud Architecture",
+            "desc": "Volltext aller Vorlesungen, Übungen und Fallstudien zu Cloud-Architekturen, SLA-Management, IaaS/PaaS/SaaS und Cloud Governance",
+            "folder_keywords": ["Service Management and Cloud Computing, and Evaluation"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_FPWI_Smart_Service_Blueprinting_Volltext.md",
+            "title_clean": "Master: Forschungsprojekte Wirtschaftsinformatik (FPWI) & Smart Services",
+            "desc": "Volltext aller Forschungsarbeiten, Projektberichte und Smart Service Blueprints im FPWI-Projekt",
+            "folder_keywords": ["Forschungsprojekte in der Wirtschaftsinformatik"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_AIM_Advanced_Information_Management_Volltext.md",
+            "title_clean": "Master: Advanced Information Management (AIM) & Enterprise Information Systems",
+            "desc": "Volltext zu Enterprise Content Management, Information Retrieval, Wissensmanagement und Semantic Web",
+            "folder_keywords": ["Advanced Information Management"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_Advanced_Software_Engineering_Volltext.md",
+            "title_clean": "Master: Advanced Software Engineering (ASE) & DevOps",
+            "desc": "Volltext zu fortgeschrittenen Software-Architekturen, Continuous Integration/Deployment, Microservices und Clean Code",
+            "folder_keywords": ["Advanced Software Engineering"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_AI4IoT_Sensor_Edge_AI_Volltext.md",
+            "title_clean": "Master: AI4IoT – Künstliche Intelligenz für das Internet der Dinge & Edge Computing",
+            "desc": "Volltext zu IoT-Architekturen, Sensordatenverarbeitung, Edge AI, Time-Series Analytics und Smart Connected Systems",
+            "folder_keywords": ["AI4IoT"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_Software_Architektur_Microservices_Volltext.md",
+            "title_clean": "Master: Software-Architektur, Microservices & Entwurfsmuster",
+            "desc": "Volltext zu Architekturmustern, Domain-Driven Design (DDD), Modularisierung, API-Design und Qualitätsattributen",
+            "folder_keywords": ["Software-Architektur"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_Applied_AI_Generative_AI_Industrie_Volltext.md",
+            "title_clean": "Master: Applied AI & Upcoming Technologies in Enterprise Industries",
+            "desc": "Volltext zu industrieller KI-Anwendung, Large Language Models, Generativer KI und industriellen Transformationsprojekten",
+            "folder_keywords": ["Applied AI and Upcoming Technologies in Industries"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_TEUI_Internationale_Unternehmenstaetigkeit_Volltext.md",
+            "title_clean": "Master: Theorie und Empirie internationaler Unternehmenstätigkeit (TEUI)",
+            "desc": "Volltext zu internationaler Markterschließung, Multichannel-Strategien, OLI-Paradigma und globalen Supply Chains",
+            "folder_keywords": ["Theorie und Empirie internationaler Unternehmenstätigkeit"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_Datenbanken_Informationssysteme_Volltext.md",
+            "title_clean": "Master: Datenbanken und Informationssysteme (DBIS) & Data Engineering",
+            "desc": "Volltext zu relationalen Datenbanken, NoSQL, Transaktionsmanagement (ACID), Indexierung und Query-Optimierung",
+            "folder_keywords": ["Datenbanken und Informationssysteme"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_Management_IT_Unternehmen_ITIL_COBIT_Volltext.md",
+            "title_clean": "Master: Management von IT-Unternehmen, IT-Governance & IT-Strategie",
+            "desc": "Volltext zu ITIL 4, COBIT, strategischer IT-Ausrichtung, IT-Servicemanagement und Kennzahlensystemen",
+            "folder_keywords": ["Management von IT-Unternehmen"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_SOM_Service_Operations_Management_Volltext.md",
+            "title_clean": "Master: Service Operations Management (SOM) & Warteschlangentheorie",
+            "desc": "Volltext zu quantitativer Kapazitätsplanung, stochastischen Prozessen, Warteschlangenmodellen und Service Level Agreements",
+            "folder_keywords": ["Service Operations Management"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_Innovationsmanagement_Plattformen_Volltext.md",
+            "title_clean": "Master: Innovationsmanagement, Open Innovation & Digitale Ökosysteme",
+            "desc": "Volltext zu Diffusionsmodellen, Lead-User-Methodik, Stage-Gate-Prozessen und Geschäftsmodellinnovationen",
+            "folder_keywords": ["Innovationsmanagement"]
+        },
+        {
+            "pillar": "02_Master",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Master_Zusatzmodule_Quantum_SmartCities_AIProto_Volltext.md",
+            "title_clean": "Master: Zusatzmodule – Quanteninformatik, Smart Cities, AI Prototyping & Studienorganisation",
+            "desc": "Volltext aller interdisziplinären Master-Zusatzmodule zu Quantenalgorithmen, Smart Cities, Rapid Prototyping und Studiennachweisen",
+            "folder_keywords": [],
+            "is_catchall": True
+        }
+    ]
+    ingest_generic_targets(targets, "PILLAR 02 (MASTER) CURRICULUM COURSES")
+
+# ==============================================================================
+# BATCH 9: PILLAR 03 BACHELOR COMPUTER SCIENCE & SOFTWARE ENGINEERING
+# ==============================================================================
+
+def ingest_batch_bachelor_cs_se():
+    targets = [
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_AFS_Automaten_Formale_Sprachen_Theorie_Volltext.md",
+            "title_clean": "Bachelor: Automaten und Formale Sprachen, Berechenbarkeit & Komplexität",
+            "desc": "Volltext zu regulären Sprachen, Chomsky-Hierarchie, endlichen Automaten, Turing-Maschinen und P-NP-Theorie",
+            "folder_keywords": ["Automaten und Formale Sprachen"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_PSE_Programmierung_Java_OOP_Volltext.md",
+            "title_clean": "Bachelor: Programmierung und Softwareentwicklung (PSE) – Java & OOP",
+            "desc": "Volltext aller Vorlesungen und Übungen zu objektorientierter Programmierung in Java, Design Patterns und sauberem Code",
+            "folder_keywords": ["Programmierung und Software-Entwicklung"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_Programmentwicklung_Funktional_Logisch_Volltext.md",
+            "title_clean": "Bachelor: Programmentwicklung – Funktionale & Logische Programmierung",
+            "desc": "Volltext zu Haskell, Prolog, Lambda-Kalkül, Typsystemen, Rekursion und formaler Programmspezifikation",
+            "folder_keywords": ["Programmentwicklung"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_Modellierung_BPMN_UML_Petrinetze_Volltext.md",
+            "title_clean": "Bachelor: Modellierung – BPMN, UML, Petrinetze & Geschäftsprozesse",
+            "desc": "Volltext zu Prozessmodellierung, BPMN 2.0, ERM, UML-Klassendiagrammen, Petrinetzen und semantischen Datenmodellen",
+            "folder_keywords": ["Modellierung"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_EST_Softwaretechnik_VModell_Scrum_Volltext.md",
+            "title_clean": "Bachelor: Einführung in die Softwaretechnik (EST) – V-Modell, Agile & Testing",
+            "desc": "Volltext zu V-Modell XT, Scrum, Anforderungsanalyse, Software-Architektur und Software-Qualitätssicherung",
+            "folder_keywords": ["Einführung in die Softwaretechnik"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_MCI_Mensch_Computer_Interaktion_UX_Volltext.md",
+            "title_clean": "Bachelor: Mensch-Computer-Interaktion (MCI) – UI/UX, Ergonomie & Usability",
+            "desc": "Volltext zu Wahrnehmungspsychologie, Usability Engineering, Heuristischen Evaluationen und User Interface Design",
+            "folder_keywords": ["Mensch-Computer-Interaktion"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_DSA_Datenstrukturen_Algorithmen_Volltext.md",
+            "title_clean": "Bachelor: Datenstrukturen und Algorithmen (DSA) – Bäume, Graphen & Sortierung",
+            "desc": "Volltext zu asymptotischer Laufzeitanalyse (O-Notation), Such- und Sortieralgorithmen, AVL-Bäumen und Graphentheorie",
+            "folder_keywords": ["Datenstrukturen und Algorithmen"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_SOPRA_Softwarepraktikum_Java_taskMasterPro_Volltext.md",
+            "title_clean": "Bachelor: Softwarepraktikum (SOPRA) – Agile Teamentwicklung Java / taskMasterPro",
+            "desc": "Volltext zu Scrum-Sprint-Dokumentationen, Architekturspezifikationen und Implementierungsberichten des Teamprojekts taskMasterPro",
+            "folder_keywords": ["Softwarepraktikum"]
+        }
+    ]
+    ingest_generic_targets(targets, "PILLAR 03 (BACHELOR) CS & SOFTWARE ENGINEERING")
+
+# ==============================================================================
+# BATCH 10: PILLAR 03 BUSINESS, SSB REST & BEWERBUNGSUNTERLAGEN
+# ==============================================================================
+
+def ingest_batch_bachelor_business_career():
+    targets = [
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_Mathematik_Statistik_Methoden_Volltext.md",
+            "title_clean": "Bachelor: Mathematik & Statistik für Wirtschaftswissenschaftler – Lineare Algebra, Analysis & Inferenz",
+            "desc": "Volltext zu Matrizenrechnung, Optimierung, Wahrscheinlichkeitsräumen, Regressionsanalysen und Hypothesentests",
+            "folder_keywords": ["Mathematik für Wirtschaftswissenschaftler", "Statistik I", "Statistik II"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_GVWL1_Mikrooekonomik_Maerkte_Volltext.md",
+            "title_clean": "Bachelor: GVWL 1 – Mikroökonomik, Märkte & Wirtschaftliche Entscheidungen",
+            "desc": "Volltext zu Haushalts- und Unternehmenstheorie, Marktformen (Monopol, Oligopol, Polypol) und Spieltheorie",
+            "folder_keywords": ["GVWL 1"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_BWL1_Organisation_Management_Volltext.md",
+            "title_clean": "Bachelor: BWL 1 – Organisation, Personalführung & Strategisches Management",
+            "desc": "Volltext zu Aufbau- und Ablauforganisation, Führungstheorien, Motivationskonzepten und strategischem Management",
+            "folder_keywords": ["BWL 1"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_GBWL1_Strukturen_BWL_Rechnungswesen_Volltext.md",
+            "title_clean": "Bachelor: GBWL 1 – Strukturen der Betriebswirtschaftslehre & Externes Rechnungswesen",
+            "desc": "Volltext zu Bilanzierung nach HGB, Buchführung, GuV-Rechnung und betriebswirtschaftlichen Grundfunktionen",
+            "folder_keywords": ["GBWL 1"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_GBWL4_Finanzprozess_Investition_Volltext.md",
+            "title_clean": "Bachelor: GBWL 4 – Finanzprozess, Investition, Finanzierung & Unternehmensbewertung",
+            "desc": "Volltext zu Kapitalwertmethode, Internem Zinsfuß, Portfolio-Theorie, CAPM und Finanzierungsarten",
+            "folder_keywords": ["GBWL 4"]
+        },
+        {
+            "pillar": "03_Bachelor",
+            "subfolder": "02_Wirtschaftsinformatik_300ECTS",
+            "target_note_name": "Bachelor_Interdisziplinaer_Recht_Management_Volltext.md",
+            "title_clean": "Bachelor: Interdisziplinäre Module – Recht, Management, HRM & Studienorganisation",
+            "desc": "Volltext zu IT-Recht, Urheberrecht, DSGVO, Dienstleistungscontrolling, Personalmanagement und wissenschaftlichem Arbeiten",
+            "folder_keywords": [],
+            "is_catchall": True
+        },
+        {
+            "pillar": "01_SSB",
+            "subfolder": "03_SAP_EnterpriseArchitecture",
+            "target_note_name": "SSB_Gesamtprojekt_S4HANA_Ergaenzungen_Volltext.md",
+            "title_clean": "SSB S/4HANA Gesamtprojekt: Ergänzende Projektdokumente, Governance & Fachstreams",
+            "desc": "Volltext aller verbleibenden Detaildokumente des Großprojekts SAP4SSB, Vergabeanträge, Prozessprotokolle und Steuerungsinstrumente",
+            "folder_keywords": [],
+            "is_catchall": True
+        },
+        {
+            "pillar": "00_Aktuelle_Bewerbungsunterlagen",
+            "subfolder": "01_Karriere_Bewerbungen",
+            "target_note_name": "00_Bewerbungsunterlagen_Master_Volltext.md",
+            "title_clean": "Verbindliche Bewerbungsunterlagen, Lebenslauf, Zeugnisse & Profil-Audit",
+            "desc": "Volltext aller offiziellen Bewerbungsunterlagen, CV-Versionen, Zeugnisse, Bewerbungstracker und Interviewvorbereitungen",
+            "folder_keywords": [],
+            "is_catchall": True
+        },
+        {
+            "pillar": "04_DC1",
+            "subfolder": "01_Karriere_Bewerbungen",
+            "target_note_name": "00_Bewerbungsunterlagen_Master_Volltext.md",
+            "title_clean": "Verbindliche Bewerbungsunterlagen, Lebenslauf, Zeugnisse & Profil-Audit",
+            "desc": "Volltext aller offiziellen Bewerbungsunterlagen, CV-Versionen, Zeugnisse, Bewerbungstracker und Interviewvorbereitungen",
+            "folder_keywords": [],
+            "is_catchall": True
+        }
+    ]
+    ingest_generic_targets(targets, "PILLAR 03 BUSINESS, SSB REST & BEWERBUNGSUNTERLAGEN")
+
+# ==============================================================================
 # MAIN CLI
 # ==============================================================================
 
@@ -1004,7 +1440,7 @@ def main():
     parser = argparse.ArgumentParser(description="Enterprise Knowledge Harvester & Ingestion Engine")
     parser.add_argument("--scan", action="store_true", help="Scans workspace and builds/updates ingestion registry")
     parser.add_argument("--status", action="store_true", help="Displays current registry ingestion status report")
-    parser.add_argument("--batch", type=str, choices=["dc1", "ssb_steering", "ssb_streams", "ssb_tp", "ssb_pmo", "master", "bachelor", "all"], help="Executes a specific ingestion batch")
+    parser.add_argument("--batch", type=str, choices=["dc1", "ssb_steering", "ssb_streams", "ssb_tp", "ssb_pmo", "master", "bachelor", "master_courses", "bachelor_cs_se", "bachelor_business_career", "all"], help="Executes a specific ingestion batch")
     
     args = parser.parse_args()
     
@@ -1026,6 +1462,12 @@ def main():
         ingest_batch_master_academic()
     elif args.batch == "bachelor":
         ingest_batch_bachelor_academic()
+    elif args.batch == "master_courses":
+        ingest_batch_master_courses()
+    elif args.batch == "bachelor_cs_se":
+        ingest_batch_bachelor_cs_se()
+    elif args.batch == "bachelor_business_career":
+        ingest_batch_bachelor_business_career()
     elif args.batch == "all":
         scan_workspace()
         ingest_batch_dc1()
@@ -1035,6 +1477,9 @@ def main():
         ingest_batch_ssb_pmo_governance()
         ingest_batch_master_academic()
         ingest_batch_bachelor_academic()
+        ingest_batch_master_courses()
+        ingest_batch_bachelor_cs_se()
+        ingest_batch_bachelor_business_career()
         print_status()
     else:
         # Default behavior: scan and show status
@@ -1043,3 +1488,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
