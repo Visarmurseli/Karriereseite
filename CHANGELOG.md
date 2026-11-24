@@ -27,7 +27,7 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
-## [1.11.0] - 2026-11-24 (Hybrid RAG v2, KI-Synthese-API, Live-Pipeline-Cockpit, KPMG Interview-Prep & Obsidian Graph-Farben)
+## [1.11.0] - 2026-11-24 (Hybrid RAG v2, KI-Synthese-API, Live-Pipeline-Cockpit, KPMG Interview-Prep & Obsidian Graph-Farben | Commit 184e002)
 
 ### 🎯 Kontext & Leitmotiv
 Weiterentwicklung des gesamten Career OS vom reinen Dokumenten-Index zu einer **aktiven, zweistufig gewichteten Retrieval-&-Synthese-Plattform** inklusive gezielter Vorbereitung auf das bevorstehende **KPMG-Interview am 27.11.2026**, drei neuer tiefgehender Architektur-Zettel, Echtzeit-RAG-Inkrementalindexierung sowie farbcodierter Obsidian-Graph-Topologie.
