@@ -27,7 +27,7 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
-## [1.10.0] - 2026-11-24 (Obsidian RAG Optimization, Hybrid SQLite FTS5 Engine, Dual-Mode Portal & CRM Integration)
+## [1.10.0] - 2026-11-24 (Obsidian RAG Optimization, Hybrid SQLite FTS5 Engine, Dual-Mode Portal & CRM Integration | Commit f7deb31)
 
 ### 🎯 Kontext & Leitmotiv
 Umfassende Härtung und Veredelung des gesamten Career OS Stacks (Obsidian Second Brain, Notion CRM, Webapp-Cockpit, GitHub Showcase und Telegram Career Agent). Der Wissensgraph von 60,57 Mio. Wörtern wurde durch verlustfreies Splitting übergroßer Monolithen, Bereinigung von macOS/Office-Artefakten, Behebung des Graph-Manifest-ID-Mismatches und neue atomare Zettel-Karten auf 100 % Graph- & Electron-Kompatibilität gebracht. Gleichzeitig schlägt eine lokale SQLite-FTS5-Hybrid-RAG-Engine (137.332 Chunks) die Brücke zwischen Obsidian, Webportal und Telegram, während ein strenges Dual-Mode-Build-Gate private Interview-Taktiken konsequent aus dem öffentlichen GitHub-Pages-Showcase fernhält.
@@ -49,7 +49,7 @@ Umfassende Härtung und Veredelung des gesamten Career OS Stacks (Obsidian Secon
   - Top-Interviews & Tier-1-Bewerbungen direkt nach Notion synchronisiert (`Schwarz Digits – AI PO`, `HORBACH`, `Manß & Partner`, `KPMG`, `TRUMPF`, `EY`, `msg systems`, `Computacenter`, `Schwarz Digits – SAP ALM`); komplette deduplizierte Restliste aus `Bewerbungsverlauf.xlsx` als `config/notion_crm_remaining.csv` (UTF-8 BOM) bereitgestellt.
 
 ### ✅ Verifikation & Compliance-Nachweise
-- **Obsidian RAG Readiness Audit (`validate_obsidian_rag.py`):** 278 / 278 Dokumente mit validem YAML-Frontmatter (**100,0 %**), **1.588 semantische Kanten (0 Broken Links)**, **0 Multiple H1**, **0 übergroße Dateien (> 10 MB)**, **0 Graph-Orphans**, **60.574.632 Wörter (~81,78 Mio. Tokens)** -> *PASSED WITH DISTINCTION*.
+- **Obsidian RAG Readiness Audit (`validate_obsidian_rag.py`):** 278 / 278 Dokumente mit validem YAML-Frontmatter (**100,0 %**), **1.588 semantische Kanten (0 Broken Links)**, **0 Multiple H1**, **0 übergroße Dateien (> 10 MB)**, **0 Graph-Orphans**, **60.575.055 Wörter (~81,78 Mio. Tokens)** -> *PASSED WITH DISTINCTION*.
 - **Portal- & Script-Checks (`test_portal.py` & API-Tests):** Alle 6 Privacy-/Integritäts-Assertions bestanden; `py_compile`, JS-Syntaxbalance sowie Live-RAG-Synthese über `gemini-3-flash-preview` (`HTTP 200 OK`) erfolgreich verifiziert.
 
 ---
