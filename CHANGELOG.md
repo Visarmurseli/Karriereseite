@@ -27,7 +27,7 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
-## [1.9.0] - 2026-11-24 (100% Omni-Corpus Ingestion & Total LLM Knowledge Lake Release)
+## [1.9.0] - 2026-11-24 (100% Omni-Corpus Ingestion & Total LLM Knowledge Lake Release | Commit fa4e6ee)
 
 ### 🎯 Kontext & Leitmotiv
 Vollendung der vollständigen, verlustfreien Volltext-Ingestion aller 5.002 Originaldokumente des gesamten Workspaces in das Obsidian Second Brain. Mit dem planmäßigen Durchlauf der finalen Batches `master_courses`, `bachelor_cs_se` und `bachelor_business_career` erreicht das System eine **100,0 % Ingestion-Abdeckung (5.002 von 5.002 Dokumenten)**. Insgesamt wurden **373.485.771 Zeichen (~93,37 Millionen Tokens)** extrahiert. Der Obsidian Knowledge Graph umfasst nun **189 harmonisierte Markdown-Dossiers mit 60.558.006 Wörtern (~81,75 Millionen Tokens)** bei makelloser **100 % LLM- & RAG-Readiness (189/189 valides YAML-Frontmatter, 675 semantische Kanten bei 0 Broken Links, 100 % Single-H1 AST-Hierarchie)**.
