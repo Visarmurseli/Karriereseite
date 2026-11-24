@@ -45,6 +45,12 @@ except Exception:
     RAG_AVAILABLE = False
 
 try:
+    from gmx_imap_service import sync_imap_to_career_os
+    GMX_SYNC_AVAILABLE = True
+except Exception:
+    GMX_SYNC_AVAILABLE = False
+
+try:
     import openpyxl
     OPENPYXL_AVAILABLE = True
 except Exception:
@@ -379,15 +385,36 @@ def run():
 
                         if user_text.lower() in ["/start", "/hilfe", "help"]:
                             welcome = (
-                                f"Hallo {sender}! 🚀 *Career OS Agent V3.1 (Hybrid RAG Live)*\n\n"
-                                "• *Freie Frage:* Durchsucht automatisch 137.000+ Chunks & antwortet mit Quellen.\n"
-                                "• `/rag <Begriff>` — Direkte Volltext-Treffer aus Studium, SSB, DC1 & Zettelkasten\n"
+                                f"Hallo {sender}! 🚀 *Career OS Agent V3.2 (Hybrid RAG & IMAP Sync)*\n\n"
+                                "• *Freie Frage:* Durchsucht automatisch 137.000+ Chunks (787 MB RRF) & antwortet mit Quellen.\n"
+                                "• `/rag <Begriff>` — Direkte Hybrid-RRF-Treffer aus Studium, SSB, DC1 & Zettelkasten\n"
                                 "• `/pipeline` — Live-Bewerbungsstatus & nächste Gespräche\n"
-                                "• `/stats` — Live-Status von Obsidian RAG-Index & Pipeline\n"
+                                "• `/sync` — Live GMX IMAP Postfach-Sync -> Excel & Obsidian\n"
+                                "• `/stats` — Live-Status von Obsidian RAG-Index, Vektoren & Pipeline\n"
                                 "• `Notiere: <Text>` oder `/notiz <Text>` — In Obsidian Inbox + Echtzeit-RAG indexiert\n"
                                 "• `/deploy` — Lokales Portal + öffentliche Showcase-Seite sicher live aktualisieren"
                             )
                             send_message(bot_token, chat_id, welcome)
+                            continue
+
+                        elif user_text.lower() == "/sync":
+                            if not GMX_SYNC_AVAILABLE:
+                                send_message(bot_token, chat_id, "⚠️ `gmx_imap_service` ist aktuell nicht verfügbar.")
+                                continue
+                            send_message(bot_token, chat_id, "📬 Prüfe beide GMX-Postfächer per IMAP...")
+                            res = sync_imap_to_career_os()
+                            txt_sync = (
+                                "📬 *GMX IMAP Sync abgeschlossen*\n\n"
+                                f"• *Konten OK:* {res.get('accounts_ok', 0)} (Fehler: {res.get('accounts_err', 0)})\n"
+                                f"• *Geprüfte Mails:* {res.get('fetched', 0)}\n"
+                                f"• *Aktualisiert:* {len(res.get('updated', []))}\n"
+                                f"• *Neu erfasst:* {len(res.get('added', []))}"
+                            )
+                            if res.get("updated"):
+                                txt_sync += "\n\n*Updates:*\n• " + "\n• ".join(res["updated"][:8])
+                            if res.get("added"):
+                                txt_sync += "\n\n*Neu:*\n• " + "\n• ".join(res["added"][:8])
+                            send_message(bot_token, chat_id, txt_sync)
                             continue
 
                         elif user_text.lower() == "/stats":
@@ -397,6 +424,7 @@ def run():
                                 "📊 *Career OS System-Telemetrie*\n\n"
                                 f"• *Obsidian Notizen:* {st.get('total_files', 0)}\n"
                                 f"• *FTS5 Chunks:* {st.get('total_chunks', 0):,}\n"
+                                f"• *768d Vektor-Anker:* {st.get('total_vectors', 0)}\n"
                                 f"• *RAG DB Größe:* {st.get('size_mb', 0)} MB\n"
                                 f"• *Aktive Interviews:* {len(pl.get('interviews', []))}\n"
                                 f"• *Offene Bewerbungen:* {pl.get('open_count', 0)}"

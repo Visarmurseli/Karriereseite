@@ -27,6 +27,32 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.13.0] - 2026-11-24 (Interview-Dossiers, Live GMX IMAP /sync, Datenbereinigung & Windows-Autostart)
+
+### 🎯 Kontext & Leitmotiv
+Abschluss der Ausbaustufen (B) & (C): Alle laufenden Top-Interviewprozesse verfügen über dedizierte Obsidian-Dossiers, der Excel- und Obsidian-Bewerbungstracker ist von E-Mail-Parser-Artefakten bereinigt, und beide GMX-Postfächer lassen sich über `/sync` per Telegram live abgleichen — ergänzt durch einen lautlosen Windows-Autostart für Portal & Bot.
+
+### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
+- **4 neue Interview-Dossiers (`01_Karriere_Bewerbungen/Interview_Vorbereitungen/`):**
+  - `2026-11-23_TRUMPF_Trainee_IT_Governance.md` (`Ref: R00042850`, 2. Gespräch Tanja Preissner & Martin Hartmann)
+  - `2026-10-19_EY_Technology_Consulting_SAP_Transformation.md` (`Ref: 13743137`)
+  - `2026-10-08_msg_systems_Technical_SAP_Consultant.md` (2. Gespräch Matthaeus Glueck & Sandra Ulber)
+  - `2026-06-11_Computacenter_IT_Service_Architecture.md` (ITIL 4 / Datacenter One INOC Brücke)
+- **Graph-Verdichtung & Dossier-Updates:** `00_INDEX.md`, `00_Bewerbungsmanagement_Cockpit.md`, `Target_Roles.md`, `Aktuelle_Bewerbungsunterlagen.md`, `Stream_Grants_Management_Drittmittel_LGVFG.md` und `SSB_S4HANA_12_Strategische_Domaenen_Notebook.md` stärker vernetzt.
+- **Datenbereinigung (`scripts/gmx_imap_service.py --clean-excel`):**
+  - `Terminerinnerung` aus beiden Excel-Sheets, Cockpit & CSV entfernt; `Berivan Mutlutürk` → **Stadtwerke Pforzheim**, `Özlem Sevinç` / `Webmailer Amadeus Fire` → **Amadeus FiRe AG**, `marie-sophie.grootens@bkb.ch` → **Basler Kantonalbank (BKB)** bereinigt und Mehrfachleerzeichen geglättet.
+- **ATS-bewusster Live GMX IMAP Sync & Telegram `/sync` (`scripts/gmx_imap_service.py`, `telegram_career_agent.py` V3.2):**
+  - Behebt ASCII-IMAP-Umlaute, ATS-Subdomains (`msg.join.com`) sowie Multi-Role-Kollisionen über Chronologie- & Fachrolle-Guards (`DISTINCTIVE_ROLE_WORDS`); aktualisiert `Bewerbungsverlauf.xlsx` (`HORBACH`, `LTI-Metalltechnik`, `Manß & Partner`, `mindsquare` → `1. Gespräch`, `msg systems Public Sector`), Cockpit-Matrix & FTS5 via `upsert_note()`.
+- **Headless Portal & Windows-Autostart (`s4hana-prep-portal/run_portal.py`, `scripts/start_career_os.pyw`, `scripts/setup_autostart.py`):**
+  - `--no-browser`-Modus im Server, silent `pythonw.exe`-Launcher mit Logs in `logs/` sowie Startup-Skript `CareerOS_Autostart.vbs` installiert.
+  - 5 veraltete Scratch-Skripte nach `scripts/archive/` verschoben.
+
+### ✅ Verifikation & Compliance-Nachweise
+- **Obsidian Audit (`validate_obsidian_rag.py`):** **286 / 286** Dokumente mit validem YAML-Frontmatter (**100,0 %**), **1.662 Wikilinks (5,8 Ø/Note | 0 Broken Links)**, **0 Multiple H1**, **0 Dateien > 10 MB**, **0 Graph-Orphans**, **60.578.154 Wörter (~81,78 Mio. Tokens)** -> *PASSED WITH DISTINCTION*.
+- **GMX IMAP & RAG:** Beide Konten (`visar.murseli@gmx.de`, `visarmurseli@gmx.de`) live synchronisiert (`2/2` OK, `56` Mails geprüft, anschließender Re-Run 100 % idempotent); Hybrid RAG Index umfasst `286` Notes, `137.349` Chunks, `240` 768d-Vektoren (`787,63 MB`).
+
+---
+
 ## [1.12.0] - 2026-11-24 (Hybrid RAG V3: 768d Gemini Vektor-Suche + Subword-RRF + Synonym-Expansion & Markdown-Synthesizer | Commit d193a82)
 
 ### 🎯 Kontext & Leitmotiv
