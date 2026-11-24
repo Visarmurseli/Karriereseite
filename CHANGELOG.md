@@ -27,6 +27,27 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.12.0] - 2026-11-24 (Hybrid RAG V3: 768d Gemini Vektor-Suche + Subword-RRF + Synonym-Expansion & Markdown-Synthesizer)
+
+### 🎯 Kontext & Leitmotiv
+Upgrade der Retrieval-Architektur auf ein echtes **3-Signal Hybrid RAG V3 (Reciprocal Rank Fusion)** mit Gemini Dense Embeddings (`gemini-embedding-001` @ 768d Matryoshka), lokaler Character-4-Gram-Cosine-Ähnlichkeit, deutscher/englischer Domain-Synonym-Expansion (`DOMAIN_SYNONYMS`) sowie XSS-sicherem Markdown-Synthese-Renderer im lokalen Second-Brain-Portal.
+
+### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
+- **3-Signal Hybrid RAG V3 (`scripts/local_rag_engine.py`):**
+  - **Dense Vector Index (`chunk_vectors`):** Priorisierte `768d`-Vektorisierung der 240 wichtigsten semantischen Anker-Chunks (`zettel`, `interview-prep`, `moc`, `hub`, Karriere & Core-SAP) via rate-limit-resilientem, batch-checkpointed `batchEmbedContents` (`EMBED_DIM=768`, Query-LRU-Cache).
+  - **Lokaler Subword-4-Gram-Cosine-Scorer (`_subword_profile`):** Reines Python-Morphologie-/Komposita-Matching (`_sparse_cos`) über alle semantischen Anker als permanenter Offline-/Fallback-Verstärker.
+  - **Domain-Synonym-Expansion (`DOMAIN_SYNONYMS`) & Reciprocal Rank Fusion (`RRF`):** Verknüpft konzeptuelle Umschreibungen (z. B. *„technische Schulden“* → `clean`, `core`, `btp`, `modifikation`; *„Berechtigungen“* → `iam`, `pfcg`, `p_orgin`, `stauthtrace`, `sod`, `umt`) und fusioniert BM25-Rang + Subword-Rang + 768d-Vektor-Rang (`hybrid_rrf`).
+  - **Incremental Vector + FTS5 Upsert:** `upsert_note()` erneuert bei `/api/save-note` und `/notiz` neben FTS5 auch die 768d-Embeddings des gespeicherten Dokuments in Echtzeit.
+- **Webportal UI & API V3 (`portal_builder/notebook.py`, `portal_builder/vue_app.py`, `s4hana-prep-portal/run_portal.py`):**
+  - `/api/rag` liefert `mode` (`hybrid_rrf` vs. `hybrid_subword_bm25`), `vec_sim` (`%`) und `matched_terms` aus.
+  - XSS-sicherer Markdown-Renderer (`formattedRagAnswer` mit Überschriften, Fett, Inline-Code, Listen & `[Quelle: ...]`-Pills) sowie 4 1-Klick-Schnellabfragen — strikt im privaten Cockpit (`index.html`, `396,79 KB`) gekapselt (`public_index.html` `231,27 KB`, `0` Leaks).
+
+### ✅ Verifikation & Compliance-Nachweise
+- **Vektor- & Retrieval-Audit:** `240 / 240` priorisierte 768d-Anker in `career_os_rag.db` (`787,59 MB | 282 Notizen | 137.342 Chunks`); Paraphrasen-Test (*„Wie verhindere ich technische Schulden bei S/4HANA-Erweiterungen?“*) liefert `MODE: hybrid_rrf` mit `MOC_Enterprise_Architecture.md` (`Sim=65.5%`, `RRF=180.977`) und `Bimodale_ERP_Plattformisierung_BTP.md` (`Sim=64.1%`) auf Platz 1–2.
+- **Portal Spec-Kit & Syntax:** Alle 6 Checks in `test_portal.py` bestanden (`411,601 bytes`), JS-Lexer (`JS_CLEAN` auf `index.html` & `public_index.html`) sowie `py_compile` ohne Warnungen.
+
+---
+
 ## [1.11.0] - 2026-11-24 (Hybrid RAG v2, KI-Synthese-API, Live-Pipeline-Cockpit, KPMG Interview-Prep & Obsidian Graph-Farben | Commit 184e002)
 
 ### 🎯 Kontext & Leitmotiv

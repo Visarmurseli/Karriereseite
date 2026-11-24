@@ -3214,6 +3214,7 @@
         const ragAskLoading = ref(false);
         const ragAnswer = ref('');
         const ragModel = ref('');
+        const ragRetrievalMode = ref('');
         const ragStatusMsg = ref('');
         const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
 
@@ -3450,9 +3451,11 @@
           localStorage.setItem('vm_second_brain_notes', personalNotes.value);
         };
 
+        const formattedRagAnswer = computed(() => '');
         const saveNotesToObsidian = () => {};
         const runRagSearch = () => {};
         const runRagAsk = () => {};
+        const quickRagAsk = () => {};
         const loadPipeline = () => {};
         const prepInterview = () => {};
 
@@ -3532,10 +3535,13 @@
           ragAskLoading,
           ragAnswer,
           ragModel,
+          ragRetrievalMode,
+          formattedRagAnswer,
           ragStatusMsg,
           pipelineData,
           runRagSearch,
           runRagAsk,
+          quickRagAsk,
           loadPipeline,
           prepInterview,
           saveNotesToObsidian,

@@ -101,17 +101,17 @@ def get_notebook():
           </div>
         </div>
 
-        <!-- Local Hybrid-RAG Wissenssuche & KI-Synthese (SQLite FTS5 + Gemini 3) -->
+        <!-- Local Hybrid-RAG Wissenssuche & KI-Synthese (SQLite FTS5 BM25 + 768d Vektoren + Gemini 3) -->
         <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <h3 class="text-base font-bold text-white flex items-center space-x-2">
                 <span>🔍</span>
-                <span>Local Hybrid-RAG & KI-Synthese (Obsidian Knowledge Lake | 137.000+ Chunks)</span>
+                <span>Local Hybrid-RAG V3 & KI-Synthese (137.000+ Chunks | RRF)</span>
               </h3>
-              <p class="text-xs text-[#8f8888] mt-0.5">Hybrid-Suche (AND/OR + Zettel-Ranking) über 4.980 Originaldokumente + optionale Gemini-Synthese mit Quellenangaben.</p>
+              <p class="text-xs text-[#8f8888] mt-0.5">Kombiniert SQLite FTS5 BM25 + Domain-Synonyme + Gemini 768d Vektor-Suche (Reciprocal Rank Fusion) inkl. Markdown-Synthese.</p>
             </div>
-            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">Hybrid FTS5 BM25</span>
+            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">{{ ragRetrievalMode === 'hybrid_rrf' ? 'Hybrid RRF (BM25 + 768d Vektor)' : 'Hybrid FTS5 + Synonym-Expansion' }}</span>
           </div>
 
           <div class="flex flex-wrap gap-2">
@@ -119,7 +119,7 @@ def get_notebook():
               v-model="ragQuery"
               @keyup.enter="runRagSearch"
               type="text"
-              placeholder="z.B. KPMG IT-Transformation IKS, Trennungsrechnung ACDOCA, UMT Schwarz, LTMC CVI..."
+              placeholder="z.B. Wie verhindere ich technische Schulden bei S/4HANA? oder KPMG IT-Transformation IKS..."
               class="flex-1 min-w-[240px] px-4 py-2.5 text-xs bg-black/50 border border-white/15 rounded-xl text-white placeholder-[#8f8888] focus:outline-none focus:border-[#bf262e]"
             >
             <button @click="runRagSearch" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-xl transition border border-white/10">
@@ -130,20 +130,31 @@ def get_notebook():
             </button>
           </div>
 
-          <!-- Gemini Synthesis Answer Card -->
-          <div v-if="ragAnswer" class="p-4 rounded-xl bg-gradient-to-br from-[#bf262e]/15 to-black/60 border border-[#bf262e]/40 space-y-2">
-            <div class="flex items-center justify-between text-xs">
+          <!-- Schnell-Abfragen -->
+          <div class="flex flex-wrap gap-1.5 text-[11px]">
+            <button @click="quickRagAsk('Wie verhindere ich technische Schulden bei S/4HANA-Erweiterungen?')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">💡 Technische Schulden / Clean Core</button>
+            <button @click="quickRagAsk('KPMG IT-Transformation Audit IKS Berechtigungen')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🎯 KPMG Prep 27.11.</button>
+            <button @click="quickRagAsk('SAP HCM Berechtigungen UMT P_ORGIN Third Level')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🔐 Schwarz IAM / UMT</button>
+            <button @click="quickRagAsk('LTMC CVI Übernahmekonto Migration')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🔄 LTMC & CVI Saldo 0 €</button>
+          </div>
+
+          <!-- Gemini Synthesis Answer Card (XSS-safe Markdown Rendered) -->
+          <div v-if="ragAnswer" class="p-4 rounded-xl bg-gradient-to-br from-[#bf262e]/15 to-black/60 border border-[#bf262e]/40 space-y-2.5">
+            <div class="flex items-center justify-between text-xs border-b border-white/10 pb-2">
               <span class="font-bold text-[#f87171]">🤖 Verifizierte Second-Brain-Antwort</span>
-              <span class="font-mono text-[10px] text-[#8f8888]">{{ ragModel }}</span>
+              <span class="font-mono text-[10px] text-[#8f8888]">{{ ragModel }} • {{ ragRetrievalMode || 'hybrid' }}</span>
             </div>
-            <div class="text-xs text-[#f0eded] leading-relaxed whitespace-pre-line">{{ ragAnswer }}</div>
+            <div class="text-xs text-[#f0eded] leading-relaxed space-y-1.5" v-html="formattedRagAnswer"></div>
           </div>
 
           <div v-if="ragResults.length > 0" class="space-y-2.5 max-h-96 overflow-y-auto custom-scrollbar">
-            <div v-for="(hit, idx) in ragResults" :key="idx" class="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1">
-              <div class="flex items-center justify-between text-xs">
+            <div v-for="(hit, idx) in ragResults" :key="idx" class="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+              <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
                 <span class="font-bold text-white">{{ hit.title }}</span>
-                <span class="font-mono text-[10px] text-emerald-400">Score: {{ hit.score }} • {{ hit.type || 'concept' }} • {{ hit.domain }}</span>
+                <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+                  <span v-if="hit.vec_sim > 0" class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">Semantik: {{ hit.vec_sim }}%</span>
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">RRF: {{ hit.score }} • {{ hit.type || 'concept' }}</span>
+                </div>
               </div>
               <div class="text-[11px] text-[#f87171] font-mono">{{ hit.file }} › {{ hit.section }}</div>
               <p class="text-xs text-[#c4bebe] leading-relaxed whitespace-pre-line">{{ hit.snippet }}</p>

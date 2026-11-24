@@ -40,6 +40,7 @@ def get_vue_app(public_mode=False):
         const ragAskLoading = ref(false);
         const ragAnswer = ref('');
         const ragModel = ref('');
+        const ragRetrievalMode = ref('');
         const ragStatusMsg = ref('');
         const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
 
@@ -1080,6 +1081,51 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         };
 
         // PRIVATE_RAG_START
+        const escHtml = (s) => String(s || '').split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');
+        const formatInlineMd = (line) => {
+          let out = escHtml(line);
+          out = out.replace(new RegExp('[*][*]([^*]+)[*][*]', 'g'), '<strong class="text-white font-semibold">$1</strong>');
+          const bt = String.fromCharCode(96);
+          const btParts = out.split(bt);
+          if (btParts.length >= 3) {
+            out = btParts.map((seg, i) => (i % 2 === 1 && i < btParts.length - 1)
+              ? '<code class="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 font-mono text-[11px]">' + seg + '</code>'
+              : (i % 2 === 1 ? bt + seg : seg)
+            ).join('');
+          }
+          out = out.replace(new RegExp('\\\\[Quelle: ([^\\\\]]+)\\\\]', 'g'), '<span class="inline-block px-2 py-0.5 mx-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono text-[10px]">Quelle: $1</span>');
+          return out;
+        };
+
+        const formattedRagAnswer = computed(() => {
+          if (!ragAnswer.value) return '';
+          const lines = String(ragAnswer.value).split('\\n');
+          const html = [];
+          let inList = false;
+          for (const rawLine of lines) {
+            const tr = rawLine.trim();
+            if (!tr) {
+              if (inList) { html.push('</ul>'); inList = false; }
+              continue;
+            }
+            if (tr.startsWith('### ')) {
+              if (inList) { html.push('</ul>'); inList = false; }
+              html.push('<h5 class="text-xs font-bold text-[#f87171] mt-2 mb-1">' + formatInlineMd(tr.slice(4)) + '</h5>');
+            } else if (tr.startsWith('## ')) {
+              if (inList) { html.push('</ul>'); inList = false; }
+              html.push('<h4 class="text-sm font-bold text-white mt-2.5 mb-1">' + formatInlineMd(tr.slice(3)) + '</h4>');
+            } else if (tr.startsWith('- ') || tr.startsWith('* ') || tr.startsWith('• ')) {
+              if (!inList) { html.push('<ul class="list-disc pl-4 space-y-1">'); inList = true; }
+              html.push('<li>' + formatInlineMd(tr.slice(2)) + '</li>');
+            } else {
+              if (inList) { html.push('</ul>'); inList = false; }
+              html.push('<p class="leading-relaxed">' + formatInlineMd(tr) + '</p>');
+            }
+          }
+          if (inList) html.push('</ul>');
+          return html.join('');
+        });
+
         const saveNotesToObsidian = async () => {
           saveNotes();
           if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
@@ -1093,7 +1139,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
               body: JSON.stringify({ notes: personalNotes.value })
             });
             const res = await resp.json();
-            ragStatusMsg.value = res.ok ? '✅ Erfolgreich in Obsidian 00_Inbox/Webapp_Notizen.md gespeichert & in FTS5-RAG indexiert!' : ('⚠️ Fehler: ' + res.error);
+            ragStatusMsg.value = res.ok ? '✅ Erfolgreich in Obsidian 00_Inbox/Webapp_Notizen.md gespeichert & in Hybrid-RAG indexiert!' : ('⚠️ Fehler: ' + res.error);
           } catch (e) {
             ragStatusMsg.value = '⚠️ Lokaler Portal-Server unter localhost:8085 nicht erreichbar.';
           }
@@ -1111,7 +1157,8 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             const resp = await fetch('/api/rag?limit=10&q=' + encodeURIComponent(q));
             const data = await resp.json();
             ragResults.value = data.results || [];
-            ragStatusMsg.value = `${ragResults.value.length} gewichtete Hybrid-Treffer aus Obsidian FTS5 für "${q}" geladen.`;
+            ragRetrievalMode.value = data.mode || '';
+            ragStatusMsg.value = `${ragResults.value.length} Hybrid-RRF-Treffer (${ragRetrievalMode.value || 'bm25'}) für "${q}" geladen.`;
           } catch (e) {
             ragStatusMsg.value = '⚠️ Fehler bei RAG-Anfrage.';
           } finally {
@@ -1132,12 +1179,13 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             const data = await resp.json();
             ragAnswer.value = data.answer || '';
             ragModel.value = data.model || '';
+            ragRetrievalMode.value = data.mode || '';
             if (data.sources && data.sources.length) {
               const r2 = await fetch('/api/rag?limit=8&q=' + encodeURIComponent(q));
               const d2 = await r2.json();
               ragResults.value = d2.results || [];
             }
-            ragStatusMsg.value = `🤖 Gemini-Synthese (${ragModel.value || 'local'}) auf Basis verifizierter Obsidian-Quellen erstellt.`;
+            ragStatusMsg.value = `🤖 Gemini-Synthese (${ragModel.value || 'local'} | ${ragRetrievalMode.value || 'hybrid'}) auf Basis verifizierter Quellen erstellt.`;
           } catch (e) {
             ragStatusMsg.value = '⚠️ Fehler bei KI-Synthese.';
           } finally {
@@ -1152,6 +1200,11 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             const data = await resp.json();
             if (data.ok) pipelineData.value = data;
           } catch (e) {}
+        };
+
+        const quickRagAsk = async (q) => {
+          ragQuery.value = q;
+          await runRagAsk();
         };
 
         const prepInterview = async (company, role) => {
@@ -1236,10 +1289,13 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           ragAskLoading,
           ragAnswer,
           ragModel,
+          ragRetrievalMode,
+          formattedRagAnswer,
           ragStatusMsg,
           pipelineData,
           runRagSearch,
           runRagAsk,
+          quickRagAsk,
           loadPipeline,
           prepInterview,
           saveNotesToObsidian,
@@ -1279,7 +1335,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         tpl = tpl.replace('%%PRIVATE_HUB_LINE%%', '')
         tpl = re.sub(r'// PRIVATE_TABS_START.*?// PRIVATE_TABS_END', '', tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_RAG_START.*?// PRIVATE_RAG_END',
-                     "const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const loadPipeline = () => {};\n        const prepInterview = () => {};",
+                     "const formattedRagAnswer = computed(() => '');\n        const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const quickRagAsk = () => {};\n        const loadPipeline = () => {};\n        const prepInterview = () => {};",
                      tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_DEFENSE_START.*?// PRIVATE_DEFENSE_END',
                      "const defenseScenarios = ref([]);\n        const cvImprovements = [];\n        const pitch60 = '';\n        const pitchDeep = '';\n        const starStories = ref([]);",
