@@ -39,3 +39,6 @@ config/gmx_config.json
 gmx_config.json
 *.credentials
 *.token
+
+# Build Artifacts
+s4hana-prep-portal/

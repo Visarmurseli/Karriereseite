@@ -56,6 +56,12 @@ def main():
     with open(index_path, "w", encoding="utf-8") as f:
         f.write(full_html)
 
+    root_index = os.path.join(BASE_DIR, "index.html")
+    if os.path.exists(root_index) or os.path.exists(os.path.join(BASE_DIR, ".git")):
+        with open(root_index, "w", encoding="utf-8") as f:
+            f.write(full_html)
+        print(f"     Root sync: {root_index}")
+
     size_kb = len(full_html.encode('utf-8')) / 1024
     print(f"[OK] Masterpiece generated successfully!")
     print(f"     Path: {index_path}")
