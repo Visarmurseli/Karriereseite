@@ -27,7 +27,7 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
-## [1.14.0] - 2026-11-24 (Knowledge & Profile OS 2.0: Data Lake Trennung, 6 Arbeit×Uni Synergie-Karten, Persönliches Stärkenprofil & 60s-Kompakt-Briefing | Commit HEAD)
+## [1.14.0] - 2026-11-24 (Knowledge & Profile OS 2.0: Data Lake Trennung, 6 Arbeit×Uni Synergie-Karten, Persönliches Stärkenprofil & 60s-Kompakt-Briefing | Commit b568a6f)
 
 ### 🎯 Kontext & Leitmotiv
 Strategische Schärfung auf Visar Murselis Kernvision (**Knowledge & Profile OS 2.0**): Entschlackung des Obsidian-Vordergrunds in zwei klare Schichten (Kuratiertes Wissen vs. durchsuchbarer Volltext-Data-Lake), explizite Verzahnung von **Arbeit × Studium × Eigenprojekten** über sechs tiefgehende Synergie-Karten, ein evidenzbasiertes **`Persoenliches_Staerkenprofil.md`**, einheitliche **`> [!ABSTRACT] 60-Sekunden-Essenz`**-Blöcke sowie das neue **Stärken- & Synergie-Cockpit** inkl. **60s-Kompakt- vs. Tiefenanalyse-Modus** und **Domänenfiltern** im lokalen Webportal und auf GitHub Pages.
