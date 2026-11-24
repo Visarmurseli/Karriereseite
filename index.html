@@ -240,6 +240,23 @@
                 <span class="text-xs">➔</span>
               </button>
 
+              <button 
+                @click="activeTab = 'synergies'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'synergies' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>⚡</span>
+                  <div>
+                    <div class="font-medium">Stärkenprofil & Synergie-Atlas</div>
+                    <div class="text-[10px] text-white/70">5 Stärken-Cluster, Arbeit × Uni & 60s-Essenzen</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
               
             </div>
 
@@ -541,6 +558,16 @@
             <p class="text-[#c4bebe] text-xs sm:text-sm leading-relaxed">
               Dieses Wissensportal bündelt alle Unterlagen, Projekt-Deliverables und theoretischen Grundlagen aus meinem Werdegang als Wirtschaftsinformatiker: <strong>300 ECTS universitäre Ausbildung an der Universität Stuttgart</strong> (Master & Bachelor), <strong>24 Monate Großprojekterfahrung bei der Stuttgarter Straßenbahnen AG</strong> (S/4HANA Transformation bis zum Abschluss der Explore-Phase), <strong>12 Monate ITIL 4 Service Operations bei Datacenter One</strong> sowie die <strong>TOGAF 9 ADM-Zertifizierung</strong>.
             </p>
+            <div class="pt-1 flex flex-wrap items-center gap-2.5">
+              <button @click="activeTab = 'synergies'" class="px-4 py-2 rounded-xl bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-bold shadow-lg shadow-[#bf262e]/30 border border-white/15 transition flex items-center space-x-2">
+                <span>⚡</span>
+                <span>Persönliches Stärkenprofil & 6 Arbeit × Uni Synergien entdecken</span>
+                <span>➔</span>
+              </button>
+              <button @click="activeTab = 'career'" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
+                🎯 Zielrollen & Roadmap
+              </button>
+            </div>
 
             <!-- 4 Equal Pillars of Knowledge -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
@@ -708,6 +735,265 @@
               <div class="text-[11px] text-[#8f8888]">Junior & Trainee Einstieg</div>
             </button>
 
+          </div>
+        </div>
+
+      </div>
+
+
+      <!-- ================= TAB: STÄRKENPROFIL, SYNERGIEN & KOMPAKTE ERFAHRUNGEN ================= -->
+      <div v-show="activeTab === 'synergies'" class="space-y-6">
+
+        <!-- Hero Banner: Profil & Kernnutzen -->
+        <div class="bg-gradient-to-br from-[#181818] via-[#141414] to-[#1d1112] p-6 rounded-2xl border border-white/10 shadow-xl space-y-4">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div class="space-y-1.5 max-w-4xl">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-full bg-[#bf262e]/20 text-[#f87171] border border-[#bf262e]/40 text-[10px] font-bold uppercase tracking-wider">
+                  Knowledge & Profile OS 2.0
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-semibold">
+                  M.Sc. 1,6 | Masterarbeit 1,0 | +1,4 Notenpunkte Entwicklung
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30 text-[10px] font-semibold">
+                  36 Monate Enterprise-Praxis (24M SSB + 12M DC1)
+                </span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                Persönliches Stärkenprofil & Arbeit × Studium Synergie-Atlas
+              </h3>
+              <p class="text-xs sm:text-sm text-[#c4bebe] leading-relaxed">
+                Wie aus <strong>300 ECTS Wirtschaftsinformatik (Universität Stuttgart)</strong>, <strong>24 Monaten S/4HANA Großprojekt (SSB AG)</strong>, <strong>12 Monaten 24/7 Rechenzentrumsbetrieb (Datacenter One)</strong> und angewandten <strong>Industrie- & Eigenprojekten</strong> fünf scharfe Kompetenz-Cluster entstehen.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 self-start lg:self-center">
+              <div class="inline-flex rounded-xl bg-black/50 border border-white/10 p-1 text-xs">
+                <button
+                  @click="synergyViewMode = 'compact'"
+                  :class="synergyViewMode === 'compact' ? 'bg-[#bf262e] text-white font-bold shadow-sm' : 'text-[#c4bebe] hover:text-white'"
+                  class="px-3 py-1 rounded-lg transition"
+                >
+                  ⚡ 60s-Kompakt
+                </button>
+                <button
+                  @click="synergyViewMode = 'deep'"
+                  :class="synergyViewMode === 'deep' ? 'bg-white/15 text-white font-bold shadow-sm' : 'text-[#c4bebe] hover:text-white'"
+                  class="px-3 py-1 rounded-lg transition"
+                >
+                  🔬 Tiefenprofil
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Roter Faden Timeline (2019 -> 2026+) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2 text-xs">
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+              <div class="text-[10px] font-mono text-indigo-300 uppercase">2019–2023 • Fundament</div>
+              <div class="font-bold text-white mt-0.5">B.Sc. (180 ECTS) & TOGAF 9</div>
+              <p class="text-[11px] text-[#c4bebe] mt-1">Breite Informatik & BWL, <strong>E-Business (1,0)</strong>, TOGAF 9 ADM (2020), Bachelorarbeit <strong>1,7</strong> über Boundary Resources (OutSystems/Mendix).</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+              <div class="text-[10px] font-mono text-blue-300 uppercase">05/2023–04/2024 • Betrieb</div>
+              <div class="font-bold text-white mt-0.5">Datacenter One (12M INOC)</div>
+              <p class="text-[11px] text-[#c4bebe] mt-1"><strong>24/7 Leitstand</strong>, ITIL 4 SPoC (Jira), PRTG-Monitoring, Aufbau Confluence-SOPs & Hardware-Lifecycle-Prozess in Visio (100+ Systeme).</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+              <div class="text-[10px] font-mono text-emerald-300 uppercase">05/2024–04/2026 • Großprojekt</div>
+              <div class="font-bold text-white mt-0.5">SSB AG SAP4SSB & M.Sc. (1,6)</div>
+              <p class="text-[11px] text-[#c4bebe] mt-1"><strong>24M IT-PMO (TP5)</strong> bis Explore-Abschluss (SDD, Signavio, Cloud ALM, Enable Now) & <strong>Masterarbeit 1,0</strong> (12 Interviews, Mayring).</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-[#bf262e]/15 border border-[#bf262e]/40">
+              <div class="text-[10px] font-mono text-[#f87171] uppercase">2026+ • Zielwirkung</div>
+              <div class="font-bold text-white mt-0.5">Enterprise Transformation</div>
+              <p class="text-[11px] text-[#f0eded] mt-1">Junior SAP / ERP-Consultant, Enterprise Architecture & Governance oder IT-Trainee mit sofortiger Anschlussfähigkeit an Business & IT.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Die 5 Evidenzbasierten Stärken-Cluster -->
+        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h4 class="text-base font-bold text-white flex items-center space-x-2">
+                <span>💪</span>
+                <span>Die 5 Stärken-Cluster (jeder Anspruch durch harte Belege gedeckt)</span>
+              </h4>
+              <p class="text-xs text-[#8f8888]">Abgeleitet aus amtlichen Zeugnissen, 36 Monaten Arbeitszeugnis-/Projektdaten und verwertbaren Artefakten.</p>
+            </div>
+            <span class="text-[11px] font-mono text-emerald-400">100% Fakten-verifiziert</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/40 transition space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white">1. Ganzheitliche Plattform-Architektur</span>
+                <span class="tag-badge bg-[#bf262e]/20 text-[#f87171] border border-[#bf262e]/40">Kernstärke</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Verbindet Geschäftsprozesse mit sauberer System-Entkopplung: <strong>TOGAF 9 ADM</strong>, <strong>Boundary Resource Theory</strong> (B.Sc. 1,7) und ganzheitliche <strong>S/4HANA-Plattformisierung</strong> (Masterarbeit 1,0, 126 S., 12 Interviews).</p>
+              <div v-show="synergyViewMode === 'deep'" class="pt-2 border-t border-white/10 text-[11px] text-[#8f8888]">
+                Belege: WRICEFA-Entkopplung (PATRIS/xSuite/d.velop), ASE (1,6), Software-Architektur (1,7), AWS Cloud (2,0).
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-500/40 transition space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white">2. „Bilingualer Übersetzer“ Business × IT</span>
+                <span class="tag-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Stakeholder</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Spricht sowohl HGB-/Controlling-Sprache (<strong>E-Business 1,0</strong>, <strong>IVP 2,3</strong>, Trennungsrechnung EU-1370) als auch Entwickler-/Architekturlogik — erprobt als Klammer über <strong>TP1–TP5</strong> bei der SSB AG.</p>
+              <div v-show="synergyViewMode === 'deep'" class="pt-2 border-t border-white/10 text-[11px] text-[#8f8888]">
+                Belege: Partner-Abstimmung (Nagarro, Axians, Evora, apsolut), C-Level Steering Board & Betriebsrat § 87 BetrVG.
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/40 transition space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white">3. Methodische Tiefe & Lernkurve (+1,4)</span>
+                <span class="tag-badge bg-purple-500/20 text-purple-300 border border-purple-500/30">Empirie</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Kontinuierliche Steigerung vom <strong>B.Sc. (3,0)</strong> zum <strong>M.Sc. (1,6)</strong> — gekrönt durch Masterarbeit <strong>1,0</strong> (Mayring Codebuch), <strong>FPWI (1,3 | SUS 85/100)</strong> und <strong>PRISMA SLR (1,7)</strong>.</p>
+              <div v-show="synergyViewMode === 'deep'" class="pt-2 border-t border-white/10 text-[11px] text-[#8f8888]">
+                Belege: Forschungsmethoden (1,7, Algorithm Aversion), 439 analysierte MRK-Studien, strukturierte Entscheidungsreife.
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/40 transition space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white">4. Tool-Governance & Automatisierung</span>
+                <span class="tag-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">Execution</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Schafft einheitliche Standards in komplexen Teams: offizieller <strong>SAP Cloud ALM How2Handle</strong>-Leitfaden, <strong>Enable Now Übergabekonzept</strong> und fehlerfreie <strong>PowerShell-/BPMN-Automatisierung</strong> (Schmalz 1,0).</p>
+              <div v-show="synergyViewMode === 'deep'" class="pt-2 border-t border-white/10 text-[11px] text-[#8f8888]">
+                Belege: Signavio BPMN 2.0 (SSB), Visio HLM_v2.vsdx (DC1), Klingele PatentRadar SaaS/RPA-Konzept (ISG 2,0).
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/40 transition space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white">5. Operative Resilienz & Service Ops</span>
+                <span class="tag-badge bg-blue-500/20 text-blue-300 border border-blue-500/30">ITIL 4 / 24-7</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Bewahrt im Live-Betrieb analytische Ruhe: <strong>12 Monate 24/7 INOC</strong> bei Datacenter One (PRTG, Jira SPoC, USV/Klima/Dark Fiber, Confluence SOPs) plus Basis-GAP-Tracking bei SSB.</p>
+              <div v-show="synergyViewMode === 'deep'" class="pt-2 border-t border-white/10 text-[11px] text-[#8f8888]">
+                Belege: Strukturierte 3rd-Level Root-Cause-Methodik (Job-Monitoring, Berechtigungsobjekte, Schnittstellen-Checks).
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-black/40 border border-white/15 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-amber-300">🎯 Bewusster Wachstums-Radar (Jahr 1)</span>
+                <span class="tag-badge bg-white/10 text-[#c4bebe] border border-white/15">Transparenz</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Kein klassischer SPRO-/ABAP-Altsystem-Developer — bewusstes Clean-Core-PMO-Profil (Austritt SSB zum <strong>Explore-Abschluss 04/2026</strong>). Fokus ab Tag 1: volle <strong>Realize-/Go-Live-Begleitung</strong> & <strong>RAP/BTP/ITIL 4</strong>-Vertiefung.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interaktiver Arbeit × Studium × Projekte Synergie-Atlas (6 Matrizen) -->
+        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/10 pb-4">
+            <div>
+              <h4 class="text-base font-bold text-white flex items-center space-x-2">
+                <span>🔗</span>
+                <span>Synergie-Atlas: Wie Arbeit, Universität & Eigenprojekte ineinandergreifen</span>
+              </h4>
+              <p class="text-xs text-[#8f8888]">6 kuratierte Querverbindungen — jeweils direkt aus deinem Obsidian Second Brain abgeleitet.</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <button
+                v-for="cat in ['Alle', 'Architektur & Cloud', 'Governance & Daten', 'Automatisierung & KI']"
+                :key="cat"
+                @click="synergyFilter = cat"
+                :class="synergyFilter === cat ? 'bg-[#bf262e] text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'"
+                class="px-2.5 py-1 rounded-lg border border-white/10 transition"
+              >
+                { cat }
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
+            <div
+              v-for="syn in filteredSynergies"
+              :key="syn.id"
+              class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/45 transition flex flex-col justify-between space-y-3"
+            >
+              <div class="space-y-2.5">
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <span class="text-[10px] font-mono uppercase text-[#f87171]">{ syn.cluster }</span>
+                    <h5 class="text-sm font-bold text-white mt-0.5">{ syn.title }</h5>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] font-mono text-[#c4bebe] whitespace-nowrap">{ syn.badge }</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
+                  <div class="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                    <div class="font-bold text-purple-300 mb-0.5">🎓 Studium</div>
+                    <div class="text-[#d6d0d0] leading-snug">{ syn.uni }</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                    <div class="font-bold text-blue-300 mb-0.5">🏢/🚆 Praxis</div>
+                    <div class="text-[#d6d0d0] leading-snug">{ syn.work }</div>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                    <div class="font-bold text-emerald-300 mb-0.5">🚀 Projekt / Proof</div>
+                    <div class="text-[#d6d0d0] leading-snug">{ syn.project }</div>
+                  </div>
+                </div>
+
+                <div class="p-2.5 rounded-lg bg-black/40 border border-white/10 text-[#f0eded] leading-relaxed">
+                  <strong class="text-[#f87171]">⚡ Synergie-Effekt:</strong> { syn.synergy }
+                </div>
+                <p v-show="synergyViewMode === 'deep'" class="text-[11px] text-[#c4bebe] leading-relaxed">
+                  { syn.deepNote }
+                </p>
+              </div>
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-white/10">
+                <button @click="activeTab = syn.targetTab" class="text-[11px] text-[#c4bebe] hover:text-white underline">
+                  Fachbereich im Portal ansehen ➔
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kompakte 60s-Erfahrungs-Essenzen (Alle Stationen auf einen Blick) -->
+        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
+          <h4 class="text-base font-bold text-white flex items-center space-x-2">
+            <span>⚡</span>
+            <span>Erfahrungs-Essenzen (Alle Stationen in je 60 Sekunden)</span>
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+              <div class="flex items-center justify-between font-bold text-white">
+                <span>🚆 Stuttgarter Straßenbahnen AG (SSB AG)</span>
+                <span class="text-[11px] text-emerald-400">24 Monate (05/2024–04/2026)</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Werkstudent IT-PMO & Gesamtsteuerung (`TP5`) unter Roland Nowak & Dietmar Fillinger. Pflege MS-Project-Masterplan (`TP1–TP5`), SDD-Prozessdokumentation (`FI/CO/MM`), Governance über Signavio, Cloud ALM (`How2Handle`) & Enable Now sowie Datenmigrations-Vorbereitung (`LTMC`/`CVI`) bis zum erfolgreichen Explore-Abschluss.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+              <div class="flex items-center justify-between font-bold text-white">
+                <span>🏢 Datacenter One GmbH (INOC)</span>
+                <span class="text-[11px] text-blue-400">12 Monate (05/2023–04/2024)</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Werkstudent 24/7 Information Network Operation Center unter Helmut Schmidpeter. Single Point of Contact (Jira), PRTG-Echtzeitüberwachung (Core-Netze, USV, Klima, Dark Fiber), Aufbau der Confluence-Prozessdatenbank nach ITIL 4 und Visio-BPMN-Design für den Hardware-Lifecycle (100+ Arbeitsplätze).</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+              <div class="flex items-center justify-between font-bold text-white">
+                <span>🎓 M.Sc. & B.Sc. Wirtschaftsinformatik (Uni Stuttgart)</span>
+                <span class="text-[11px] text-purple-300">300 ECTS (M.Sc. 1,6 | Thesis 1,0)</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed">Bachelor (180 ECTS, Note 3,0, E-Business Bestnote 1,0, Bachelorarbeit Boundary Resources 1,7) gefolgt von exzellentem Master (120 ECTS, Gesamtnote 1,6, Zeugnis 17.09.2026, Masterarbeit S/4HANA-Plattformisierung 1,0 mit 12 Experteninterviews nach Mayring) + TOGAF 9 ADM.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+              <div class="flex items-center justify-between font-bold text-white">
+                <span>🚀 Industrie- & Eigenprojekte (Automation, SaaS, RAG)</span>
+                <span class="text-[11px] text-amber-300">Hands-on Belege</span>
+              </div>
+              <p class="text-[#c4bebe] leading-relaxed"><strong>J. Schmalz GmbH (1,0):</strong> PowerShell-Automatisierung & BPMN für CSRD-Abfallbilanz • <strong>Klingele/ISG PatentRadar (2,0):</strong> Hybrides SaaS-/RPA-Geschäftsmodell • <strong>Knowledge & Profile OS:</strong> Modulares Vue 3 Portal + lokales 3-Signal Hybrid RAG V3 über 4.980 Quelldateien.</p>
+            </div>
           </div>
         </div>
 
@@ -3215,8 +3501,12 @@
         const ragAnswer = ref('');
         const ragModel = ref('');
         const ragRetrievalMode = ref('');
+        const ragDomain = ref('');
+        const ragStyle = ref('compact');
         const ragStatusMsg = ref('');
         const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
+        const synergyViewMode = ref('compact');
+        const synergyFilter = ref('Alle');
 
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
@@ -3225,7 +3515,7 @@
 
         const currentHubName = computed(() => {
           const tabId = activeTab.value;
-          if (tabId === 'dashboard') return 'Profil & Einstieg';
+          if (tabId === 'dashboard' || tabId === 'synergies') return 'Profil, Stärken & Synergien';
           if (['project', 'solution_design', 'migration', 'tools'].includes(tabId)) return 'S/4HANA Transformation';
           if (['thesis', 'enterprise_arch'].includes(tabId)) return 'Akademische Exzellenz';
           if (['career', 'cheatsheet'].includes(tabId)) return 'Junior & Trainee Karriere';
@@ -3235,6 +3525,7 @@
 
         const tabs = [
           { id: 'dashboard', label: 'Profil & Einstieg', icon: '📊', badge: 'Junior & Trainee' },
+          { id: 'synergies', label: 'Stärkenprofil & Synergien', icon: '⚡', badge: 'Arbeit × Uni' },
           { id: 'project', label: 'TP1–TP5 Steuerung & WBS', icon: '🚆', badge: 'SSB AG' },
           { id: 'solution_design', label: 'Solution Design (FI/CO)', icon: '📐', badge: 'Trennungsrechnung' },
           { id: 'migration', label: 'Datenmigration & CVI', icon: '🔄', badge: '0,00 € Saldo' },
@@ -3321,6 +3612,9 @@
         ]);
 
         const searchCatalog = [
+          // Stärkenprofil & Arbeit × Uni Synergien
+          { title: 'Persönliches Stärkenprofil & Roter Faden (2019–2026)', cat: 'Stärken & Synergien', tab: 'synergies', desc: '5 evidenzbasierte Stärken-Cluster, Lernkurve +1,4 Notenpunkte & kompakte Erfahrungs-Essenzen.' },
+          { title: 'Synergie-Atlas: Arbeit × Studium × Eigenprojekte (6 Matrizen)', cat: 'Stärken & Synergien', tab: 'synergies', desc: 'Plattformisierung, Cloud/ITIL 4, Governance/Audit, Solution Design, CSRD/Automation & Applied AI/RAG.' },
           // Kaufmännisch & Solution Design
           { title: 'Trennungsrechnung EU 1370/2007', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Verkehrsvertragliche Trennung eigenwirtschaftlicher vs. gemeinwirtschaftlicher Verkehre (§ 45a PBefG).' },
           { title: 'Grants Management (GM) & Fördermittel', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Fonds, Förderungsarten (LGVFG/GVFG) und Derivationsregeln für Investitionszuschüsse im ÖPNV.' },
@@ -3397,6 +3691,92 @@
         });
 
 
+        const synergyAtlas = [
+          {
+            id: 'syn1',
+            cluster: 'Architektur & Cloud',
+            badge: 'B.Sc. 1,7 × M.Sc. 1,0 × SSB',
+            title: '1. ERP-Plattformisierung, Boundary Resources & Bimodale Architektur',
+            uni: 'Bachelorarbeit (1,7, OutSystems/Mendix, 14 ABR/DBR/SBR) + Masterarbeit (1,0, 126 S., 12 Interviews) + ASE (1,6) + SA (1,7)',
+            work: '24M SSB AG (TP4/TP5): Greenfield Clean Core, BTP-Entkopplung von PATRIS/xSuite/d.velop mit Nagarro & Axians',
+            project: 'Ganzheitliche ERP-Transformationsmethodik + modulares Knowledge & Profile OS Portfolio',
+            synergy: 'APIs auf der SAP BTP sind nicht nur Technik, sondern soziotechnische Boundary Resources zur Balance aus Kontrolle (Core) & Innovation (Side-by-Side).',
+            deepNote: 'Empirisch mit Gesamt-PL Roland Nowak & Lead-Architekten validiert: Clean Core wirkt nur im Zusammenspiel mit Architecture Governance, PMO & Absorptive Capacity.',
+            targetTab: 'thesis',
+            ragQuery: 'Wie greifen Bachelorarbeit Boundary Resources, Masterarbeit S/4HANA Plattformisierung und SSB BTP Clean Core konkret ineinander?'
+          },
+          {
+            id: 'syn2',
+            cluster: 'Architektur & Cloud',
+            badge: 'AWS 2,0 × 12M INOC × RISE',
+            title: '2. Cloud-Architektur, Hybrid Infrastructure & ITIL 4 Service Operations',
+            uni: 'Cloud Computing (2,0, AWS Well-Architected Serverless) + SOM (3,0) + ITIL/COBIT (3,0) + TEUI (1,7)',
+            work: 'Datacenter One (12M 24/7 INOC SPoC, PRTG, Jira, USV/HVAC, Confluence SOPs) & SSB TP4 (RISE Private Cloud, ES4/QS4/PS4)',
+            project: 'Hardware Lifecycle Management (HLM_v2.vsdx für 100+ Leitstands- & Client-Systeme, Dell PoC)',
+            synergy: 'Du denkst Cloud & ERP vom physischen Glasfaser-/RZ-Betrieb über Serverless Event-Muster bis zur stabilen 3rd-Level Hypercare-Übergabe.',
+            deepNote: 'Ticket- und Root-Cause-Disziplin aus dem 24/7 RZ-Leitstand überträgt sich direkt auf SAP Job-/Dump-/Berechtigungsanalyse (SM37, SU53, ST22).',
+            targetTab: 'enterprise_arch',
+            ragQuery: 'Wie verbinden sich Datacenter One ITIL 4 24/7 INOC, Cloud Computing AWS und RISE with SAP Infrastruktur?'
+          },
+          {
+            id: 'syn3',
+            cluster: 'Governance & Daten',
+            badge: 'TOGAF × EU-1370 × § 87 BetrVG',
+            title: '3. Governance, Audit, IKS, Compliance & Mitbestimmung',
+            uni: 'GBWL 1 & 4 (2,7: HGB, Bilanz, Finanzprozess) + Informatikrecht (DSGVO/Lizenzrecht) + TOGAF 9 ADM (Scape Consulting)',
+            work: 'SSB TP2/TP5: Trennungsrechnung EU-1370/2007 im ACDOCA, Grants Management (LGVFG), LTMC/CVI Saldo 0,00 €, Betriebsrat § 87',
+            project: 'Enterprise IAM & IKS Kontrollmatrix (P_ORGIN / P_PERNR / OOSP, Segregation of Duties)',
+            synergy: 'Revisionssicheres Denken: Jede Schnittstelle, Migration und Rolle wird gleichzeitig gegen Wirtschaftsprüfer-IKS und Mitbestimmungsrecht abgesichert.',
+            deepNote: 'Direkt anschlussfähig für ERP-Audit/IKS-Beratung (KPMG), Enterprise IAM-Operations (Schwarz Digits) und IT-Governance-Traineeprogramme (TRUMPF).',
+            targetTab: 'solution_design',
+            ragQuery: 'Wie greifen Trennungsrechnung EU-1370, 0,00 Euro Übernahmekonto LTMC/CVI, IKS und Betriebsrats-Mitbestimmung zusammen?'
+          },
+          {
+            id: 'syn4',
+            cluster: 'Governance & Daten',
+            badge: 'E-Bus 1,0 × SDD × Signavio/CALM',
+            title: '4. Datenarchitektur, BPMN-Prozessdesign & End-to-End Solution Design',
+            uni: 'E-Business (1,0 Bestnote) + Modellierung (2,3: BPMN 2.0/UML/ERM/1NF-BCNF) + IVP 0x539-Wear (2,3 DB I-IV) + DBIS (2,7)',
+            work: 'SSB Explore Solution Design (SDD, FI/CO/MM/GM), Tool-Dreiklang Signavio → Cloud ALM (How2Handle) → Enable Now, DC1 Visio HLM',
+            project: 'Standardisierungs-Artefakte: Offizieller Cloud ALM Quickguide & strategisches Enable Now Übergabekonzept (UB AC)',
+            synergy: 'Durchgängige Traceability vom formalen ERM-/BPMN-Modell bis zum abgenommenen Solution Design und messbaren Cloud-ALM-Testfall.',
+            deepNote: 'Bilinguale Vermittlung: Fachbereiche verstehen Abläufe, Entwickler erhalten präzise Datenobjekt- und Schnittstellenspezifikationen.',
+            targetTab: 'tools',
+            ragQuery: 'Wie ergänzen sich E-Business 1,0, Modellierung BPMN/ERM und der SSB Tool-Dreiklang Signavio, Cloud ALM How2Handle und Enable Now?'
+          },
+          {
+            id: 'syn5',
+            cluster: 'Automatisierung & KI',
+            badge: 'Schmalz 1,0 × Klingele 2,0 × EHS',
+            title: '5. Digitale Nachhaltigkeit, CSRD & pragmatische Prozessautomatisierung',
+            uni: 'Digitale Nachhaltigkeit (1,0: Fallstudie J. Schmalz GmbH) + ISG Innovationsmethoden (2,0: PatentRadar Verpackungsindustrie) + Innovationsmanagement (1,7)',
+            work: 'SSB Stream Sustainability (CSRD, Gefahrstoffe & EHS in S/4HANA) & Fit-to-Standard Bewertung wirtschaftlicher Automatisierung',
+            project: 'PowerShell-Extraktionsskripte (fehlerfreie CSRD-Abfallbilanz) & hybrides SaaS-/RPA-Geschäftsmodell (UiPath-Potenzialanalyse)',
+            synergy: 'Du eliminierst manuellen Berichtserfassungs-Aufwand nicht mit Folien, sondern durch bereinigte BPMN-Prozesse und gezielte Automatisierung.',
+            deepNote: 'Klarer Business-Analyst-Fokus: Erst Prozesskosten & Wirtschaftlichkeit quantifizieren, dann sauber automatisieren.',
+            targetTab: 'thesis',
+            ragQuery: 'Welche Synergien bestehen zwischen der Schmalz CSRD PowerShell-Fallstudie (1,0), Klingele PatentRadar (2,0) und SAP Sustainability/EHS?'
+          },
+          {
+            id: 'syn6',
+            cluster: 'Automatisierung & KI',
+            badge: 'FPWI 1,3 × Applied AI 1,7 × RAG V3',
+            title: '6. Applied AI, Smart Services (IoT), DSRM & Eigenes Knowledge OS',
+            uni: 'FPWI Smart Service Blueprinting (1,3 | DSRM | SUS 85/100) + Applied AI (1,7) + PRISMA MRK (1,7) + Algorithm Aversion (1,7) + AI4IoT (2,0)',
+            work: 'SSB TP3 Mobile Instandhaltung (SAP Service & Asset Manager SSAM auf Tablets mit Partner Evora)',
+            project: 'Selbst entwickeltes Career & Knowledge OS mit lokalem 3-Signal Hybrid RAG V3 (BM25 + 4-Gram + 768d Vektoren über 4.980 Dateien)',
+            synergy: 'Du entwickelst KI- und Smart-Service-Lösungen rigoros nutzerzentriert (DSRM & SUS) und baust Algorithm Aversion durch harte Quellenpflicht ab.',
+            deepNote: 'Eigenes Live-Produkt als technischer Beweis: Striktes Dual-Build-Privacy-Gate zwischen öffentlichem Showcase und lokalem RAG-Cockpit.',
+            targetTab: 'cheatsheet',
+            ragQuery: 'Wie fließen FPWI Smart Service Blueprinting (1,3), Applied AI (1,7), Algorithm Aversion und SAP SSAM in mein Hybrid RAG Knowledge OS ein?'
+          }
+        ];
+
+        const filteredSynergies = computed(() => {
+          if (synergyFilter.value === 'Alle') return synergyAtlas;
+          return synergyAtlas.filter(s => s.cluster === synergyFilter.value);
+        });
+
         const filteredWbsProjects = computed(() => {
           if (wbsFilter.value === 'all') return wbsProjects.value;
           return wbsProjects.value.filter(p => p.id.toLowerCase() === wbsFilter.value.toLowerCase() || p.phase.toLowerCase() === wbsFilter.value.toLowerCase());
@@ -3456,6 +3836,7 @@
         const runRagSearch = () => {};
         const runRagAsk = () => {};
         const quickRagAsk = () => {};
+        const askSynergyRag = () => {};
         const loadPipeline = () => {};
         const prepInterview = () => {};
 
@@ -3536,12 +3917,18 @@
           ragAnswer,
           ragModel,
           ragRetrievalMode,
+          ragDomain,
+          ragStyle,
           formattedRagAnswer,
           ragStatusMsg,
           pipelineData,
+          synergyViewMode,
+          synergyFilter,
+          filteredSynergies,
           runRagSearch,
           runRagAsk,
           quickRagAsk,
+          askSynergyRag,
           loadPipeline,
           prepInterview,
           saveNotesToObsidian,

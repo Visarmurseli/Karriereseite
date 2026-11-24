@@ -243,6 +243,23 @@ def get_header(public_mode=False):
                 <span class="text-xs">➔</span>
               </button>
 
+              <button 
+                @click="activeTab = 'synergies'; isMobileMenuOpen = false"
+                :class="[
+                  'w-full flex items-center justify-between p-2.5 rounded-xl text-xs transition text-left',
+                  activeTab === 'synergies' ? 'bg-[#bf262e] text-white font-bold shadow-md shadow-[#bf262e]/30' : 'text-[#c4bebe] hover:bg-white/5'
+                ]"
+              >
+                <div class="flex items-center space-x-2.5">
+                  <span>⚡</span>
+                  <div>
+                    <div class="font-medium">Stärkenprofil & Synergie-Atlas</div>
+                    <div class="text-[10px] text-white/70">5 Stärken-Cluster, Arbeit × Uni & 60s-Essenzen</div>
+                  </div>
+                </div>
+                <span class="text-xs">➔</span>
+              </button>
+
               <!-- PRIVATE_NAV_BLOCK_START -->
               <button 
                 @click="activeTab = 'files'; selectedFileCat = 'Alle'; isMobileMenuOpen = false"

@@ -41,8 +41,12 @@ def get_vue_app(public_mode=False):
         const ragAnswer = ref('');
         const ragModel = ref('');
         const ragRetrievalMode = ref('');
+        const ragDomain = ref('');
+        const ragStyle = ref('compact');
         const ragStatusMsg = ref('');
         const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
+        const synergyViewMode = ref('compact');
+        const synergyFilter = ref('Alle');
 
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
@@ -51,7 +55,7 @@ def get_vue_app(public_mode=False):
 
         const currentHubName = computed(() => {
           const tabId = activeTab.value;
-          if (tabId === 'dashboard') return 'Profil & Einstieg';
+          if (tabId === 'dashboard' || tabId === 'synergies') return 'Profil, Stärken & Synergien';
           if (['project', 'solution_design', 'migration', 'tools'].includes(tabId)) return 'S/4HANA Transformation';
           if (['thesis', 'enterprise_arch'].includes(tabId)) return 'Akademische Exzellenz';
           if (['career', 'cheatsheet'].includes(tabId)) return 'Junior & Trainee Karriere';
@@ -61,6 +65,7 @@ def get_vue_app(public_mode=False):
 
         const tabs = [
           { id: 'dashboard', label: 'Profil & Einstieg', icon: '📊', badge: 'Junior & Trainee' },
+          { id: 'synergies', label: 'Stärkenprofil & Synergien', icon: '⚡', badge: 'Arbeit × Uni' },
           { id: 'project', label: 'TP1–TP5 Steuerung & WBS', icon: '🚆', badge: 'SSB AG' },
           { id: 'solution_design', label: 'Solution Design (FI/CO)', icon: '📐', badge: 'Trennungsrechnung' },
           { id: 'migration', label: 'Datenmigration & CVI', icon: '🔄', badge: '0,00 € Saldo' },
@@ -300,6 +305,9 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
         ]);
 
         const searchCatalog = [
+          // Stärkenprofil & Arbeit × Uni Synergien
+          { title: 'Persönliches Stärkenprofil & Roter Faden (2019–2026)', cat: 'Stärken & Synergien', tab: 'synergies', desc: '5 evidenzbasierte Stärken-Cluster, Lernkurve +1,4 Notenpunkte & kompakte Erfahrungs-Essenzen.' },
+          { title: 'Synergie-Atlas: Arbeit × Studium × Eigenprojekte (6 Matrizen)', cat: 'Stärken & Synergien', tab: 'synergies', desc: 'Plattformisierung, Cloud/ITIL 4, Governance/Audit, Solution Design, CSRD/Automation & Applied AI/RAG.' },
           // Kaufmännisch & Solution Design
           { title: 'Trennungsrechnung EU 1370/2007', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Verkehrsvertragliche Trennung eigenwirtschaftlicher vs. gemeinwirtschaftlicher Verkehre (§ 45a PBefG).' },
           { title: 'Grants Management (GM) & Fördermittel', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Fonds, Förderungsarten (LGVFG/GVFG) und Derivationsregeln für Investitionszuschüsse im ÖPNV.' },
@@ -1026,6 +1034,92 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         });
 
 
+        const synergyAtlas = [
+          {
+            id: 'syn1',
+            cluster: 'Architektur & Cloud',
+            badge: 'B.Sc. 1,7 × M.Sc. 1,0 × SSB',
+            title: '1. ERP-Plattformisierung, Boundary Resources & Bimodale Architektur',
+            uni: 'Bachelorarbeit (1,7, OutSystems/Mendix, 14 ABR/DBR/SBR) + Masterarbeit (1,0, 126 S., 12 Interviews) + ASE (1,6) + SA (1,7)',
+            work: '24M SSB AG (TP4/TP5): Greenfield Clean Core, BTP-Entkopplung von PATRIS/xSuite/d.velop mit Nagarro & Axians',
+            project: 'Ganzheitliche ERP-Transformationsmethodik + modulares Knowledge & Profile OS Portfolio',
+            synergy: 'APIs auf der SAP BTP sind nicht nur Technik, sondern soziotechnische Boundary Resources zur Balance aus Kontrolle (Core) & Innovation (Side-by-Side).',
+            deepNote: 'Empirisch mit Gesamt-PL Roland Nowak & Lead-Architekten validiert: Clean Core wirkt nur im Zusammenspiel mit Architecture Governance, PMO & Absorptive Capacity.',
+            targetTab: 'thesis',
+            ragQuery: 'Wie greifen Bachelorarbeit Boundary Resources, Masterarbeit S/4HANA Plattformisierung und SSB BTP Clean Core konkret ineinander?'
+          },
+          {
+            id: 'syn2',
+            cluster: 'Architektur & Cloud',
+            badge: 'AWS 2,0 × 12M INOC × RISE',
+            title: '2. Cloud-Architektur, Hybrid Infrastructure & ITIL 4 Service Operations',
+            uni: 'Cloud Computing (2,0, AWS Well-Architected Serverless) + SOM (3,0) + ITIL/COBIT (3,0) + TEUI (1,7)',
+            work: 'Datacenter One (12M 24/7 INOC SPoC, PRTG, Jira, USV/HVAC, Confluence SOPs) & SSB TP4 (RISE Private Cloud, ES4/QS4/PS4)',
+            project: 'Hardware Lifecycle Management (HLM_v2.vsdx für 100+ Leitstands- & Client-Systeme, Dell PoC)',
+            synergy: 'Du denkst Cloud & ERP vom physischen Glasfaser-/RZ-Betrieb über Serverless Event-Muster bis zur stabilen 3rd-Level Hypercare-Übergabe.',
+            deepNote: 'Ticket- und Root-Cause-Disziplin aus dem 24/7 RZ-Leitstand überträgt sich direkt auf SAP Job-/Dump-/Berechtigungsanalyse (SM37, SU53, ST22).',
+            targetTab: 'enterprise_arch',
+            ragQuery: 'Wie verbinden sich Datacenter One ITIL 4 24/7 INOC, Cloud Computing AWS und RISE with SAP Infrastruktur?'
+          },
+          {
+            id: 'syn3',
+            cluster: 'Governance & Daten',
+            badge: 'TOGAF × EU-1370 × § 87 BetrVG',
+            title: '3. Governance, Audit, IKS, Compliance & Mitbestimmung',
+            uni: 'GBWL 1 & 4 (2,7: HGB, Bilanz, Finanzprozess) + Informatikrecht (DSGVO/Lizenzrecht) + TOGAF 9 ADM (Scape Consulting)',
+            work: 'SSB TP2/TP5: Trennungsrechnung EU-1370/2007 im ACDOCA, Grants Management (LGVFG), LTMC/CVI Saldo 0,00 €, Betriebsrat § 87',
+            project: 'Enterprise IAM & IKS Kontrollmatrix (P_ORGIN / P_PERNR / OOSP, Segregation of Duties)',
+            synergy: 'Revisionssicheres Denken: Jede Schnittstelle, Migration und Rolle wird gleichzeitig gegen Wirtschaftsprüfer-IKS und Mitbestimmungsrecht abgesichert.',
+            deepNote: 'Direkt anschlussfähig für ERP-Audit/IKS-Beratung (KPMG), Enterprise IAM-Operations (Schwarz Digits) und IT-Governance-Traineeprogramme (TRUMPF).',
+            targetTab: 'solution_design',
+            ragQuery: 'Wie greifen Trennungsrechnung EU-1370, 0,00 Euro Übernahmekonto LTMC/CVI, IKS und Betriebsrats-Mitbestimmung zusammen?'
+          },
+          {
+            id: 'syn4',
+            cluster: 'Governance & Daten',
+            badge: 'E-Bus 1,0 × SDD × Signavio/CALM',
+            title: '4. Datenarchitektur, BPMN-Prozessdesign & End-to-End Solution Design',
+            uni: 'E-Business (1,0 Bestnote) + Modellierung (2,3: BPMN 2.0/UML/ERM/1NF-BCNF) + IVP 0x539-Wear (2,3 DB I-IV) + DBIS (2,7)',
+            work: 'SSB Explore Solution Design (SDD, FI/CO/MM/GM), Tool-Dreiklang Signavio → Cloud ALM (How2Handle) → Enable Now, DC1 Visio HLM',
+            project: 'Standardisierungs-Artefakte: Offizieller Cloud ALM Quickguide & strategisches Enable Now Übergabekonzept (UB AC)',
+            synergy: 'Durchgängige Traceability vom formalen ERM-/BPMN-Modell bis zum abgenommenen Solution Design und messbaren Cloud-ALM-Testfall.',
+            deepNote: 'Bilinguale Vermittlung: Fachbereiche verstehen Abläufe, Entwickler erhalten präzise Datenobjekt- und Schnittstellenspezifikationen.',
+            targetTab: 'tools',
+            ragQuery: 'Wie ergänzen sich E-Business 1,0, Modellierung BPMN/ERM und der SSB Tool-Dreiklang Signavio, Cloud ALM How2Handle und Enable Now?'
+          },
+          {
+            id: 'syn5',
+            cluster: 'Automatisierung & KI',
+            badge: 'Schmalz 1,0 × Klingele 2,0 × EHS',
+            title: '5. Digitale Nachhaltigkeit, CSRD & pragmatische Prozessautomatisierung',
+            uni: 'Digitale Nachhaltigkeit (1,0: Fallstudie J. Schmalz GmbH) + ISG Innovationsmethoden (2,0: PatentRadar Verpackungsindustrie) + Innovationsmanagement (1,7)',
+            work: 'SSB Stream Sustainability (CSRD, Gefahrstoffe & EHS in S/4HANA) & Fit-to-Standard Bewertung wirtschaftlicher Automatisierung',
+            project: 'PowerShell-Extraktionsskripte (fehlerfreie CSRD-Abfallbilanz) & hybrides SaaS-/RPA-Geschäftsmodell (UiPath-Potenzialanalyse)',
+            synergy: 'Du eliminierst manuellen Berichtserfassungs-Aufwand nicht mit Folien, sondern durch bereinigte BPMN-Prozesse und gezielte Automatisierung.',
+            deepNote: 'Klarer Business-Analyst-Fokus: Erst Prozesskosten & Wirtschaftlichkeit quantifizieren, dann sauber automatisieren.',
+            targetTab: 'thesis',
+            ragQuery: 'Welche Synergien bestehen zwischen der Schmalz CSRD PowerShell-Fallstudie (1,0), Klingele PatentRadar (2,0) und SAP Sustainability/EHS?'
+          },
+          {
+            id: 'syn6',
+            cluster: 'Automatisierung & KI',
+            badge: 'FPWI 1,3 × Applied AI 1,7 × RAG V3',
+            title: '6. Applied AI, Smart Services (IoT), DSRM & Eigenes Knowledge OS',
+            uni: 'FPWI Smart Service Blueprinting (1,3 | DSRM | SUS 85/100) + Applied AI (1,7) + PRISMA MRK (1,7) + Algorithm Aversion (1,7) + AI4IoT (2,0)',
+            work: 'SSB TP3 Mobile Instandhaltung (SAP Service & Asset Manager SSAM auf Tablets mit Partner Evora)',
+            project: 'Selbst entwickeltes Career & Knowledge OS mit lokalem 3-Signal Hybrid RAG V3 (BM25 + 4-Gram + 768d Vektoren über 4.980 Dateien)',
+            synergy: 'Du entwickelst KI- und Smart-Service-Lösungen rigoros nutzerzentriert (DSRM & SUS) und baust Algorithm Aversion durch harte Quellenpflicht ab.',
+            deepNote: 'Eigenes Live-Produkt als technischer Beweis: Striktes Dual-Build-Privacy-Gate zwischen öffentlichem Showcase und lokalem RAG-Cockpit.',
+            targetTab: 'cheatsheet',
+            ragQuery: 'Wie fließen FPWI Smart Service Blueprinting (1,3), Applied AI (1,7), Algorithm Aversion und SAP SSAM in mein Hybrid RAG Knowledge OS ein?'
+          }
+        ];
+
+        const filteredSynergies = computed(() => {
+          if (synergyFilter.value === 'Alle') return synergyAtlas;
+          return synergyAtlas.filter(s => s.cluster === synergyFilter.value);
+        });
+
         const filteredWbsProjects = computed(() => {
           if (wbsFilter.value === 'all') return wbsProjects.value;
           return wbsProjects.value.filter(p => p.id.toLowerCase() === wbsFilter.value.toLowerCase() || p.phase.toLowerCase() === wbsFilter.value.toLowerCase());
@@ -1154,11 +1248,11 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           }
           ragLoading.value = true;
           try {
-            const resp = await fetch('/api/rag?limit=10&q=' + encodeURIComponent(q));
+            const resp = await fetch('/api/rag?limit=10&domain=' + encodeURIComponent(ragDomain.value || '') + '&q=' + encodeURIComponent(q));
             const data = await resp.json();
             ragResults.value = data.results || [];
             ragRetrievalMode.value = data.mode || '';
-            ragStatusMsg.value = `${ragResults.value.length} Hybrid-RRF-Treffer (${ragRetrievalMode.value || 'bm25'}) für "${q}" geladen.`;
+            ragStatusMsg.value = `${ragResults.value.length} Hybrid-RRF-Treffer (${ragRetrievalMode.value || 'bm25'} | Domäne: ${ragDomain.value || 'alle'}) für "${q}" geladen.`;
           } catch (e) {
             ragStatusMsg.value = '⚠️ Fehler bei RAG-Anfrage.';
           } finally {
@@ -1175,17 +1269,17 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           }
           ragAskLoading.value = true;
           try {
-            const resp = await fetch('/api/ask?limit=6&q=' + encodeURIComponent(q));
+            const resp = await fetch('/api/ask?limit=6&style=' + encodeURIComponent(ragStyle.value || 'compact') + '&domain=' + encodeURIComponent(ragDomain.value || '') + '&q=' + encodeURIComponent(q));
             const data = await resp.json();
             ragAnswer.value = data.answer || '';
             ragModel.value = data.model || '';
             ragRetrievalMode.value = data.mode || '';
             if (data.sources && data.sources.length) {
-              const r2 = await fetch('/api/rag?limit=8&q=' + encodeURIComponent(q));
+              const r2 = await fetch('/api/rag?limit=8&domain=' + encodeURIComponent(ragDomain.value || '') + '&q=' + encodeURIComponent(q));
               const d2 = await r2.json();
               ragResults.value = d2.results || [];
             }
-            ragStatusMsg.value = `🤖 Gemini-Synthese (${ragModel.value || 'local'} | ${ragRetrievalMode.value || 'hybrid'}) auf Basis verifizierter Quellen erstellt.`;
+            ragStatusMsg.value = `🤖 Gemini (${ragStyle.value === 'compact' ? '60s-Kompakt' : 'Tiefenanalyse'} | ${ragModel.value || 'local'} | ${ragRetrievalMode.value || 'hybrid'}) auf Basis verifizierter Quellen erstellt.`;
           } catch (e) {
             ragStatusMsg.value = '⚠️ Fehler bei KI-Synthese.';
           } finally {
@@ -1207,7 +1301,17 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           await runRagAsk();
         };
 
+        const askSynergyRag = async (q, dom = 'synergies') => {
+          ragDomain.value = dom;
+          ragStyle.value = 'compact';
+          ragQuery.value = q;
+          activeTab.value = 'notebook';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          await runRagAsk();
+        };
+
         const prepInterview = async (company, role) => {
+          ragDomain.value = '';
           ragQuery.value = `${company} ${role} Masterarbeit SSB Projekt Transformation`;
           await runRagAsk();
         };
@@ -1290,12 +1394,18 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           ragAnswer,
           ragModel,
           ragRetrievalMode,
+          ragDomain,
+          ragStyle,
           formattedRagAnswer,
           ragStatusMsg,
           pipelineData,
+          synergyViewMode,
+          synergyFilter,
+          filteredSynergies,
           runRagSearch,
           runRagAsk,
           quickRagAsk,
+          askSynergyRag,
           loadPipeline,
           prepInterview,
           saveNotesToObsidian,
@@ -1335,7 +1445,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         tpl = tpl.replace('%%PRIVATE_HUB_LINE%%', '')
         tpl = re.sub(r'// PRIVATE_TABS_START.*?// PRIVATE_TABS_END', '', tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_RAG_START.*?// PRIVATE_RAG_END',
-                     "const formattedRagAnswer = computed(() => '');\n        const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const quickRagAsk = () => {};\n        const loadPipeline = () => {};\n        const prepInterview = () => {};",
+                     "const formattedRagAnswer = computed(() => '');\n        const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const quickRagAsk = () => {};\n        const askSynergyRag = () => {};\n        const loadPipeline = () => {};\n        const prepInterview = () => {};",
                      tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_DEFENSE_START.*?// PRIVATE_DEFENSE_END',
                      "const defenseScenarios = ref([]);\n        const cvImprovements = [];\n        const pitch60 = '';\n        const pitchDeep = '';\n        const starStories = ref([]);",

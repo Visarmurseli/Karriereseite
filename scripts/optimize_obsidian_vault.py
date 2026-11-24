@@ -50,8 +50,7 @@ def strip_junk_blocks_in_vault():
         re.DOTALL
     )
     for root, dirs, files in os.walk(VAULT_DIR):
-        if ".obsidian" in root:
-            continue
+        dirs[:] = [d for d in dirs if d not in (".obsidian", ".trash")]
         for fn in files:
             if not fn.endswith("_Volltext.md"):
                 continue
@@ -120,6 +119,8 @@ def split_monster_files():
     total_created = 0
     for cfg in targets:
         fpath = os.path.join(VAULT_DIR, cfg["rel"])
+        if not os.path.exists(fpath):
+            fpath = os.path.join(VAULT_DIR, "05_Archiv", "Volltexte_DataLake", cfg["rel"])
         if not os.path.exists(fpath):
             continue
         size_mb = os.path.getsize(fpath) / (1024 * 1024)
@@ -335,8 +336,7 @@ def add_context_links_to_volltext():
 
     updated = 0
     for root, dirs, files in os.walk(VAULT_DIR):
-        if ".obsidian" in root:
-            continue
+        dirs[:] = [d for d in dirs if d not in (".obsidian", ".trash")]
         for fn in files:
             base = os.path.splitext(fn)[0]
             if base not in link_map:

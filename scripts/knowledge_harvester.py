@@ -166,6 +166,18 @@ def print_status():
         print(f"  {p:<32}: {s['processed']:>4} / {s['total']:>4} ({pct:>5.1f}%) | {s['chars']:>10,} chars")
     print("=" * 70)
 
+def _resolve_target_note(subfolder, target_note_name):
+    """Routes pure _Volltext data dumps cleanly to 05_Archiv/Volltexte_DataLake/ without cluttering curated foreground pillars."""
+    is_volltext_dump = ("_Volltext" in target_note_name) and (subfolder != "01_Karriere_Bewerbungen")
+    if is_volltext_dump:
+        lake_pillar = "04_DC1" if target_note_name.startswith("DC1_") else subfolder
+        path = os.path.join(VAULT_DIR, "05_Archiv", "Volltexte_DataLake", lake_pillar, target_note_name)
+    else:
+        path = os.path.join(VAULT_DIR, subfolder, target_note_name)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    return path
+
+
 # ==============================================================================
 # BATCH 1: PILLAR 04 (DATACENTER ONE / ITIL 4 SERVICE OPERATIONS)
 # ==============================================================================
@@ -204,7 +216,7 @@ def ingest_batch_dc1():
             print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
 
     if incident_blocks:
-        note_target = os.path.join(VAULT_DIR, "03_SAP_EnterpriseArchitecture", "DC1_ITIL4_Incident_Reports_PostMortems_Volltext.md")
+        note_target = _resolve_target_note("03_SAP_EnterpriseArchitecture", "DC1_ITIL4_Incident_Reports_PostMortems_Volltext.md")
         full_content = f"""---
 id: dc1-itil4-incident-reports-postmortems
 title: "DC1 ITIL 4 Incident Reports & Root-Cause-Analysen (Volltext-Archiv)"
@@ -273,7 +285,7 @@ last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
             print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
 
     if hlm_blocks:
-        hlm_target = os.path.join(VAULT_DIR, "03_SAP_EnterpriseArchitecture", "DC1_Hardware_Lifecycle_Management_Fahrplan_Volltext.md")
+        hlm_target = _resolve_target_note("03_SAP_EnterpriseArchitecture", "DC1_Hardware_Lifecycle_Management_Fahrplan_Volltext.md")
         hlm_content = f"""---
 id: dc1-hardware-lifecycle-management-fahrplan
 title: "DC1 Hardware Lifecycle Management & Rollout-Fahrplan (Volltext)"
@@ -339,7 +351,7 @@ last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
             print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
 
     if carrier_blocks:
-        carrier_target = os.path.join(VAULT_DIR, "03_SAP_EnterpriseArchitecture", "DC1_Carriermanagement_SOPs_TOGAF_Volltext.md")
+        carrier_target = _resolve_target_note("03_SAP_EnterpriseArchitecture", "DC1_Carriermanagement_SOPs_TOGAF_Volltext.md")
         carrier_content = f"""---
 id: dc1-carriermanagement-sops-togaf
 title: "DC1 Carrier Management, SOPs & TOGAF Architektur (Volltext)"
@@ -418,7 +430,7 @@ def ingest_batch_ssb_steering():
             print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
 
     if sb_blocks:
-        sb_target = os.path.join(VAULT_DIR, "03_SAP_EnterpriseArchitecture", "SSB_TP5_Steering_Board_Lenkungsausschuss_Volltext.md")
+        sb_target = _resolve_target_note("03_SAP_EnterpriseArchitecture", "SSB_TP5_Steering_Board_Lenkungsausschuss_Volltext.md")
         sb_content = f"""---
 id: ssb-tp5-steering-board-lenkungsausschuss
 title: "SSB TP5 Steering Board & Lenkungsausschuss (Volltext-Archiv)"
@@ -511,7 +523,7 @@ def ingest_batch_ssb_fachstreams():
                 print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
                 
         if blocks:
-            note_target = os.path.join(VAULT_DIR, "03_SAP_EnterpriseArchitecture", target_note_name)
+            note_target = _resolve_target_note("03_SAP_EnterpriseArchitecture", target_note_name)
             slug = target_note_name.replace(".md", "").lower().replace("_", "-")
             title_clean = target_note_name.replace(".md", "").replace("_", " ")
             
@@ -602,7 +614,7 @@ def ingest_batch_ssb_teilprojekte():
                 print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
                 
         if blocks:
-            note_target = os.path.join(VAULT_DIR, "03_SAP_EnterpriseArchitecture", target_note_name)
+            note_target = _resolve_target_note("03_SAP_EnterpriseArchitecture", target_note_name)
             slug = target_note_name.replace(".md", "").lower().replace("_", "-")
             title_clean = target_note_name.replace(".md", "").replace("_", " ")
             
@@ -708,7 +720,7 @@ def ingest_batch_ssb_pmo_governance():
                 print(f"  [+] Extracted: {fname} ({res['chars']:,} chars)")
                 
         if blocks:
-            note_target = os.path.join(VAULT_DIR, "03_SAP_EnterpriseArchitecture", target_note_name)
+            note_target = _resolve_target_note("03_SAP_EnterpriseArchitecture", target_note_name)
             slug = target_note_name.replace(".md", "").lower().replace("_", "-")
             
             content = f"""---
@@ -798,7 +810,7 @@ def ingest_batch_master_academic():
     
     for folder_keyword, target_note_name, title_clean, desc in master_targets:
         match_files = [f for f in files.values() if f["pillar"] == "02_Master" and folder_keyword in f["rel_path"]]
-        note_target = os.path.join(VAULT_DIR, "02_Wirtschaftsinformatik_300ECTS", target_note_name)
+        note_target = _resolve_target_note("02_Wirtschaftsinformatik_300ECTS", target_note_name)
         
         if os.path.exists(note_target) and os.path.getsize(note_target) > 10000:
             print(f"\n[i] Note {target_note_name} already exists ({os.path.getsize(note_target):,} bytes). Updating registry and continuing...")
@@ -922,7 +934,7 @@ def ingest_batch_bachelor_academic():
     
     for folder_keyword, target_note_name, title_clean, desc in bachelor_targets:
         match_files = [f for f in files.values() if f["pillar"] == "03_Bachelor" and folder_keyword in f["rel_path"]]
-        note_target = os.path.join(VAULT_DIR, "02_Wirtschaftsinformatik_300ECTS", target_note_name)
+        note_target = _resolve_target_note("02_Wirtschaftsinformatik_300ECTS", target_note_name)
         
         if os.path.exists(note_target) and os.path.getsize(note_target) > 10000:
             print(f"\n[i] Note {target_note_name} already exists ({os.path.getsize(note_target):,} bytes). Updating registry and continuing...")
@@ -1020,7 +1032,7 @@ def ingest_generic_targets(targets, batch_title):
         folder_keywords = target.get("folder_keywords", [])
         is_catchall = target.get("is_catchall", False)
         
-        note_target = os.path.join(VAULT_DIR, subfolder, target_note_name)
+        note_target = _resolve_target_note(subfolder, target_note_name)
         
         # Match pending files
         match_files = []

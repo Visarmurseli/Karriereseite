@@ -15,6 +15,7 @@ if BASE_DIR not in sys.path:
 
 from portal_builder.header import get_header
 from portal_builder.dashboard import get_dashboard
+from portal_builder.synergies import get_synergies
 from portal_builder.cv_defense import get_cv_defense
 from portal_builder.project import get_project
 from portal_builder.solution_design import get_solution_design
@@ -34,6 +35,7 @@ def build_variant(public_mode=False):
     parts = [
         get_header(public_mode=public_mode),
         get_dashboard(public_mode=public_mode),
+        get_synergies(public_mode=public_mode),
     ]
     if not public_mode:
         parts.append(get_cv_defense())

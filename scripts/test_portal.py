@@ -66,11 +66,25 @@ def test_command_palette_and_telemetry(content):
         "53 Dossiers",
         "266 bidirektionale Links",
         "21 Deliverables",
-        "300 ECTS"
+        "300 ECTS",
+        "Stärkenprofil & Synergie-Atlas",
+        "filteredSynergies"
     ]
     for feat in features:
         assert feat in content, f"Feature check failed: Missing '{feat}'"
     print(f"  [PASS] Command Palette & Telemetry: All {len(features)} reactive features active.")
+
+
+def test_public_showcase_privacy():
+    pub_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 's4hana-prep-portal', 'public_index.html'))
+    assert os.path.exists(pub_path), f"Public artifact missing: {pub_path}"
+    with open(pub_path, 'r', encoding='utf-8') as f:
+        pub = f.read()
+    for token in ["Persönliches Stärkenprofil", "filteredSynergies", "Stärkenprofil & Synergie-Atlas"]:
+        assert token in pub, f"Public Showcase missing synergy/profile token: {token}"
+    for leak in ["Gefahrenstufe Rot", "TÖDLICH", "cv_defense", "Fangfrage", "Gehaltskalkulation"]:
+        assert leak not in pub, f"PRIVACY GATE VIOLATION in public_index.html: {leak}"
+    print(f"  [PASS] Public Showcase & Privacy Gate: Verified clean ({len(pub.encode('utf-8'))//1024} KB, 0 private leaks).")
 
 def test_vue_syntax_integrity(content):
     # Verify curly braces inside Vue templates
@@ -95,6 +109,7 @@ def run_all_tests():
     test_wbs_radar_integrity(content)
     test_command_palette_and_telemetry(content)
     test_vue_syntax_integrity(content)
+    test_public_showcase_privacy()
     
     print("==========================================================")
     print("✅ ALL SPEC-KIT QUALITY CHECKS PASSED (100% SUCCESS)")

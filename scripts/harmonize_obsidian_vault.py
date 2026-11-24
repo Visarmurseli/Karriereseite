@@ -222,8 +222,7 @@ EXPLICIT_FRONTMATTER = {
 def build_vault_inventory():
     all_files = {}
     for r, ds, fs in os.walk(VAULT_DIR):
-        if ".obsidian" in r:
-            continue
+        ds[:] = [d for d in ds if d not in (".obsidian", ".trash", "archive")]
         for f in fs:
             if f.endswith(".md"):
                 bname = os.path.splitext(f)[0].lower()
@@ -232,7 +231,7 @@ def build_vault_inventory():
     return all_files
 
 def relocate_root_personal_files():
-    zettel_dir = os.path.join(VAULT_DIR, "04_Second_Brain_Zettelkasten")
+    zettel_dir = os.path.join(VAULT_DIR, "04_Second_Brain_Zettelkasten", "Personal_OS")
     os.makedirs(zettel_dir, exist_ok=True)
     
     # 1. Gewohnheiten.md
@@ -451,8 +450,13 @@ def process_frontmatter(text, rel_path, default_title):
     """
     fm_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', text, re.DOTALL)
     
-    # Check if we have an explicit frontmatter override
-    explicit = EXPLICIT_FRONTMATTER.get(rel_path, None)
+    # Check if we have an explicit frontmatter override (path or basename fallback after archive/Personal_OS move)
+    explicit = EXPLICIT_FRONTMATTER.get(rel_path)
+    if not explicit:
+        for k, v in EXPLICIT_FRONTMATTER.items():
+            if os.path.basename(k) == os.path.basename(rel_path):
+                explicit = v
+                break
 
     if explicit:
         tags_yaml = "\n".join([f"  - {t}" for t in explicit["tags"]])
@@ -507,14 +511,18 @@ last_updated: "2026-11-24"
     
     # Add domain if missing
     if "domain:" not in fm_content:
-        if "02_Wirtschaftsinformatik" in rel_path:
+        if "Synergien" in rel_path:
+            dom = "synergy-architecture"
+        elif "Personal_OS" in rel_path:
+            dom = "personal-growth"
+        elif "DC1" in rel_path or "04_DC1" in rel_path:
+            dom = "datacenter-operations"
+        elif "02_Wirtschaftsinformatik" in rel_path:
             dom = "academic-curriculum"
         elif "03_SAP" in rel_path:
             dom = "sap-transformation"
         elif "01_Karriere" in rel_path:
             dom = "career-pmo"
-        elif "DC1" in rel_path:
-            dom = "datacenter-operations"
         else:
             dom = "second-brain"
         fm_content += f'\ndomain: {dom}'

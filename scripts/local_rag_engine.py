@@ -42,6 +42,8 @@ STOPWORDS = {
 }
 
 TYPE_AUTHORITY = {
+    "profile": 1.52,
+    "synergy": 1.50,
     "zettel": 1.45,
     "interview-prep": 1.42,
     "moc": 1.25,
@@ -50,6 +52,49 @@ TYPE_AUTHORITY = {
     "concept": 1.00,
     "log": 0.45,
 }
+
+LOGICAL_DOMAIN_GROUPS = {
+    "work": ("sap-transformation", "datacenter-operations", "enterprise-architecture"),
+    "arbeit": ("sap-transformation", "datacenter-operations", "enterprise-architecture"),
+    "study": ("academic-curriculum",),
+    "studium": ("academic-curriculum",),
+    "synergies": ("synergy-architecture", "career-pmo"),
+    "synergien": ("synergy-architecture", "career-pmo"),
+}
+
+
+def _domain_sql_clause(domain, alias="c"):
+    """Maps intuitive UI domain group names or exact YAML domains to uniform SQL WHERE predicates."""
+    if not domain:
+        return "", []
+    low = domain.strip().lower()
+    if low in ("all", "alle"):
+        return "", []
+    if low in ("curated", "layer1", "schicht1"):
+        return f" AND {alias}.file_rel NOT LIKE '05_Archiv%'", []
+    if low in ("synergies", "synergien"):
+        return f" AND ({alias}.domain IN ('synergy-architecture', 'career-pmo') OR {alias}.doc_type IN ('synergy', 'profile', 'zettel'))", []
+    if low in LOGICAL_DOMAIN_GROUPS:
+        vals = LOGICAL_DOMAIN_GROUPS[low]
+        ph = ",".join("?" for _ in vals)
+        return f" AND {alias}.domain IN ({ph})", list(vals)
+    return f" AND {alias}.domain = ?", [domain.strip()]
+
+
+def _matches_domain_py(file_rel, doc_domain, doc_type, domain):
+    """Python-side counterpart to _domain_sql_clause for vector & subword caches."""
+    if not domain:
+        return True
+    low = domain.strip().lower()
+    if low in ("all", "alle"):
+        return True
+    if low in ("curated", "layer1", "schicht1"):
+        return not str(file_rel or "").startswith("05_Archiv")
+    if low in ("synergies", "synergien"):
+        return (doc_domain in ("synergy-architecture", "career-pmo")) or (doc_type in ("synergy", "profile", "zettel"))
+    if low in LOGICAL_DOMAIN_GROUPS:
+        return doc_domain in LOGICAL_DOMAIN_GROUPS[low]
+    return doc_domain == domain.strip()
 
 # Domain ontology synonym expansion for German/English ERP, SAP, Audit & EAM queries
 DOMAIN_SYNONYMS = {
@@ -303,14 +348,14 @@ def embed_anchors(force=False, max_chunks=240):
         )
         SELECT id, title, section, file_rel, content, doc_type, domain, rn
         FROM ranked
-        WHERE doc_type IN ('zettel', 'interview-prep', 'moc', 'hub')
+        WHERE doc_type IN ('profile', 'synergy', 'zettel', 'interview-prep', 'moc', 'hub')
            OR file_rel LIKE '01_Karriere_Bewerbungen%'
            OR rn <= 2
     """).fetchall()
 
-    prio_map = {"zettel": 0, "interview-prep": 1, "moc": 2, "hub": 3, "module": 5, "concept": 6}
+    prio_map = {"profile": 0, "synergy": 0, "zettel": 1, "interview-prep": 1, "moc": 2, "hub": 3, "module": 5, "concept": 6}
     rows.sort(key=lambda r: (
-        0 if (r[5] in ("zettel", "interview-prep") or r[3].startswith("01_Karriere_Bewerbungen")) else (1 if r[5] in ("moc", "hub") else (2 if "03_SAP_EnterpriseArchitecture" in r[3] else 3)),
+        0 if (r[5] in ("profile", "synergy", "zettel", "interview-prep") or r[3].startswith("01_Karriere_Bewerbungen")) else (1 if r[5] in ("moc", "hub") else (2 if "03_SAP_EnterpriseArchitecture" in r[3] else 3)),
         prio_map.get(r[5], 9),
         r[7],
         r[0]
@@ -386,8 +431,7 @@ def build_index(with_vectors=True):
     _ensure_vector_table(cur)
 
     for root, dirs, files in os.walk(VAULT_DIR):
-        if ".obsidian" in root:
-            continue
+        dirs[:] = [d for d in dirs if d not in (".obsidian", ".trash")]
         for fn in sorted(files):
             if not fn.endswith(".md"):
                 continue
@@ -548,9 +592,9 @@ def _run_fts_stage(cur, expr, domain, limit):
         WHERE chunks_fts MATCH ?
     """
     params = [expr]
-    if domain:
-        sql += " AND c.domain = ?"
-        params.append(domain)
+    dom_sql, dom_params = _domain_sql_clause(domain, alias="c")
+    sql += dom_sql
+    params.extend(dom_params)
     sql += " ORDER BY raw_bm25 LIMIT ?"
     params.append(int(limit))
     try:
@@ -593,7 +637,7 @@ def _load_subword_anchors(cur):
         )
         SELECT id, file_rel, title, domain, doc_type, section, content
         FROM ranked
-        WHERE doc_type IN ('zettel', 'interview-prep', 'moc', 'hub')
+        WHERE doc_type IN ('profile', 'synergy', 'zettel', 'interview-prep', 'moc', 'hub')
            OR file_rel LIKE '01_Karriere_Bewerbungen%'
            OR rn <= 2
     """).fetchall()
@@ -675,7 +719,7 @@ def search(query, top_k=8, domain=None, max_per_file=2, use_vectors=True):
             sub_anchors = _load_subword_anchors(cur)
             sub_sims = []
             for cid, d, dg, dn in sub_anchors:
-                if domain and d.get("domain") != domain:
+                if not _matches_domain_py(d.get("file_rel"), d.get("domain"), d.get("doc_type"), domain):
                     continue
                 sim = _sparse_cos(q_sub_g, q_sub_n, dg, dn)
                 if sim > 0.08:
@@ -700,19 +744,22 @@ def search(query, top_k=8, domain=None, max_per_file=2, use_vectors=True):
                     q_vec = _embed_single_query(query, key)
                     sims = [(cid, _DOT(q_vec, avec)) for cid, avec in anchors]
                     sims.sort(key=lambda x: x[1], reverse=True)
-                    top_vec = sims[:max(top_k * 6, 40)]
+                    top_vec = sims[:max(top_k * 8, 50)]
                     missing_ids = [cid for cid, _ in top_vec if cid not in bm25_entries]
                     if missing_ids:
                         placeholders = ",".join("?" for _ in missing_ids)
                         sql_m = f"SELECT id, file_rel, title, domain, doc_type, section, content FROM chunks WHERE id IN ({placeholders})"
-                        params_m = list(missing_ids)
-                        if domain:
-                            sql_m += " AND domain = ?"
-                            params_m.append(domain)
+                        dom_sql, dom_params = _domain_sql_clause(domain, alias="chunks")
+                        sql_m += dom_sql
+                        params_m = list(missing_ids) + dom_params
                         for r in cur.execute(sql_m, params_m).fetchall():
                             d = dict(r)
                             d["raw_bm25"] = 0.0
                             bm25_entries[r["id"]] = (d, 0.55)
+                    bm25_entries = {
+                        cid: val for cid, val in bm25_entries.items()
+                        if _matches_domain_py(val[0].get("file_rel"), val[0].get("domain"), val[0].get("doc_type"), domain)
+                    }
                     for v_rank, (cid, sim) in enumerate(top_vec, 1):
                         if cid in bm25_entries:
                             vec_rank_map[cid] = v_rank
@@ -735,8 +782,8 @@ def search(query, top_k=8, domain=None, max_per_file=2, use_vectors=True):
         dom = r["domain"] or "general"
 
         auth_w = TYPE_AUTHORITY.get(doc_type, 1.0)
-        if doc_type == "concept" and ("_Volltext" in file_rel or "_Band_" in file_rel):
-            auth_w *= 0.88
+        if "05_archiv" in file_rel.lower() or "_Volltext" in file_rel or "_Teil_" in file_rel:
+            auth_w *= 0.85
         if dom == "system-governance" and "changelog" in file_rel.lower():
             auth_w *= 0.45
 
@@ -861,20 +908,40 @@ def get_pipeline_data(excel_path=None, max_active=15):
         return {"ok": False, "error": str(e), "interviews": [], "open_tier1": [], "open_count": 0, "closed_count": 0, "total_rows": 0}
 
 
-def synthesize_answer(query, top_k=6):
-    hits = search(query, top_k=top_k)
+def synthesize_answer(query, top_k=6, domain=None, style="deep"):
+    hits = search(query, top_k=top_k, domain=domain)
     mode = hits[0].get("retrieval_mode", "bm25_expanded") if hits else "none"
+    style_norm = "compact" if str(style).strip().lower() == "compact" else "deep"
     key = load_api_key()
     if not key:
-        return {"answer": "Kein GEMINI_API_KEY konfiguriert.", "mode": mode, "sources": hits}
+        return {"answer": "Kein GEMINI_API_KEY konfiguriert.", "mode": mode, "style": style_norm, "domain": domain, "sources": hits}
 
     context_blocks = []
     for i, h in enumerate(hits, 1):
         context_blocks.append(f"[Quelle {i}: {h['file']} | Typ: {h['type']} | Abschnitt: {h['section']}]\n{h['content'][:2200]}")
     context_text = "\n\n---\n\n".join(context_blocks)
 
-    prompt = f"""Beantworte die folgende Frage präzise auf Basis von Visar Murselis verifizierten Dokumenten.
-Zitiere konkrete Quellen im Format [Quelle: Dateiname | Abschnitt] und gliedere mit klaren Überschriften und Bulletpoints. Erfinde keine Fakten.
+    if style_norm == "compact":
+        style_rules = """ANTWORT-MODUS: ⚡ 60-SEKUNDEN KOMPAKT-BRIEFING
+- Maximal 160–190 Wörter insgesamt!
+- Format:
+  ## ⚡ 60s-Essenz
+  - Kernaussage 1 (mit [Quelle: Dateiname | Abschnitt])
+  - Kernaussage 2 (konkreter Arbeit/Uni-Beleg)
+  - Kernaussage 3 (Synergie / Mehrwert)
+  - Kernaussage 4 (Optional: konkreter Kennwert/Note/Fakt)
+- KEIN unnötiges Vorgeplänkel. Erfinde keine Fakten."""
+        max_tokens = 750
+        temp = 0.15
+    else:
+        style_rules = """ANTWORT-MODUS: 🔬 STRUKTURIERTE TIEFENANALYSE
+- Beantworte präzise, fundiert und mehrperspektivisch (Arbeit × Studium × Architektur) auf Basis von Visar Murselis verifizierten Dokumenten.
+- Gliedere mit klaren Überschriften (## / ###) und prägnanten Bulletpoints.
+- Zitiere konkrete Quellen im Format [Quelle: Dateiname | Abschnitt]. Erfinde keine Fakten."""
+        max_tokens = 1550
+        temp = 0.2
+
+    prompt = f"""{style_rules}
 
 KONTEXT AUS DEM SECOND BRAIN:
 {context_text}
@@ -886,7 +953,7 @@ FRAGE:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {"temperature": 0.2, "maxOutputTokens": 1500}
+            "generationConfig": {"temperature": temp, "maxOutputTokens": max_tokens}
         }
         req = urllib.request.Request(url, data=json.dumps(payload).encode("utf-8"), headers={"Content-Type": "application/json"})
         try:
@@ -898,6 +965,8 @@ FRAGE:
                         "answer": txt,
                         "model": model,
                         "mode": mode,
+                        "style": style_norm,
+                        "domain": domain,
                         "sources": [
                             {"file": h["file"], "title": h["title"], "type": h["type"], "section": h["section"], "score": h["score"], "vec_sim": h.get("vec_sim", 0.0)}
                             for h in hits
@@ -909,6 +978,8 @@ FRAGE:
         "answer": "Synthese fehlgeschlagen; zeige Rohtreffer.",
         "model": "fallback-raw",
         "mode": mode,
+        "style": style_norm,
+        "domain": domain,
         "sources": [
             {"file": h["file"], "title": h["title"], "type": h["type"], "section": h["section"], "score": h["score"], "vec_sim": h.get("vec_sim", 0.0)}
             for h in hits
@@ -926,6 +997,8 @@ if __name__ == "__main__":
     parser.add_argument("--pipeline", action="store_true", help="Shows live application pipeline JSON")
     parser.add_argument("--query", type=str, help="Searches indexed chunks via Hybrid RRF (BM25 + Vector)")
     parser.add_argument("--ask", type=str, help="Hybrid RRF RAG query + Gemini synthesis")
+    parser.add_argument("--domain", type=str, default=None, help="Optional filter: work, study, synergies, curated, or exact YAML domain")
+    parser.add_argument("--style", type=str, default="deep", choices=["compact", "deep"], help="Synthesis style: compact (60s briefing) or deep")
     args = parser.parse_args()
 
     if args.build:
@@ -939,13 +1012,13 @@ if __name__ == "__main__":
     elif args.pipeline:
         print(json.dumps(get_pipeline_data(), indent=2, ensure_ascii=False))
     elif args.query:
-        res = search(args.query, top_k=6)
+        res = search(args.query, top_k=6, domain=args.domain)
         mode = res[0]["retrieval_mode"] if res else "none"
-        print(f"=== MODE: {mode} | EXPANDED: {res[0]['expanded_terms'] if res else []} ===")
+        print(f"=== MODE: {mode} | DOMAIN: {args.domain or 'all'} | EXPANDED: {res[0]['expanded_terms'] if res else []} ===")
         for idx, r in enumerate(res, 1):
             print(f"\n[{idx}] RRF={r['score']} | Sim={r['vec_sim']}% | {r['type']} | {r['file']} :: {r['section']}")
             print(r["snippet"][:300].replace("\n", " "))
     elif args.ask:
-        print(json.dumps(synthesize_answer(args.ask), indent=2, ensure_ascii=False))
+        print(json.dumps(synthesize_answer(args.ask, domain=args.domain, style=args.style), indent=2, ensure_ascii=False))
     else:
         print(json.dumps(get_stats(), indent=2, ensure_ascii=False))

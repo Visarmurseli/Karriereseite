@@ -27,6 +27,32 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.14.0] - 2026-11-24 (Knowledge & Profile OS 2.0: Data Lake Trennung, 6 Arbeit×Uni Synergie-Karten, Persönliches Stärkenprofil & 60s-Kompakt-Briefing | Commit HEAD)
+
+### 🎯 Kontext & Leitmotiv
+Strategische Schärfung auf Visar Murselis Kernvision (**Knowledge & Profile OS 2.0**): Entschlackung des Obsidian-Vordergrunds in zwei klare Schichten (Kuratiertes Wissen vs. durchsuchbarer Volltext-Data-Lake), explizite Verzahnung von **Arbeit × Studium × Eigenprojekten** über sechs tiefgehende Synergie-Karten, ein evidenzbasiertes **`Persoenliches_Staerkenprofil.md`**, einheitliche **`> [!ABSTRACT] 60-Sekunden-Essenz`**-Blöcke sowie das neue **Stärken- & Synergie-Cockpit** inkl. **60s-Kompakt- vs. Tiefenanalyse-Modus** und **Domänenfiltern** im lokalen Webportal und auf GitHub Pages.
+
+### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
+- **Phase 1 — Obsidian Schicht-Trennung & Kompaktheit (`scripts/restructure_knowledge_hub.py`, `00_INDEX.md`, `.obsidian/graph.json`):**
+  - `143` massive Volltext-Extrakt-Dumps und `< 4 MB` Split-Bände (`85` `_Teil_XX` + `58` `_Volltext`-Hubs aus Säule `02`/`03`/`DC1`) nach `05_Archiv/Volltexte_DataLake/` verlagert und über [[00_DataLake_Index]] vollständig mit `0 Broken Links` & `0 Orphans` angebunden.
+  - Persönliche Habit-/Trainingsnotizen nach `04_Second_Brain_Zettelkasten/Personal_OS/` isoliert und `00_INDEX.md` in **Schicht 1 (Kuratiertes Wissen)** vs. **Schicht 2 (Data Lake)** gegliedert.
+  - `33` zentrale Praxisstationen (`SSB TP1–TP5`, `DC1 INOC/HLM`, `SDD`, `LTMC/CVI`, `Plattformisierung`) und Top-Studienmodule (`Masterarbeit 1,0`, `Bachelorarbeit 1,7`, `E-Business 1,0`, `Schmalz 1,0`, `FPWI 1,3`, `ASE 1,6`, `TOGAF 9 ADM` u. v. m.) mit einheitlichem `> [!ABSTRACT] 60-Sekunden-Essenz`-Block angereichert.
+  - `harmonize_obsidian_vault.py`, `knowledge_harvester.py`, `optimize_obsidian_vault.py`, `validate_obsidian_rag.py` und `local_rag_engine.py` pfadsicher auf die Zwei-Schichten-Struktur umgestellt.
+- **Phase 2 — Synergie-Atlas & Persönliches Stärkenprofil:**
+  - **6 vernetzte Synergie-Karten (`04_Second_Brain_Zettelkasten/Synergien/`):** `01_Synergie_Plattformisierung_Boundary_Resources_ERP`, `02_Synergie_Cloud_ServiceOps_ITIL4`, `03_Synergie_Governance_Audit_IKS_Mitbestimmung`, `04_Synergie_Daten_Prozesse_Solution_Design`, `05_Synergie_Nachhaltigkeit_Prozessautomatisierung`, `06_Synergie_AI_IoT_Smart_Industry`.
+  - **Master-Dossier `01_Karriere_Bewerbungen/Persoenliches_Staerkenprofil.md`:** 5 evidenzbasierte Stärken-Cluster, roter Faden `2019–2026` (`+1,4` Notenpunkte-Entwicklung B.Sc. `3,0` → M.Sc. `1,6`), kompakte Erfahrungs-Pitches und transparenter Wachstums-Radar.
+- **Phase 3 — Webportal Showcase & Domänen-/Kompakt-RAG (`portal_builder/synergies.py`, `header.py`, `dashboard.py`, `notebook.py`, `vue_app.py`, `local_rag_engine.py`, `run_portal.py`):**
+  - Neues Dual-Mode Modul `portal_builder/synergies.py` (Stärken-Cluster, interaktive `Arbeit × Uni × Projekte`-Matrix, `60s-Kompakt` vs. `Tiefenprofil`-Toggle) sowohl im privaten Cockpit (`index.html`, `429.06 KB`) als auch in der öffentlichen Showcase-Seite (`public_index.html` / `Karriereseite/index.html`, `259.57 KB`, `0` Privacy-Leaks).
+  - `scripts/local_rag_engine.py` & `/api/ask` + `/api/rag`: Domänenfilter (`Alle`, `work`, `study`, `synergies`, `curated`), Priorisierung von `profile`/`synergy`-Vektorankern (`1.52`/`1.50`), Layer-1-Vorrang vor Data Lake und neuer Modus `style=compact` (*⚡ 60s-Kompakt-Briefing*) vs. `style=deep` (*🔬 Tiefenanalyse*).
+
+### ✅ Verifikation & Compliance-Nachweise
+- **Obsidian Audit (`validate_obsidian_rag.py`):** **294 / 294** Dokumente mit validem YAML-Frontmatter (**100,0 %**), **1.772 Wikilinks (6,0 Ø/Note | 0 Broken Links)**, **0 Multiple H1**, **0 Dateien > 10 MB**, **0 Graph-Orphans** (**Layer 1:** `150` Notizen | **Layer 2:** `144` Archiv-Bände), **60.583.583 Wörter (~81,79 Mio. Tokens)** -> *PASSED WITH DISTINCTION*.
+- **Hybrid RAG V3 (`career_os_rag.db`):** Vollständig neu aufgebaut mit **`294` Notizen**, **`137.371` Chunks**, **`240 / 240` priorisierten Gemini 768d-Vektorankern**, **`392.689.572` Zeichen (`797,77 MB`)**.
+- **Portal Build & Spec-Kit Tests (`test_portal.py` + `py_compile` + JS-Check):** Alle 7 Spec-Kit Compliance-Gates inkl. neuem Public-Showcase Privacy-Gate (`0` Leaks, `parens/braces delta: 0`) **100 % bestanden**.
+- **Windows Autostart:** Unverändert aktiv (`CareerOS_Autostart.vbs` im Benutzer-Autostart).
+
+---
+
 ## [1.13.0] - 2026-11-24 (Interview-Dossiers, Live GMX IMAP /sync, Datenbereinigung & Windows-Autostart | Commit 78114e9)
 
 ### 🎯 Kontext & Leitmotiv

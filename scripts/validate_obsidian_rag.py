@@ -19,8 +19,7 @@ def run_validation():
     md_files = []
     all_basenames = {}
     for r, ds, fs in os.walk(VAULT_DIR):
-        if ".obsidian" in r:
-            continue
+        ds[:] = [d for d in ds if d not in (".obsidian", ".trash")]
         for f in fs:
             if f.endswith(".md"):
                 fullpath = os.path.join(r, f)
@@ -111,6 +110,10 @@ def run_validation():
         print(f"    - {t}: {c} notes")
 
     print(f"\n[6] INFORMATION CAPACITY & FILE CHUNKING HEALTH:")
+    layer1 = [(f, rel, full) for f, rel, full in md_files if not rel.startswith("05_Archiv")]
+    layer2 = [(f, rel, full) for f, rel, full in md_files if rel.startswith("05_Archiv")]
+    print(f"    - Layer 1 (Curated Knowledge & Profile Foreground): {len(layer1)} notes")
+    print(f"    - Layer 2 (05_Archiv/Volltexte_DataLake Archive): {len(layer2)} notes")
     print(f"    - Total Word Count: {sum(word_counts):,} words")
     print(f"    - Total Token Estimate: ~{int(sum(word_counts) * 1.35):,} tokens")
     oversized = [(rel, round(os.path.getsize(full) / (1024 * 1024), 2)) for _, rel, full in md_files if os.path.getsize(full) > 10 * 1024 * 1024]

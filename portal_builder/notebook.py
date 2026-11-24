@@ -114,25 +114,39 @@ def get_notebook():
             <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">{{ ragRetrievalMode === 'hybrid_rrf' ? 'Hybrid RRF (BM25 + 768d Vektor)' : 'Hybrid FTS5 + Synonym-Expansion' }}</span>
           </div>
 
+          <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
+            <span class="text-[#8f8888] mr-1">Domäne:</span>
+            <button @click="ragDomain = ''" :class="ragDomain === '' ? 'bg-[#bf262e] text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">🌐 Alle (294 Doks)</button>
+            <button @click="ragDomain = 'work'" :class="ragDomain === 'work' ? 'bg-blue-600 text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">💼 Arbeit (SSB & DC1)</button>
+            <button @click="ragDomain = 'study'" :class="ragDomain === 'study' ? 'bg-purple-600 text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">🎓 Studium (300 ECTS)</button>
+            <button @click="ragDomain = 'synergies'" :class="ragDomain === 'synergies' ? 'bg-emerald-600 text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">⚡ Synergien & Profil</button>
+            <button @click="ragDomain = 'curated'" :class="ragDomain === 'curated' ? 'bg-amber-600 text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">✨ Nur Schicht 1 (Kuratiert)</button>
+            <span class="ml-auto inline-flex rounded-lg bg-black/50 border border-white/10 p-0.5">
+              <button @click="ragStyle = 'compact'" :class="ragStyle === 'compact' ? 'bg-[#bf262e] text-white font-bold' : 'text-[#c4bebe]'" class="px-2.5 py-0.5 rounded-md transition">⚡ 60s-Kompakt</button>
+              <button @click="ragStyle = 'deep'" :class="ragStyle === 'deep' ? 'bg-white/15 text-white font-bold' : 'text-[#c4bebe]'" class="px-2.5 py-0.5 rounded-md transition">🔬 Tiefenanalyse</button>
+            </span>
+          </div>
+
           <div class="flex flex-wrap gap-2">
             <input 
               v-model="ragQuery"
               @keyup.enter="runRagSearch"
               type="text"
-              placeholder="z.B. Wie verhindere ich technische Schulden bei S/4HANA? oder KPMG IT-Transformation IKS..."
+              placeholder="z.B. Wie verhindere ich technische Schulden bei S/4HANA? oder Meine Arbeit x Uni Synergien..."
               class="flex-1 min-w-[240px] px-4 py-2.5 text-xs bg-black/50 border border-white/15 rounded-xl text-white placeholder-[#8f8888] focus:outline-none focus:border-[#bf262e]"
             >
             <button @click="runRagSearch" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-xl transition border border-white/10">
               {{ ragLoading ? 'Suche...' : 'Chunks finden' }}
             </button>
             <button @click="runRagAsk" class="px-4 py-2 bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-semibold rounded-xl transition shadow-md shadow-[#bf262e]/30">
-              {{ ragAskLoading ? 'Synthetisiere...' : '🤖 KI-Synthese (Gemini)' }}
+              {{ ragAskLoading ? 'Synthetisiere...' : (ragStyle === 'compact' ? '⚡ 60s-Synthese (Gemini)' : '🔬 Tiefenanalyse (Gemini)') }}
             </button>
           </div>
 
           <!-- Schnell-Abfragen -->
           <div class="flex flex-wrap gap-1.5 text-[11px]">
-            <button @click="quickRagAsk('Wie verhindere ich technische Schulden bei S/4HANA-Erweiterungen?')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">💡 Technische Schulden / Clean Core</button>
+            <button @click="askSynergyRag('Fasse meine 5 Stärken und die wichtigsten Arbeit x Uni Synergien kompakt zusammen', 'synergies')" class="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition">⭐ Stärken & Arbeit × Uni Synergien</button>
+            <button @click="quickRagAsk('Wie verhindere ich technische Schulden bei S/4HANA-Erweiterungen?')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">💡 Plattformisierung / Clean Core</button>
             <button @click="quickRagAsk('KPMG IT-Transformation Audit IKS Berechtigungen')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🎯 KPMG Prep 27.11.</button>
             <button @click="quickRagAsk('SAP HCM Berechtigungen UMT P_ORGIN Third Level')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🔐 Schwarz IAM / UMT</button>
             <button @click="quickRagAsk('LTMC CVI Übernahmekonto Migration')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🔄 LTMC & CVI Saldo 0 €</button>
@@ -141,8 +155,8 @@ def get_notebook():
           <!-- Gemini Synthesis Answer Card (XSS-safe Markdown Rendered) -->
           <div v-if="ragAnswer" class="p-4 rounded-xl bg-gradient-to-br from-[#bf262e]/15 to-black/60 border border-[#bf262e]/40 space-y-2.5">
             <div class="flex items-center justify-between text-xs border-b border-white/10 pb-2">
-              <span class="font-bold text-[#f87171]">🤖 Verifizierte Second-Brain-Antwort</span>
-              <span class="font-mono text-[10px] text-[#8f8888]">{{ ragModel }} • {{ ragRetrievalMode || 'hybrid' }}</span>
+              <span class="font-bold text-[#f87171]">{{ ragStyle === 'compact' ? '⚡ 60s-Kompakt-Briefing' : '🔬 Verifizierte Second-Brain-Tiefenanalyse' }}</span>
+              <span class="font-mono text-[10px] text-[#8f8888]">{{ ragModel }} • {{ ragRetrievalMode || 'hybrid' }} • {{ ragDomain || 'alle' }}</span>
             </div>
             <div class="text-xs text-[#f0eded] leading-relaxed space-y-1.5" v-html="formattedRagAnswer"></div>
           </div>

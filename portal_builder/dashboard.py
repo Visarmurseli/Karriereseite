@@ -57,6 +57,16 @@ def get_dashboard(public_mode=False):
             <p class="text-[#c4bebe] text-xs sm:text-sm leading-relaxed">
               Dieses Wissensportal bündelt alle Unterlagen, Projekt-Deliverables und theoretischen Grundlagen aus meinem Werdegang als Wirtschaftsinformatiker: <strong>300 ECTS universitäre Ausbildung an der Universität Stuttgart</strong> (Master & Bachelor), <strong>24 Monate Großprojekterfahrung bei der Stuttgarter Straßenbahnen AG</strong> (S/4HANA Transformation bis zum Abschluss der Explore-Phase), <strong>12 Monate ITIL 4 Service Operations bei Datacenter One</strong> sowie die <strong>TOGAF 9 ADM-Zertifizierung</strong>.
             </p>
+            <div class="pt-1 flex flex-wrap items-center gap-2.5">
+              <button @click="activeTab = 'synergies'" class="px-4 py-2 rounded-xl bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-bold shadow-lg shadow-[#bf262e]/30 border border-white/15 transition flex items-center space-x-2">
+                <span>⚡</span>
+                <span>Persönliches Stärkenprofil & 6 Arbeit × Uni Synergien entdecken</span>
+                <span>➔</span>
+              </button>
+              <button @click="activeTab = 'career'" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
+                🎯 Zielrollen & Roadmap
+              </button>
+            </div>
 
             <!-- 4 Equal Pillars of Knowledge -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
