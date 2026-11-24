@@ -27,7 +27,7 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
-## [1.12.0] - 2026-11-24 (Hybrid RAG V3: 768d Gemini Vektor-Suche + Subword-RRF + Synonym-Expansion & Markdown-Synthesizer)
+## [1.12.0] - 2026-11-24 (Hybrid RAG V3: 768d Gemini Vektor-Suche + Subword-RRF + Synonym-Expansion & Markdown-Synthesizer | Commit d193a82)
 
 ### 🎯 Kontext & Leitmotiv
 Upgrade der Retrieval-Architektur auf ein echtes **3-Signal Hybrid RAG V3 (Reciprocal Rank Fusion)** mit Gemini Dense Embeddings (`gemini-embedding-001` @ 768d Matryoshka), lokaler Character-4-Gram-Cosine-Ähnlichkeit, deutscher/englischer Domain-Synonym-Expansion (`DOMAIN_SYNONYMS`) sowie XSS-sicherem Markdown-Synthese-Renderer im lokalen Second-Brain-Portal.
