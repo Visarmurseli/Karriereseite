@@ -27,7 +27,7 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
-## [1.13.0] - 2026-11-24 (Interview-Dossiers, Live GMX IMAP /sync, Datenbereinigung & Windows-Autostart)
+## [1.13.0] - 2026-11-24 (Interview-Dossiers, Live GMX IMAP /sync, Datenbereinigung & Windows-Autostart | Commit 78114e9)
 
 ### 🎯 Kontext & Leitmotiv
 Abschluss der Ausbaustufen (B) & (C): Alle laufenden Top-Interviewprozesse verfügen über dedizierte Obsidian-Dossiers, der Excel- und Obsidian-Bewerbungstracker ist von E-Mail-Parser-Artefakten bereinigt, und beide GMX-Postfächer lassen sich über `/sync` per Telegram live abgleichen — ergänzt durch einen lautlosen Windows-Autostart für Portal & Bot.
