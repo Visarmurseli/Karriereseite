@@ -77,12 +77,14 @@ def test_command_palette_and_telemetry(content):
         "isCommandPaletteOpen",
         "commandFilteredResults",
         "openCommandPalette",
-        "53 Dossiers",
-        "266 bidirektionale Links",
+        "149 Dossiers",
+        "1.064 bidirektionale Links",
         "21 Deliverables",
         "300 ECTS",
         "Stärkenprofil & Synergie-Atlas",
-        "filteredSynergies"
+        "filteredSynergies",
+        "selectedRoleFit",
+        "roleFitOptions"
     ]
     for feat in features:
         assert feat in content, f"Feature check failed: Missing '{feat}'"

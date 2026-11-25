@@ -118,6 +118,85 @@ def get_header(public_mode=False):
       font-size: 0.7rem;
       font-weight: 600;
     }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* ================= LIGHT MODE SUPPORT (html:not(.dark)) ================= */
+    html:not(.dark) body,
+    html:not(.dark) #app,
+    html:not(.dark) .bg-\\[\\#0d0d0d\\] {
+      background-color: #f4f5f7 !important;
+      color: #1f2937 !important;
+    }
+    html:not(.dark) .bg-\\[\\#121212\\],
+    html:not(.dark) .bg-\\[\\#121212\\]\\/95 {
+      background-color: rgba(255, 255, 255, 0.96) !important;
+      border-color: #e5e7eb !important;
+    }
+    html:not(.dark) .bg-\\[\\#141414\\],
+    html:not(.dark) .bg-\\[\\#181818\\],
+    html:not(.dark) .glass-card {
+      background-color: #ffffff !important;
+      border-color: #e5e7eb !important;
+      color: #1f2937 !important;
+    }
+    html:not(.dark) .bg-gradient-to-br.from-\\[\\#181818\\] {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 55%, #fff1f2 100%) !important;
+      border-color: #e5e7eb !important;
+      color: #111827 !important;
+    }
+    html:not(.dark) .bg-white\\/5,
+    html:not(.dark) .bg-black\\/30,
+    html:not(.dark) .bg-black\\/40,
+    html:not(.dark) .bg-black\\/50 {
+      background-color: #f3f4f6 !important;
+      border-color: #e5e7eb !important;
+    }
+    html:not(.dark) .text-white {
+      color: #111827 !important;
+    }
+    html:not(.dark) .bg-\\[\\#bf262e\\],
+    html:not(.dark) .bg-\\[\\#bf262e\\] .text-white,
+    html:not(.dark) .bg-\\[\\#bf262e\\].text-white,
+    html:not(.dark) [class*="from-[#bf262e]"],
+    html:not(.dark) [class*="from-[#bf262e]"] .text-white {
+      color: #ffffff !important;
+    }
+    html:not(.dark) .text-\\[\\#c4bebe\\],
+    html:not(.dark) .text-\\[\\#f0eded\\] {
+      color: #374151 !important;
+    }
+    html:not(.dark) .text-\\[\\#8f8888\\] {
+      color: #4b5563 !important;
+    }
+    html:not(.dark) .border-white\\/10,
+    html:not(.dark) .border-white\\/15 {
+      border-color: #e5e7eb !important;
+    }
+    html:not(.dark) .text-emerald-300,
+    html:not(.dark) .text-emerald-200,
+    html:not(.dark) .text-emerald-400 { color: #047857 !important; }
+    html:not(.dark) .text-blue-300,
+    html:not(.dark) .text-blue-200,
+    html:not(.dark) .text-blue-400 { color: #1d4ed8 !important; }
+    html:not(.dark) .text-amber-300,
+    html:not(.dark) .text-amber-400 { color: #b45309 !important; }
+    html:not(.dark) .text-purple-300,
+    html:not(.dark) .text-purple-400 { color: #6d28d9 !important; }
+    html:not(.dark) .text-\\[\\#f87171\\] { color: #b91c1c !important; }
+
+    /* ================= PRINT / PDF EXPORT MODE ================= */
+    @media print {
+      header, footer, .no-print { display: none !important; }
+      body, #app, main, div {
+        background: #ffffff !important;
+        color: #111827 !important;
+        box-shadow: none !important;
+      }
+      .border-white\\/10, .border-white\\/15 { border-color: #d1d5db !important; }
+      .text-white, .text-\\[\\#c4bebe\\], .text-\\[\\#8f8888\\] { color: #111827 !important; }
+    }
   </style>
 </head>
 <body class="h-full bg-[#0d0d0d] text-[#c4bebe] flex flex-col custom-scrollbar transition-colors duration-200">
@@ -150,8 +229,8 @@ def get_header(public_mode=False):
             
             <!-- Quality Gate Telemetry Pills (Required by Spec-Kit tests) -->
             <div class="hidden xl:flex items-center space-x-2 text-[10px] font-mono">
-              <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white">53 Dossiers</span>
-              <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">266 bidirektionale Links</span>
+              <span class="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white">149 Dossiers</span>
+              <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">1.064 bidirektionale Links</span>
               <span class="px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400">21 Deliverables</span>
               <span class="px-2 py-0.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300">300 ECTS</span>
             </div>
@@ -165,6 +244,16 @@ def get_header(public_mode=False):
               <span class="text-[#bf262e] group-hover:scale-110 transition">⚡</span>
               <span class="hidden sm:inline font-medium">Schnellsuche</span>
               <kbd class="px-1.5 py-0.5 text-[10px] bg-white/10 border border-white/10 rounded font-mono text-[#8f8888] group-hover:text-white">Ctrl K</kbd>
+            </button>
+
+            <!-- Print / PDF Export Button -->
+            <button 
+              @click="printProfile" 
+              class="hidden md:flex items-center space-x-1.5 px-2.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-[#c4bebe] hover:text-white border border-white/10 transition text-xs"
+              title="Aktuelle Ansicht als PDF drucken / speichern"
+            >
+              <span>🖨️</span>
+              <span class="hidden lg:inline font-medium">PDF</span>
             </button>
 
             <!-- Dark/Light Mode Toggle -->
@@ -190,6 +279,26 @@ def get_header(public_mode=False):
 
           </div>
         </div>
+
+        <!-- Sticky Horizontal Quick-Nav Bar (1-Click Tab Switching) -->
+        <nav class="border-t border-white/10 bg-black/20">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex items-center space-x-1.5 overflow-x-auto no-scrollbar">
+            <button
+              v-for="tab in tabs"
+              :key="tab.id"
+              @click="activeTab = tab.id"
+              :class="[
+                'flex items-center space-x-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium whitespace-nowrap transition shrink-0',
+                activeTab === tab.id
+                  ? 'bg-[#bf262e] text-white font-semibold shadow-sm shadow-[#bf262e]/40'
+                  : 'text-[#c4bebe] hover:text-white hover:bg-white/5'
+              ]"
+            >
+              <span>{{ tab.icon }}</span>
+              <span>{{ tab.label }}</span>
+            </button>
+          </div>
+        </nav>
       </header>
 
       <!-- ================= 2. SLIDE-OVER NAVIGATION DRAWER (DESKTOP & MOBILE) ================= -->

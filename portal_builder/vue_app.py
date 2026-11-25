@@ -5,10 +5,19 @@ def get_vue_app(public_mode=False):
     </main>
 
     <!-- Footer -->
-    <footer class="bg-[#121212] border-t border-white/10 py-4 px-6 text-center text-xs text-[#8f8888]">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-        <span class="text-[#c4bebe]">Visar Murseli, M.Sc. | Enterprise Knowledge Hub & S/4HANA Career OS</span>
-        <span class="text-[#bf262e] font-medium">Design System: Portfolioseite (Crimson Hue 358) | 100% lokal & persistent</span>
+    <footer class="bg-[#121212] border-t border-white/10 py-5 px-6 text-xs text-[#8f8888]">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
+        <div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+          <span class="text-white font-semibold">Visar Murseli, M.Sc.</span>
+          <span class="hidden sm:inline text-white/20">•</span>
+          <span class="text-[#c4bebe]">Enterprise Knowledge Hub &amp; S/4HANA Career OS</span>
+        </div>
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          <button @click="printProfile" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#c4bebe] hover:text-white transition">🖨️ PDF-Ansicht</button>
+          <button @click="openCommandPalette" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#c4bebe] hover:text-white transition">⚡ Schnellsuche (Ctrl+K)</button>
+          <button @click="scrollToTop" class="px-2.5 py-1 rounded-lg bg-[#bf262e]/15 hover:bg-[#bf262e] border border-[#bf262e]/30 text-[#f87171] hover:text-white transition">↑ Nach oben</button>
+        </div>
+        <span class="text-[#bf262e] font-medium text-[11px]">M.Sc. 1,6 (120 ECTS) • Crimson Design System</span>
       </div>
     </footer>
   </div>
@@ -47,6 +56,88 @@ def get_vue_app(public_mode=False):
         const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
         const synergyViewMode = ref('compact');
         const synergyFilter = ref('Alle');
+        const selectedRoleFit = ref('sap_consultant');
+
+        const roleFitOptions = [
+          {
+            id: 'sap_consultant',
+            icon: '🚆',
+            shortLabel: 'SAP Consultant',
+            subtitle: 'S/4HANA Transformation & Inhouse Consulting',
+            title: 'Junior SAP Inhouse / Transformation Consultant',
+            matchBadge: '100% Fit: 24M S/4HANA + 1,0 Forschung',
+            pitch: 'Direkt produktiv in Fit-to-Standard Workshops, Solution Design (FI/CO, MM, Trennungsrechnung) und Clean-Core-Governance – ohne veraltete ECC-Altlasten.',
+            proofs: [
+              { label: 'SSB AG Großprojekt', metric: '24 Monate', detail: 'Explore-Phase abgeschlossen, Solution Design Document (SDD) vollständig genehmigt.' },
+              { label: 'Masterarbeit (Note 1,0)', metric: '12 Interviews', detail: 'Empirische Untersuchung kritischer Erfolgsfaktoren bei SAP S/4HANA Plattformisierung.' },
+              { label: 'SAP Toolchain-Praxis', metric: '3 Core-Tools', detail: 'Aktive Steuerung & Governance mit SAP Cloud ALM, SAP Signavio & SAP Enable Now.' }
+            ],
+            links: [
+              { tab: 'project', label: 'S/4HANA Projekt' },
+              { tab: 'solution_design', label: 'Solution Design (FI/CO)' },
+              { tab: 'tools', label: 'Toolchain Hub' }
+            ]
+          },
+          {
+            id: 'it_pmo',
+            icon: '📊',
+            shortLabel: 'IT-PMO / PM',
+            subtitle: 'Multiprojektsteuerung & Governance',
+            title: 'Junior IT-Projektmanager / IT-PMO Specialist',
+            matchBadge: 'Top Fit: TP1–TP5 Steuerung + Vergabe',
+            pitch: 'Erfahren in der Gesamtsteuerung eines 3.700-Mitarbeiter-Konzerns: Meilenstein-Controlling in MS Project, C-Level-Reporting, Ressourcenplanung und Partnerkoordination.',
+            proofs: [
+              { label: 'Teilprojekt 5 PMO', metric: 'TP1 – TP5', detail: 'Fortschrittsanalyse, Status-Reporting & Gremiensteuerung bis Abschluss Explore.' },
+              { label: 'Tool- & Teams-Governance', metric: 'Kanban / CALM', detail: 'Strukturierung projektweiter Kollaborationskanäle, KPI-Tracking & Abnahmekriterien.' },
+              { label: 'Vergabe & Compliance', metric: 'SektVO / Mitbestimmung', detail: 'Begleitung öffentlicher Vergabestrukturen und komplexer Betriebsvereinbarungen.' }
+            ],
+            links: [
+              { tab: 'project', label: 'TP1–TP5 Steuerung' },
+              { tab: 'synergies', label: 'Stärken & Synergien' },
+              { tab: 'career', label: 'Zielrollen & Roadmap' }
+            ]
+          },
+          {
+            id: 'enterprise_arch',
+            icon: '🏛️',
+            shortLabel: 'Enterprise Architect',
+            subtitle: 'BTP, Clean Core & TOGAF 9 ADM',
+            title: 'Junior Enterprise Architect / SAP BTP',
+            matchBadge: 'Top Fit: TOGAF 9 + Boundary Resources',
+            pitch: 'Verbindet zertifizierte Enterprise Architecture (TOGAF 9 ADM) mit akademischer Plattform-Forschung (Bachelor 1,7 & Master 1,0) und realer S/4HANA-Schnittstellenarchitektur.',
+            proofs: [
+              { label: 'TOGAF 9 ADM Zertifikat', metric: 'Scape Consulting', detail: 'Strukturierte Architektur-Governance von Business über Application bis Technology.' },
+              { label: 'Bimodale IT & Clean Core', metric: 'BTP / APIs', detail: 'Entkopplung von Core-ERP und Side-by-Side-Erweiterungen nach Boundary-Resource-Theorie.' },
+              { label: 'Datenmigration & CVI', metric: '0,00 € Saldo', detail: 'Saubere Datenmodellierung, Staging-Tabellen (LTMC) & Business-Partner-Harmonisierung.' }
+            ],
+            links: [
+              { tab: 'enterprise_arch', label: 'TOGAF & EAM' },
+              { tab: 'cheatsheet', label: 'BTP Cheatsheet' },
+              { tab: 'migration', label: 'Datenmigration' }
+            ]
+          },
+          {
+            id: 'service_ops',
+            icon: '🖥️',
+            shortLabel: 'ITIL 4 / Operations',
+            subtitle: '24/7 Leitstand & Service Management',
+            title: 'IT-Service Operations / ITSM Specialist',
+            matchBadge: 'Top Fit: 12M INOC + ITIL 4',
+            pitch: 'Praxiserprobt im hochverfügbaren Rechenzentrumsbetrieb: Single Point of Contact, SLA-Überwachung, Incident Management nach ITIL 4 und Aufbau von Confluence-Wissensdatenbanken.',
+            proofs: [
+              { label: 'Datacenter One INOC', metric: '12 Monate', detail: '24/7 Monitoring von Core-Netzwerken, USV und Klimatechnik (PRTG).' },
+              { label: 'ITSM & Knowledge Base', metric: 'Jira / Confluence', detail: 'Prozessstandardisierung, SOP-Aufbau und strukturiertes Ticket-Routing als SPOC.' },
+              { label: 'Schnittstelle zu S/4HANA', metric: 'Run-Readiness', detail: 'Verbindung aus stabilem IT-Betrieb und strukturierter SAP Activate Run-Vorbereitung.' }
+            ],
+            links: [
+              { tab: 'enterprise_arch', label: 'ITIL 4 & DC1' },
+              { tab: 'tools', label: 'Toolchain & Operations' },
+              { tab: 'synergies', label: 'Arbeit × Uni Synergien' }
+            ]
+          }
+        ];
+
+        const currentRoleFit = computed(() => roleFitOptions.find(r => r.id === selectedRoleFit.value) || roleFitOptions[0]);
 
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
@@ -1182,6 +1273,14 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           }
         };
 
+        const printProfile = () => {
+          window.print();
+        };
+
+        const scrollToTop = () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
         const copyText = (txt) => {
           navigator.clipboard.writeText(txt);
           alert('Text erfolgreich in die Zwischenablage kopiert!');
@@ -1420,6 +1519,9 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           synergyViewMode,
           synergyFilter,
           filteredSynergies,
+          selectedRoleFit,
+          roleFitOptions,
+          currentRoleFit,
           runRagSearch,
           runRagAsk,
           quickRagAsk,
@@ -1435,6 +1537,8 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           filteredQA,
           filteredFiles,
           toggleDarkMode,
+          printProfile,
+          scrollToTop,
           copyText,
           saveNotes,
           copyNotesToClipboard,

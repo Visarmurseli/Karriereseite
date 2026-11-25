@@ -4,6 +4,7 @@ def get_dashboard(public_mode=False):
     dossier_target = "thesis" if public_mode else "notebook"
     files_target = "tools" if public_mode else "files"
     career_sub = "Junior & Trainee Einstieg" if public_mode else "Junior & Trainee (55k–75k €)"
+    module_count_label = "10 Fachmodule" if public_mode else "14 Themenbereiche"
     private_cards = "" if public_mode else """
             <button @click="activeTab = 'interview'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
               <div class="font-bold text-white mb-0.5">🎙️ Interview Masterclass</div>
@@ -142,6 +143,105 @@ def get_dashboard(public_mode=False):
           </div>
         </div>
 
+        <!-- Interactive Role-Fit Matcher (Recruiter & Hiring Manager Quick-Check) -->
+        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 shadow-lg space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-white flex items-center space-x-2">
+                <span>🎯</span>
+                <span>Interaktiver Role-Fit Matcher: Für welche Rolle prüfen Sie mein Profil?</span>
+              </h3>
+              <p class="text-xs text-[#8f8888] mt-0.5">Wählen Sie eine Zielrolle – das System filtert die 3 stärksten verifizierten Belege & relevanten Module.</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              <button
+                v-for="role in roleFitOptions"
+                :key="role.id"
+                @click="selectedRoleFit = role.id"
+                :class="[
+                  'px-3 py-1.5 rounded-xl text-xs font-semibold transition border',
+                  selectedRoleFit === role.id
+                    ? 'bg-[#bf262e] text-white border-[#bf262e] shadow-md shadow-[#bf262e]/30'
+                    : 'bg-white/5 text-[#c4bebe] border-white/10 hover:border-[#bf262e]/50 hover:text-white'
+                ]"
+              >
+                {{ role.icon }} {{ role.shortLabel }}
+              </button>
+            </div>
+          </div>
+
+          <div v-if="currentRoleFit" class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
+              <div>
+                <div class="text-xs font-bold text-[#f87171] uppercase tracking-wider">{{ currentRoleFit.subtitle }}</div>
+                <div class="text-sm sm:text-base font-bold text-white">{{ currentRoleFit.title }}</div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold self-start sm:self-auto">
+                {{ currentRoleFit.matchBadge }}
+              </span>
+            </div>
+            <p class="text-xs text-[#c4bebe] leading-relaxed">{{ currentRoleFit.pitch }}</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div v-for="(proof, idx) in currentRoleFit.proofs" :key="idx" class="p-3 rounded-xl bg-black/30 border border-white/10 space-y-1">
+                <div class="text-[11px] font-bold text-white flex items-center justify-between">
+                  <span>{{ proof.label }}</span>
+                  <span class="text-emerald-400 font-mono">{{ proof.metric }}</span>
+                </div>
+                <div class="text-[11px] text-[#8f8888] leading-snug">{{ proof.detail }}</div>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2 pt-1">
+              <span class="text-[11px] text-[#8f8888] font-medium">Direkt vertiefen:</span>
+              <button
+                v-for="link in currentRoleFit.links"
+                :key="link.tab"
+                @click="activeTab = link.tab"
+                class="px-2.5 py-1 rounded-lg bg-[#bf262e]/15 hover:bg-[#bf262e] text-[#f87171] hover:text-white border border-[#bf262e]/30 text-[11px] font-semibold transition"
+              >
+                {{ link.label }} ➔
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chronologische Werdegang-Timeline (2019–2026) -->
+        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+              <span>🗓️</span>
+              <span>Akademischer & Beruflicher Werdegang (2019 – 2026)</span>
+            </h3>
+            <span class="text-[11px] text-[#8f8888]">300 ECTS + 36 Monate Praxis</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+            <div @click="activeTab = 'thesis'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-blue-400/50 transition cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold text-blue-400">2019 – 2023</div>
+              <div class="font-bold text-white">B.Sc. Wirtschaftsinformatik</div>
+              <div class="text-[11px] text-[#8f8888]">Uni Stuttgart (180 ECTS, 3,0) • Bachelorarbeit 1,7 (Low-Code)</div>
+            </div>
+            <div @click="activeTab = 'enterprise_arch'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-purple-400/50 transition cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold text-purple-400">01 / 2020</div>
+              <div class="font-bold text-white">TOGAF 9 ADM Zertifikat</div>
+              <div class="text-[11px] text-[#8f8888]">Scape Consulting • Enterprise Architecture Foundation</div>
+            </div>
+            <div @click="activeTab = 'enterprise_arch'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400/50 transition cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold text-emerald-400">05/2023 – 04/2024</div>
+              <div class="font-bold text-white">Datacenter One (12M)</div>
+              <div class="text-[11px] text-[#8f8888]">Werkstudent INOC • 24/7 Leitstand, ITIL 4, PRTG & Confluence</div>
+            </div>
+            <div @click="activeTab = 'project'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/60 transition cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold text-[#f87171]">05/2024 – 04/2026</div>
+              <div class="font-bold text-white">SSB AG S/4HANA (24M)</div>
+              <div class="text-[11px] text-[#8f8888]">IT-PMO & TP5 • Explore-Phase abgeschlossen, SDD genehmigt</div>
+            </div>
+            <div @click="activeTab = 'thesis'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-amber-400/50 transition cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold text-amber-400">2023 – 09/2026</div>
+              <div class="font-bold text-white">M.Sc. Wirtschaftsinformatik</div>
+              <div class="text-[11px] text-[#8f8888]">Uni Stuttgart (120 ECTS, 1,6) • Masterarbeit 1,0 (12 Interviews)</div>
+            </div>
+          </div>
+        </div>
+
         <!-- Knowledge Graph & Ecosystem Telemetry Bar -->
         <div class="bg-[#141414] p-5 rounded-2xl border border-white/10 text-white shadow-lg space-y-3">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -164,8 +264,8 @@ def get_dashboard(public_mode=False):
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
             <div @click="activeTab = '{dossier_target}'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
               <div class="text-[11px] text-[#8f8888] font-medium">Obsidian Text-Dossiers</div>
-              <div class="text-xl font-extrabold text-white mt-0.5">53 Dossiers</div>
-              <div class="text-[10px] text-emerald-400 mt-0.5">266 bidirektionale Links</div>
+              <div class="text-xl font-extrabold text-white mt-0.5">149 Dossiers</div>
+              <div class="text-[10px] text-emerald-400 mt-0.5">1.064 bidirektionale Links</div>
             </div>
 
             <div @click="activeTab = '{files_target}'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
@@ -195,7 +295,7 @@ def get_dashboard(public_mode=False):
               <span>🧭</span>
               <span>Direktzugriff auf alle Fach- und Wissensmodule</span>
             </h3>
-            <span class="text-xs text-[#8f8888]">11 Themenbereiche</span>
+            <span class="text-xs text-[#8f8888]">{module_count_label}</span>
           </div>
 
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-xs">

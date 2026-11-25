@@ -23,7 +23,125 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
-## [Unreleased] - 2026-11-25
+## [1.20.0] - 2026-11-25 (Webapp UX-Upgrade: Sticky Quick-Nav, Role-Fit Matcher, Timeline, Light Mode & PDF-Export)
+
+### 🎯 Kontext & Leitmotiv
+Umfassendes UX- und Recruiter-Readiness-Upgrade der Webapp (`portal_builder/`) sowohl für das lokale Cockpit (`s4hana-prep-portal/index.html`) als auch für die öffentliche GitHub-Pages-Karriereseite (`s4hana-prep-portal/public_index.html`).
+
+### 🚀 Neue Features & UI-Optimierungen
+- **Sticky Horizontal Quick-Nav Bar (`portal_builder/header.py`):**
+  - Direkte 1-Klick-Navigation für alle sichtbaren Module direkt unter dem Header (adaptiert automatisch zwischen 10 Public-Modulen und 14 Local-Modulen).
+- **Interaktiver Role-Fit Matcher (`portal_builder/dashboard.py`, `portal_builder/vue_app.py`):**
+  - Recruiter-Umschalter für *SAP Consultant*, *IT-PMO / PM*, *Enterprise Architect* und *ITIL 4 / Operations* mit jeweils 3 verifizierten Belegen und Direkt-Links.
+- **Akademischer & Beruflicher Werdegang-Timeline (2019–2026):**
+  - Chronologische 5-Stationen-Leiste auf dem Dashboard (B.Sc. → TOGAF 9 ADM → Datacenter One → SSB AG S/4HANA → M.Sc. 1,6).
+- **Live Knowledge-Graph-Metriken & Spec-Kit Sync (`scripts/test_portal.py`):**
+  - Telemetrie auf aktuelle Karpathy-Wiki-Werte aktualisiert (**149 Dossiers**, **1.064 bidirektionale Links**, 100 % Vernetzung).
+- **Light-Mode Fix, PDF-Druckansicht & Footer-Actions (`portal_builder/header.py`, `portal_builder/vue_app.py`):**
+  - Vollständige `html:not(.dark)` CSS-Unterstützung mit WCAG-Kontrasten, `@media print`-Stylesheet (`🖨️ PDF`-Button) und interaktivem Footer.
+
+---
+
+## [1.19.0] - 2026-11-25 (Purge veralteter Personal_OS-Tracking-Dokumente & Schärfung des Enterprise Career OS Fokus)
+
+### 🎯 Kontext & Leitmotiv
+Auf expliziten Nutzerwunsch wurden alle veralteten, rein privaten Tracking-Dokumente aus früheren Semestern (`Gewohnheiten.md`, `NoFap.md`, `Retrospektive_Wintersemester_23_24.md`, `Trainingsplan_Visar.md`) mitsamt dem Unterordner `04_Second_Brain_Zettelkasten/Personal_OS/` vollständig und rückstandslos aus dem Obsidian Second Brain entfernt. Dadurch wird das Wissensnetzwerk noch klarer auf den professionellen Kern ausgerichtet: SAP S/4HANA Transformation (SSB AG), Enterprise Architecture, Wirtschaftsinformatik (300 ECTS Master/Bachelor) und ITIL 4 Service Operations (Datacenter One).
+
+### 🧹 Bereinigung & Re-Indizierung
+- **Dateisystem & Obsidian Vault:**
+  - Ordner `04_Second_Brain_Zettelkasten/Personal_OS/` und die 4 Tracking-Notizen physisch gelöscht.
+  - Sämtliche Verweise in `00_INDEX.md` (Zeile 41 und 122) restlos entfernt.
+- **Smart Ingestion Engine (`scripts/smart_ingest.py`):**
+  - Domänen-Regel `personal-growth` entfernt; die Klassifikation konzentriert sich nun strikt auf die 5 Enterprise-Domänen (`career-pmo`, `sap-transformation`, `academic-curriculum`, `datacenter-operations`, `synergy-architecture`). Unspezifische Reflexionen fallen direkt in die Second Brain Wurzel zurück.
+- **Graph-Synthese & Netzwerk-Metriken (`scripts/zettelkasten_synthesizer.py`):**
+  - Re-Synthese erfolgreich durchgeführt: 149 Notizen (Layer 1), 1.064 Wissenskanten (Ø 7,14 Links/Zettel), 4,825% Netzwerk-Dichte, 100,0% Vernetzungsgrad, 0 verwaiste Notizen (Pure Orphans = 0).
+- **Contradiction Checker Audit (`scripts/contradiction_checker.py`):**
+  - Re-Audit über alle 293 Dokumente des Vaults: 0 kritische Widersprüche (FATAL), 0 Warnungen (WARNING), 100% konsistente Referenzen.
+- **Operations Log (`log.md`):**
+  - Revisionssicherer Eintrag `[2026-11-25] lint | Purge veralteter Personal_OS-Tracking-Dokumente` nach Karpathy LLM-Wiki Standard hinterlegt.
+
+---
+
+## [1.18.0] - 2026-11-25 (Smart Ingestion & Entity-Extractor Engine: Karpathy LLM-Wiki Ingestion Pipeline & Telegram /ingest Command)
+
+### 🎯 Kontext & Leitmotiv
+Implementierung von **Feature 3 aus der Andrej Karpathy LLM-Wiki Architektur** („Smart Ingestion & Entity-Extractor“): Vollautomatisches Ingestieren, Klassifizieren, Strukturieren und semantisches Einsortieren von Rohdokumenten und Freitext-Notizen aus `inbox/` und `00_Inbox/`. Beseitigt manuellen Ablage- und Formatierungsaufwand durch deterministisches Domänen-Routing, automatische YAML-Frontmatter-Generierung, `60-Sekunden-Essenz`-Abstracts, integriertes Wikilink-Auto-Linking und Echtzeit-RAG-Synchronisation.
+
+### 📥 Smart Ingestion & Entity-Extractor (`scripts/smart_ingest.py`)
+- **Multi-Format Dokumentenextraktion:**
+  - Unterstützt `.md`, `.txt`, `.pdf` (via `pypdf`) und `.docx` (via `docx`).
+- **Semantische Klassifikation & Domänen-Routing:**
+  - *Career & Interviews (`career-pmo`):* Job-Interviews, Vorstellungsgespräche und Recruiting-Dossiers werden zielgenau nach `01_Karriere_Bewerbungen/Interview_Vorbereitungen/` geroutet.
+  - *SAP S/4HANA & Transformation (`sap-transformation`):* Finanz-/Controlling-Konzepte nach `02_Kaufmaennische_Prozesse/`, Tool-/Enablement-Notizen nach `04_Change_Enablement/`, PMO nach `03_Governance_Vergabe/` und Architektur nach `01_Architektur_Technik/`.
+  - *Akademische Forschung & Lehre (`academic-curriculum`):* Wissenschaftliche Notizen (Lehrstuhl Herzwurm/Becker, Mayring-Inhaltsanalyse, Modulkonzepte) nach `02_Wirtschaftsinformatik_300ECTS/`.
+  - *Datacenter Operations (`datacenter-operations`):* ITIL 4, INOC, PRTG und HLM nach `03_SAP_EnterpriseArchitecture/`.
+  - *Synergien & Personal OS (`synergy-architecture`, `personal-growth`):* Nach `04_Second_Brain_Zettelkasten/Synergien/` bzw. `Personal_OS/`.
+- **Standardisiertes Schema & 60s-Abstracts:**
+  - Jede Zieldatei erhält valides YAML-Frontmatter (`id`, `title`, `type`, `domain`, `status`, `summary`, `tags`, `last_updated`) und einen `> [!ABSTRACT] 60-Sekunden-Essenz` Block.
+- **Sofortige Quervernetzung (Auto-Linker) & RAG:**
+  - Neue Dokumente werden unmittelbar mit dem kanonischen Fachbegriffs-Lexikon abgeglichen (`[[Clean_Core_Paradigma]]`, `[[Modul_TOGAF_Scape]]`, etc.) und mit Master-MOCs verlinkt.
+  - Automatischer RRF/SQLite Upsert (`rag_upsert`) sorgt für sofortige Auffindbarkeit im Second Brain.
+  - Quelldokumente werden revisionssicher nach `inbox/processed/YYYY-MM-DD/` archiviert.
+
+### 📱 Telegram Career Agent V3.5 Integration (`telegram_career_agent.py`)
+- **Neuer Befehl `/ingest`:** Scannt `inbox/` und `00_Inbox/`, verarbeitet alle anstehenden Dateien und liefert einen strukturierten Ablagebericht auf das Smartphone.
+- **Automatisches Vault-Filing bei Dokument-Upload:** Hochgeladene PDFs oder Dokumente in Telegram werden jetzt nicht nur im Chat analysiert, sondern automatisch nach Karpathy-Standard strukturiert und permanent im richtigen Obsidian-Ordner abgelegt.
+
+---
+
+## [1.17.0] - 2026-11-25 (Second Brain Knowledge Graph Synthesizer & Auto-Linker: Karpathy LLM-Wiki Engine & Telegram /graph & /synthesize Commands)
+
+### 🎯 Kontext & Leitmotiv
+Vollständige Implementierung von **Feature 2 aus der Andrej Karpathy LLM-Wiki Architektur** („Zettelkasten-Synthesizer & Auto-Linker“): Beseitigung isolierter Notizen (Orphans) und unvollständiger Sackgassen (Dead Ends) durch einen hochperformanten topologischen Graph-Parser, ein deterministisches Fachbegriffs-Lexikon und einen syntaxsicheren Wikilink-Auto-Linker. Das Wissensnetzwerk erreicht **100,0% Vernetzungsgrad** und **0 verwaiste Notizen** über 152 kuratierte Dokumente hinweg.
+
+### 🧠 Topologische Graph-Engine & Auto-Linker (`scripts/zettelkasten_synthesizer.py`)
+- **Topologische Netzwerkanalyse (Layer 1):**
+  - Indiziert alle 152 kuratierten Dokumente und berechnet In-Degree (Backlinks), Out-Degree (Zitate), Graphdichte und Hub-Zentralität.
+  - Wissenskanten stiegen von 790 auf **1.062 aktive bidirektionale Verlinkungen** (Ø 6.99 Links/Zettel bei 4.63% Netzwerk-Dichte).
+  - Identifiziert die Top 10 Autoritäts-Hubs (`Modul_Übersicht` [45], `Modul_Masterarbeit` [33], `SSB_Tool_Governance_Signavio_CALM` [30], `Universal_Journal_ACDOCA` [30], `Clean_Core_Paradigma` [28]) und Top-Sammler-Karten (`00_INDEX` [110], `MOC_SSB_Transformation` [35], `Persoenliches_Staerkenprofil` [24]).
+- **Sicherer Prose Auto-Linker:**
+  - Tokenisiert Markdown hierarchisch und schützt Frontmatter, Fenced Code, Inline-Code, HTML und bestehende Links vollständig vor Korruption.
+  - Generierte **378 neue, kontextgenaue Wikilinks** über 85 Dokumente hinweg.
+- **Orphan- & Dead-End-Healing:**
+  - Beseitigung aller isolierten Notizen (`Audit_Konsistenzbericht.md` fest in `00_INDEX` verankert und mit Navigations-Backlinks ausgestattet).
+  - Sackgassen wie `SSB_Interview_Stories_STAR.md` und `Stream_Sales_Distribution_PATRIS.md` mit den zugehörigen Master-MOCs verknüpft -> **0 Pure Orphans** im Vault.
+- **Interaktiver Synthese-Bericht:**
+  - Revisionssicherer Markdown-Bericht mit Mermaid-Netzwerkgraph unter `04_Second_Brain_Zettelkasten/Graph_Synthese_Bericht.md`.
+
+### 📱 Telegram Career Agent V3.4 Integration (`telegram_career_agent.py`)
+- **Neuer Befehl `/graph`:** Liefert Graph-Metriken, Dichte, Vernetzungs-Score und Top-Hubs direkt auf das Smartphone.
+- **Neuer Befehl `/synthesize`:** Führt auf Knopfdruck die Zettelkasten-Synthese, Auto-Verlinkung und Dead-End-Heilung mobil aus.
+- **Erweitertes Menü:** Aktualisierte Begrüßung in `/start` und `/hilfe`.
+
+---
+
+## [1.16.0] - 2026-11-25 (Second Brain Contradiction & Sanity Checker: Andrej Karpathy LLM-Wiki Audit & Telegram /audit Command)
+
+### 🎯 Kontext & Leitmotiv
+Implementierung von **Feature 1 aus der Karpathy LLM-Wiki / Second Brain Architektur** („Contradiction & Sanity Checker“): Ein vollautomatischer, deterministischer Prüfscanner über alle 295 Notizen im Obsidian Vault zur Erkennung von Faktenwidersprüchen, veralteten Statusangaben und architektonischem Reduktionismus. Das Feature ist sowohl als CLI-Tool (`python scripts/contradiction_checker.py`) als auch direkt mobil über den Telegram Career Agenten (`/audit`) abrufbar.
+
+### 🛡️ Contradiction & Sanity Engine (`scripts/contradiction_checker.py`)
+- **Zwei-Schichten-Scanning (Layer 1 vs. Layer 2):**
+  - *Layer 1 (151 kuratierte Notizen):* Vollständige semantische Tiefenprüfung über alle vier Regelkategorien (<1 Sekunde).
+  - *Layer 2 (144 Data Lake Volltext-Dateien):* Schnelle, ressourcenschonende Prüfung auf kritische Verfassungskonformität.
+- **Regelsatz 1: Verfassung & Amtliche Fakten (Zero Tolerance - CRITICAL):**
+  - Keine unerlaubte Assoziation mit der Robert Bosch GmbH (Klarstellung: Patentmanagement für Klingele Paper & Packaging / ISG).
+  - Amtliche Gesamtnote Master 1,6 („gut“) und Masterarbeit Bestnote 1,0 („sehr gut“).
+  - Amtliche Gesamtnote Bachelor 3,0 und Bachelorarbeit Note 1,7 („gut“).
+  - ECTS-Integrität: 120 ECTS Master, 180 ECTS Bachelor, 300 ECTS Gesamtstudium.
+  - Verifizierte Verweildauern: 24 Monate SSB AG (05/2024–04/2026) und 12 Monate Datacenter One (05/2023–04/2024).
+- **Regelsatz 2: Thesen-Fokus & Anti-Reduktionismus (WARNING):**
+  - Verhindert das unzulässige Verkürzen der Masterarbeit auf ein reines Schlagwort wie „Clean Core“ und fordert stets den ganzheitlichen Kontext: ERP-Transformation, Plattformisierung von SAP S/4HANA und empirische Kritische Erfolgsfaktoren (12 Interviews, Mayring).
+- **Regelsatz 3: Architektur-Konsistenz (WARNING):**
+  - Validiert Greenfield vs. Brownfield bei der SSB S/4HANA Transformation (Ausschluss historischer Z-Altlasten).
+- **Regelsatz 4: Zeitliche & Status-Inkonsistenzen (NOTICE):**
+  - Erkennt veraltete Bearbeitungsstatus („in Bearbeitung“ bei abgeschlossener Masterarbeit).
+  - Erkennt zurückliegende Vorstellungsgespräche in `Interview_Vorbereitungen/` ohne dokumentiertes Debriefing/Ergebnis und mahnt die Pflege an.
+- **Audit-Report:** Speichert revisionssichere Markdown-Berichte mit Frontmatter und Handlungsempfehlungen unter `01_Karriere_Bewerbungen/Audit_Konsistenzbericht.md`.
+
+### 📱 Telegram Career Agent V3.3 Integration (`telegram_career_agent.py`)
+- **Neuer Befehl `/audit`:** Führt den gesamten Scan auf Knopfdruck per Telegram aus und sendet eine übersichtliche Zusammenfassung (Geprüfte Notizen, Kritisch: 0, Warnungen: 0, Pendenzen: 4, Konsistenz-Score: 98.6%) direkt auf das Smartphone.
+- **Erweitertes Menü:** Aktualisierte Begrüßung in `/start` und `/hilfe`.
 
 ---
 
