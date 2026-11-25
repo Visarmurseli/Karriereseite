@@ -181,7 +181,7 @@ def get_cv_defense():
               <div class="font-bold text-[#f87171] text-sm">SSB AG Zwischenzeugnis</div>
               <div class="text-white font-semibold">24 Monate IT-PMO (01.05.2024 – 30.04.2026)</div>
               <p class="text-[#c4bebe] text-[11px] leading-relaxed">
-                Ausgestellt von IT-Leiter ppa. Dietmar Fillinger & Roland Nowak. Bestbewertung: "stets zu unserer vollen Zufriedenheit", "vorbildliche Einsatzbereitschaft und Arbeitsweise".
+                Ausgestellt von IT-Leitung & Gesamtprojektleitung. Bestbewertung: "stets zu unserer vollen Zufriedenheit", "vorbildliche Einsatzbereitschaft und Arbeitsweise".
               </p>
               <div class="text-[10px] text-emerald-400 font-bold">Vorstandsnah gezeichnetes Top-Zeugnis</div>
             </div>

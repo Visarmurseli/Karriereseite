@@ -181,7 +181,7 @@ def get_solution_design():
             </h3>
             <span class="tag-badge bg-purple-500/20 text-purple-300 border border-purple-500/40">Solution Design WorXX</span>
           </div>
-          <p class="text-xs text-[#8f8888]">Konzeption von Lösungsarchitekt Michael Gehrung: Betreuung von Betriebshöfen, Haltestellen und gewerblichen Mietflächen.</p>
+          <p class="text-xs text-[#8f8888]">Konzeption der Liegenschafts- und Immobilienarchitektur: Betreuung von Betriebshöfen, Haltestellen und gewerblichen Mietflächen.</p>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
             <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-2 hover:border-[#bf262e]/30 transition">

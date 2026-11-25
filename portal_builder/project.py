@@ -44,7 +44,7 @@ def get_project():
                   <li><strong>Prozessmodellierung:</strong> Solldokumentation in SAP Signavio (BPMN 2.0) als verbindliche Implementierungsgrundlage eingefroren.</li>
                   <li><strong>Tool-Governance:</strong> SAP Cloud ALM für Anforderungs-, Test- und Aufgabenmanagement über alle Teilprojekte hinweg etabliert.</li>
                   <li><strong>Enable Now Übergabe:</strong> Autoren- und Schulungskonzept erfolgreich an die Personalentwicklung (UB AC) übergeben.</li>
-                  <li><strong>Mitbestimmungs-Fahrplan:</strong> Pilot-Betriebsvereinbarung (Vorgang 294) zum 01.04.2026 für UAT-Tests auf QS4.210 vorbereitet.</li>
+                  <li><strong>Mitbestimmungs-Fahrplan:</strong> Pilot-Betriebsvereinbarung für den Testbetrieb mit Echtdaten (UAT) vorbereitet.</li>
                 </ul>
               </div>
 
@@ -54,10 +54,10 @@ def get_project():
                   <span>Nächster Projektschritt im Masterplan: Realize-Phase</span>
                 </div>
                 <ul class="text-[#c4bebe] space-y-1 list-disc list-inside text-[11px] leading-relaxed">
-                  <li><strong>System-Customizing:</strong> Konfiguration und Aufbau des Entwicklungssystems (DS4.100) im modifikationsfreien Clean-Core-Standard.</li>
+                  <li><strong>System-Customizing:</strong> Konfiguration und Aufbau des Entwicklungssystems im modifikationsfreien Clean-Core-Standard.</li>
                   <li><strong>Realisierung von Erweiterungen:</strong> On-Stack ABAP Cloud / RAP Entwicklung und Side-by-Side Entkopplung auf der SAP BTP.</li>
                   <li><strong>Migrations-Staging:</strong> Vorbereitung der Extraktions-Pipelines und Befüllung der Staging-Tabellen im SAP Migration Cockpit (LTMC).</li>
-                  <li><strong>Test-Zyklen (SIT & UAT):</strong> Durchführung der Systemintegrationstests (SIT 1–3) in Cloud ALM und Vorbereitung des Produktiv-Cutovers zum Go-Live (01.01.2027).</li>
+                  <li><strong>Test-Zyklen (SIT & UAT):</strong> Durchführung der Systemintegrationstests (SIT 1–3) in Cloud ALM und Vorbereitung des Produktiv-Cutovers.</li>
                 </ul>
               </div>
             </div>
@@ -91,15 +91,15 @@ def get_project():
           </div>
         </div>
 
-        <!-- Interaktiver WBS Timeline & Meilenstein-Radar -->
+        <!-- Interaktives SAP Activate Phasen-Cockpit -->
         <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div>
               <h3 class="text-base font-bold text-white flex items-center gap-2">
                 <span>🎯</span>
-                <span>Interaktiver WBS Meilenstein-Radar & Projektzeitstrahl (TP1–TP5)</span>
+                <span>Interaktives SAP Activate Phasen-Cockpit (End-to-End Methodik)</span>
               </h3>
-              <p class="text-xs text-[#8f8888]">Aus dem Original-Projektplan (MS Project WBS 1–297): Phasenfortschritt, Fit-to-Standard Reifegrade und Mitbestimmung.</p>
+              <p class="text-xs text-[#8f8888]">Strukturierte Umsetzung nach der offiziellen SAP Activate Methodik: Phasen-Deliverables, Q-Gates und Governance.</p>
             </div>
             
             <!-- Filter Tabs -->
@@ -107,36 +107,36 @@ def get_project():
               <button 
                 @click="wbsFilter = 'all'" 
                 :class="['px-2.5 py-1 rounded-lg font-medium transition', wbsFilter === 'all' ? 'bg-[#bf262e] text-white shadow-sm' : 'text-[#8f8888] hover:text-white']"
-              >Alle (TP1–5)</button>
+              >Alle (6 Phasen)</button>
               <button 
                 @click="wbsFilter = 'explore'" 
                 :class="['px-2.5 py-1 rounded-lg font-medium transition', wbsFilter === 'explore' ? 'bg-[#bf262e] text-white shadow-sm' : 'text-[#8f8888] hover:text-white']"
-              >Explore (60%)</button>
+              >Explore (Visars Fokus ⭐)</button>
               <button 
                 @click="wbsFilter = 'realize'" 
                 :class="['px-2.5 py-1 rounded-lg font-medium transition', wbsFilter === 'realize' ? 'bg-[#bf262e] text-white shadow-sm' : 'text-[#8f8888] hover:text-white']"
-              >Realize & Staging</button>
+              >Ausblick (Realize / Deploy / Run)</button>
             </div>
           </div>
 
-          <!-- Highlight Banner: Die Mitbestimmungs-Meilensteine (Betriebsrat PK) -->
+          <!-- Highlight Banner: Meilenstein-Governance nach SAP Activate Q-Gates -->
           <div class="p-4 rounded-xl bg-gradient-to-r from-red-950/30 via-[#181818] to-emerald-950/20 border border-[#bf262e]/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
             <div class="flex items-start space-x-3">
               <span class="text-2xl pt-0.5">🤝</span>
               <div class="space-y-0.5">
                 <div class="text-xs font-bold text-white flex items-center gap-2">
-                  <span>Meilenstein Mitbestimmung & Betriebsrat (Markus Schmidt & Joachim Kraus)</span>
-                  <span class="px-2 py-0.2 rounded-full bg-[#bf262e]/20 text-[#f87171] text-[10px] font-bold">WBS Vorgang 286–297</span>
+                  <span>Meilenstein-Governance nach SAP Activate Q-Gates & Mitbestimmung</span>
+                  <span class="px-2 py-0.2 rounded-full bg-[#bf262e]/20 text-[#f87171] text-[10px] font-bold">End-to-End Governance</span>
                 </div>
                 <p class="text-[11px] text-[#c4bebe]">
-                  <strong>Pilot-BV (Vorgang 294):</strong> Inkrafttreten am <strong>01.04.2026</strong> für den UAT-Test mit Echtdaten auf System QS4.210. ➔ 
-                  <strong>Finale BV (Vorgang 297):</strong> Inkrafttreten am <strong>01.01.2027</strong> rechtzeitig zum produktiven Go-Live.
+                  <strong>Q-Gate Explore formal freigegeben:</strong> Kaufmännisches Solution Design Document (SDD: FI/CO/MM/Trennungsrechnung/ACDOCA) vollständig finalisiert und durch den Lenkungsausschuss genehmigt. ➔ 
+                  <strong>Institutionelle Mitbestimmung:</strong> Frühzeitige Einbindung der Arbeitnehmervertretung (Pilot-Betriebsvereinbarung für UAT-Tests und finale Betriebsvereinbarung für Produktivbetrieb).
                 </p>
               </div>
             </div>
             <div class="text-right whitespace-nowrap">
               <span class="text-[10px] uppercase font-bold text-[#8f8888] tracking-wider">Explore Abschluss</span>
-              <div class="text-xs font-extrabold text-[#f87171]">29. August 2025 (Vorgang 110)</div>
+              <div class="text-xs font-extrabold text-[#f87171]">Meilenstein erreicht</div>
             </div>
           </div>
 
@@ -193,7 +193,7 @@ def get_project():
                 <span class="text-[10px] bg-white/10 text-[#c4bebe] px-1.5 py-0.5 rounded">Change & Enablement</span>
               </div>
               <div class="text-xs font-semibold text-white">Change Management & Academy</div>
-              <div class="text-[11px] text-[#8f8888]">Leitung: Cichon / Göhring / Sarah Lozano</div>
+              <div class="text-[11px] text-[#8f8888]">Leitung: Teilprojektleitung Change Management & Academy</div>
               <p class="text-[11px] text-[#c4bebe]">
                 Kultureller Wandel, Betriebsrat-Einbindung, Kommunikation an 3.700 MA, SAP Enable Now Rollout mit UB AC (Personalentwicklung).
               </p>
@@ -206,7 +206,7 @@ def get_project():
                 <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded">Kaufmännisch</span>
               </div>
               <div class="text-xs font-semibold text-white">Finance & Controlling</div>
-              <div class="text-[11px] text-[#8f8888]">Leitung: Wimpff / Partner: Nagarro ES</div>
+              <div class="text-[11px] text-[#8f8888]">Leitung: Teilprojektleitung Finanzen & Controlling</div>
               <p class="text-[11px] text-[#c4bebe]">
                 S/4HANA FI/CO, Trennungsrechnung (PBV/ÖPNV), Universal Journal (ACDOCA), New Asset Accounting (FI-AA), xSuite Rechnungswesen.
               </p>
@@ -219,7 +219,7 @@ def get_project():
                 <span class="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded">Technik</span>
               </div>
               <div class="text-xs font-semibold text-white">Instandhaltung & Logistik</div>
-              <div class="text-[11px] text-[#8f8888]">Leitung: Neifer / Partner: Evora IT</div>
+              <div class="text-[11px] text-[#8f8888]">Leitung: Teilprojektleitung Instandhaltung & Logistik</div>
               <p class="text-[11px] text-[#c4bebe]">
                 Instandhaltung der Stadtbahnen, Busse und Schieneninfrastruktur (SAP PM / EAM), mobile Instandhaltung mit Evora, Materialwirtschaft (MM).
               </p>
@@ -232,7 +232,7 @@ def get_project():
                 <span class="text-[10px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded">Personal</span>
               </div>
               <div class="text-xs font-semibold text-white">HR & Nachfolgesystem</div>
-              <div class="text-[11px] text-[#8f8888]">Leitung: Tielesch / UB P</div>
+              <div class="text-[11px] text-[#8f8888]">Leitung: Teilprojektleitung Personal & HR</div>
               <p class="text-[11px] text-[#c4bebe]">
                 Evaluation von SAP SuccessFactors vs. Best-of-Breed HR-Lösungen, Digitale Personalakte (d.velop), Entgeltabrechnung.
               </p>
@@ -245,7 +245,7 @@ def get_project():
                 <span class="text-[10px] bg-[#bf262e] text-white font-bold px-1.5 py-0.5 rounded">IT-PMO & Architektur</span>
               </div>
               <div class="text-xs font-bold text-white">Gesamtsteuerung & Basis</div>
-              <div class="text-[11px] text-[#fecdd3]">Gesamt-PL: Roland Nowak / IT-Leitung: Dietmar Fillinger</div>
+              <div class="text-[11px] text-[#fecdd3]">Leitung: Gesamtprojektleitung ERP & IT-Leitung</div>
               <p class="text-[11px] text-white/90 font-medium">
                 Multiprojekt-Governance, Tool-Stack (CALM, Signavio), Schnittstellenarchitektur, Basisbetreuung mit Axians, Lenkungsausschuss-Vorbereitung.
               </p>

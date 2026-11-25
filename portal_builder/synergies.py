@@ -263,14 +263,14 @@ def get_synergies(public_mode=False):
                 <span>🚆 Stuttgarter Straßenbahnen AG (SSB AG)</span>
                 <span class="text-[11px] text-emerald-400">24 Monate (05/2024–04/2026)</span>
               </div>
-              <p class="text-[#c4bebe] leading-relaxed">Werkstudent IT-PMO & Gesamtsteuerung (`TP5`) unter Roland Nowak & Dietmar Fillinger. Pflege MS-Project-Masterplan (`TP1–TP5`), SDD-Prozessdokumentation (`FI/CO/MM`), Governance über Signavio, Cloud ALM (`How2Handle`) & Enable Now sowie Datenmigrations-Vorbereitung (`LTMC`/`CVI`) bis zum erfolgreichen Explore-Abschluss.</p>
+              <p class="text-[#c4bebe] leading-relaxed">Werkstudent IT-PMO & Gesamtsteuerung (`TP5`) unter Gesamtprojektleitung & IT-Leitung. Pflege MS-Project-Masterplan (`TP1–TP5`), SDD-Prozessdokumentation (`FI/CO/MM`), Governance über Signavio, Cloud ALM (`How2Handle`) & Enable Now sowie Datenmigrations-Vorbereitung (`LTMC`/`CVI`) bis zum erfolgreichen Explore-Abschluss.</p>
             </div>
             <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
               <div class="flex items-center justify-between font-bold text-white">
                 <span>🏢 Datacenter One GmbH (INOC)</span>
                 <span class="text-[11px] text-blue-400">12 Monate (05/2023–04/2024)</span>
               </div>
-              <p class="text-[#c4bebe] leading-relaxed">Werkstudent 24/7 Information Network Operation Center unter Helmut Schmidpeter. Single Point of Contact (Jira), PRTG-Echtzeitüberwachung (Core-Netze, USV, Klima, Dark Fiber), Aufbau der Confluence-Prozessdatenbank nach ITIL 4 und Visio-BPMN-Design für den Hardware-Lifecycle (100+ Arbeitsplätze).</p>
+              <p class="text-[#c4bebe] leading-relaxed">Werkstudent 24/7 Information Network Operation Center unter INOC-Leitung. Single Point of Contact (Jira), PRTG-Echtzeitüberwachung (Core-Netze, USV, Klima, Dark Fiber), Aufbau der Confluence-Prozessdatenbank nach ITIL 4 und Visio-BPMN-Design für den Hardware-Lifecycle (100+ Arbeitsplätze).</p>
             </div>
             <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
               <div class="flex items-center justify-between font-bold text-white">

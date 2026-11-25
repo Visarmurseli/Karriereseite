@@ -157,7 +157,7 @@ def get_migration():
             <div class="p-3.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e]/30 transition">
               <div class="font-bold text-white mb-1">3. Cutover Weekend (Sa/So)</div>
               <p class="text-[#c4bebe]">
-                Batch-Lauf des Migration Cockpits. Centgenauer SuSa-Abgleich. Freigabe durch Wirtschaftsprüfer, Gesamt-PL Roland Nowak und IT-Leitung.
+                Batch-Lauf des Migration Cockpits. Centgenauer SuSa-Abgleich. Freigabe durch Wirtschaftsprüfer, Gesamtprojektleitung und IT-Leitung.
               </p>
             </div>
             <div class="p-3.5 rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e]/30 transition">

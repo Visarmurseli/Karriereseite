@@ -108,7 +108,7 @@ Meine Stärke liegt darin, die Brücke zwischen Fachbereich und den Entwicklerte
             badAnswer: '"Ja, ein bisschen in den Buchungskreisen rumgeklickt..." – TÖDLICH! Wenn er nach der genauen Transaktion oder Tabellenstrukturen fragt, bist du geliefert.',
             goodAnswer: `Ganz im Gegenteil – und das war eine ganz bewusste strategische Entscheidung in unserem Transformationsprogramm SAP4SSB!
 
-Wir haben bei der SSB eine Greenfield-Einführung nach der RISE with SAP-Methodik durchgeführt. Das oberste Dogma von Gesamtprojektleiter Roland Nowak und IT-Leiter Dietmar Fillinger war: Striktes Clean Core! Klassisches Customizing im SPRO, das Systemmodifikationen erzeugt, und proprietäre Z-Tabellen im Kern waren für uns tabu, weil genau das das Altsystem über 20 Jahre verbaut hatte.
+Wir haben bei der SSB eine Greenfield-Einführung nach der RISE with SAP-Methodik durchgeführt. Das oberste Dogma der Gesamtprojektleitung und IT-Leitung war: Striktes Clean Core! Klassisches Customizing im SPRO, das Systemmodifikationen erzeugt, und proprietäre Z-Tabellen im Kern waren für uns tabu, weil genau das das Altsystem über 20 Jahre verbaut hatte.
 
 Meine Rolle im IT-PMO war es, die Einhaltung dieses Standards in den Fit-to-Standard Workshops zu steuern und abweichende Wünsche der Fachbereiche zu hinterfragen. Wenn eine Anforderung nicht im SAP-Standard abgebildet werden konnte, haben wir gemeinsam mit Nagarro geprüft, ob sie als On-Stack-Extension (ABAP Cloud / RAP) oder als Side-by-Side-Extension auf der SAP BTP realisiert wird.
 
@@ -183,7 +183,7 @@ Genau diese Schnittstelle aus 24 Monaten Greenfield-Großprojekterfahrung und mo
 
         const pitchDeep = `Wenn Sie mich nach meinem fachlichen Profil fragen, lässt sich das in drei Bausteinen zusammenfassen:
 
-Erstens: Operative ERP-Großprojekterfahrung in einem kritischen Infrastrukturunternehmen. Die SSB AG mit 3.700 Mitarbeitern migriert von einem hochgradig modifizierten ECC 6.0 auf S/4HANA in einer RISE Private Cloud. Ich war im TP5 unter Gesamtprojektleiter Roland Nowak dafür zuständig, die Projektorganisation, das Meilenstein-Controlling und die Tool-Etablierung zu steuern. Ich kenne die realen Reibungspunkte – von der Schnittstellenintegration mit Drittsystemen wie xSuite, d.velop oder PATRIS bis hin zu den Vorbehalten des Betriebsrats bei Fiori-Rollen.
+Erstens: Operative ERP-Großprojekterfahrung in einem kritischen Infrastrukturunternehmen. Die SSB AG mit 3.700 Mitarbeitern migriert von einem hochgradig modifizierten ECC 6.0 auf S/4HANA in einer RISE Private Cloud. Ich war im TP5 unter der Gesamtprojektleitung dafür zuständig, die Projektorganisation, das Meilenstein-Controlling und die Tool-Etablierung zu steuern. Ich kenne die realen Reibungspunkte – von der Schnittstellenintegration mit Drittsystemen wie xSuite, d.velop oder PATRIS bis hin zu den Vorbehalten des Betriebsrats bei Fiori-Rollen.
 
 Zweitens: Fundierte Daten- und Migrationskompetenz. Ich habe mich intensiv mit den Mechanismen des SAP Migration Cockpits befasst – von der Validierung der Staging-Tabellen über Feld- und Werte-Mappings bis hin zum revisionssicheren Cutover und Bilanzabgleich im FI. Ich weiß genau, warum die Eröffnungsbilanz und das Übernahmekonto centgenau auf 0,00 € abgestimmt sein müssen und wie man Stammdaten im Rahmen von CVI sauber konsolidiert.
 
@@ -225,7 +225,7 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
             expanded: false,
             s: 'In der Explore-Phase identifizierte das Team kritische GAPs in der Bereitstellung des ES4-Testsystems (Mandanten M300/M100), bei ADS-Formularen, SSO und der Fiori BANF-App.',
             t: 'Im IT-PMO musste eine lückenlose Erfassung und Priorisierung der offenen IT-ToDos erfolgen, um die Testfähigkeit der kaufmännischen Prozesse nicht zu gefährden.',
-            a: 'Ich strukturierte die Themensammlung und Priorisierung in enger Abstimmung mit Axians (Gerdes) und Armin Heinrich, ordnete CalmIDs zu und klassifizierte Aufgaben nach T-Shirt-Sizes (S, M, L).',
+            a: 'Ich strukturierte die Themensammlung und Priorisierung in enger Abstimmung mit den Lead-Architekten der Partner und der internen Basisarchitektur, ordnete CalmIDs zu und klassifizierte Aufgaben nach T-Shirt-Sizes (S, M, L).',
             r: 'Die Engpässe wurden im wöchentlichen PL-Meeting transparent priorisiert, wodurch kritische Basis-Komponenten (SSO, Druck/ADS, Transportkonsolidierung) rechtzeitig vor den End-to-End-Tests bereitstanden.'
           },
           {
@@ -234,7 +234,7 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
             expanded: false,
             s: 'In der akademischen ERP-Forschung gab es bislang kaum empirisch fundierte Modelle darüber, wie sich klassische Erfolgsfaktoren bei der Plattformisierung von S/4HANA mit BTP verändern.',
             t: 'Im Rahmen meiner Masterarbeit an der Uni Stuttgart wollte ich ein wissenschaftlich fundiertes und zugleich praxiserprobtes Framework entwickeln.',
-            a: 'Ich führte 12 leitfadengestützte Experteninterviews mit Gesamtprojektleiter Roland Nowak, Teilprojektleitern (Wimpff, Neifer) und Architekten durch, analysierte diese qualitativ nach Mayring und triangulierte sie mit der internationalen Literatur.',
+            a: 'Ich führte 12 leitfadengestützte Experteninterviews mit der Gesamtprojektleitung, den Teilprojektleitern Finanzen und Technik sowie Lead-Architekten durch, analysierte diese qualitativ nach Mayring und triangulierte sie mit der internationalen Literatur.',
             r: 'Ich entwickelte ein 4x3 CSF-Framework, das belegt, dass API-Governance, Event-Driven Architecture und Clean-Core-Richtlinien heute genauso erfolgskritisch sind wie klassischer Top-Management-Support. Die Arbeit wurde am 20.04.2026 mit der Traumnote 1,0 bewertet.'
           }
         ]);
@@ -243,64 +243,76 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
 
         const wbsProjects = ref([
           {
-            id: 'TP1',
-            wbs: 'WBS 16–63',
-            phase: 'Explore',
-            title: 'TP1: Change Management, People & Enablement',
-            lead: 'Sarah Lozano / Göhring / Cichon (UB AC)',
-            progress: 75,
-            tag: 'People & Change',
-            tagColor: 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300',
-            details: 'Multiplikatoren-Schulungskonzept, Rollout SAP Enable Now (März 2026), Coffee Corners in allen Unternehmensbereichen (UB Z, K, T, W), Berg & Tal Mitarbeiterevents.',
-            milestone: 'Schulungskonzept & Enable Now live (März 2026)'
-          },
-          {
-            id: 'TP2',
-            wbs: 'WBS 64–112',
-            phase: 'Explore',
-            title: 'TP2: Kaufmännische Prozesse & Solution Design',
-            lead: 'Sebastian Neifer / Tim Lopez / Tim Waldberg (Nagarro ES)',
-            progress: 80,
-            tag: 'Fit-to-Standard',
-            tagColor: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300',
-            details: 'Fit-to-Standard Reifegrade: CO 90%, MM 91%, RE-FX 86%, FI 76%, SD 76%, EHS 71%, Cross Topics 58%. BPMN 2.0 Modellierung in Signavio & CALM-Sync auf ES4.400.',
-            milestone: 'Explore-Phase formal abgeschlossen (29.08.2025, Vorgang 110)'
-          },
-          {
-            id: 'TP3',
-            wbs: 'WBS 173–196',
-            phase: 'Explore',
-            title: 'TP3: Technische Prozesse & Asset Management',
-            lead: 'UB W, UB K, UB T / Partner Evora & Nagarro',
+            id: 'Phase 1',
+            wbs: 'SAP Activate',
+            phase: 'discover',
+            title: '1. Discover: Strategie, Business Case & Clean Core',
+            lead: 'Enterprise Architecture & C-Level Steering',
             progress: 100,
-            tag: 'Instandhaltung',
+            tag: 'Strategie',
+            tagColor: 'bg-blue-100 text-blue-800 dark:bg-blue-900/60 dark:text-blue-300',
+            details: 'Greenfield vs. Brownfield Evaluierung, Begründung der RISE with SAP Private Cloud Zielarchitektur, Festlegung des modifikationsfreien Clean-Core-Paradigmas und BTP-Roadmap.',
+            milestone: 'Business Case & Architektur-Zielbild verabschiedet'
+          },
+          {
+            id: 'Phase 2',
+            wbs: 'SAP Activate',
+            phase: 'prepare',
+            title: '2. Prepare: Projektcharta, Tool-Governance & Standards',
+            lead: 'IT-PMO & Multiprojekt-Governance',
+            progress: 100,
+            tag: 'Governance',
+            tagColor: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300',
+            details: 'Aufbau der Multiprojekt-Struktur (TP1–TP5), Etablierung des Tool-Stacks (SAP Cloud ALM, SAP Signavio BPMN 2.0, Enable Now), Rollen- und Rechtekonzept sowie Template-Vorgaben für Fit-to-Standard.',
+            milestone: 'Projektcharta & Tool-Governance (CALM/Signavio) live'
+          },
+          {
+            id: 'Phase 3',
+            wbs: 'Hauptfokus',
+            phase: 'explore',
+            title: '3. Explore: Fit-to-Standard, Lösungsdesign & SDD ⭐',
+            lead: 'IT-PMO, Fachbereiche & Implementierungspartner',
+            progress: 100,
+            tag: 'Visars 24M Fokus',
             tagColor: 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300',
-            details: '100% Freigabe der Kernprozesse für Stadtbahn (SSAM Mobile Instandhaltung auf Tablets), Kraftverkehr (Busse) und Fahrleitung/Gleise. Gebäudewirtschaft (VH) erst nach Go-Live 01.01.2027.',
-            milestone: 'Kernprozesse UB W, K, T 100% freigegeben (30.09.2025)'
+            details: 'Moderation und Begleitung der Fit-to-Standard Workshops, Standard-vor-Individualisierung-Prüfung, BPMN 2.0 Prozessdokumentation in Signavio und Erstellung des kaufmännischen Solution Design Documents (SDD: FI/CO/MM/Trennungsrechnung/ACDOCA).',
+            milestone: 'Explore formal abgeschlossen & SDD durch Lenkungsausschuss genehmigt'
           },
           {
-            id: 'TP4',
-            wbs: 'WBS 197–202',
-            phase: 'Realize',
-            title: 'TP4: IT-Unterstützung, RISE & Systemlandschaft',
-            lead: 'Dietmar Fillinger / Axians & Nagarro Basis-Architekten',
+            id: 'Phase 4',
+            wbs: 'SAP Activate',
+            phase: 'realize',
+            title: '4. Realize: Clean-Core Customizing, BTP & Test-Design',
+            lead: 'Teilprojektteams & Entwicklungs-Partner',
             progress: 70,
-            tag: 'Cloud & BTP',
+            tag: 'Konfiguration',
             tagColor: 'bg-purple-100 text-purple-800 dark:bg-purple-900/60 dark:text-purple-300',
-            details: '4-System-Landschaft (ES4.400 Sandbox, QS4.100 Int-Test 1, QS4.210 Int-Test 2/UAT, PS4 Produktiv), SAP Cloud Connector, BTP Integration Suite und SSO via Azure AD.',
-            milestone: 'Staging ES4 -> QS4 -> PS4 bereitgestellt (01.04.2026)'
+            details: 'Modifikationsfreie Systemkonfiguration im Entwicklungssystem, On-Stack ABAP Cloud / RAP Entwicklung, Side-by-Side Entkopplung auf der SAP BTP, Vorbereitung von Migration Staging-Tabellen (LTMC) und SIT/UAT Testzyklen in Cloud ALM.',
+            milestone: 'Systemkonfiguration & Testfall-Kataloge in Cloud ALM'
           },
           {
-            id: 'TP5',
-            wbs: 'WBS 203–297',
-            phase: 'Explore',
-            title: 'TP5: Gesamtsteuerung, PMO & Betriebsvereinbarungen',
-            lead: 'Roland Nowak / Dietmar Fillinger / Betriebsrat (Schmidt, Kraus)',
-            progress: 85,
-            tag: 'PMO & Governance',
+            id: 'Phase 5',
+            wbs: 'SAP Activate',
+            phase: 'deploy',
+            title: '5. Deploy: Revisionssicherer Cutover & Go-Live',
+            lead: 'Cutover-Management & Qualitätssicherung',
+            progress: 50,
+            tag: 'Cutover',
             tagColor: 'bg-rose-100 text-rose-800 dark:bg-rose-900/60 dark:text-rose-300',
-            details: 'Gesamtprojektsteuerung in MS Project, C-Level Reporting Steering Board, Meilenstein-Controlling und die beiden historischen Mitbestimmungs-Meilensteine mit dem Betriebsrat.',
-            milestone: 'Pilot-BV in Kraft (01.04.2026) | Finale BV in Kraft (01.01.2027)'
+            details: 'Stichtagsbezogener Altsystem-Freeze, finale Extraktion und Migration über SAP Migration Cockpit (LTMC), centgenauer SuSa-Abgleich mit 0,00 € Saldo auf dem Datenübernahmekonto sowie Einbindung der Mitbestimmung (Betriebsvereinbarungen für Echtdatentests und Produktivbetrieb).',
+            milestone: '0,00 € Übernahmekonto-Abstimmung & Betriebsvereinbarung'
+          },
+          {
+            id: 'Phase 6',
+            wbs: 'SAP Activate',
+            phase: 'run',
+            title: '6. Run: Hypercare, Enable Now & Service Operations',
+            lead: 'ITIL 4 Service Operations & Key-User Organisation',
+            progress: 40,
+            tag: 'Betrieb',
+            tagColor: 'bg-teal-100 text-teal-800 dark:bg-teal-900/60 dark:text-teal-300',
+            details: 'Strukturierte Hypercare-Phase, Freigabe des SAP Fiori Launchpads, Bereitstellung des SAP Enable Now Web Assistant für kontextsensitive Anwenderschulung und Übergang in den regulären ITIL 4 Betrieb (Incident-, Problem- und Change-Management).',
+            milestone: 'Stabiler Regelbetrieb & Wissensübergabe an Key-User'
           }
         ]);
 
@@ -327,20 +339,20 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
           { title: 'TOGAF 9 ADM Enterprise Architecture', cat: 'Technik & Architektur', tab: 'enterprise_arch', desc: 'Architecture Development Method, Baseline vs. Target Architecture und Architecture Governance.' },
           { title: 'ITIL 4 Service Operations (Datacenter One)', cat: 'Technik & Architektur', tab: 'enterprise_arch', desc: 'Incident-, Problem- und Change-Management, SLA-Steuerung und 24/7 Rechenzentrums-Monitoring.' },
 
-          // Großprojekt & PMO
-          { title: 'Gesamtprojektplan SAP4SSB (MS Project)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 1–297: Discover bis Run, Phasenplanung, Critical Path und Meilenstein-Tracking.' },
-          { title: 'TP1 Change Management & Enable Now', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 16–63: Change Champions, Coffee Corners in allen 4 Unternehmensbereichen (UB Z/K/T/W).' },
-          { title: 'TP2 Kaufmännische Prozesse WBS Plan', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 64–112: Fit2Standard Reifegrade (CO 90%, MM 91%, RE-FX 86%, FI 76%), Abschluss 29.08.2025.' },
-          { title: 'TP3 Technische Prozesse & Instandhaltung', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 173–196: 100% Freigabe für Stadtbahn, Busse und Netz; Gebäudewirtschaft erst Post-Go-Live.' },
-          { title: 'TP4 IT-Unterstützung & 4-System-Landschaft', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 197–202: ES4.400 Sandbox, QS4.100 Integrationstest 1, QS4.210 UAT, PS4 Produktivsystem.' },
-          { title: 'TP5 Gesamtsteuerung & PMO', cat: 'Großprojekt & PMO', tab: 'project', desc: 'WBS 203–297: Lenkungsausschuss-Reporting, Budgetcontrolling und Meilenstein-Freigaben.' },
-          { title: 'Pilot-Betriebsvereinbarung (01.04.2026)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Vorgang 294: Meilenstein Pilot-BV für Test mit Echtdaten (UAT auf QS4.210) mit Betriebsrat Schmidt & Kraus.' },
-          { title: 'Finale Betriebsvereinbarung (01.01.2027)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Vorgang 297: Finale BV inkraftgetreten exakt zum produktiven Go-Live Neujahr 2027.' },
+          // Großprojekt & SAP Activate Methodik
+          { title: 'SAP Activate Phasen-Cockpit', cat: 'Großprojekt & PMO', tab: 'project', desc: 'End-to-End Methodik: Discover, Prepare, Explore (Visars 24M Fokus), Realize, Deploy und Run.' },
+          { title: 'TP1 Change Management & Enable Now', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Change Champions, Key-User-Befähigung und Etablierung von SAP Enable Now für 3.700 Mitarbeiter.' },
+          { title: 'TP2 Kaufmännische Prozesse & SDD', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Fit-to-Standard Workshops, SDD-Freigabe, Universal Journal (ACDOCA) und Trennungsrechnung.' },
+          { title: 'TP3 Technische Prozesse & Instandhaltung', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Mobile Instandhaltung (SAP SSAM auf Tablets) für Stadtbahn, Busse und Schieneninfrastruktur.' },
+          { title: 'TP4 IT-Unterstützung & Systemlandschaft', cat: 'Großprojekt & PMO', tab: 'project', desc: '4-System-Landschaft, Cloud Connector, SAP BTP Integration Suite und SSO via Azure AD.' },
+          { title: 'TP5 Gesamtsteuerung & PMO', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Multiprojekt-Governance, Tool-Stack (CALM, Signavio), Lenkungsausschuss-Reporting und Q-Gates.' },
+          { title: 'Pilot-Betriebsvereinbarung (UAT-Phase)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Meilenstein Pilot-BV für den Testbetrieb mit Echtdaten (UAT) mit der Betriebsrats-Verhandlungskommission.' },
+          { title: 'Finale Betriebsvereinbarung (Cutover & Go-Live)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Finale Betriebsvereinbarung für den revisionssicheren Produktivbetrieb.' },
           { title: 'Tool-Governance: CALM vs. Signavio', cat: 'Großprojekt & PMO', tab: 'tools', desc: 'BPMN 2.0 Prozessmodellierung in Signavio synchronisiert mit Testskripten in SAP Cloud ALM.' },
 
           // Masterarbeit & Wissenschaft
           { title: 'Masterarbeit Note 1,0 (Prof. Herzwurm)', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: '126 Seiten: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme (S/4HANA Plattformisierung).' },
-          { title: '12 empirische Experteninterviews', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Interviews im Großprojekt SAP4SSB mit Gesamt-PL Roland Nowak, TPLs und Lead-Architekten.' },
+          { title: '12 empirische Experteninterviews', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Interviews im Großprojekt mit Gesamtprojektleitung, TPLs und Lead-Architekten.' },
           { title: 'Qualitative Inhaltsanalyse nach Mayring', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Deduktiv-induktives Kategoriensystem und wissenschaftliches Codebuch zur Auswertung.' },
           { title: 'Boundary Resources & Bimodale IT', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Theoretische Fundierung nach Ghazawneh & Henfridsson: ABR, DBR, SBR und lose Kopplung.' },
           { title: 'Absorptive Capacity & Change Management', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Wissensaufnahme- und Transformationsfähigkeit (Cohen & Levinthal) in traditionsreichen Konzernen.' },
@@ -362,7 +374,7 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
             q: 'Was genau war Ihre Rolle bei der SSB AG und wie war das Transformationsprogramm SAP4SSB strukturiert?',
             cat: 'SSB S/4HANA & Explore-Phase',
             open: true,
-            a: `Ich war 24 Monate lang als Werkstudent im IT-PMO (Teilprojekt 5: Gesamtsteuerung & Architektur) unter Gesamtprojektleiter Roland Nowak und IT-Leiter Dietmar Fillinger tätig.
+            a: `Ich war 24 Monate lang als Werkstudent im IT-PMO (Teilprojekt 5: Gesamtsteuerung & Architektur) unter der Gesamtprojektleitung und IT-Leitung tätig.
 
 Das Programm SAP4SSB gliederte sich in 5 disjunkte Teilprojekte:
 - TP1: Change Management & Enablement (Rollout SAP Enable Now, Coffee Corners, Key-User-Befähigung)
@@ -468,17 +480,17 @@ Im Finanzbereich (FI) ist der Eröffnungsbilanz-Abgleich die kritischste Revisio
             open: false,
             a: `In einem öffentlichen Verkehrsunternehmen unterliegt die Einführung eines ERP-Systems, das potenziell Leistungs- und Verhaltensdaten von Mitarbeitern verarbeiten kann, der zwingenden Mitbestimmung nach § 87 Abs. 1 Nr. 6 BetrVG.
 
-Im Programm SAP4SSB haben Gesamtprojektleiter Roland Nowak und IT-Leiter Dietmar Fillinger den Betriebsrat (Vorsitzende Schmidt & Kraus) von Beginn an eingebunden. Wir hatten zwei verbindliche Meilensteine im Masterplan:
-1. Pilot-Betriebsvereinbarung (01.04.2026): Regelung für den Testbetrieb mit anonymisierten/pseudonymisierten Echtdaten im UAT auf QS4.210.
-2. Finale Betriebsvereinbarung (01.01.2027): Regelung für den Produktivbetrieb zum Go-Live mit klarem Rollen- und Berechtigungskonzept.`,
-            do: 'Erwähne § 87 BetrVG, die Pilot-BV (01.04.2026) und die Finale BV (01.01.2027) sowie das Rollen-/Berechtigungskonzept.',
+Im Transformationsprogramm haben Gesamtprojektleitung und IT-Leitung die Arbeitnehmervertretung (Betriebsrats-Verhandlungskommission) von Beginn an institutionalisiert eingebunden. Wir hatten zwei verbindliche Mitbestimmungs-Meilensteine:
+1. Pilot-Betriebsvereinbarung: Regelung für den Testbetrieb mit anonymisierten/pseudonymisierten Echtdaten im Realize-Schritt (UAT).
+2. Finale Betriebsvereinbarung: Regelung für den Produktivbetrieb zum Go-Live mit klarem Rollen- und Berechtigungskonzept.`,
+            do: 'Erwähne § 87 BetrVG, die Pilot-BV für die Testphase und die finale BV für den Produktivbetrieb sowie das Rollen-/Berechtigungskonzept.',
             dont: 'Unterschätze niemals die Mitbestimmung – in deutschen Konzernen ist das ein zentraler Erfolgsfaktor!'
           },
           {
             q: 'Welche Aufgaben hatten Sie 12 Monate lang bei Datacenter One im INOC?',
             cat: 'Datacenter One & ITIL 4',
             open: false,
-            a: `Ich war 12 Monate lang als Werkstudent im Information Network Operation Center (INOC) unter Helmut Schmidpeter tätig.
+            a: `Ich war 12 Monate lang als Werkstudent im Information Network Operation Center (INOC) unter der operativen INOC-Leitung tätig.
 
 Meine Hauptaufgaben umfassten:
 - 24/7 Monitoring von Core-Netzwerken, Serverfarmen, USV-Anlagen (Unterbrechungsfreie Stromversorgung) und RZ-Klimatechnik.
@@ -593,15 +605,15 @@ Meine Masterarbeit liefert ein ganzheitliches 4x3-Erfolgsfaktorenmodell, das all
             dont: "Beschreibe Mayring nicht als bloßes 'Texte markieren' – es ist ein streng wissenschaftliches, reliables Verfahren."
           },
           {
-            q: 'Welche Kern-Erkenntnisse lieferten die Interviews mit Roland Nowak, Thomas Wimpff und Armin Heinrich?',
+            q: 'Welche Kern-Erkenntnisse lieferten die Experteninterviews mit Gesamtprojektleitung, TPL Finance und Basisarchitektur?',
             cat: 'Master & Plattformisierung',
             open: false,
-            a: `Die Interviews mit den Schlüsselakteuren der SSB zeigten komplementäre Perspektiven:
-- Roland Nowak (Gesamtprojektleiter): Unterstrich, dass ERP-Transformationen zu 80% ein Führungs- und Kommunikationsproblem sind. Die formelle Mitbestimmung mit dem Betriebsrat und ein rigoroses Scope-Management in den Fit-to-Standard Workshops sind der Schlüssel.
-- Thomas Wimpff (TPL TP2 Finance): Betonte die Notwendigkeit, das Universal Journal (ACDOCA) und die Trennungsrechnung frühzeitig architektonisch abzusichern, um spätere Steuer- und Bilanzierungsrisiken auszuschließen.
-- Armin Heinrich (Basisarchitekt): Verwies auf die zwingende Trennung zwischen Core und BTP sowie die Notwendigkeit stabiler SSO- und Authentifizierungs-Infrastrukturen.`,
-            do: 'Nenne die Namen der Experten und ihre spezifischen strategischen Schwerpunkte.',
-            dont: 'Behandle die Interviews nicht abstrakt – zeige, dass du mit echten C-Level- und Architektur-Verantwortlichen auf Augenhöhe gesprochen hast.'
+            a: `Die Interviews mit den Schlüsselakteuren der ERP-Transformation zeigten komplementäre Perspektiven:
+- Experte 1 (Gesamtprojektleiter ERP): Unterstrich, dass ERP-Transformationen zu 80% ein Führungs- und Kommunikationsproblem sind. Die formelle Mitbestimmung mit dem Betriebsrat und ein rigoroses Scope-Management in den Fit-to-Standard Workshops sind der Schlüssel.
+- Experte 2 (TPL TP2 Finance & Controlling): Betonte die Notwendigkeit, das Universal Journal (ACDOCA) und die Trennungsrechnung frühzeitig architektonisch abzusichern, um spätere Steuer- und Bilanzierungsrisiken auszuschließen.
+- Experte 3 (Enterprise Basisarchitekt): Verwies auf die zwingende Trennung zwischen Core und BTP sowie die Notwendigkeit stabiler SSO- und Authentifizierungs-Infrastrukturen.`,
+            do: 'Nenne die Rollen der Experten und ihre spezifischen strategischen Schwerpunkte.',
+            dont: 'Behandle die Interviews nicht rein abstrakt – zeige, dass du mit echten Führungskräften und Lead-Architekten auf Augenhöhe gesprochen hast.'
           },
           {
             q: 'Wie hängen Boundary Resources Theory und ERP-Plattformisierung zusammen?',
@@ -927,9 +939,9 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
 
           // --- Neu kuratierte SSB Kern-Deliverables aus Tiefenanalyse ---
           { name: 'Workshops SSB.docx', cat: 'Explore & Lösungsdesign', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_MM_Materialwirtschaft/Explore_Phase_MM', desc: 'Spezifikation der Beschaffungsworkshops 1-3: 1XF Preisanfragen, BMD Rahmenverträge, BMR Lieferpläne, J45 Lagermaterial, BMY Lohnbearbeitung.', impact: 'Beweist operatives und strategisches MM-Prozesswissen im kommunalen Sektorenumfeld.' },
-          { name: 'SolutionDesign_WorXX_MGe_310725.xlsx', cat: 'Explore & Lösungsdesign', path: '01_SSB/04_Architektur_Methoden_Tools/Datenmigration_LTMC', desc: 'Detailkonzept von Lösungsarchitekt Michael Gehrung zur Migration von Liegenschaften, Gebäuden (VIBDBU), Grundstücken (VIBDPR) und Verträgen (VICNCN).', impact: 'Zeigt tiefes Know-how in RE-FX Liegenschaftsstrukturen, Erbbaurechten und Schnittstellen zur Anlagenbuchhaltung.' },
+          { name: 'SolutionDesign_WorXX_MGe_310725.xlsx', cat: 'Explore & Lösungsdesign', path: '01_SSB/04_Architektur_Methoden_Tools/Datenmigration_LTMC', desc: 'Detailkonzept zur Migration von Liegenschaften, Gebäuden (VIBDBU), Grundstücken (VIBDPR) und Verträgen (VICNCN).', impact: 'Zeigt tiefes Know-how in RE-FX Liegenschaftsstrukturen, Erbbaurechten und Schnittstellen zur Anlagenbuchhaltung.' },
           { name: 'CustomCode.xlsx', cat: 'Basis & Infrastruktur', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Readiness_Check_Clean_Core', desc: 'SAP Readiness Check 2.0 Detailreport: 166 Simplification Notes (ME21/ME51, MB-Transaktionen, KONV zu PRCD_ELEMENTS, MATDOC, BCS im Public Sector).', impact: 'Technischer Nachweis für Clean-Core-Governance und Custom Code Remediation.' },
-          { name: '092025_SAP4SSB-Überblick_Regeltermin_BR_v1.pptx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP5_Gesamtsteuerung_Architektur/General/Betriebsrat', desc: 'Regeltermin-Abstimmung mit Betriebsrat Markus Schmidt & Joachim Kraus: Meilensteine Pilot-BV (01.04.2026) und Finale BV (01.01.2027).', impact: 'Beweist Verständnis für institutionalisierte Mitbestimmung und § 87 Abs. 1 Nr. 6 BetrVG in Großprojekten.' },
+          { name: '092025_SAP4SSB-Überblick_Regeltermin_BR_v1.pptx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP5_Gesamtsteuerung_Architektur/General/Betriebsrat', desc: 'Regeltermin-Abstimmung mit der Betriebsrats-Verhandlungskommission: Meilensteine Pilot-BV (UAT-Phase) und Finale BV (Produktiv-Cutover).', impact: 'Beweist Verständnis für institutionalisierte Mitbestimmung und § 87 Abs. 1 Nr. 6 BetrVG in Großprojekten.' },
           { name: 'Entwurf_Modulbeschreibung_SAP_S4HANA.docx', cat: 'PMO & Steuerung', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/01_Projektleitung_PMO_Masterplan/Projektleiter_Ordner', desc: 'Offizielle Vorlage für den Betriebsrat zur Datenverarbeitung aller S/4HANA Module (FI, CO, SD, MM, PM, EHS, Treasury) mit DSGVO-Schutzmaßnahmen.', impact: 'Demonstriert Datenschutz- und Mitbestimmungs-Governance auf C-Level-Niveau.' },
           { name: 'Aufstellung der Abwicklung von Fahrausweisverkäufen über das System PATRIS in SAP und deren Abstimmung.pdf', cat: 'Vertrieb & PATRIS', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_SD_Vertrieb_PATRIS/DDA Workshops', desc: 'Detailaufstellung zur Anbindung des Vertriebssystems PATRIS: Automatische Debitoreneinzüge, Fahrausweisverkäufe und VVS-Erlösausgleiche.', impact: 'Beweist Schnittstellenkompetenz bei der Entkopplung proprietärer ÖPNV-Vertriebssysteme ins S/4HANA Hauptbuch.' },
           { name: '20260420_GM_Entwurf_Fachkonzept_Fördermittelmanagement_12.docx', cat: 'Grants Management', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_Grants_Management_GM/_Fachkonzept_Fördermittelmanagement', desc: 'Fachkonzept Fördermittelmanagement (GM for Grantee): Abbildung von Drittmitteln, LGVFG/GVFG Bundes- und Landeszuschüssen.', impact: 'Zeigt tiefes Know-how in komplexen Spezialmodulen der öffentlichen Hand und Verwendungsnachweisführung.' },
@@ -940,9 +952,9 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           { name: 'EMKG.xlsm', cat: 'Sustainability & EHS', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_Sustainability_EHS/Gefahrgut', desc: 'Einfaches Maßnahmenkonzept Gefahrstoffe (BAuA Standard) zur automatisierten Einstufung von Chemikalien in S/4HANA.', impact: 'EHS-Kompetenz und Verknüpfung von operativer Werkstattrisikoanalyse mit ERP-Daten.' },
           { name: '20250617Vergabe_Zeitplan_Realize_bis_Run.pdf', cat: 'Vergabe & SektVO', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/04_Ausschreibung_Vergabe_SektVO/Vergabe_Realize_Deploy_Run', desc: 'Gesamtablauf des EU-weiten SektVO-Vergabeverfahrens zur Auswahl des Generalübernehmers für die Realisierungs- und Betriebsphase.', impact: 'Beweist Vergaberecht- und Ausschreibungskompetenz in Milliarden-Infrastrukturunternehmen.' },
           { name: 'Bewertungsmatrix Teilnahmewettbewerb.xlsx', cat: 'Vergabe & SektVO', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/04_Ausschreibung_Vergabe_SektVO/Vergabe_Realize_Deploy_Run', desc: 'Quantitative Bewertungsmatrix für den Teilnahmewettbewerb mit Gewichtung von Referenzen, Methodenkompetenz und Preis.', impact: 'Zeigt objektive Partnerbewertung und Vendor-Governance auf C-Level-Niveau.' },
-          { name: 'AngebotsauswertungGrundsatzkonzeptionKTW_Murseli.xlsx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP3_Technische_Prozesse_Instandhaltung/Kusevic_Wimpff_Instandhaltung/Kusevic-Wimpff', desc: 'Von Visar Murseli erstellte Angebotsauswertung der Beraterangebote von Evora IT, Nagarro und Orianda für die Instandhaltung K/T/W.', impact: 'Echtes persönliches Arbeitsergebnis im PMO: Vendor Selection, Kostenvergleich und Entscheidungsvorbereitung.' },
+          { name: 'AngebotsauswertungGrundsatzkonzeptionKTW_Murseli.xlsx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP3_Technische_Prozesse_Instandhaltung/Instandhaltung_Vendor_Evaluation', desc: 'Von Visar Murseli erstellte Angebotsauswertung der Beraterangebote von Evora IT, Nagarro und Orianda für die Instandhaltung K/T/W.', impact: 'Echtes persönliches Arbeitsergebnis im PMO: Vendor Selection, Kostenvergleich und Entscheidungsvorbereitung.' },
           { name: 'apsolut_SSB_ID3758_V1.0_Workshopreihe_SAP_Ariba_20251125_signed.pdf', cat: 'Vergabe & SektVO', path: '01_SSB/03_Fachstreams_Prozessdesign/Stream_MM_Materialwirtschaft/Ariba_Fieldglass', desc: 'Vertrag und Workshopreihe zur Evaluierung von SAP Ariba (indirekte Beschaffung) und Fieldglass (Dienstleister-Steuerung).', impact: 'Belegt Einblicke in moderne Cloud-Procurement- und Workforce-Management-Lösungen.' },
-          { name: 'SAP4SSB_Projektplan.mpp', cat: 'PMO & Steuerung', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/01_Projektleitung_PMO_Masterplan/Projektplaene_MS_Project/Projektplan', desc: 'Offizieller Master-Projektplan in MS Project (WBS 1–297) mit allen Phasen, Vorgängen, Ressourcen und Meilensteinen.', impact: 'Das Herzstück deiner PMO-Tätigkeit: Beherrschung von Multiprojekt-Steuerung und Critical Path.' },
+          { name: 'SAP4SSB_Projektplan.mpp', cat: 'PMO & Steuerung', path: '01_SSB/01_Gesamtprojekt_SAP4SSB_Governance/01_Projektleitung_PMO_Masterplan/Projektplaene_MS_Project/Projektplan', desc: 'Offizieller Master-Projektplan in MS Project mit allen Projektphasen, Ressourcen und Meilensteinen.', impact: 'Das Herzstück deiner PMO-Tätigkeit: Beherrschung von Multiprojekt-Steuerung und Critical Path.' },
           { name: 'SSB Nutzerhandbuch SAP Signavio.pdf', cat: 'Tools & Enablement', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Signavio_Process_Manager/Signavio TP2 Dolde', desc: 'Offizielles Handbuch für Prozessmodellierer bei der SSB: Governance, Freigabe-Workflows und Signavio Collaboration Hub.', impact: 'Beweist Tool-Governance und Befähigung von Fachbereichen zur eigenständigen BPMN 2.0 Modellierung.' },
           { name: 'OnePager Modellierungsregeln.pdf', cat: 'Tools & Enablement', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Signavio_Process_Manager/Signavio TP2 Dolde', desc: 'Kompakter Standard für BPMN 2.0 Syntax, Naming Conventions und Lane-Zuordnungen für alle 5 Teilprojekte.', impact: 'Zeigt deinen Fokus auf strikte Standardisierung und Qualitätskontrolle.' },
           { name: 'DDA Export - Stuttgarter Straßenbahnen AG (SSB).xlsx', cat: 'Explore & Lösungsdesign', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP2_Kaufmaennische_Prozesse/General/Discover Phase/DDA Results/DDA all info/Excel/Archiv', desc: 'Vollständiger Scope-Katalog aus dem Digital Discovery Assessment mit Zuordnung zu Best Practice Scope-IDs.', impact: 'Belegt, dass du von Phase 0 an den Scope-Umfang für 3.700 Mitarbeiter im Detail überblickst.' },
@@ -958,8 +970,8 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           { name: 'SSB_Migrationsobjekte_Vorschlag.xlsx', cat: 'Datenmigration', path: '01_SSB/04_Architektur_Methoden_Tools/Datenmigration_LTMC', desc: 'Strukturierte Übersicht aller Migrationsobjekte nach Geschäftsobjekttyp, Methode (Staging vs Direct) und Custom Fields.', impact: 'Zeigt, dass du konkrete Datenobjekte (Business Partner, FI-AA, Kostenstellen) im Detail kennst.' },
           { name: '20251107_SAP_CALM_How2handle_quickguide.docx', cat: 'Tools & Enablement', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Cloud_ALM', desc: 'Von Visar verfasster Quickguide zur Nutzung von SAP Cloud ALM für Projekt-Setup, Quality Gates und Fit-to-Standard Tracking.', impact: 'Echtes Artefakt deiner Tool-Governance-Leistung. Unbedingt im Vorstellungsgespräch erwähnen!' },
           { name: 'SAP Enable Now Übergabe.docx', cat: 'Tools & Enablement', path: '01_SSB/04_Architektur_Methoden_Tools/SAP_Enable_Now', desc: 'Strategisches Übergabekonzept von UB I (IT) an UB AC (Personalentwicklung) zur Etablierung der Single-Source-Content-Strategie.', impact: 'Beweist deine Fähigkeit zur strategischen Schnittstellenkommunikation zwischen IT und HR.' },
-          { name: 'TP5_Projektsteckbrief.docx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP5_Gesamtsteuerung_Architektur/TP5_Desktop', desc: 'Offizieller Projektauftrag für TP5 unter Roland Nowak: Steuerung von Budget, Ressourcen, Architektur, Vergabe und Berechtigungen.', impact: 'Dokumentiert dein organisatorisches "Zuhause" im Projektmanagement Office.' },
-          { name: '20250922_Projektplan_GAP_Axians_Gerdes.xlsx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP4_IT_Infrastruktur_RISE_Basis/Axians_GAP_Tracking', desc: 'Trackingliste der technischen Basis-ToDos mit Axians (ES4 System, ADS Formulare, SSO, Transportkonsolidierung).', impact: 'Zeigt deine Hands-on Rolle bei der Steuerung technischer Infrastrukturpartner.' },
+          { name: 'TP5_Projektsteckbrief.docx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP5_Gesamtsteuerung_Architektur/TP5_Desktop', desc: 'Offizieller Projektauftrag für TP5: Steuerung von Budget, Ressourcen, Architektur, Vergabe und Berechtigungen.', impact: 'Dokumentiert dein organisatorisches "Zuhause" im Projektmanagement Office.' },
+          { name: '20250922_Projektplan_GAP_Basis_Architektur.xlsx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP4_IT_Infrastruktur_RISE_Basis/Axians_GAP_Tracking', desc: 'Trackingliste der technischen Basis-ToDos mit Axians (ES4 System, ADS Formulare, SSO, Transportkonsolidierung).', impact: 'Zeigt deine Hands-on Rolle bei der Steuerung technischer Infrastrukturpartner.' },
           { name: '20260211_Themensammlung_Priorisierung.xlsx', cat: 'PMO & Steuerung', path: '01_SSB/02_Teilprojekte_TP1_bis_TP5/TP4_IT_Infrastruktur_RISE_Basis/General', desc: 'Priorisierungsmatrix mit CalmIDs, T-Shirt-Sizes und Zuweisungen für anstehende S/4-Releases.', impact: 'Beweis für agile Aufwandsschätzung und Releasesteuerung.' },
           { name: 'Masterzeugnis_Murseli_Visar.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizielles Zeugnis über die Masterprüfung der Universität Stuttgart (17. September 2026, 120 ECTS, Gesamtnote "gut" 1,6).', impact: 'Amtlicher Vollnachweis deines M.Sc. Abschlusses, der Masterarbeit (1,0) und aller 15 Fachprüfungen.' },
           { name: 'Masterarbeit_Visar_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Masterarbeit (126 Seiten, Note 1,0 bei Prof. Herzwurm, Uni Stuttgart) über Kritische Erfolgsfaktoren der S/4HANA Plattformisierung.', impact: 'Dein akademisches Meisterstück – belegt deine methodische Spitzenklasse!' },
@@ -984,11 +996,11 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           { name: 'Bachelorzeugnis_Leistungsuebersicht_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Amtliche Leistungsübersicht B.Sc. Wirtschaftsinformatik (180 ECTS, Universität Stuttgart, Bestnote 1,0 in E-Business Informationssysteme).', impact: 'Belegt dein starkes informationstechnisches und betriebswirtschaftliches Fundament.' },
           { name: 'Bachelorurkunde_Murseli.pdf', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Offizielle Verleihungsurkunde des akademischen Grades Bachelor of Science durch die Universität Stuttgart.', impact: 'Formaler Nachweis deines ersten berufsqualifizierenden Hochschulabschlusses.' },
           { name: 'Codebuch_Masterarbeit_Mayring.xlsx', cat: 'Wissenschaft & Uni', path: 'Studium_Dokumente', desc: 'Wissenschaftliches Mayring-Codebuch zur qualitativen Inhaltsanalyse der 12 empirischen Experteninterviews.', impact: 'Beweist höchste empirische Forschungsmethodik und qualitative Datenanalysekompetenz.' },
-          { name: 'Interview_Roland_Nowak_Gesamt_PL.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Vollständiges Experteninterview-Transkript mit Roland Nowak (Gesamtprojektleiter SAP4SSB).', impact: 'Echter Primärbeleg für dein tiefes Verständnis der Management- und Architekturperspektive.' },
-          { name: 'Interview_Thomas_Wimpff_TP2_Leitung.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Thomas Wimpff (Teilprojektleiter TP2 Finance & Controlling).', impact: 'Beweist dein Detailwissen über Trennungsrechnung, ACDOCA und kaufmännische Prozesse.' },
-          { name: 'Interview_Armin_Heinrich_Basis_Architektur.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Armin Heinrich (Enterprise Architekt & Basis SSB).', impact: 'Belegt dein Verständnis für BTP-Zielarchitektur, SSO und Cloud-Infrastruktur.' },
-          { name: 'Interview_Henning_Gerdes_Axians_Lead.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit Henning Gerdes (Lead Architect Axians ES4).', impact: 'Dokumentiert deine Schnittstellenkompetenz bei der Steuerung technischer Basispartner.' },
-          { name: 'Zeugnisse_Murseli_Visar.pdf', cat: 'PMO & Steuerung', path: 'Studium_Dokumente', desc: 'Offizielle Leistungsnachweise: M.Sc. Wirtschaftsinformatik 1,6, SSB Zwischenzeugnis (Fillinger/Nowak), Datacenter One, TOGAF.', impact: 'Lückenlose Verifikation aller deiner Erfolge und Top-Referenzen.' },
+          { name: 'Interview_IP1_Gesamt_PL.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Vollständiges Experteninterview-Transkript mit dem Gesamtprojektleiter ERP (IP1).', impact: 'Echter Primärbeleg für dein tiefes Verständnis der Management- und Architekturperspektive.' },
+          { name: 'Interview_IP2_TP2_Finance.docx', cat: 'Explore & Lösungsdesign', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit dem Teilprojektleiter TP2 Finance & Controlling (IP2).', impact: 'Beweist dein Detailwissen über Trennungsrechnung, ACDOCA und kaufmännische Prozesse.' },
+          { name: 'Interview_IP3_Basis_Architektur.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit dem Enterprise Architekten & Basis (IP3).', impact: 'Belegt dein Verständnis für BTP-Zielarchitektur, SSO und Cloud-Infrastruktur.' },
+          { name: 'Interview_IP4_Cloud_Basis.docx', cat: 'PMO & Steuerung', path: 'Studium_Dokumente/Interviews_Masterarbeit', desc: 'Experteninterview-Transkript mit dem Lead Architect Cloud & Basis (IP4).', impact: 'Dokumentiert deine Schnittstellenkompetenz bei der Steuerung technischer Basispartner.' },
+          { name: 'Zeugnisse_Murseli_Visar.pdf', cat: 'PMO & Steuerung', path: 'Studium_Dokumente', desc: 'Offizielle Leistungsnachweise: M.Sc. Wirtschaftsinformatik 1,6, SSB Zwischenzeugnis (IT-Leitung & Gesamt-PL), Datacenter One, TOGAF.', impact: 'Lückenlose Verifikation aller deiner Erfolge und Top-Referenzen.' },
 
           // --- DATACENTER ONE (DC1) | ITIL 4 SERVICE OPERATIONS & INFRASTRUCTURE ---
           { name: 'HLM_v2.pdf', cat: 'Datacenter One (DC1 / ITIL 4)', path: '04_DC1/02_Projekte_und_Architektur/01_Hardware_Lifecycle_Management', desc: 'BPMN-Modellierung des Hardware-Lifecycle-Management-Prozesses bei Datacenter One (Beschaffung, Bereitstellung, Betrieb, Decommissioning).', impact: 'Beweist strukturierte Prozessmodellierung und IT-Asset-Management in hochverfügbaren Umgebungen.' },
@@ -1044,7 +1056,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             work: '24M SSB AG (TP4/TP5): Greenfield Clean Core, BTP-Entkopplung von PATRIS/xSuite/d.velop mit Nagarro & Axians',
             project: 'Ganzheitliche ERP-Transformationsmethodik + modulares Knowledge & Profile OS Portfolio',
             synergy: 'APIs auf der SAP BTP sind nicht nur Technik, sondern soziotechnische Boundary Resources zur Balance aus Kontrolle (Core) & Innovation (Side-by-Side).',
-            deepNote: 'Empirisch mit Gesamt-PL Roland Nowak & Lead-Architekten validiert: Clean Core wirkt nur im Zusammenspiel mit Architecture Governance, PMO & Absorptive Capacity.',
+            deepNote: 'Empirisch mit Gesamtprojektleitung & Lead-Architekten validiert: Clean Core wirkt nur im Zusammenspiel mit Architecture Governance, PMO & Absorptive Capacity.',
             targetTab: 'thesis',
             ragQuery: 'Wie greifen Bachelorarbeit Boundary Resources, Masterarbeit S/4HANA Plattformisierung und SSB BTP Clean Core konkret ineinander?'
           },
@@ -1122,6 +1134,12 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
 
         const filteredWbsProjects = computed(() => {
           if (wbsFilter.value === 'all') return wbsProjects.value;
+          if (wbsFilter.value === 'explore') {
+            return wbsProjects.value.filter(p => ['discover', 'prepare', 'explore'].includes(p.phase.toLowerCase()));
+          }
+          if (wbsFilter.value === 'realize') {
+            return wbsProjects.value.filter(p => ['realize', 'deploy', 'run'].includes(p.phase.toLowerCase()));
+          }
           return wbsProjects.value.filter(p => p.id.toLowerCase() === wbsFilter.value.toLowerCase() || p.phase.toLowerCase() === wbsFilter.value.toLowerCase());
         });
 

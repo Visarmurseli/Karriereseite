@@ -41,21 +41,35 @@ def test_academic_truth_metrics(content):
     assert "3,0" in content, "Missing Bachelor grade 3,0"
     print("  [PASS] Academic Authority: All official grades (M.Sc. 1,6 / Thesis 1,0 / B.Sc. 3,0) verified.")
 
-def test_wbs_radar_integrity(content):
-    # WBS ranges from MS Project
-    wbs_checks = [
-        "WBS 16–63",   # TP1
-        "WBS 64–112",  # TP2
-        "WBS 173–196", # TP3
-        "WBS 197–202", # TP4
-        "WBS 203–297", # TP5
-        "01.04.2026",  # Pilot-BV
-        "01.01.2027",  # Finale BV / Go-Live
-        "29. August 2025" # Explore Abschluss
+def test_sap_activate_phases_integrity(content):
+    activate_checks = [
+        "SAP Activate Phasen-Cockpit",
+        "1. Discover",
+        "2. Prepare",
+        "3. Explore",
+        "4. Realize",
+        "5. Deploy",
+        "6. Run",
+        "Fit-to-Standard",
+        "Solution Design Document"
     ]
-    for item in wbs_checks:
-        assert item in content, f"WBS Radar verification failed: Missing '{item}'"
-    print(f"  [PASS] WBS Radar: All {len(wbs_checks)} authentic WBS & milestone checkpoints present.")
+    for item in activate_checks:
+        assert item in content, f"SAP Activate verification failed: Missing '{item}'"
+    print(f"  [PASS] SAP Activate Radar: All {len(activate_checks)} methodology phases & quality checkpoints present.")
+
+def test_supervisor_and_colleague_anonymization(content):
+    # Absolute zero-tolerance check for supervisor, colleague, and internal WBS leakages on the webapp
+    prohibited_names = [
+        "Roland Nowak", "Dietmar Fillinger", "Helmut Schmidpeter",
+        "Sarah Lozano", "Thomas Wimpff", "Sebastian Neifer",
+        "Markus Schmidt", "Joachim Kraus", "Henning Gerdes",
+        "Armin Heinrich", "Michael Gehrung",
+        "WBS 1–297", "Vorgang 110", "Vorgang 294", "Vorgang 297"
+    ]
+    for name in prohibited_names:
+        matches = re.findall(re.escape(name), content, re.IGNORECASE)
+        assert len(matches) == 0, f"PRIVACY & NDA VIOLATION: Found prohibited token '{name}' ({len(matches)} times) in webapp!"
+    print("  [PASS] Privacy & GDPR Gate: Exactly 0 occurrences of supervisor names or internal WBS IDs.")
 
 def test_command_palette_and_telemetry(content):
     # Check command palette and telemetry tokens
@@ -84,6 +98,8 @@ def test_public_showcase_privacy():
         assert token in pub, f"Public Showcase missing synergy/profile token: {token}"
     for leak in ["Gefahrenstufe Rot", "TÖDLICH", "cv_defense", "Fangfrage", "Gehaltskalkulation"]:
         assert leak not in pub, f"PRIVACY GATE VIOLATION in public_index.html: {leak}"
+    for name in ["Roland Nowak", "Dietmar Fillinger", "Helmut Schmidpeter", "Sarah Lozano", "Thomas Wimpff", "Sebastian Neifer", "Markus Schmidt", "Joachim Kraus", "Henning Gerdes", "Armin Heinrich", "Michael Gehrung", "WBS 1–297", "Vorgang 110", "Vorgang 294", "Vorgang 297"]:
+        assert name.lower() not in pub.lower(), f"PRIVACY VIOLATION in public_index.html: Found prohibited token '{name}'"
     print(f"  [PASS] Public Showcase & Privacy Gate: Verified clean ({len(pub.encode('utf-8'))//1024} KB, 0 private leaks).")
 
 def test_vue_syntax_integrity(content):
@@ -106,7 +122,8 @@ def run_all_tests():
         
     test_constitution_zero_hallucinations(content)
     test_academic_truth_metrics(content)
-    test_wbs_radar_integrity(content)
+    test_sap_activate_phases_integrity(content)
+    test_supervisor_and_colleague_anonymization(content)
     test_command_palette_and_telemetry(content)
     test_vue_syntax_integrity(content)
     test_public_showcase_privacy()

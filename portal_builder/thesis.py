@@ -1067,50 +1067,50 @@ def get_thesis():
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
             <div class="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5">
               <div class="flex justify-between items-center">
-                <span class="font-bold text-white">Roland Nowak</span>
+                <span class="font-bold text-white">Experte 1 (IP1)</span>
                 <span class="text-[9px] bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 px-1.5 py-0.5 rounded font-bold">IP1</span>
               </div>
-              <div class="text-[11px] text-[#f87171] font-semibold">Gesamtprojektleiter SAP4SSB</div>
+              <div class="text-[11px] text-[#f87171] font-semibold">Gesamtprojektleiter ERP-Transformation</div>
               <p class="text-[#c4bebe] text-[10px] leading-relaxed">
-                Fokus: Multiprojektsteuerung (TP1–TP5), ERP-Plattform-Governance, C-Level Alignment und formelle Betriebsvereinbarung mit BR.
+                Fokus: Multiprojektsteuerung (TP1–TP5), ERP-Plattform-Governance, C-Level Alignment und institutionelle Mitbestimmung.
               </p>
-              <div class="text-[9px] text-slate-400 font-mono">Interview_Roland_Nowak_Gesamt_PL.docx</div>
+              <div class="text-[9px] text-slate-400 font-mono">Interview_IP1_Gesamt_PL.docx</div>
             </div>
 
             <div class="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5">
               <div class="flex justify-between items-center">
-                <span class="font-bold text-white">Thomas Wimpff</span>
+                <span class="font-bold text-white">Experte 2 (IP2)</span>
                 <span class="text-[9px] bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300 px-1.5 py-0.5 rounded font-bold">IP2</span>
               </div>
               <div class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">Teilprojektleiter TP2 (Finance & Controlling)</div>
               <p class="text-[#c4bebe] text-[10px] leading-relaxed">
                 Fokus: Trennungsrechnung (Kaufmännisch/Steuerlich), Universelles Journal (ACDOCA), Ablösung von Innenaufträgen durch PSP-Elemente und Übernahmekonto 0,00 €.
               </p>
-              <div class="text-[9px] text-slate-400 font-mono">Interview_Thomas_Wimpff_TP2_Leitung.docx</div>
+              <div class="text-[9px] text-slate-400 font-mono">Interview_IP2_TP2_Finance.docx</div>
             </div>
 
             <div class="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5">
               <div class="flex justify-between items-center">
-                <span class="font-bold text-white">Armin Heinrich</span>
+                <span class="font-bold text-white">Experte 3 (IP3)</span>
                 <span class="text-[9px] bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300 px-1.5 py-0.5 rounded font-bold">IP3</span>
               </div>
-              <div class="text-[11px] text-purple-600 dark:text-purple-400 font-semibold">Enterprise Basisarchitekt SSB AG</div>
+              <div class="text-[11px] text-purple-600 dark:text-purple-400 font-semibold">Enterprise Basisarchitekt</div>
               <p class="text-[#c4bebe] text-[10px] leading-relaxed">
-                Fokus: BTP-Zielarchitektur, SSO-Integration mit Microsoft Entra ID, ES4 Mandantenlandschaft und Schnittstellenabsicherung.
+                Fokus: BTP-Zielarchitektur, SSO-Integration mit Microsoft Entra ID, Mandantenlandschaft und Schnittstellenabsicherung.
               </p>
-              <div class="text-[9px] text-slate-400 font-mono">Interview_Armin_Heinrich_Basis_Architektur.docx</div>
+              <div class="text-[9px] text-slate-400 font-mono">Interview_IP3_Basis_Architektur.docx</div>
             </div>
 
             <div class="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5">
               <div class="flex justify-between items-center">
-                <span class="font-bold text-white">Henning Gerdes</span>
+                <span class="font-bold text-white">Experte 4 (IP4)</span>
                 <span class="text-[9px] bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300 px-1.5 py-0.5 rounded font-bold">IP4</span>
               </div>
-              <div class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold">Lead Architect Axians ES4</div>
+              <div class="text-[11px] text-amber-600 dark:text-amber-400 font-semibold">Lead Architect Cloud & Basis</div>
               <p class="text-[#c4bebe] text-[10px] leading-relaxed">
                 Fokus: Bereitstellung der Private-Cloud-Infrastruktur, Adobe Document Services (ADS) Formulare und Transportkonsolidierung.
               </p>
-              <div class="text-[9px] text-slate-400 font-mono">Interview_Henning_Gerdes_Axians_Lead.docx</div>
+              <div class="text-[9px] text-slate-400 font-mono">Interview_IP4_Cloud_Basis.docx</div>
             </div>
           </div>
         </div>

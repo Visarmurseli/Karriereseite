@@ -109,7 +109,7 @@ def get_tools():
             <div class="p-3.5 rounded-xl border border-white/10 bg-white/5 space-y-1 hover:border-[#bf262e]/30 transition">
               <div class="font-bold text-white">2. Task- & User-Story Tracking</div>
               <p class="text-[#c4bebe] text-[11px] leading-relaxed">
-                Jede Lücke (GAP) aus den Fit-to-Standard Workshops erhält eine eindeutige CalmID. Zuordnung nach T-Shirt-Sizes (S, M, L) und verbindliche Zuweisung an Teilprojektleiter (z.B. Wimpff für TP2, Neifer für TP3).
+                Jede Lücke (GAP) aus den Fit-to-Standard Workshops erhält eine eindeutige CalmID. Zuordnung nach T-Shirt-Sizes (S, M, L) und verbindliche Zuweisung an Teilprojektleiter (z.B. TPL Finance für TP2, TPL Instandhaltung für TP3).
               </p>
             </div>
 

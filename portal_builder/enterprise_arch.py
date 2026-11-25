@@ -15,7 +15,7 @@ def get_enterprise_arch():
                 <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">05/2023 – 04/2024</span>
               </div>
               <p class="text-xs text-[#8f8888] mt-1">
-                Werkstudent im Information Network Operation Center (INOC unter Leitung von Helmut Schmidpeter) • Hochverfügbare Colocation-Rechenzentren (Stuttgart, Düsseldorf, Leverkusen, Hamburg).
+                Werkstudent im Information Network Operation Center (INOC-Leitung) • Hochverfügbare Colocation-Rechenzentren (Stuttgart, Düsseldorf, Leverkusen, Hamburg).
               </p>
             </div>
             <span class="tag-badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 whitespace-nowrap self-start sm:self-auto">

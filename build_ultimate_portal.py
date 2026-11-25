@@ -75,8 +75,15 @@ def main():
     with open(public_path, "w", encoding="utf-8") as f:
         f.write(public_html)
 
-    for forbidden in ["Gefahrenstufe Rot", "TÖDLICH", "cv_defense", "Fangfrage", "Gehaltskalkulation"]:
-        assert forbidden not in public_html, f"PRIVACY GATE ERROR: '{forbidden}' leaked into public_index.html!"
+    for forbidden in [
+        "Gefahrenstufe Rot", "TÖDLICH", "cv_defense", "Fangfrage", "Gehaltskalkulation",
+        "Roland Nowak", "Dietmar Fillinger", "Helmut Schmidpeter",
+        "Sarah Lozano", "Thomas Wimpff", "Sebastian Neifer",
+        "Markus Schmidt", "Joachim Kraus", "Henning Gerdes",
+        "Armin Heinrich", "Michael Gehrung",
+        "WBS 1–297", "Vorgang 110", "Vorgang 294", "Vorgang 297"
+    ]:
+        assert forbidden.lower() not in public_html.lower(), f"PRIVACY GATE ERROR: '{forbidden}' leaked into public_index.html!"
 
     root_index = os.path.join(BASE_DIR, "index.html")
     if os.path.exists(root_index) or os.path.exists(os.path.join(BASE_DIR, ".git")):

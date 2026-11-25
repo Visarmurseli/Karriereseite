@@ -23,9 +23,34 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
-## [Unreleased] - 2026-11-24
+## [Unreleased] - 2026-11-25
 
 ---
+
+## [1.15.0] - 2026-11-25 (Privacy & Methodology Gate: DSGVO-Anonymisierung der Webapp, SAP Activate Phasen-Cockpit & NDA-Schutz | Local Build PASSED)
+
+### 🎯 Kontext & Leitmotiv
+Vollständige Anonymisierung aller personenbezogenen Daten von Vorgesetzten, Kollegen, Betriebsratsmitgliedern und Beratern auf der Webapplikation (`s4hana-prep-portal`, `index.html` und `public_index.html`) zur lückenlosen Wahrung von Datenschutz (DSGVO) und vertraglichen Geheimhaltungsvereinbarungen (NDA). Gleichzeitig erfolgte die strukturelle Neuausrichtung des Projekt-Radars von internen Firmen-WBS-Vorgangsnummern auf das offizielle **SAP Activate Phasen-Cockpit (Discover, Prepare, Explore ⭐, Realize, Deploy, Run)** mit klarem Fokus auf Visars 24-monatigen Kern-Wirkungsbereich bis zur erfolgreichen SDD-Lenkungsausschuss-Freigabe. Das persönliche Obsidian Second Brain behält zur authentischen Eigenrecherche alle internen Klarnamen und Realdaten unverändert bei.
+
+### 🛡️ Datenschutz & Anonymisierung (Privacy & Anonymization)
+- **Funktionen statt Klarnamen:** Alle Vorgesetzten und Kollegen in `project.py`, `vue_app.py`, `thesis.py`, `cv_defense.py`, `synergies.py`, `tools.py`, `migration.py` und `solution_design.py` wurden konsequent durch professionelle Funktionsbezeichnungen ersetzt (`Gesamtprojektleiter ERP-Transformation`, `Bereichsleiter IT`, `TPL Change Management & Academy`, `TPL Finance & Controlling`, `TPL Instandhaltung & Logistik`, `Lead-Architekten Basis & Cloud-Infrastruktur`, `Betriebsrats-Verhandlungskommission`, `INOC-Leitung`).
+- **Wissenschaftliche Interview-Codierung (Mayring):** Die 12 Experteninterviews der Masterarbeit wurden nach qualitativem Forschungsstandard anonymisiert (`Experte 1 (IP1): Gesamtprojektleiter ERP-Transformation`, `Experte 2 (IP2): TPL Finance`, etc.).
+- **NDA-Schutz & Bereinigung firmeninterner Metriken:** Eliminierung aller internen MS-Project-Vorgangsnummern (`WBS 1–297`, `Vorgang 110`, `Vorgang 294`, `Vorgang 297`), kundeninterner Reifegrade (`CO 90%, RE-FX 86%`) und firmeninterner Zieldaten.
+
+### 🚀 SAP Activate Phasen-Cockpit
+- **End-to-End Activate Lifecycle:** Ersetzung der internen WBS-Karten durch die 6 Phasen nach SAP-Best-Practice:
+  1. *Discover* (Strategie, Business Case, Clean Core, RISE with SAP)
+  2. *Prepare* (Projektcharta, Tool-Governance mit Cloud ALM & Signavio, Template-Standards)
+  3. *Explore (⭐ Visars 24M Hauptwirkungsfeld)* (Fit-to-Standard Workshops, BPMN 2.0 Modellierung, kaufmännisches Solution Design Document SDD abgenommen)
+  4. *Realize* (Modifikationsfreies Customizing, ABAP Cloud / RAP On-Stack vs. BTP Side-by-Side, LTMC Staging-Tabellen, SIT/UAT Testfall-Kataloge)
+  5. *Deploy* (Revisionssicherer Cutover, 0,00 € Saldo Übernahmekonto-Abstimmung, Mitbestimmungs-Governance)
+  6. *Run* (Hypercare, Enable Now Key-User Transfer, ITIL 4 Service Operations)
+- **Aktualisierter Filter & Banner:** Umschalten zwischen `Alle (6 Phasen)`, `Explore (Visars Fokus ⭐)` und `Ausblick (Realize / Deploy / Run)`.
+
+### 🔬 Test-Suite & Quality Gates
+- **Automatisierter Privacy Gate Test:** `scripts/test_portal.py` wurde um `test_supervisor_and_colleague_anonymization(content)` und die Prüfung von `public_index.html` erweitert. Bei jeglichem Klarnamen-Leak schlägt der Build sofort mit `AssertionError: PRIVACY & NDA VIOLATION` fehl.
+- **Activate Radar Check:** Verifikation aller 9 Activate-Phasen und Qualitäts-Checkpoints im Portal-HTML.
+- **Spec-Kit Gate:** 100% Bestanden für `index.html` (430 KB) und `public_index.html` (261 KB).
 
 ## [1.14.0] - 2026-11-24 (Knowledge & Profile OS 2.0: Data Lake Trennung, 6 Arbeit×Uni Synergie-Karten, Persönliches Stärkenprofil & 60s-Kompakt-Briefing | Commit b568a6f)
 
