@@ -214,32 +214,32 @@ def get_synergies(public_mode=False):
               <div class="space-y-2.5">
                 <div class="flex items-start justify-between gap-2">
                   <div>
-                    <span class="text-[10px] font-mono uppercase text-[#f87171]">{{ syn.cluster }}</span>
-                    <h5 class="text-sm font-bold text-white mt-0.5">{{ syn.title }}</h5>
+                    <span class="text-[10px] font-mono uppercase text-[#f87171]">{{{{ syn.cluster }}}}</span>
+                    <h5 class="text-sm font-bold text-white mt-0.5">{{{{ syn.title }}}}</h5>
                   </div>
-                  <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] font-mono text-[#c4bebe] whitespace-nowrap">{{ syn.badge }}</span>
+                  <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] font-mono text-[#c4bebe] whitespace-nowrap">{{{{ syn.badge }}}}</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
                   <div class="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/20">
                     <div class="font-bold text-purple-300 mb-0.5">🎓 Studium</div>
-                    <div class="text-[#d6d0d0] leading-snug">{{ syn.uni }}</div>
+                    <div class="text-[#d6d0d0] leading-snug">{{{{ syn.uni }}}}</div>
                   </div>
                   <div class="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20">
                     <div class="font-bold text-blue-300 mb-0.5">🏢/🚆 Praxis</div>
-                    <div class="text-[#d6d0d0] leading-snug">{{ syn.work }}</div>
+                    <div class="text-[#d6d0d0] leading-snug">{{{{ syn.work }}}}</div>
                   </div>
                   <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
                     <div class="font-bold text-emerald-300 mb-0.5">🚀 Projekt / Proof</div>
-                    <div class="text-[#d6d0d0] leading-snug">{{ syn.project }}</div>
+                    <div class="text-[#d6d0d0] leading-snug">{{{{ syn.project }}}}</div>
                   </div>
                 </div>
 
                 <div class="p-2.5 rounded-lg bg-black/40 border border-white/10 text-[#f0eded] leading-relaxed">
-                  <strong class="text-[#f87171]">⚡ Synergie-Effekt:</strong> {{ syn.synergy }}
+                  <strong class="text-[#f87171]">⚡ Synergie-Effekt:</strong> {{{{ syn.synergy }}}}
                 </div>
                 <p v-show="synergyViewMode === 'deep'" class="text-[11px] text-[#c4bebe] leading-relaxed">
-                  {{ syn.deepNote }}
+                  {{{{ syn.deepNote }}}}
                 </p>
               </div>
               <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-white/10">
