@@ -200,7 +200,7 @@ def get_synergies(public_mode=False):
                 :class="synergyFilter === cat ? 'bg-[#bf262e] text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'"
                 class="px-2.5 py-1 rounded-lg border border-white/10 transition"
               >
-                {{ cat }}
+                {{{{ cat }}}}
               </button>
             </div>
           </div>
@@ -220,18 +220,18 @@ def get_synergies(public_mode=False):
                   <span class="px-2 py-0.5 rounded-full bg-white/10 text-[10px] font-mono text-[#c4bebe] whitespace-nowrap">{{{{ syn.badge }}}}</span>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
-                  <div class="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/20">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-[11px]">
+                  <div class="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/20 min-w-0">
                     <div class="font-bold text-purple-300 mb-0.5">🎓 Studium</div>
-                    <div class="text-[#d6d0d0] leading-snug">{{{{ syn.uni }}}}</div>
+                    <div class="text-[#d6d0d0] leading-snug break-words">{{{{ syn.uni }}}}</div>
                   </div>
-                  <div class="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                  <div class="p-2.5 rounded-lg bg-blue-500/10 border border-blue-500/20 min-w-0">
                     <div class="font-bold text-blue-300 mb-0.5">🏢/🚆 Praxis</div>
-                    <div class="text-[#d6d0d0] leading-snug">{{{{ syn.work }}}}</div>
+                    <div class="text-[#d6d0d0] leading-snug break-words">{{{{ syn.work }}}}</div>
                   </div>
-                  <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                  <div class="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 min-w-0">
                     <div class="font-bold text-emerald-300 mb-0.5">🚀 Projekt / Proof</div>
-                    <div class="text-[#d6d0d0] leading-snug">{{{{ syn.project }}}}</div>
+                    <div class="text-[#d6d0d0] leading-snug break-words">{{{{ syn.project }}}}</div>
                   </div>
                 </div>
 

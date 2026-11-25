@@ -4,24 +4,26 @@ def get_vue_app(public_mode=False):
     tpl = """
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#121212] border-t border-white/10 py-5 px-6 text-xs text-[#8f8888]">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
+    <!-- Footer (Confluence Page Bottom Bar) -->
+    <footer class="border-t py-4 px-6 text-xs mt-8" style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtlest);">
+      <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
         <div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
-          <span class="text-white font-semibold">Visar Murseli, M.Sc.</span>
-          <span class="hidden sm:inline text-white/20">•</span>
-          <span class="text-[#c4bebe]">Enterprise Knowledge Hub &amp; S/4HANA Career OS</span>
+          <span class="font-semibold" style="color: var(--ds-text)">Visar Murseli, M.Sc.</span>
+          <span class="hidden sm:inline">•</span>
+          <span>Enterprise Knowledge Hub &amp; S/4HANA Career OS</span>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-2">
-          <button @click="printProfile" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#c4bebe] hover:text-white transition">🖨️ PDF-Ansicht</button>
-          <button @click="openCommandPalette" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#c4bebe] hover:text-white transition">⚡ Schnellsuche (Ctrl+K)</button>
-          <button @click="scrollToTop" class="px-2.5 py-1 rounded-lg bg-[#bf262e]/15 hover:bg-[#bf262e] border border-[#bf262e]/30 text-[#f87171] hover:text-white transition">↑ Nach oben</button>
+          <button @click="printProfile" class="px-2.5 py-1 rounded border transition" style="background: var(--ds-surface); border-color: var(--ds-border); color: var(--ds-text-subtle);">🖨️ PDF-Ansicht</button>
+          <button @click="openCommandPalette" class="px-2.5 py-1 rounded border transition" style="background: var(--ds-surface); border-color: var(--ds-border); color: var(--ds-text-subtle);">🔍 Suche (Ctrl+K)</button>
+          <button @click="scrollToTop" class="px-2.5 py-1 rounded font-semibold atl-btn-primary transition">↑ Nach oben</button>
         </div>
-        <span class="text-[#bf262e] font-medium text-[11px]">M.Sc. 1,6 (120 ECTS) • Crimson Design System</span>
+        <span class="atl-lozenge atl-lozenge-blue">Atlassian Design System</span>
       </div>
     </footer>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
   <!-- Application Logic & Data Injection -->
   <script>
@@ -31,9 +33,11 @@ def get_vue_app(public_mode=False):
       setup() {
         const activeTab = ref('dashboard');
         const isMobileMenuOpen = ref(false);
+        const isSidebarCollapsed = ref(false);
+        const isAppSwitcherOpen = ref(false);
         const degreeTab = ref('all');
         const searchQuery = ref('');
-        const isDark = ref(true);
+        const isDark = ref(false);
         const isCommandPaletteOpen = ref(false);
         const commandSearch = ref('');
         const wbsFilter = ref('all');
@@ -89,6 +93,55 @@ def get_vue_app(public_mode=False):
           { id: 'files', label: 'Deliverables-Register', icon: '📂', badge: 'Katalog' },
           { id: 'notebook', label: 'Second Brain & RAG', icon: '📝', badge: 'Obsidian Sync' }
           // PRIVATE_TABS_END
+        ];
+
+        const navSpaces = [
+          {
+            id: 'overview',
+            label: 'Übersicht & Fundament',
+            icon: '📘',
+            items: [
+              { id: 'dashboard', label: 'Wissensdatenbank Übersicht', icon: '🏠' },
+              { id: 'synergies', label: 'Stärkenprofil & Synergie-Atlas', icon: '⚡' },
+              // PRIVATE_SPACE_ITEMS_START
+              { id: 'files', label: 'Deliverables-Register', icon: '📂' },
+              { id: 'notebook', label: 'Second Brain & RAG', icon: '📝' },
+              // PRIVATE_SPACE_ITEMS_END
+            ]
+          },
+          {
+            id: 'praxis',
+            label: 'Praxis & S/4HANA (36M)',
+            icon: '🚆',
+            items: [
+              { id: 'project', label: 'SSB S/4HANA Projekt', icon: '🚆' },
+              { id: 'solution_design', label: 'Solution Design (FI/CO)', icon: '📐' },
+              { id: 'migration', label: 'Datenmigration & CVI', icon: '🔄' },
+              { id: 'tools', label: 'Toolchain Hub', icon: '🛠️' },
+              { id: 'enterprise_arch', label: 'EAM & Datacenter One', icon: '🖥️' },
+            ]
+          },
+          {
+            id: 'academy',
+            label: 'Akademie (300 ECTS)',
+            icon: '🎓',
+            items: [
+              { id: 'thesis', label: 'Master & Bachelor', icon: '🎓' },
+              { id: 'cheatsheet', label: 'Tech & BTP Cheatsheet', icon: '⚡' },
+            ]
+          },
+          {
+            id: 'career_space',
+            label: 'Karriere & Einstieg',
+            icon: '🎯',
+            items: [
+              // PRIVATE_CAREER_ITEMS_START
+              { id: 'interview', label: 'Interview Masterclass', icon: '🎙️' },
+              { id: 'cv_defense', label: 'CV De-Risking', icon: '🛡️' },
+              // PRIVATE_CAREER_ITEMS_END
+              { id: 'career', label: 'Zielrollen & Roadmap', icon: '🎯' },
+            ]
+          }
         ];
 
         const qaCategories = ['Alle', 'SSB S/4HANA & Explore-Phase', 'Datacenter One & ITIL 4', 'Master & Plattformisierung', 'Bachelor & Methodenkompetenz', 'Enterprise Architecture & TOGAF', 'Persönlich & Trainee-Einstieg'];
@@ -1186,8 +1239,10 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           isDark.value = !isDark.value;
           if (isDark.value) {
             document.documentElement.classList.add('dark');
+            localStorage.setItem('vm_atl_theme', 'dark');
           } else {
             document.documentElement.classList.remove('dark');
+            localStorage.setItem('vm_atl_theme', 'light');
           }
         };
 
@@ -1403,12 +1458,23 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           } else {
             personalNotes.value = `# Visar Murseli | Mein persönliches Second Brain\\n\\nWillkommen in deinem persönlichen Karriere-Notizbuch!\\nHier kannst du Notizen zu Vorstellungsgesprächen, Gehaltsverhandlungen und SAP-Architekturen festhalten.\\n\\nAlles, was du hier eintippst, wird automatisch in deinem Browser gespeichert.\\n`;
           }
+          const savedTheme = localStorage.getItem('vm_atl_theme');
+          if (savedTheme === 'dark') {
+            isDark.value = true;
+            document.documentElement.classList.add('dark');
+          } else {
+            isDark.value = false;
+            document.documentElement.classList.remove('dark');
+          }
           loadPipeline();
         });
 
         return {
           activeTab,
           isMobileMenuOpen,
+          isSidebarCollapsed,
+          isAppSwitcherOpen,
+          navSpaces,
           currentTabName,
           currentHubName,
           degreeTab,
@@ -1481,6 +1547,8 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
     if public_mode:
         tpl = tpl.replace('%%PRIVATE_HUB_LINE%%', '')
         tpl = re.sub(r'// PRIVATE_TABS_START.*?// PRIVATE_TABS_END', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_SPACE_ITEMS_START.*?// PRIVATE_SPACE_ITEMS_END', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_CAREER_ITEMS_START.*?// PRIVATE_CAREER_ITEMS_END', '', tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_RAG_START.*?// PRIVATE_RAG_END',
                      "const formattedRagAnswer = computed(() => '');\n        const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const quickRagAsk = () => {};\n        const askSynergyRag = () => {};\n        const loadPipeline = () => {};\n        const prepInterview = () => {};",
                      tpl, flags=re.DOTALL)

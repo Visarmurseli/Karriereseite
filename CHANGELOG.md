@@ -23,6 +23,26 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.21.0] - 2026-11-25 (Atlassian Design System Reverse Engineering: Confluence Cloud & Jira Hybrid UI Shell)
+
+### 🎯 Kontext & Leitmotiv
+Vollständiges UI/UX-Redesign der gesamten Dual-Mode-Webapp (`index.html` & `public_index.html`) nach dem **Atlassian Design System (`@atlaskit/tokens` – Confluence Cloud & Jira Cloud)**. Beseitigt jegliche Template-Reste, etabliert einen sauberen Confluence Light Mode als Standard mit nahtlosem Atlassian Dark Mode (`#1D2125`) und einer professionellen Enterprise-Dokumentationsstruktur.
+
+### 🎨 Atlassian UI Architektur (`portal_builder/header.py`, `dashboard.py`, `synergies.py`, `vue_app.py`)
+- **Confluence App Shell:**
+  - Kompakte 56px Global Navigation Bar mit 9-Dot App Switcher (`:::`), Brand Badge (`VM` / `Visar Murseli` / `CONFLUENCE OS`), zentrierter Global Search (`Ctrl + K`), Live-Telemetrie-Lozenges (`149 Dossiers`, `1.064 bidirektionale Links`, `21 Deliverables`, `300 ECTS`), PDF-Export und Light/Dark Theme Toggle.
+  - Linke, permanent sichtbare und einklappbare (`«`/`»`) **Confluence Seitenbaum-Sidebar** (`navSpaces`), strukturiert in Spaces (*Übersicht & Fundament*, *Praxis & S/4HANA*, *Akademie 300 ECTS*, *Karriere & Einstieg*, lokal zusätzlich *Interview & Second Brain*).
+  - Mobile-kompatible Quick-Nav-Leiste und Slide-Over Page-Tree Drawer für `< lg` Viewports.
+- **Atlassian Design Tokens (`:root` + `html.dark`):**
+  - Semantisches CSS-Token-System (`--ds-surface`, `--ds-surface-sunken`, `--ds-surface-raised`, `--ds-brand-bold: #1868DB`, `--ds-text: #172B4D`, Dark `#1D2125` / `#161A1D` / `#22272B`) über alle 14 Inhaltsmodule hinweg.
+  - Authentic **Jira Status-Lozenges** (`.atl-lozenge`), **ADF Info Callout Banners** (`.atl-callout`) und Confluence-Tabellen.
+- **Bugfixes & Browser-Verifikation:**
+  - Mustache-Escaping (`{{ syn.* }}` & `{{ cat }}`) in `synergies.py` vollständig korrigiert (**0** unaufgelöste Template-Braces in der gesamten HTML).
+  - Header-Flex-Layout (`shrink-0`) gegen Abschneiden auf `1440px` Viewports abgesichert und `overflow-x: clip` für echtes `position: sticky` der Seitenbaum-Sidebar gesetzt.
+  - Role-Fit-Matcher entfernt und `scripts/test_portal.py` synchronisiert.
+
+---
+
 ## [1.20.0] - 2026-11-25 (Webapp UX-Upgrade: Sticky Quick-Nav, Role-Fit Matcher, Timeline, Light Mode & PDF-Export)
 
 ### 🎯 Kontext & Leitmotiv

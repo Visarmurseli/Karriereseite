@@ -26,93 +26,93 @@ def get_dashboard(public_mode=False):
               <div class="text-[11px] text-[#8f8888]">Local RAG Suche & Obsidian Sync</div>
             </button>"""
     return f"""
-      <!-- ================= TAB 1: WISSENSDATENBANK ÜBERSICHT ================= -->
+      <!-- ================= TAB 1: WISSENSDATENBANK ÜBERSICHT (CONFLUENCE SPACE HOME) ================= -->
       <div v-show="activeTab === 'dashboard'" class="space-y-6">
         
-        <!-- Hero Banner: Objektive Wissensdatenbank-Übersicht -->
-        <div class="bg-gradient-to-br from-[#181818] via-[#141414] to-[#1a1213] text-white rounded-2xl p-6 lg:p-8 shadow-xl border border-white/10 relative overflow-hidden">
-          <div class="relative z-10 max-w-5xl space-y-4">
+        <!-- Confluence Page Header & ADF Executive Summary Banner -->
+        <div class="bg-[#141414] rounded-2xl p-6 lg:p-7 border border-white/10 space-y-5">
+          <div class="space-y-3">
             
-            <!-- Objective Credentials Badges -->
-            <div class="flex flex-wrap items-center gap-2 text-xs">
-              <span class="bg-white/10 text-white px-2.5 py-1 rounded-lg font-medium border border-white/15">
-                🏛️ Universität Stuttgart
-              </span>
-              <span class="bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-lg font-medium">
-                M.Sc. Wirtschaftsinformatik: Note 1,6 (120 ECTS)
-              </span>
-              <span class="bg-emerald-500/25 text-emerald-200 border border-emerald-500/40 px-2.5 py-1 rounded-lg font-bold">
-                Masterarbeit: Note 1,0 (30 ECTS)
-              </span>
-              <span class="bg-blue-500/15 text-blue-300 border border-blue-500/30 px-2.5 py-1 rounded-lg font-medium">
-                B.Sc. Wirtschaftsinformatik: Note 3,0 (180 ECTS)
-              </span>
-              <span class="bg-blue-500/25 text-blue-200 border border-blue-500/40 px-2.5 py-1 rounded-lg font-bold">
-                Bachelorarbeit: Note 1,7 (12 ECTS)
-              </span>
+            <!-- Jira / Confluence Status Lozenges -->
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="atl-lozenge atl-lozenge-neutral">🏛️ Universität Stuttgart</span>
+              <span class="atl-lozenge atl-lozenge-green">M.Sc. Wirtschaftsinformatik: Note 1,6 (120 ECTS)</span>
+              <span class="atl-lozenge atl-lozenge-green">Masterarbeit: Note 1,0 (30 ECTS)</span>
+              <span class="atl-lozenge atl-lozenge-blue">B.Sc. Wirtschaftsinformatik: Note 3,0 (180 ECTS)</span>
+              <span class="atl-lozenge atl-lozenge-blue">Bachelorarbeit: Note 1,7 (12 ECTS)</span>
             </div>
             
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              Persönliche Wissensdatenbank: Akademisches & Berufliches Fundament
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2.5">
+              <span>📘</span>
+              <span>Persönliche Wissensdatenbank: Akademisches &amp; Berufliches Fundament</span>
             </h2>
-            <p class="text-[#c4bebe] text-xs sm:text-sm leading-relaxed">
-              Dieses Wissensportal bündelt alle Unterlagen, Projekt-Deliverables und theoretischen Grundlagen aus meinem Werdegang als Wirtschaftsinformatiker: <strong>300 ECTS universitäre Ausbildung an der Universität Stuttgart</strong> (Master & Bachelor), <strong>24 Monate Großprojekterfahrung bei der Stuttgarter Straßenbahnen AG</strong> (S/4HANA Transformation bis zum Abschluss der Explore-Phase), <strong>12 Monate ITIL 4 Service Operations bei Datacenter One</strong> sowie die <strong>TOGAF 9 ADM-Zertifizierung</strong>.
-            </p>
+
+            <!-- Atlassian ADF Info Callout Panel -->
+            <div class="atl-callout p-4 flex items-start gap-3 text-xs sm:text-sm leading-relaxed">
+              <span class="text-base shrink-0 mt-0.5">ℹ️</span>
+              <div>
+                <div class="font-bold mb-0.5" style="color: var(--ds-text)">Executive Space Summary</div>
+                <p style="color: var(--ds-text-subtle)">
+                  Dieses Wissensportal bündelt alle Unterlagen, Projekt-Deliverables und theoretischen Grundlagen aus meinem Werdegang als Wirtschaftsinformatiker: <strong>300 ECTS universitäre Ausbildung an der Universität Stuttgart</strong> (Master &amp; Bachelor), <strong>24 Monate Großprojekterfahrung bei der Stuttgarter Straßenbahnen AG</strong> (S/4HANA Transformation bis zum Abschluss der Explore-Phase), <strong>12 Monate ITIL 4 Service Operations bei Datacenter One</strong> sowie die <strong>TOGAF 9 ADM-Zertifizierung</strong>.
+                </p>
+              </div>
+            </div>
+
             <div class="pt-1 flex flex-wrap items-center gap-2.5">
-              <button @click="activeTab = 'synergies'" class="px-4 py-2 rounded-xl bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-bold shadow-lg shadow-[#bf262e]/30 border border-white/15 transition flex items-center space-x-2">
+              <button @click="activeTab = 'synergies'" class="px-4 py-2 rounded-md bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-semibold transition flex items-center space-x-2">
                 <span>⚡</span>
-                <span>Persönliches Stärkenprofil & 6 Arbeit × Uni Synergien entdecken</span>
+                <span>Persönliches Stärkenprofil &amp; 6 Arbeit × Uni Synergien entdecken</span>
                 <span>➔</span>
               </button>
-              <button @click="activeTab = 'career'" class="px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
-                🎯 Zielrollen & Roadmap
+              <button @click="activeTab = 'career'" class="px-3.5 py-2 rounded-md bg-white/5 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
+                🎯 Zielrollen &amp; Roadmap
               </button>
             </div>
+          </div>
 
-            <!-- 4 Equal Pillars of Knowledge -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
-              
-              <!-- Pillar 1: SSB S/4HANA Transformation -->
-              <div @click="activeTab = 'project'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
-                <div class="text-[#f87171] font-bold text-xs uppercase flex items-center justify-between">
-                  <span>1. S/4HANA Transformation</span>
-                  <span class="group-hover:translate-x-1 transition">➔</span>
-                </div>
-                <div class="font-semibold text-sm mt-1 text-white">SSB AG (24 Monate)</div>
-                <div class="text-[11px] text-[#c4bebe] mt-1">Stand bei Austritt: Explore-Phase abgeschlossen, Solution Design Document (SDD) vollständig genehmigt.</div>
+          <!-- 4 Equal Pillars of Knowledge (Confluence Space Cards) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+            
+            <!-- Pillar 1: SSB S/4HANA Transformation -->
+            <div @click="activeTab = 'project'" class="bg-white/5 transition cursor-pointer rounded-md p-3.5 border border-white/10 hover:border-[#bf262e]/50 group" style="border-top: 3px solid var(--ds-brand-bold);">
+              <div class="flex items-center justify-between mb-1">
+                <span class="atl-lozenge atl-lozenge-blue">1. S/4HANA</span>
+                <span class="text-xs font-semibold group-hover:translate-x-1 transition" style="color: var(--ds-text-brand)">➔</span>
               </div>
-
-              <!-- Pillar 2: Datacenter One ITIL Operations -->
-              <div @click="activeTab = 'enterprise_arch'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
-                <div class="text-[#f87171] font-bold text-xs uppercase flex items-center justify-between">
-                  <span>2. IT-Operations & RZ</span>
-                  <span class="group-hover:translate-x-1 transition">➔</span>
-                </div>
-                <div class="font-semibold text-sm mt-1 text-white">Datacenter One (12 Monate)</div>
-                <div class="text-[11px] text-[#c4bebe] mt-1">24/7 INOC Leitstand, ITIL 4 Incident Management, Confluence SOPs, PRTG Monitoring & HLM.</div>
-              </div>
-
-              <!-- Pillar 3: Masterstudium & Forschung -->
-              <div @click="activeTab = 'thesis'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
-                <div class="text-[#f87171] font-bold text-xs uppercase flex items-center justify-between">
-                  <span>3. Masterstudium (1,6)</span>
-                  <span class="group-hover:translate-x-1 transition">➔</span>
-                </div>
-                <div class="font-semibold text-sm mt-1 text-white">M.Sc. Uni Stuttgart</div>
-                <div class="text-[11px] text-[#c4bebe] mt-1">Masterarbeit Note 1,0 (12 Interviews, Mayring), Digitale Nachhaltigkeit (1,0), Advanced SE (1,6).</div>
-              </div>
-
-              <!-- Pillar 4: Bachelorstudium & Methoden -->
-              <div @click="activeTab = 'thesis'" class="bg-white/5 hover:bg-[#bf262e]/15 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group">
-                <div class="text-[#f87171] font-bold text-xs uppercase flex items-center justify-between">
-                  <span>4. Bachelorstudium (3,0)</span>
-                  <span class="group-hover:translate-x-1 transition">➔</span>
-                </div>
-                <div class="font-semibold text-sm mt-1 text-white">B.Sc. Uni Stuttgart</div>
-                <div class="text-[11px] text-[#c4bebe] mt-1">Bachelorarbeit Note 1,7 (Low-Code), E-Business (1,0), Unternehmensanalyse (2,3), BPMN 2.0 & SQL.</div>
-              </div>
-
+              <div class="font-bold text-sm mt-1 text-white">SSB AG (24 Monate)</div>
+              <div class="text-[11px] text-[#c4bebe] mt-1">Stand bei Austritt: Explore-Phase abgeschlossen, Solution Design Document (SDD) vollständig genehmigt.</div>
             </div>
+
+            <!-- Pillar 2: Datacenter One ITIL Operations -->
+            <div @click="activeTab = 'enterprise_arch'" class="bg-white/5 transition cursor-pointer rounded-md p-3.5 border border-white/10 hover:border-[#bf262e]/50 group" style="border-top: 3px solid var(--ds-text-success);">
+              <div class="flex items-center justify-between mb-1">
+                <span class="atl-lozenge atl-lozenge-green">2. Operations</span>
+                <span class="text-xs font-semibold group-hover:translate-x-1 transition" style="color: var(--ds-text-success)">➔</span>
+              </div>
+              <div class="font-bold text-sm mt-1 text-white">Datacenter One (12 Monate)</div>
+              <div class="text-[11px] text-[#c4bebe] mt-1">24/7 INOC Leitstand, ITIL 4 Incident Management, Confluence SOPs, PRTG Monitoring &amp; HLM.</div>
+            </div>
+
+            <!-- Pillar 3: Masterstudium & Forschung -->
+            <div @click="activeTab = 'thesis'" class="bg-white/5 transition cursor-pointer rounded-md p-3.5 border border-white/10 hover:border-[#bf262e]/50 group" style="border-top: 3px solid var(--ds-text-discovery);">
+              <div class="flex items-center justify-between mb-1">
+                <span class="atl-lozenge atl-lozenge-purple">3. Master 1,6</span>
+                <span class="text-xs font-semibold group-hover:translate-x-1 transition" style="color: var(--ds-text-discovery)">➔</span>
+              </div>
+              <div class="font-bold text-sm mt-1 text-white">M.Sc. Uni Stuttgart</div>
+              <div class="text-[11px] text-[#c4bebe] mt-1">Masterarbeit Note 1,0 (12 Interviews, Mayring), Digitale Nachhaltigkeit (1,0), Advanced SE (1,6).</div>
+            </div>
+
+            <!-- Pillar 4: Bachelorstudium & Methoden -->
+            <div @click="activeTab = 'thesis'" class="bg-white/5 transition cursor-pointer rounded-md p-3.5 border border-white/10 hover:border-[#bf262e]/50 group" style="border-top: 3px solid var(--ds-text-warning);">
+              <div class="flex items-center justify-between mb-1">
+                <span class="atl-lozenge atl-lozenge-amber">4. Bachelor 3,0</span>
+                <span class="text-xs font-semibold group-hover:translate-x-1 transition" style="color: var(--ds-text-warning)">➔</span>
+              </div>
+              <div class="font-bold text-sm mt-1 text-white">B.Sc. Uni Stuttgart</div>
+              <div class="text-[11px] text-[#c4bebe] mt-1">Bachelorarbeit Note 1,7 (Low-Code), E-Business (1,0), Unternehmensanalyse (2,3), BPMN 2.0 &amp; SQL.</div>
+            </div>
+
           </div>
         </div>
 
