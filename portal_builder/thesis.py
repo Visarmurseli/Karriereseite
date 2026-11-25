@@ -1061,7 +1061,7 @@ def get_thesis():
             <span class="tag-badge bg-white/10 text-[#c4bebe]">Mayring Inhaltsanalyse & Codebuch</span>
           </div>
           <p class="text-xs text-slate-500">
-            Alle Transkripte und das Auswertungs-Codebuch liegen lokal im Workspace unter <code>Studium_Dokumente/Interviews_Masterarbeit</code>:
+            Strukturierter Auszug aus der anonymisierten Expertenstichprobe (12 leitfadengestützte Interviews, ausgewertet mittels qualitativer Inhaltsanalyse nach Mayring):
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
@@ -1074,7 +1074,7 @@ def get_thesis():
               <p class="text-[#c4bebe] text-[10px] leading-relaxed">
                 Fokus: Multiprojektsteuerung (TP1–TP5), ERP-Plattform-Governance, C-Level Alignment und institutionelle Mitbestimmung.
               </p>
-              <div class="text-[9px] text-slate-400 font-mono">Interview_IP1_Gesamt_PL.docx</div>
+              <div class="text-[10px] text-[#8f8888] font-medium">Schwerpunkt: Governance &amp; PMO</div>
             </div>
 
             <div class="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5">
@@ -1086,7 +1086,7 @@ def get_thesis():
               <p class="text-[#c4bebe] text-[10px] leading-relaxed">
                 Fokus: Trennungsrechnung (Kaufmännisch/Steuerlich), Universelles Journal (ACDOCA), Ablösung von Innenaufträgen durch PSP-Elemente und Übernahmekonto 0,00 €.
               </p>
-              <div class="text-[9px] text-slate-400 font-mono">Interview_IP2_TP2_Finance.docx</div>
+              <div class="text-[10px] text-[#8f8888] font-medium">Schwerpunkt: Finance &amp; ACDOCA</div>
             </div>
 
             <div class="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5">
@@ -1098,7 +1098,7 @@ def get_thesis():
               <p class="text-[#c4bebe] text-[10px] leading-relaxed">
                 Fokus: BTP-Zielarchitektur, SSO-Integration mit Microsoft Entra ID, Mandantenlandschaft und Schnittstellenabsicherung.
               </p>
-              <div class="text-[9px] text-slate-400 font-mono">Interview_IP3_Basis_Architektur.docx</div>
+              <div class="text-[10px] text-[#8f8888] font-medium">Schwerpunkt: BTP &amp; Security</div>
             </div>
 
             <div class="p-3.5 bg-white/5 rounded-xl border border-white/10 space-y-1.5">
@@ -1110,7 +1110,7 @@ def get_thesis():
               <p class="text-[#c4bebe] text-[10px] leading-relaxed">
                 Fokus: Bereitstellung der Private-Cloud-Infrastruktur, Adobe Document Services (ADS) Formulare und Transportkonsolidierung.
               </p>
-              <div class="text-[9px] text-slate-400 font-mono">Interview_IP4_Cloud_Basis.docx</div>
+              <div class="text-[10px] text-[#8f8888] font-medium">Schwerpunkt: Cloud &amp; Basis</div>
             </div>
           </div>
         </div>

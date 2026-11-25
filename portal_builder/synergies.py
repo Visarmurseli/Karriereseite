@@ -88,7 +88,7 @@ def get_synergies(public_mode=False):
             <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
               <div class="text-[10px] font-mono text-blue-300 uppercase">05/2023–04/2024 • Betrieb</div>
               <div class="font-bold text-white mt-0.5">Datacenter One (12M INOC)</div>
-              <p class="text-[11px] text-[#c4bebe] mt-1"><strong>24/7 Leitstand</strong>, ITIL 4 SPoC (Jira), PRTG-Monitoring, Aufbau Confluence-SOPs & Hardware-Lifecycle-Prozess in Visio (100+ Systeme).</p>
+              <p class="text-[11px] text-[#c4bebe] mt-1"><strong>24/7 Leitstand</strong>, ITIL 4 SPoC (Service Desk), PRTG-Monitoring, Aufbau zentraler Wissens-SOPs & Hardware-Lifecycle-Prozess in Visio (100+ Systeme).</p>
             </div>
             <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
               <div class="text-[10px] font-mono text-emerald-300 uppercase">05/2024–04/2026 • Großprojekt</div>
@@ -157,7 +157,7 @@ def get_synergies(public_mode=False):
               </div>
               <p class="text-[#c4bebe] leading-relaxed">Schafft einheitliche Standards in komplexen Teams: offizieller <strong>SAP Cloud ALM How2Handle</strong>-Leitfaden, <strong>Enable Now Übergabekonzept</strong> und fehlerfreie <strong>PowerShell-/BPMN-Automatisierung</strong> (Schmalz 1,0).</p>
               <div v-show="synergyViewMode === 'deep'" class="pt-2 border-t border-white/10 text-[11px] text-[#8f8888]">
-                Belege: Signavio BPMN 2.0 (SSB), Visio HLM_v2.vsdx (DC1), Klingele PatentRadar SaaS/RPA-Konzept (ISG 2,0).
+                Belege: Signavio BPMN 2.0 (SSB), Hardware-Lifecycle-Architekturmodell (DC1), Klingele PatentRadar SaaS/RPA-Konzept (ISG 2,0).
               </div>
             </div>
 
@@ -166,7 +166,7 @@ def get_synergies(public_mode=False):
                 <span class="font-bold text-white">5. Operative Resilienz & Service Ops</span>
                 <span class="tag-badge bg-blue-500/20 text-blue-300 border border-blue-500/30">ITIL 4 / 24-7</span>
               </div>
-              <p class="text-[#c4bebe] leading-relaxed">Bewahrt im Live-Betrieb analytische Ruhe: <strong>12 Monate 24/7 INOC</strong> bei Datacenter One (PRTG, Jira SPoC, USV/Klima/Dark Fiber, Confluence SOPs) plus Basis-GAP-Tracking bei SSB.</p>
+              <p class="text-[#c4bebe] leading-relaxed">Bewahrt im Live-Betrieb analytische Ruhe: <strong>12 Monate 24/7 INOC</strong> bei Datacenter One (PRTG, ITSM Service Desk SPoC, USV/Klima/Dark Fiber, Wissens-SOPs) plus Basis-GAP-Tracking bei SSB.</p>
               <div v-show="synergyViewMode === 'deep'" class="pt-2 border-t border-white/10 text-[11px] text-[#8f8888]">
                 Belege: Strukturierte 3rd-Level Root-Cause-Methodik (Job-Monitoring, Berechtigungsobjekte, Schnittstellen-Checks).
               </div>
@@ -270,7 +270,7 @@ def get_synergies(public_mode=False):
                 <span>🏢 Datacenter One GmbH (INOC)</span>
                 <span class="text-[11px] text-blue-400">12 Monate (05/2023–04/2024)</span>
               </div>
-              <p class="text-[#c4bebe] leading-relaxed">Werkstudent 24/7 Information Network Operation Center unter INOC-Leitung. Single Point of Contact (Jira), PRTG-Echtzeitüberwachung (Core-Netze, USV, Klima, Dark Fiber), Aufbau der Confluence-Prozessdatenbank nach ITIL 4 und Visio-BPMN-Design für den Hardware-Lifecycle (100+ Arbeitsplätze).</p>
+              <p class="text-[#c4bebe] leading-relaxed">Werkstudent 24/7 Information Network Operation Center unter INOC-Leitung. Single Point of Contact im IT-Service-Management, PRTG-Echtzeitüberwachung (Core-Netze, USV, Klima, Dark Fiber), Aufbau der zentralen Wissensdatenbank nach ITIL 4 und Visio-BPMN-Design für den Hardware-Lifecycle (100+ Arbeitsplätze).</p>
             </div>
             <div class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
               <div class="flex items-center justify-between font-bold text-white">

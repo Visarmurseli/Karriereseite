@@ -72,11 +72,11 @@ def test_supervisor_and_colleague_anonymization(content):
     print("  [PASS] Privacy & GDPR Gate: Exactly 0 occurrences of supervisor names or internal WBS IDs.")
 
 def test_command_palette_and_telemetry(content):
-    # Check command palette and telemetry tokens
+    # Check modern dynamic UI and telemetry tokens (no global search, no third-party branding clones)
     features = [
-        "isCommandPaletteOpen",
-        "commandFilteredResults",
-        "openCommandPalette",
+        "scrollProgress",
+        "selectTab",
+        "tabReveal",
         "149 Dossiers",
         "1.064 bidirektionale Links",
         "21 Deliverables",
@@ -86,7 +86,9 @@ def test_command_palette_and_telemetry(content):
     ]
     for feat in features:
         assert feat in content, f"Feature check failed: Missing '{feat}'"
-    print(f"  [PASS] Command Palette & Telemetry: All {len(features)} reactive features active.")
+    for removed in ["isCommandPaletteOpen", "openCommandPalette", "Confluence", "Atlassian", "Jira"]:
+        assert removed.lower() not in content.lower(), f"Forbidden clone/search token still present: '{removed}'"
+    print(f"  [PASS] Modern Dynamic UI & Telemetry: All {len(features)} features active, 0 search/clone leaks.")
 
 
 def test_public_showcase_privacy():
@@ -96,8 +98,12 @@ def test_public_showcase_privacy():
         pub = f.read()
     for token in ["Persönliches Stärkenprofil", "filteredSynergies", "Stärkenprofil & Synergie-Atlas"]:
         assert token in pub, f"Public Showcase missing synergy/profile token: {token}"
-    for leak in ["Gefahrenstufe Rot", "TÖDLICH", "cv_defense", "Fangfrage", "Gehaltskalkulation"]:
-        assert leak not in pub, f"PRIVACY GATE VIOLATION in public_index.html: {leak}"
+    for leak in [
+        "Gefahrenstufe Rot", "TÖDLICH", "cv_defense", "Fangfrage", "Gehaltskalkulation",
+        "Atlassian", "Confluence", "Jira", "isCommandPaletteOpen", "openCommandPalette",
+        "Interview_IP1", "Interview_IP2", "Interview_IP3", "Interview_IP4", "HLM_v2.vsdx", "Studium_Dokumente"
+    ]:
+        assert leak.lower() not in pub.lower(), f"PRIVACY/BRANDING GATE VIOLATION in public_index.html: {leak}"
     for name in ["Roland Nowak", "Dietmar Fillinger", "Helmut Schmidpeter", "Sarah Lozano", "Thomas Wimpff", "Sebastian Neifer", "Markus Schmidt", "Joachim Kraus", "Henning Gerdes", "Armin Heinrich", "Michael Gehrung", "WBS 1–297", "Vorgang 110", "Vorgang 294", "Vorgang 297"]:
         assert name.lower() not in pub.lower(), f"PRIVACY VIOLATION in public_index.html: Found prohibited token '{name}'"
     print(f"  [PASS] Public Showcase & Privacy Gate: Verified clean ({len(pub.encode('utf-8'))//1024} KB, 0 private leaks).")

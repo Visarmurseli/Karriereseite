@@ -23,6 +23,28 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.22.0] - 2026-11-25 (Eigenständige Modern Dynamic UI, Entfernung von Drittanbieter-Branding, Suchfunktion & internen Dateinamen)
+
+### 🎯 Kontext & Leitmotiv
+Umfassende Weiterentwicklung zu einem **eigenständigen, modernen und dynamischen Enterprise Knowledge Hub** (inspiriert von zeitgemäßen Dokumentations-Workspaces, aber vollständig frei von Drittanbieter-/Clone-Referenzen), vollständige Entfernung der globalen Suchfunktion sowie Bereinigung sämtlicher lokaler Dateinamen und Pfade (z. B. `Interview_IP*_*.docx`, `HLM_v2.vsdx`, `Studium_Dokumente/`) aus dem Frontend.
+
+### ✨ Neue UI/UX & Architekturanpassungen
+- **Vollständige Entfernung aller Confluence/Jira/Atlassian-UI-Hinweise:**
+  - App-Switcher, `CONFLUENCE OS`-Badge, `Atlassian Design System`-Tags und `Spaces`-Breadcrumbs in `header.py`, `dashboard.py`, `vue_app.py`, `synergies.py`, `enterprise_arch.py` und `cv_defense.py` vollständig entfernt bzw. in neutrale ITSM/SOP-Fachbegriffe überführt (**0** Treffer in `index.html` & `public_index.html`).
+- **Komplette Entfernung der Suchfunktion:**
+  - Globale Suchleiste, `Ctrl+K` Command-Palette-Modal, `Schnellsuche`-Buttons und Suchfilter-Banner rückstandslos aus App-Shell, Dashboard, Footer und `vue_app.py` entfernt.
+- **Bereinigung interner Dateireferenzen (`thesis.py`, `synergies.py`, `vue_app.py`):**
+  - Alle `Interview_IP1_Gesamt_PL.docx` – `Interview_IP4_Cloud_Basis.docx`-Namen, `Studium_Dokumente/Interviews_Masterarbeit`-Pfade sowie `HLM_v2.vsdx` entfernt; durch saubere fachliche Schwerpunkt-Tags ersetzt.
+- **Modernes, dynamisches UI & UX (`portal_builder/header.py`, `vue_app.py`):**
+  - **Scroll-Progress-Indikator** (`2px` Royal-Blue/Indigo-Verlaufslinie am oberen Viewport-Rand).
+  - **Sanfte Tab-Reveal-Animationen (`tabReveal`)** & interaktive Card-Hover-Elevation.
+  - **Kapitel-Stepper (`← Vorheriges Thema` / `Kapitel X / Y` / `Nächstes Kapitel →`)** mit automatischem Smooth-Scroll-to-Top (`selectTab`).
+  - **Sticky Fix (`min-h-full` + `overflow-x: clip`):** Top-Navigation (`y = 0`) und linke Sidebar (`y = 56`) bleiben beim Scrollen durchgängig gepinnt (im Browser bei `1440×900` verifiziert).
+- **Spec-Kit Quality Gates (`scripts/test_portal.py`):**
+  - Erweitert um strikte Negativ-Checks gegen Suchfunktion, Clone-Branding und interne Dateinamen (100 % PASS).
+
+---
+
 ## [1.21.0] - 2026-11-25 (Atlassian Design System Reverse Engineering: Confluence Cloud & Jira Hybrid UI Shell)
 
 ### 🎯 Kontext & Leitmotiv

@@ -2,10 +2,37 @@
 
 def get_vue_app(public_mode=False):
     tpl = """
+    <!-- Interactive Chapter Stepper -->
+    <div class="pt-6 mt-6 border-t flex flex-wrap items-center justify-between gap-3" style="border-color: var(--ds-border)">
+      <button
+        v-if="prevTab"
+        @click="selectTab(prevTab.id)"
+        class="px-3.5 py-2 rounded-xl border text-xs font-medium flex items-center gap-2 transition hover:-translate-y-0.5"
+        style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text-subtle)"
+      >
+        <span>←</span>
+        <span>{{ prevTab.icon }} {{ prevTab.label }}</span>
+      </button>
+      <div v-else></div>
+
+      <span class="text-[11px] font-mono hidden sm:inline" style="color: var(--ds-text-subtlest)">
+        Kapitel {{ currentTabIndex + 1 }} / {{ tabs.length }}
+      </span>
+
+      <button
+        v-if="nextTab"
+        @click="selectTab(nextTab.id)"
+        class="px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 btn-primary transition hover:-translate-y-0.5"
+      >
+        <span>Nächstes Kapitel: {{ nextTab.icon }} {{ nextTab.label }}</span>
+        <span>→</span>
+      </button>
+    </div>
+
     </main>
 
-    <!-- Footer (Confluence Page Bottom Bar) -->
-    <footer class="border-t py-4 px-6 text-xs mt-8" style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtlest);">
+    <!-- Footer -->
+    <footer class="border-t py-5 px-6 text-xs mt-8" style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtlest);">
       <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-3">
         <div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
           <span class="font-semibold" style="color: var(--ds-text)">Visar Murseli, M.Sc.</span>
@@ -13,11 +40,10 @@ def get_vue_app(public_mode=False):
           <span>Enterprise Knowledge Hub &amp; S/4HANA Career OS</span>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-2">
-          <button @click="printProfile" class="px-2.5 py-1 rounded border transition" style="background: var(--ds-surface); border-color: var(--ds-border); color: var(--ds-text-subtle);">🖨️ PDF-Ansicht</button>
-          <button @click="openCommandPalette" class="px-2.5 py-1 rounded border transition" style="background: var(--ds-surface); border-color: var(--ds-border); color: var(--ds-text-subtle);">🔍 Suche (Ctrl+K)</button>
-          <button @click="scrollToTop" class="px-2.5 py-1 rounded font-semibold atl-btn-primary transition">↑ Nach oben</button>
+          <button @click="printProfile" class="px-3 py-1.5 rounded-lg border transition" style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text-subtle);">🖨️ PDF-Ansicht</button>
+          <button @click="scrollToTop" class="px-3 py-1.5 rounded-lg font-semibold btn-primary transition">↑ Nach oben</button>
         </div>
-        <span class="atl-lozenge atl-lozenge-blue">Atlassian Design System</span>
+        <span class="status-pill status-pill-blue">M.Sc. 1,6 • S/4HANA Portfolio</span>
       </div>
     </footer>
         </div>
@@ -34,12 +60,9 @@ def get_vue_app(public_mode=False):
         const activeTab = ref('dashboard');
         const isMobileMenuOpen = ref(false);
         const isSidebarCollapsed = ref(false);
-        const isAppSwitcherOpen = ref(false);
+        const scrollProgress = ref(0);
         const degreeTab = ref('all');
-        const searchQuery = ref('');
         const isDark = ref(false);
-        const isCommandPaletteOpen = ref(false);
-        const commandSearch = ref('');
         const wbsFilter = ref('all');
         const pitchMode = ref('short');
         const selectedQACat = ref('Alle');
@@ -65,6 +88,20 @@ def get_vue_app(public_mode=False):
           const found = tabs.find(t => t.id === activeTab.value);
           return found ? found.label : 'Dashboard';
         });
+
+        const currentTabIndex = computed(() => {
+          const idx = tabs.findIndex(t => t.id === activeTab.value);
+          return idx >= 0 ? idx : 0;
+        });
+
+        const prevTab = computed(() => currentTabIndex.value > 0 ? tabs[currentTabIndex.value - 1] : null);
+        const nextTab = computed(() => currentTabIndex.value < tabs.length - 1 ? tabs[currentTabIndex.value + 1] : null);
+
+        const selectTab = (tabId) => {
+          activeTab.value = tabId;
+          isMobileMenuOpen.value = false;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
 
         const currentHubName = computed(() => {
           const tabId = activeTab.value;
@@ -378,58 +415,6 @@ Ich bringe die seltene Kombination aus methodischem Weitblick, wissenschaftliche
           }
         ]);
 
-        const searchCatalog = [
-          // Stärkenprofil & Arbeit × Uni Synergien
-          { title: 'Persönliches Stärkenprofil & Roter Faden (2019–2026)', cat: 'Stärken & Synergien', tab: 'synergies', desc: '5 evidenzbasierte Stärken-Cluster, Lernkurve +1,4 Notenpunkte & kompakte Erfahrungs-Essenzen.' },
-          { title: 'Synergie-Atlas: Arbeit × Studium × Eigenprojekte (6 Matrizen)', cat: 'Stärken & Synergien', tab: 'synergies', desc: 'Plattformisierung, Cloud/ITIL 4, Governance/Audit, Solution Design, CSRD/Automation & Applied AI/RAG.' },
-          // Kaufmännisch & Solution Design
-          { title: 'Trennungsrechnung EU 1370/2007', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Verkehrsvertragliche Trennung eigenwirtschaftlicher vs. gemeinwirtschaftlicher Verkehre (§ 45a PBefG).' },
-          { title: 'Grants Management (GM) & Fördermittel', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Fonds, Förderungsarten (LGVFG/GVFG) und Derivationsregeln für Investitionszuschüsse im ÖPNV.' },
-          { title: 'Universal Journal (ACDOCA)', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Single Source of Truth im Hauptbuch, Ledger 0L (HGB) und 2L (Steuerrecht), Echtzeit-Kostenarten.' },
-          { title: 'Kostenrechnung: PSP-Element vs. Innenauftrag', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Hierarchische Mehrjahres-Großprojekte via PSP versus operative Instandhaltungs-Innenaufträge.' },
-          { title: 'Anlagenbuchhaltung (FI-AA) & Eröffnungsbilanz', cat: 'Kaufmännisch & FI/CO', tab: 'migration', desc: 'SuSa-Bilanzabgleich: 0,00 € Saldo auf dem Datenübernahmekonto nach Altdatenmigration.' },
-          { title: 'Customer Vendor Integration (CVI)', cat: 'Kaufmännisch & FI/CO', tab: 'migration', desc: 'Zentraler SAP Business Partner (Geschäftspartner) für Debitoren, Kreditoren und Personal.' },
-          { title: 'Sustainability & CSRD (EHS)', cat: 'Kaufmännisch & FI/CO', tab: 'solution_design', desc: 'Gefahrstoffmanagement, Abfallbilanzierung und ESG-Kennzahlen im S/4HANA Standard.' },
-
-          // Technik & Architektur
-          { title: 'Clean Core Paradigma', cat: 'Technik & Architektur', tab: 'project', desc: 'Modifikationsfreier ERP-Kern, Upgrade-Sicherheit, On-Stack RAP vs. Side-by-Side BTP.' },
-          { title: 'SAP BTP Integration Suite', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Event-driven Architecture, Cloud Integration, OData/REST APIs und Entkopplung von Subsystemen.' },
-          { title: 'Mobile Instandhaltung (SAP SSAM)', cat: 'Technik & Architektur', tab: 'project', desc: 'SAP Service and Asset Management auf robusten Tablets für Stadtbahnwerkstätten und Busdepots.' },
-          { title: 'SAP Migration Cockpit (LTMC)', cat: 'Technik & Architektur', tab: 'migration', desc: 'Staging-Tabellen-Architektur, Delta-Loads, Validierungsregeln und Cutover-Management.' },
-          { title: 'Non-SAP Schnittstellenmatrix', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Subsysteme PATRIS (Vertrieb), xSuite (Rechnungsworkflow), d.velop (DMS), Oracle DWH, EFD4.' },
-          { title: 'Core Data Services (CDS) & ABAP Cloud', cat: 'Technik & Architektur', tab: 'cheatsheet', desc: 'Virtuelle Datenmodelle (VDM), analytische Views und RESTful Application Programming (RAP).' },
-          { title: 'TOGAF 9 ADM Enterprise Architecture', cat: 'Technik & Architektur', tab: 'enterprise_arch', desc: 'Architecture Development Method, Baseline vs. Target Architecture und Architecture Governance.' },
-          { title: 'ITIL 4 Service Operations (Datacenter One)', cat: 'Technik & Architektur', tab: 'enterprise_arch', desc: 'Incident-, Problem- und Change-Management, SLA-Steuerung und 24/7 Rechenzentrums-Monitoring.' },
-
-          // Großprojekt & SAP Activate Methodik
-          { title: 'SAP Activate Phasen-Cockpit', cat: 'Großprojekt & PMO', tab: 'project', desc: 'End-to-End Methodik: Discover, Prepare, Explore (Visars 24M Fokus), Realize, Deploy und Run.' },
-          { title: 'TP1 Change Management & Enable Now', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Change Champions, Key-User-Befähigung und Etablierung von SAP Enable Now für 3.700 Mitarbeiter.' },
-          { title: 'TP2 Kaufmännische Prozesse & SDD', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Fit-to-Standard Workshops, SDD-Freigabe, Universal Journal (ACDOCA) und Trennungsrechnung.' },
-          { title: 'TP3 Technische Prozesse & Instandhaltung', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Mobile Instandhaltung (SAP SSAM auf Tablets) für Stadtbahn, Busse und Schieneninfrastruktur.' },
-          { title: 'TP4 IT-Unterstützung & Systemlandschaft', cat: 'Großprojekt & PMO', tab: 'project', desc: '4-System-Landschaft, Cloud Connector, SAP BTP Integration Suite und SSO via Azure AD.' },
-          { title: 'TP5 Gesamtsteuerung & PMO', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Multiprojekt-Governance, Tool-Stack (CALM, Signavio), Lenkungsausschuss-Reporting und Q-Gates.' },
-          { title: 'Pilot-Betriebsvereinbarung (UAT-Phase)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Meilenstein Pilot-BV für den Testbetrieb mit Echtdaten (UAT) mit der Betriebsrats-Verhandlungskommission.' },
-          { title: 'Finale Betriebsvereinbarung (Cutover & Go-Live)', cat: 'Großprojekt & PMO', tab: 'project', desc: 'Finale Betriebsvereinbarung für den revisionssicheren Produktivbetrieb.' },
-          { title: 'Tool-Governance: CALM vs. Signavio', cat: 'Großprojekt & PMO', tab: 'tools', desc: 'BPMN 2.0 Prozessmodellierung in Signavio synchronisiert mit Testskripten in SAP Cloud ALM.' },
-
-          // Masterarbeit & Wissenschaft
-          { title: 'Masterarbeit Note 1,0 (Prof. Herzwurm)', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: '126 Seiten: Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme (S/4HANA Plattformisierung).' },
-          { title: '12 empirische Experteninterviews', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Interviews im Großprojekt mit Gesamtprojektleitung, TPLs und Lead-Architekten.' },
-          { title: 'Qualitative Inhaltsanalyse nach Mayring', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Deduktiv-induktives Kategoriensystem und wissenschaftliches Codebuch zur Auswertung.' },
-          { title: 'Boundary Resources & Bimodale IT', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Theoretische Fundierung nach Ghazawneh & Henfridsson: ABR, DBR, SBR und lose Kopplung.' },
-          { title: 'Absorptive Capacity & Change Management', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Wissensaufnahme- und Transformationsfähigkeit (Cohen & Levinthal) in traditionsreichen Konzernen.' },
-          { title: 'Masterabschluss M.Sc. 1,6 (120 ECTS)', cat: 'Forschung & Wissenschaft', tab: 'thesis', desc: 'Amtliches Zeugnis Universität Stuttgart: Bestnote 1,0 in Masterarbeit und Digitaler Nachhaltigkeit.' },
-          // PRIVATE_CATALOG_START
-          { title: '60-Sekunden-Elevator-Pitch', cat: 'Interview & Karriere', tab: 'interview', desc: 'Prägnanter Einstiegspitch für Vorstellungsgespräche: 24 Mo. SSB + 1,0 Masterarbeit Clean Core.' },
-          { title: 'Deep-Dive-Story (3 Minuten)', cat: 'Interview & Karriere', tab: 'interview', desc: 'Ausführliche Karrierestory von Datacenter One über Uni Stuttgart bis zum Großprojekt SAP4SSB.' },
-          { title: 'CV De-Risking & Gefahrenabwehr', cat: 'Interview & Karriere', tab: 'cv_defense', desc: 'Souveräne Pivot-Brücken bei Fangfragen zu Java, SPRO-Customizing, RPA oder Berufserfahrung.' },
-          { title: 'STAR-Stories (Methodische Antworten)', cat: 'Interview & Karriere', tab: 'interview', desc: 'Situation, Task, Action, Result für Konflikte, Scope Creep, Tool-Einführung und Migration.' },
-          { title: '90-Tage Onboarding-Roadmap', cat: 'Interview & Karriere', tab: 'career', desc: 'Strukturierter Fahrplan für die ersten 3 Monate als Consultant oder Enterprise Architekt.' },
-          { title: 'Gehaltskalkulation (55.000 € – 75.000 €)', cat: 'Interview & Karriere', tab: 'career', desc: 'Fundierte Marktwertbegründung (Junior 55–65k € | Konzern/IGM 65–75k €) und Verhandlungsleitfaden.' },
-          { title: 'Persönliches Second Brain & Local RAG', cat: 'Interview & Karriere', tab: 'notebook', desc: 'Interaktives Notizbuch mit Obsidian-Sync + SQLite FTS5 Volltextsuche über alle 4.980 Dokumente.' }
-          // PRIVATE_CATALOG_END
-        ];
-
         // PRIVATE_QA_FILES_START
         const allQA = [
           {
@@ -557,8 +542,8 @@ Im Transformationsprogramm haben Gesamtprojektleitung und IT-Leitung die Arbeitn
 Meine Hauptaufgaben umfassten:
 - 24/7 Monitoring von Core-Netzwerken, Serverfarmen, USV-Anlagen (Unterbrechungsfreie Stromversorgung) und RZ-Klimatechnik.
 - Single Point of Contact (SPoC) für Enterprise-Kunden und Tier-1 Carrier bei Störungen nach ITIL 4 Service Operations.
-- Konzeption und Aufbau einer zentralen Wissensdatenbank in Confluence zur Prozessstandardisierung.
-- Hands-on Incident- und Problem-Management via Jira Service Management.`,
+- Konzeption und Aufbau einer zentralen Wissensdatenbank (SOP-Portal) zur Prozessstandardisierung.
+- Hands-on Incident- und Problem-Management im Enterprise IT-Service-Management.`,
             do: 'Betone die 24/7 Leitstands-Verantwortung, ITIL 4 Prinzipien und den Single Point of Contact (SPoC).',
             dont: "Reduziere den Leitstand nicht auf 'Kabel stecken' – es ging um unternehmenskritisches SLA-Management."
           },
@@ -568,7 +553,7 @@ Meine Hauptaufgaben umfassten:
             open: false,
             a: `Trat im PRTG-Monitoring ein Alarm auf (z.B. Packet Loss oder Leitungsunterbrechung auf einer Glasfaserstrecke), folgte das Vorgehen einer strikten Standard Operating Procedure (SOP):
 1. Verifikation & Triage: Prüfen, ob es sich um einen lokalen Port, einen Switch oder eine externe Carrier-Leitung handelt.
-2. Ticket-Erstellung: Sofortige Erfassung im Jira Service Management mit Severity-Einstufung und Zuweisung an die zuständige Carrier-Eskalationsstufe.
+2. Ticket-Erstellung: Sofortige Erfassung im IT-Service-Management mit Severity-Einstufung und Zuweisung an die zuständige Carrier-Eskalationsstufe.
 3. Stakeholder-Kommunikation: Proaktive Kundeninformation innerhalb der vertraglichen Reaktionszeit (SLA).
 4. Entstörung & Dokumentation: Koordination mit Field Service Technikern vor Ort und Revisionssichere Abschlussdokumentation im Ticket.`,
             do: 'Beschreibe die Schritte strukturiert: Alarm -> Triage -> Ticket -> Carrier-Eskalation -> SLA-Einhaltung.',
@@ -578,10 +563,10 @@ Meine Hauptaufgaben umfassten:
             q: 'Wie haben Sie die Prozessstandardisierung im INOC vorangetrieben?',
             cat: 'Datacenter One & ITIL 4',
             open: false,
-            a: `Vor meiner Initiative lag viel Erfahrungswissen isoliert bei einzelnen Schichtleitern. Ich habe die Initiative ergriffen, dieses Wissen in Confluence zu systematisieren.
+            a: `Vor meiner Initiative lag viel Erfahrungswissen isoliert bei einzelnen Schichtleitern. Ich habe die Initiative ergriffen, dieses Wissen strukturiert in der zentralen Wissensdatenbank zu systematisieren.
 
 Ich habe Standard Operating Procedures (SOPs) für wiederkehrende Störungsbilder erstellt – darunter Leitfäden für Carrier-Ausfälle, USV-Alarme, Notfall-Paging und das Onboarding neuer Rechenzentrums-Kunden. Dadurch sank die Einarbeitungszeit neuer Mitarbeiter deutlich und die Erstlösungsquote (First Contact Resolution) stieg messbar.`,
-            do: 'Erwähne die Confluence-Wissensdatenbank, SOPs und die Steigerung der First Contact Resolution.',
+            do: 'Erwähne die zentrale Wissensdatenbank, SOPs und die Steigerung der First Contact Resolution.',
             dont: 'Behaupte nicht, du hättest das Rechenzentrum alleine betrieben – stelle deinen Beitrag zur Standardisierung heraus.'
           },
           {
@@ -1080,7 +1065,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           if (selectedQACat.value !== 'Alle') {
             list = list.filter(item => item.cat === selectedQACat.value);
           }
-          const term = (qaSearch.value || searchQuery.value || '').trim().toLowerCase();
+          const term = (qaSearch.value || '').trim().toLowerCase();
           if (term) {
             list = list.filter(item => 
               item.q.toLowerCase().includes(term) || 
@@ -1095,14 +1080,6 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           let list = filesData;
           if (selectedFileCat.value !== 'Alle') {
             list = list.filter(item => item.cat === selectedFileCat.value);
-          }
-          if (searchQuery.value) {
-            const q = searchQuery.value.toLowerCase();
-            list = list.filter(item => 
-              item.name.toLowerCase().includes(q) || 
-              item.desc.toLowerCase().includes(q) || 
-              item.impact.toLowerCase().includes(q)
-            );
           }
           return list;
         });
@@ -1128,8 +1105,8 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             badge: 'AWS 2,0 × 12M INOC × RISE',
             title: '2. Cloud-Architektur, Hybrid Infrastructure & ITIL 4 Service Operations',
             uni: 'Cloud Computing (2,0, AWS Well-Architected Serverless) + SOM (3,0) + ITIL/COBIT (3,0) + TEUI (1,7)',
-            work: 'Datacenter One (12M 24/7 INOC SPoC, PRTG, Jira, USV/HVAC, Confluence SOPs) & SSB TP4 (RISE Private Cloud, ES4/QS4/PS4)',
-            project: 'Hardware Lifecycle Management (HLM_v2.vsdx für 100+ Leitstands- & Client-Systeme, Dell PoC)',
+            work: 'Datacenter One (12M 24/7 INOC SPoC, PRTG, ITSM Service Desk, USV/HVAC, Wissens-SOPs) & SSB TP4 (RISE Private Cloud, ES4/QS4/PS4)',
+            project: 'Hardware Lifecycle Management (Visio-Architektur für 100+ Leitstands- & Client-Systeme, Dell PoC)',
             synergy: 'Du denkst Cloud & ERP vom physischen Glasfaser-/RZ-Betrieb über Serverless Event-Muster bis zur stabilen 3rd-Level Hypercare-Übergabe.',
             deepNote: 'Ticket- und Root-Cause-Disziplin aus dem 24/7 RZ-Leitstand überträgt sich direkt auf SAP Job-/Dump-/Berechtigungsanalyse (SM37, SU53, ST22).',
             targetTab: 'enterprise_arch',
@@ -1205,44 +1182,14 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           return wbsProjects.value.filter(p => p.id.toLowerCase() === wbsFilter.value.toLowerCase() || p.phase.toLowerCase() === wbsFilter.value.toLowerCase());
         });
 
-        const commandFilteredResults = computed(() => {
-          if (!commandSearch.value) return searchCatalog.slice(0, 8);
-          const q = commandSearch.value.toLowerCase();
-          return searchCatalog.filter(item => 
-            item.title.toLowerCase().includes(q) || 
-            item.desc.toLowerCase().includes(q) || 
-            item.cat.toLowerCase().includes(q)
-          );
-        });
-
-        const openCommandPalette = () => {
-          isCommandPaletteOpen.value = true;
-          commandSearch.value = '';
-          setTimeout(() => {
-            const el = document.getElementById('command-palette-input');
-            if (el) el.focus();
-          }, 50);
-        };
-
-        const closeCommandPalette = () => {
-          isCommandPaletteOpen.value = false;
-          commandSearch.value = '';
-        };
-
-        const selectCommandResult = (item) => {
-          activeTab.value = item.tab;
-          closeCommandPalette();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-
         const toggleDarkMode = () => {
           isDark.value = !isDark.value;
           if (isDark.value) {
             document.documentElement.classList.add('dark');
-            localStorage.setItem('vm_atl_theme', 'dark');
+            localStorage.setItem('vm_portal_theme', 'dark');
           } else {
             document.documentElement.classList.remove('dark');
-            localStorage.setItem('vm_atl_theme', 'light');
+            localStorage.setItem('vm_portal_theme', 'light');
           }
         };
 
@@ -1439,18 +1386,12 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         };
 
         onMounted(() => {
-          window.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
-              e.preventDefault();
-              if (isCommandPaletteOpen.value) {
-                closeCommandPalette();
-              } else {
-                openCommandPalette();
-              }
-            } else if (e.key === 'Escape' && isCommandPaletteOpen.value) {
-              closeCommandPalette();
-            }
-          });
+          const updateScrollProgress = () => {
+            const docH = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.value = docH > 0 ? Math.min(100, Math.round((window.scrollY / docH) * 100)) : 0;
+          };
+          window.addEventListener('scroll', updateScrollProgress, { passive: true });
+          updateScrollProgress();
 
           const saved = localStorage.getItem('vm_second_brain_notes');
           if (saved) {
@@ -1458,7 +1399,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           } else {
             personalNotes.value = `# Visar Murseli | Mein persönliches Second Brain\\n\\nWillkommen in deinem persönlichen Karriere-Notizbuch!\\nHier kannst du Notizen zu Vorstellungsgesprächen, Gehaltsverhandlungen und SAP-Architekturen festhalten.\\n\\nAlles, was du hier eintippst, wird automatisch in deinem Browser gespeichert.\\n`;
           }
-          const savedTheme = localStorage.getItem('vm_atl_theme');
+          const savedTheme = localStorage.getItem('vm_portal_theme');
           if (savedTheme === 'dark') {
             isDark.value = true;
             document.documentElement.classList.add('dark');
@@ -1473,12 +1414,15 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           activeTab,
           isMobileMenuOpen,
           isSidebarCollapsed,
-          isAppSwitcherOpen,
+          scrollProgress,
           navSpaces,
           currentTabName,
+          currentTabIndex,
+          prevTab,
+          nextTab,
+          selectTab,
           currentHubName,
           degreeTab,
-          searchQuery,
           isDark,
           pitchMode,
           tabs,
@@ -1526,16 +1470,9 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           exportNotes,
           clearNotes,
           insertTemplate,
-          isCommandPaletteOpen,
-          commandSearch,
           wbsFilter,
           wbsProjects,
-          filteredWbsProjects,
-          searchCatalog,
-          commandFilteredResults,
-          openCommandPalette,
-          closeCommandPalette,
-          selectCommandResult
+          filteredWbsProjects
         };
       }
     }).mount('#app');

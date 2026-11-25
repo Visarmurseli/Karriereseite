@@ -190,7 +190,7 @@ def get_cv_defense():
               <div class="font-bold text-[#f87171] text-sm">Datacenter One & Zertifikate</div>
               <div class="text-white font-semibold">12 Monate INOC + TOGAF Intensive</div>
               <p class="text-[#c4bebe] text-[11px] leading-relaxed">
-                Datacenter One: 1st/2nd Level Incident Management, Monitoring, Jira/Confluence. TOGAF-Intensivkurs bei Scape Consulting (Dr. Daniel Simon, Jan 2020).
+                Datacenter One: 1st/2nd Level Incident Management, Monitoring, ITSM Service Desk &amp; Wissensdatenbank. TOGAF-Intensivkurs bei Scape Consulting (Dr. Daniel Simon, Jan 2020).
               </p>
               <div class="text-[10px] text-emerald-400 font-bold">Operatives ITIL- & Architektur-Fundament</div>
             </div>

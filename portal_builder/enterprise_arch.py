@@ -45,7 +45,7 @@ def get_enterprise_arch():
                 <h4 class="font-bold text-white text-xs sm:text-sm">ITIL 4 Incident- & Service-Desk-Management (SPoC)</h4>
               </div>
               <p class="text-xs text-[#c4bebe] leading-relaxed">
-                Single Point of Contact (SPoC) für B2B-Kunden, Colocation-Mieter und interne Service-Techniker im Jira Service Management. Annahme, Priorisierung, Dokumentation und Zuweisung von Incidents und Service Requests unter strikter Einhaltung vertraglich garantierter SLAs (99,99% Verfügbarkeit).
+                Single Point of Contact (SPoC) für B2B-Kunden, Colocation-Mieter und interne Service-Techniker im IT-Service-Management. Annahme, Priorisierung, Dokumentation und Zuweisung von Incidents und Service Requests unter strikter Einhaltung vertraglich garantierter SLAs (99,99% Verfügbarkeit).
               </p>
               <div class="text-[11px] text-[#8f8888] pt-1 border-t border-white/10">
                 Fokus: Einhaltung von Reaktionszeiten, Major Incident Eskalation nach Eskalationsmatrix und saubere Schichtübergaben.
@@ -55,10 +55,10 @@ def get_enterprise_arch():
             <div class="p-4 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/30 transition space-y-2">
               <div class="flex items-center space-x-2">
                 <span class="text-[#f87171] font-bold">3.</span>
-                <h4 class="font-bold text-white text-xs sm:text-sm">Aufbau & Standardisierung der Confluence-Wissensdatenbank</h4>
+                <h4 class="font-bold text-white text-xs sm:text-sm">Aufbau & Standardisierung der Wissensdatenbank</h4>
               </div>
               <p class="text-xs text-[#c4bebe] leading-relaxed">
-                Konzeption und redaktioneller Aufbau eines zentralen Prozess- und Wissensportals in Atlassian Confluence. Erstellung von Standard Operating Procedures (SOPs) für Notfallszenarien, Netzausfälle, DDoS-Attacken, Zutrittskontrollen und Carrier-Eskalationspfade.
+                Konzeption und redaktioneller Aufbau eines zentralen Prozess- und Wissensportals (Knowledge Base). Erstellung von Standard Operating Procedures (SOPs) für Notfallszenarien, Netzausfälle, DDoS-Attacken, Zutrittskontrollen und Carrier-Eskalationspfade.
               </p>
               <div class="text-[11px] text-[#8f8888] pt-1 border-t border-white/10">
                 Fokus: Beseitigung von Wissensinseln, Vereinheitlichung der Betriebsführung und strukturierte Einarbeitung neuer INOC-Mitarbeiter.
@@ -97,7 +97,7 @@ def get_enterprise_arch():
               <div class="p-3 bg-white/5 rounded-lg border border-white/10">
                 <div class="font-semibold text-white mb-0.5">2. Standardisierte Dokumentation</div>
                 <p class="text-[#c4bebe] text-[11px] leading-relaxed">
-                  In kritischen Betriebslagen entscheiden standardisierte SOPs in Confluence über Minuten. Bei der SSB bildete dieses Mindset das Fundament für saubere Signavio- und ALM-Prozesse.
+                  In kritischen Betriebslagen entscheiden standardisierte SOPs in der Wissensdatenbank über Minuten. Bei der SSB bildete dieses Mindset das Fundament für saubere Signavio- und ALM-Prozesse.
                 </p>
               </div>
 
