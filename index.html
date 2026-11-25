@@ -752,67 +752,6 @@
           </div>
         </div>
 
-        <!-- Interactive Role-Fit Matcher (Recruiter & Hiring Manager Quick-Check) -->
-        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 shadow-lg space-y-4">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-            <div>
-              <h3 class="text-sm sm:text-base font-bold text-white flex items-center space-x-2">
-                <span>🎯</span>
-                <span>Interaktiver Role-Fit Matcher: Für welche Rolle prüfen Sie mein Profil?</span>
-              </h3>
-              <p class="text-xs text-[#8f8888] mt-0.5">Wählen Sie eine Zielrolle – das System filtert die 3 stärksten verifizierten Belege & relevanten Module.</p>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              <button
-                v-for="role in roleFitOptions"
-                :key="role.id"
-                @click="selectedRoleFit = role.id"
-                :class="[
-                  'px-3 py-1.5 rounded-xl text-xs font-semibold transition border',
-                  selectedRoleFit === role.id
-                    ? 'bg-[#bf262e] text-white border-[#bf262e] shadow-md shadow-[#bf262e]/30'
-                    : 'bg-white/5 text-[#c4bebe] border-white/10 hover:border-[#bf262e]/50 hover:text-white'
-                ]"
-              >
-                { role.icon } { role.shortLabel }
-              </button>
-            </div>
-          </div>
-
-          <div v-if="currentRoleFit" class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
-              <div>
-                <div class="text-xs font-bold text-[#f87171] uppercase tracking-wider">{ currentRoleFit.subtitle }</div>
-                <div class="text-sm sm:text-base font-bold text-white">{ currentRoleFit.title }</div>
-              </div>
-              <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold self-start sm:self-auto">
-                { currentRoleFit.matchBadge }
-              </span>
-            </div>
-            <p class="text-xs text-[#c4bebe] leading-relaxed">{ currentRoleFit.pitch }</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div v-for="(proof, idx) in currentRoleFit.proofs" :key="idx" class="p-3 rounded-xl bg-black/30 border border-white/10 space-y-1">
-                <div class="text-[11px] font-bold text-white flex items-center justify-between">
-                  <span>{ proof.label }</span>
-                  <span class="text-emerald-400 font-mono">{ proof.metric }</span>
-                </div>
-                <div class="text-[11px] text-[#8f8888] leading-snug">{ proof.detail }</div>
-              </div>
-            </div>
-            <div class="flex flex-wrap items-center gap-2 pt-1">
-              <span class="text-[11px] text-[#8f8888] font-medium">Direkt vertiefen:</span>
-              <button
-                v-for="link in currentRoleFit.links"
-                :key="link.tab"
-                @click="activeTab = link.tab"
-                class="px-2.5 py-1 rounded-lg bg-[#bf262e]/15 hover:bg-[#bf262e] text-[#f87171] hover:text-white border border-[#bf262e]/30 text-[11px] font-semibold transition"
-              >
-                { link.label } ➔
-              </button>
-            </div>
-          </div>
-        </div>
-
         <!-- Chronologische Werdegang-Timeline (2019–2026) -->
         <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex items-center justify-between">
@@ -3724,88 +3663,6 @@
         const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
         const synergyViewMode = ref('compact');
         const synergyFilter = ref('Alle');
-        const selectedRoleFit = ref('sap_consultant');
-
-        const roleFitOptions = [
-          {
-            id: 'sap_consultant',
-            icon: '🚆',
-            shortLabel: 'SAP Consultant',
-            subtitle: 'S/4HANA Transformation & Inhouse Consulting',
-            title: 'Junior SAP Inhouse / Transformation Consultant',
-            matchBadge: '100% Fit: 24M S/4HANA + 1,0 Forschung',
-            pitch: 'Direkt produktiv in Fit-to-Standard Workshops, Solution Design (FI/CO, MM, Trennungsrechnung) und Clean-Core-Governance – ohne veraltete ECC-Altlasten.',
-            proofs: [
-              { label: 'SSB AG Großprojekt', metric: '24 Monate', detail: 'Explore-Phase abgeschlossen, Solution Design Document (SDD) vollständig genehmigt.' },
-              { label: 'Masterarbeit (Note 1,0)', metric: '12 Interviews', detail: 'Empirische Untersuchung kritischer Erfolgsfaktoren bei SAP S/4HANA Plattformisierung.' },
-              { label: 'SAP Toolchain-Praxis', metric: '3 Core-Tools', detail: 'Aktive Steuerung & Governance mit SAP Cloud ALM, SAP Signavio & SAP Enable Now.' }
-            ],
-            links: [
-              { tab: 'project', label: 'S/4HANA Projekt' },
-              { tab: 'solution_design', label: 'Solution Design (FI/CO)' },
-              { tab: 'tools', label: 'Toolchain Hub' }
-            ]
-          },
-          {
-            id: 'it_pmo',
-            icon: '📊',
-            shortLabel: 'IT-PMO / PM',
-            subtitle: 'Multiprojektsteuerung & Governance',
-            title: 'Junior IT-Projektmanager / IT-PMO Specialist',
-            matchBadge: 'Top Fit: TP1–TP5 Steuerung + Vergabe',
-            pitch: 'Erfahren in der Gesamtsteuerung eines 3.700-Mitarbeiter-Konzerns: Meilenstein-Controlling in MS Project, C-Level-Reporting, Ressourcenplanung und Partnerkoordination.',
-            proofs: [
-              { label: 'Teilprojekt 5 PMO', metric: 'TP1 – TP5', detail: 'Fortschrittsanalyse, Status-Reporting & Gremiensteuerung bis Abschluss Explore.' },
-              { label: 'Tool- & Teams-Governance', metric: 'Kanban / CALM', detail: 'Strukturierung projektweiter Kollaborationskanäle, KPI-Tracking & Abnahmekriterien.' },
-              { label: 'Vergabe & Compliance', metric: 'SektVO / Mitbestimmung', detail: 'Begleitung öffentlicher Vergabestrukturen und komplexer Betriebsvereinbarungen.' }
-            ],
-            links: [
-              { tab: 'project', label: 'TP1–TP5 Steuerung' },
-              { tab: 'synergies', label: 'Stärken & Synergien' },
-              { tab: 'career', label: 'Zielrollen & Roadmap' }
-            ]
-          },
-          {
-            id: 'enterprise_arch',
-            icon: '🏛️',
-            shortLabel: 'Enterprise Architect',
-            subtitle: 'BTP, Clean Core & TOGAF 9 ADM',
-            title: 'Junior Enterprise Architect / SAP BTP',
-            matchBadge: 'Top Fit: TOGAF 9 + Boundary Resources',
-            pitch: 'Verbindet zertifizierte Enterprise Architecture (TOGAF 9 ADM) mit akademischer Plattform-Forschung (Bachelor 1,7 & Master 1,0) und realer S/4HANA-Schnittstellenarchitektur.',
-            proofs: [
-              { label: 'TOGAF 9 ADM Zertifikat', metric: 'Scape Consulting', detail: 'Strukturierte Architektur-Governance von Business über Application bis Technology.' },
-              { label: 'Bimodale IT & Clean Core', metric: 'BTP / APIs', detail: 'Entkopplung von Core-ERP und Side-by-Side-Erweiterungen nach Boundary-Resource-Theorie.' },
-              { label: 'Datenmigration & CVI', metric: '0,00 € Saldo', detail: 'Saubere Datenmodellierung, Staging-Tabellen (LTMC) & Business-Partner-Harmonisierung.' }
-            ],
-            links: [
-              { tab: 'enterprise_arch', label: 'TOGAF & EAM' },
-              { tab: 'cheatsheet', label: 'BTP Cheatsheet' },
-              { tab: 'migration', label: 'Datenmigration' }
-            ]
-          },
-          {
-            id: 'service_ops',
-            icon: '🖥️',
-            shortLabel: 'ITIL 4 / Operations',
-            subtitle: '24/7 Leitstand & Service Management',
-            title: 'IT-Service Operations / ITSM Specialist',
-            matchBadge: 'Top Fit: 12M INOC + ITIL 4',
-            pitch: 'Praxiserprobt im hochverfügbaren Rechenzentrumsbetrieb: Single Point of Contact, SLA-Überwachung, Incident Management nach ITIL 4 und Aufbau von Confluence-Wissensdatenbanken.',
-            proofs: [
-              { label: 'Datacenter One INOC', metric: '12 Monate', detail: '24/7 Monitoring von Core-Netzwerken, USV und Klimatechnik (PRTG).' },
-              { label: 'ITSM & Knowledge Base', metric: 'Jira / Confluence', detail: 'Prozessstandardisierung, SOP-Aufbau und strukturiertes Ticket-Routing als SPOC.' },
-              { label: 'Schnittstelle zu S/4HANA', metric: 'Run-Readiness', detail: 'Verbindung aus stabilem IT-Betrieb und strukturierter SAP Activate Run-Vorbereitung.' }
-            ],
-            links: [
-              { tab: 'enterprise_arch', label: 'ITIL 4 & DC1' },
-              { tab: 'tools', label: 'Toolchain & Operations' },
-              { tab: 'synergies', label: 'Arbeit × Uni Synergien' }
-            ]
-          }
-        ];
-
-        const currentRoleFit = computed(() => roleFitOptions.find(r => r.id === selectedRoleFit.value) || roleFitOptions[0]);
 
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
@@ -4250,9 +4107,6 @@
           synergyViewMode,
           synergyFilter,
           filteredSynergies,
-          selectedRoleFit,
-          roleFitOptions,
-          currentRoleFit,
           runRagSearch,
           runRagAsk,
           quickRagAsk,

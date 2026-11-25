@@ -143,67 +143,6 @@ def get_dashboard(public_mode=False):
           </div>
         </div>
 
-        <!-- Interactive Role-Fit Matcher (Recruiter & Hiring Manager Quick-Check) -->
-        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 shadow-lg space-y-4">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-            <div>
-              <h3 class="text-sm sm:text-base font-bold text-white flex items-center space-x-2">
-                <span>🎯</span>
-                <span>Interaktiver Role-Fit Matcher: Für welche Rolle prüfen Sie mein Profil?</span>
-              </h3>
-              <p class="text-xs text-[#8f8888] mt-0.5">Wählen Sie eine Zielrolle – das System filtert die 3 stärksten verifizierten Belege & relevanten Module.</p>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              <button
-                v-for="role in roleFitOptions"
-                :key="role.id"
-                @click="selectedRoleFit = role.id"
-                :class="[
-                  'px-3 py-1.5 rounded-xl text-xs font-semibold transition border',
-                  selectedRoleFit === role.id
-                    ? 'bg-[#bf262e] text-white border-[#bf262e] shadow-md shadow-[#bf262e]/30'
-                    : 'bg-white/5 text-[#c4bebe] border-white/10 hover:border-[#bf262e]/50 hover:text-white'
-                ]"
-              >
-                {{ role.icon }} {{ role.shortLabel }}
-              </button>
-            </div>
-          </div>
-
-          <div v-if="currentRoleFit" class="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-2.5">
-              <div>
-                <div class="text-xs font-bold text-[#f87171] uppercase tracking-wider">{{ currentRoleFit.subtitle }}</div>
-                <div class="text-sm sm:text-base font-bold text-white">{{ currentRoleFit.title }}</div>
-              </div>
-              <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold self-start sm:self-auto">
-                {{ currentRoleFit.matchBadge }}
-              </span>
-            </div>
-            <p class="text-xs text-[#c4bebe] leading-relaxed">{{ currentRoleFit.pitch }}</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div v-for="(proof, idx) in currentRoleFit.proofs" :key="idx" class="p-3 rounded-xl bg-black/30 border border-white/10 space-y-1">
-                <div class="text-[11px] font-bold text-white flex items-center justify-between">
-                  <span>{{ proof.label }}</span>
-                  <span class="text-emerald-400 font-mono">{{ proof.metric }}</span>
-                </div>
-                <div class="text-[11px] text-[#8f8888] leading-snug">{{ proof.detail }}</div>
-              </div>
-            </div>
-            <div class="flex flex-wrap items-center gap-2 pt-1">
-              <span class="text-[11px] text-[#8f8888] font-medium">Direkt vertiefen:</span>
-              <button
-                v-for="link in currentRoleFit.links"
-                :key="link.tab"
-                @click="activeTab = link.tab"
-                class="px-2.5 py-1 rounded-lg bg-[#bf262e]/15 hover:bg-[#bf262e] text-[#f87171] hover:text-white border border-[#bf262e]/30 text-[11px] font-semibold transition"
-              >
-                {{ link.label }} ➔
-              </button>
-            </div>
-          </div>
-        </div>
-
         <!-- Chronologische Werdegang-Timeline (2019–2026) -->
         <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex items-center justify-between">

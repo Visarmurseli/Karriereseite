@@ -82,9 +82,7 @@ def test_command_palette_and_telemetry(content):
         "21 Deliverables",
         "300 ECTS",
         "Stärkenprofil & Synergie-Atlas",
-        "filteredSynergies",
-        "selectedRoleFit",
-        "roleFitOptions"
+        "filteredSynergies"
     ]
     for feat in features:
         assert feat in content, f"Feature check failed: Missing '{feat}'"
