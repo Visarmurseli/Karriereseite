@@ -243,8 +243,8 @@ def get_synergies(public_mode=False):
                 </p>
               </div>
               <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-white/10">
-                <button @click="activeTab = syn.targetTab" class="text-[11px] text-[#c4bebe] hover:text-white underline">
-                  Fachbereich im Portal ansehen ➔
+                <button @click="selectTab(syn.targetTab)" class="text-[11px] text-[#c4bebe] hover:text-white underline">
+                  Fachbereich öffnen ➔
                 </button>{deep_rag_btn}
               </div>
             </div>
@@ -284,7 +284,7 @@ def get_synergies(public_mode=False):
                 <span>🚀 Industrie- & Eigenprojekte (Automation, SaaS, RAG)</span>
                 <span class="text-[11px] text-amber-300">Hands-on Belege</span>
               </div>
-              <p class="text-[#c4bebe] leading-relaxed"><strong>J. Schmalz GmbH (1,0):</strong> PowerShell-Automatisierung & BPMN für CSRD-Abfallbilanz • <strong>Klingele/ISG PatentRadar (2,0):</strong> Hybrides SaaS-/RPA-Geschäftsmodell • <strong>Knowledge & Profile OS:</strong> Modulares Vue 3 Portal + lokales 3-Signal Hybrid RAG V3 über 4.980 Quelldateien.</p>
+              <p class="text-[#c4bebe] leading-relaxed"><strong>J. Schmalz GmbH (1,0):</strong> PowerShell-Automatisierung &amp; BPMN für CSRD-Abfallbilanz • <strong>Klingele/ISG PatentRadar (2,0):</strong> Hybrides SaaS-/RPA-Geschäftsmodell • <strong>Executive Career Platform:</strong> Strukturierte SAP- &amp; Architektur-Wissenssynthese nach Clean-Design-Standards.</p>
             </div>
           </div>
         </div>

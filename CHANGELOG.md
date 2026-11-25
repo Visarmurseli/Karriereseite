@@ -23,6 +23,23 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.23.0] - 2026-11-25 (Radikale Verschlankung auf 7 Executive-Tabs & ATS-Fokus)
+
+### 🎯 Kontext & Leitmotiv
+Strategisches UX- und Marketing-Redesign auf exakt **7 fokussierte, ATS-optimierte Kernseiten** im Public Showcase (`Dashboard`, `SSB`, `DC1`, `Master`, `Bachelor`, `Synergien`, `FAQ`) – nach der 6-Sekunden-Recruiter-Regel und Progressive Disclosure. Doppelte Kennzahlen-Telemetrie, Redundanzen und tiefgehende Technikdetails wurden aus den Hauptseiten entfernt bzw. geordnet in ein filterbares FAQ-Akkordeon verschoben.
+
+### 📐 Die 7-Tab-Informationsarchitektur
+- **1. Dashboard (`dashboard.py`):** Executive One-Pager mit Headline, 4 Key-Credentials, 4 Einstiegs-Karten, kompakter Werdegang-Timeline (2019–2026) & Zielrollen-Fokus.
+- **2. SSB AG (`ssb_tab.py`):** Konsolidierung der bisherigen 4 SSB-Tabs auf ATS-Kernthemen (24M IT-PMO TP5, Explore-Abschluss & SDD-Freigabe, Clean Core / BTP, FI/CO ACDOCA & Trennungsrechnung, Cloud ALM, Signavio, Enable Now, SAP Activate Phasen-Cockpit).
+- **3. Datacenter One (`dc1_tab.py`):** Fokussierte 2×2 ITIL 4 Service Operations Matrix (24/7 PRTG-Monitoring, SPoC Incident Management, Wissens-SOPs, Hardware Lifecycle Management 100+ Systeme) + Hypercare-Brücke.
+- **4. Master (`master_tab.py`):** Masterarbeit-Highlight (Note 1,0 | 126 S. | 12 Interviews), 3 angewandte Masterprojekte & vollständige Modultabelle aller 16 Prüfungsleistungen (120 ECTS | Gesamtnote 1,6).
+- **5. Bachelor (`bachelor_tab.py`):** Bachelorarbeit-Highlight (Note 1,7 | Boundary Resources OutSystems/Mendix), E-Business 1,0, TOGAF 9 ADM Zertifikat & vollständige 180-ECTS-Modultabelle (Gesamtnote 3,0).
+- **6. Synergien (`synergies.py`):** 5 evidenzbasierte Stärken-Cluster & 6 Arbeit × Studium Synthesen mit klaren Zielrollen-Bezügen.
+- **7. FAQ (`faq_tab.py` & `vue_app.py`):** Filterbares Akkordeon (`SSB & S/4HANA`, `Migration & Schnittstellen`, `Studium & DC1`, `Einstieg & Arbeitsweise`) für alle ausgelagerten Architektur-, Migrations- und Einstiegsdetails.
+- **Privates Cockpit (nur Lokal `localhost:8085`):** `Interview Masterclass`, `CV De-Risking`, `Deliverables-Register` und `Second Brain & RAG` bleiben lokal voll erhalten.
+
+---
+
 ## [1.22.0] - 2026-11-25 (Eigenständige Modern Dynamic UI, Entfernung von Drittanbieter-Branding, Suchfunktion & internen Dateinamen)
 
 ### 🎯 Kontext & Leitmotiv

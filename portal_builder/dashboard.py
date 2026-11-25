@@ -1,59 +1,61 @@
 # -*- coding: utf-8 -*-
 
 def get_dashboard(public_mode=False):
-    dossier_target = "thesis" if public_mode else "notebook"
-    files_target = "tools" if public_mode else "files"
-    career_sub = "Junior & Trainee Einstieg" if public_mode else "Junior & Trainee (55k–75k €)"
-    module_count_label = "10 Fachmodule" if public_mode else "14 Themenbereiche"
-    private_cards = "" if public_mode else """
-            <button @click="activeTab = 'interview'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+    private_quick_links = "" if public_mode else """
+        <!-- Lokales Privat-Cockpit (Nur auf localhost:8085 sichtbar) -->
+        <div class="bg-[#141414] p-5 rounded-2xl border border-white/10 space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white flex items-center gap-2">
+              <span>🔒</span>
+              <span>Privates Karriere-Cockpit &amp; Second Brain (Lokal)</span>
+            </h3>
+            <span class="status-pill status-pill-amber">Nur Localhost</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <button @click="selectTab('interview')" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 transition">
               <div class="font-bold text-white mb-0.5">🎙️ Interview Masterclass</div>
-              <div class="text-[11px] text-[#8f8888]">Pitches, STAR-Stories & 40+ Q&A</div>
+              <div class="text-[11px] text-[#8f8888]">Pitches, STAR &amp; Q&amp;A</div>
             </button>
-
-            <button @click="activeTab = 'cv_defense'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
+            <button @click="selectTab('cv_defense')" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 transition">
               <div class="font-bold text-white mb-0.5">🛡️ CV De-Risking</div>
-              <div class="text-[11px] text-[#8f8888]">Ampelsystem & Pivot-Brücken</div>
-            </button>"""
-    private_tail_cards = "" if public_mode else """
-            <button @click="activeTab = 'files'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">📂 Deliverables-Register</div>
-              <div class="text-[11px] text-[#8f8888]">50+ kuratierte Nachweis-Akten</div>
+              <div class="text-[11px] text-[#8f8888]">Ampelsystem &amp; Pivot-Brücken</div>
             </button>
+            <button @click="selectTab('files')" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 transition">
+              <div class="font-bold text-white mb-0.5">📂 Deliverables-Register</div>
+              <div class="text-[11px] text-[#8f8888]">50+ Nachweis-Artefakte</div>
+            </button>
+            <button @click="selectTab('notebook')" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 transition">
+              <div class="font-bold text-white mb-0.5">📝 Second Brain &amp; RAG</div>
+              <div class="text-[11px] text-[#8f8888]">Obsidian Sync &amp; FTS5</div>
+            </button>
+          </div>
+        </div>"""
 
-            <button @click="activeTab = 'notebook'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">📝 Second Brain & RAG</div>
-              <div class="text-[11px] text-[#8f8888]">Local RAG Suche & Obsidian Sync</div>
-            </button>"""
-    return f"""
-      <!-- ================= TAB 1: WISSENSDATENBANK ÜBERSICHT ================= -->
+    tpl = """
+      <!-- ================= TAB 1: DASHBOARD (EXECUTIVE ONE-PAGER) ================= -->
       <div v-show="activeTab === 'dashboard'" class="space-y-6">
         
-        <!-- Modern Hero Section & Executive Summary Banner -->
-        <div class="bg-[#141414] rounded-2xl p-6 lg:p-7 border border-white/10 space-y-5">
+        <!-- Executive Hero Section -->
+        <div class="bg-[#141414] rounded-2xl p-6 lg:p-8 border border-white/10 space-y-5">
           <div class="space-y-3">
-            
-            <!-- Academic & Practical Status Pills -->
             <div class="flex flex-wrap items-center gap-2">
               <span class="status-pill status-pill-neutral">🏛️ Universität Stuttgart</span>
               <span class="status-pill status-pill-green">M.Sc. Wirtschaftsinformatik: Note 1,6 (120 ECTS)</span>
               <span class="status-pill status-pill-green">Masterarbeit: Note 1,0 (30 ECTS)</span>
-              <span class="status-pill status-pill-blue">B.Sc. Wirtschaftsinformatik: Note 3,0 (180 ECTS)</span>
-              <span class="status-pill status-pill-blue">Bachelorarbeit: Note 1,7 (12 ECTS)</span>
+              <span class="status-pill status-pill-blue">B.Sc. Note 3,0 (180 ECTS • Thesis 1,7)</span>
+              <span class="status-pill status-pill-purple">TOGAF 9 ADM Zertifikat</span>
             </div>
             
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center gap-2.5">
-              <span>📘</span>
-              <span>Persönliche Wissensdatenbank: Akademisches &amp; Berufliches Fundament</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              Enterprise ERP Transformation, IT-PMO &amp; Service Operations
             </h2>
 
-            <!-- Highlight Info Banner -->
             <div class="info-callout p-4 flex items-start gap-3 text-xs sm:text-sm leading-relaxed">
               <span class="text-base shrink-0 mt-0.5">⚡</span>
               <div>
-                <div class="font-bold mb-0.5" style="color: var(--ds-text)">Executive Briefing</div>
+                <div class="font-bold mb-0.5" style="color: var(--ds-text)">Executive Profil</div>
                 <p style="color: var(--ds-text-subtle)">
-                  Dieses Wissensportal bündelt alle Unterlagen, Projekt-Deliverables und theoretischen Grundlagen aus meinem Werdegang als Wirtschaftsinformatiker: <strong>300 ECTS universitäre Ausbildung an der Universität Stuttgart</strong> (Master &amp; Bachelor), <strong>24 Monate Großprojekterfahrung bei der Stuttgarter Straßenbahnen AG</strong> (S/4HANA Transformation bis zum Abschluss der Explore-Phase), <strong>12 Monate ITIL 4 Service Operations bei Datacenter One</strong> sowie die <strong>TOGAF 9 ADM-Zertifizierung</strong>.
+                  Wirtschaftsinformatiker (<strong>300 ECTS</strong>, M.Sc. Note <strong>1,6</strong>, Masterarbeit <strong>1,0</strong>) mit <strong>36 Monaten Enterprise-Praxiserfahrung</strong>: 24 Monate IT-PMO &amp; Lösungsdesign in der <strong>SAP S/4HANA Transformation</strong> (SSB AG bis Explore-Abschluss &amp; SDD-Freigabe) sowie 12 Monate <strong>24/7 ITIL 4 Service Operations</strong> im Rechenzentrumsbetrieb (Datacenter One).
                 </p>
               </div>
             </div>
@@ -61,220 +63,122 @@ def get_dashboard(public_mode=False):
             <div class="pt-1 flex flex-wrap items-center gap-2.5">
               <button @click="selectTab('synergies')" class="px-4 py-2 rounded-lg bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-semibold transition flex items-center space-x-2">
                 <span>⚡</span>
-                <span>Persönliches Stärkenprofil &amp; 6 Arbeit × Uni Synergien entdecken</span>
+                <span>Persönliches Stärkenprofil &amp; Synergien</span>
                 <span>➔</span>
               </button>
-              <button @click="selectTab('career')" class="px-3.5 py-2 rounded-lg bg-white/5 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
-                🎯 Zielrollen &amp; Roadmap
+              <button @click="selectTab('ssb')" class="px-3.5 py-2 rounded-lg bg-white/5 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
+                🚆 SSB S/4HANA Projekt
+              </button>
+              <button @click="selectTab('faq')" class="px-3.5 py-2 rounded-lg bg-white/5 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
+                ❓ FAQ &amp; Details
               </button>
             </div>
           </div>
 
-          <!-- 4 Equal Pillars of Knowledge -->
+          <!-- 4 Kernpfeiler (Direktzugriff auf die 4 Hauptstationen) -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
-            
-            <!-- Pillar 1: SSB S/4HANA Transformation -->
-            <div @click="selectTab('project')" class="bg-white/5 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group" style="border-top: 3px solid var(--ds-brand-bold);">
-              <div class="flex items-center justify-between mb-1">
-                <span class="status-pill status-pill-blue">1. S/4HANA</span>
-                <span class="text-xs font-semibold group-hover:translate-x-1 transition" style="color: var(--ds-text-brand)">➔</span>
+            <div @click="selectTab('ssb')" class="bg-white/5 transition cursor-pointer rounded-xl p-4 border border-white/10 group" style="border-top: 3px solid var(--ds-brand-bold);">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="status-pill status-pill-blue">1. SSB AG (24M)</span>
+                <span class="text-xs font-semibold" style="color: var(--ds-text-brand)">➔</span>
               </div>
-              <div class="font-bold text-sm mt-1 text-white">SSB AG (24 Monate)</div>
-              <div class="text-[11px] text-[#c4bebe] mt-1">Stand bei Austritt: Explore-Phase abgeschlossen, Solution Design Document (SDD) vollständig genehmigt.</div>
+              <div class="font-bold text-sm text-white">SAP S/4HANA &amp; PMO</div>
+              <div class="text-[11px] text-[#c4bebe] mt-1">Explore-Abschluss, SDD-Freigabe, Cloud ALM, Signavio &amp; FI/CO.</div>
             </div>
 
-            <!-- Pillar 2: Datacenter One ITIL Operations -->
-            <div @click="selectTab('enterprise_arch')" class="bg-white/5 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group" style="border-top: 3px solid var(--ds-text-success);">
-              <div class="flex items-center justify-between mb-1">
-                <span class="status-pill status-pill-green">2. Operations</span>
-                <span class="text-xs font-semibold group-hover:translate-x-1 transition" style="color: var(--ds-text-success)">➔</span>
+            <div @click="selectTab('dc1')" class="bg-white/5 transition cursor-pointer rounded-xl p-4 border border-white/10 group" style="border-top: 3px solid var(--ds-text-success);">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="status-pill status-pill-green">2. DC1 (12M)</span>
+                <span class="text-xs font-semibold" style="color: var(--ds-text-success)">➔</span>
               </div>
-              <div class="font-bold text-sm mt-1 text-white">Datacenter One (12 Monate)</div>
-              <div class="text-[11px] text-[#c4bebe] mt-1">24/7 INOC Leitstand, ITIL 4 Incident Management, Wissensdatenbank-SOPs, PRTG Monitoring &amp; HLM.</div>
+              <div class="font-bold text-sm text-white">ITIL 4 Operations</div>
+              <div class="text-[11px] text-[#c4bebe] mt-1">24/7 INOC Leitstand, PRTG Monitoring, SPoC &amp; HLM (100+ Systeme).</div>
             </div>
 
-            <!-- Pillar 3: Masterstudium & Forschung -->
-            <div @click="selectTab('thesis')" class="bg-white/5 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group" style="border-top: 3px solid var(--ds-text-discovery);">
-              <div class="flex items-center justify-between mb-1">
-                <span class="status-pill status-pill-purple">3. Master 1,6</span>
-                <span class="text-xs font-semibold group-hover:translate-x-1 transition" style="color: var(--ds-text-discovery)">➔</span>
+            <div @click="selectTab('master')" class="bg-white/5 transition cursor-pointer rounded-xl p-4 border border-white/10 group" style="border-top: 3px solid var(--ds-text-discovery);">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="status-pill status-pill-purple">3. Master (1,6)</span>
+                <span class="text-xs font-semibold" style="color: var(--ds-text-discovery)">➔</span>
               </div>
-              <div class="font-bold text-sm mt-1 text-white">M.Sc. Uni Stuttgart</div>
-              <div class="text-[11px] text-[#c4bebe] mt-1">Masterarbeit Note 1,0 (12 Interviews, Mayring), Digitale Nachhaltigkeit (1,0), Advanced SE (1,6).</div>
+              <div class="font-bold text-sm text-white">M.Sc. (120 ECTS)</div>
+              <div class="text-[11px] text-[#c4bebe] mt-1">Alle 16 Module • Masterarbeit 1,0 über S/4HANA Plattformisierung.</div>
             </div>
 
-            <!-- Pillar 4: Bachelorstudium & Methoden -->
-            <div @click="selectTab('thesis')" class="bg-white/5 transition cursor-pointer rounded-xl p-3.5 border border-white/10 hover:border-[#bf262e]/50 group" style="border-top: 3px solid var(--ds-text-warning);">
-              <div class="flex items-center justify-between mb-1">
-                <span class="status-pill status-pill-amber">4. Bachelor 3,0</span>
-                <span class="text-xs font-semibold group-hover:translate-x-1 transition" style="color: var(--ds-text-warning)">➔</span>
+            <div @click="selectTab('bachelor')" class="bg-white/5 transition cursor-pointer rounded-xl p-4 border border-white/10 group" style="border-top: 3px solid var(--ds-text-warning);">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="status-pill status-pill-amber">4. Bachelor (3,0)</span>
+                <span class="text-xs font-semibold" style="color: var(--ds-text-warning)">➔</span>
               </div>
-              <div class="font-bold text-sm mt-1 text-white">B.Sc. Uni Stuttgart</div>
-              <div class="text-[11px] text-[#c4bebe] mt-1">Bachelorarbeit Note 1,7 (Low-Code), E-Business (1,0), Unternehmensanalyse (2,3), BPMN 2.0 &amp; SQL.</div>
+              <div class="font-bold text-sm text-white">B.Sc. (180 ECTS)</div>
+              <div class="text-[11px] text-[#c4bebe] mt-1">Alle Module • Bachelorarbeit 1,7 (Low-Code), E-Business 1,0 &amp; TOGAF 9.</div>
             </div>
-
           </div>
         </div>
 
-        <!-- Objective Key Metrics Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
-            <div class="text-xs text-[#8f8888] font-medium">Akademisches Gesamtvolumen</div>
-            <div class="text-xl font-bold text-white mt-1">300 ECTS</div>
-            <div class="text-xs text-purple-400 mt-1 font-medium">M.Sc. (120) + B.Sc. (180)</div>
-          </div>
-
-          <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
-            <div class="text-xs text-[#8f8888] font-medium">Berufliche Praxiserfahrung</div>
-            <div class="text-xl font-bold text-white mt-1">36 Monate</div>
-            <div class="text-xs text-emerald-400 mt-1 font-medium">24M SSB AG + 12M DC1</div>
-          </div>
-
-          <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
-            <div class="text-xs text-[#8f8888] font-medium">Empirische Expertenbasis</div>
-            <div class="text-xl font-bold text-white mt-1">12 Interviews</div>
-            <div class="text-xs text-amber-400 mt-1 font-medium">Gesamt-PL, TPLs, Lead Architects</div>
-          </div>
-
-          <div class="bg-[#141414] p-4 rounded-xl border border-white/10 hover:border-[#bf262e]/40 transition shadow-sm">
-            <div class="text-xs text-[#8f8888] font-medium">Enterprise Architektur</div>
-            <div class="text-xl font-bold text-white mt-1">TOGAF 9 ADM</div>
-            <div class="text-xs text-blue-400 mt-1 font-medium">Zertifiziert bei Scape Consulting</div>
-          </div>
-        </div>
-
-        <!-- Chronologische Werdegang-Timeline (2019–2026) -->
-        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
+        <!-- Kompakte Werdegang-Timeline (2019–2026) -->
+        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 space-y-4">
           <div class="flex items-center justify-between">
             <h3 class="text-sm font-bold text-white flex items-center space-x-2">
               <span>🗓️</span>
-              <span>Akademischer & Beruflicher Werdegang (2019 – 2026)</span>
+              <span>Werdegang auf einen Blick (2019 – 2026)</span>
             </h3>
             <span class="text-[11px] text-[#8f8888]">300 ECTS + 36 Monate Praxis</span>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
-            <div @click="activeTab = 'thesis'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-blue-400/50 transition cursor-pointer space-y-1">
+            <div @click="selectTab('bachelor')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
               <div class="text-[10px] font-mono font-bold text-blue-400">2019 – 2023</div>
               <div class="font-bold text-white">B.Sc. Wirtschaftsinformatik</div>
-              <div class="text-[11px] text-[#8f8888]">Uni Stuttgart (180 ECTS, 3,0) • Bachelorarbeit 1,7 (Low-Code)</div>
+              <div class="text-[11px] text-[#8f8888]">180 ECTS (3,0) • Thesis 1,7</div>
             </div>
-            <div @click="activeTab = 'enterprise_arch'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-purple-400/50 transition cursor-pointer space-y-1">
+            <div @click="selectTab('bachelor')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
               <div class="text-[10px] font-mono font-bold text-purple-400">01 / 2020</div>
-              <div class="font-bold text-white">TOGAF 9 ADM Zertifikat</div>
-              <div class="text-[11px] text-[#8f8888]">Scape Consulting • Enterprise Architecture Foundation</div>
+              <div class="font-bold text-white">TOGAF 9 ADM</div>
+              <div class="text-[11px] text-[#8f8888]">Scape Consulting Zertifikat</div>
             </div>
-            <div @click="selectTab('enterprise_arch')" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-400/50 transition cursor-pointer space-y-1">
+            <div @click="selectTab('dc1')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
               <div class="text-[10px] font-mono font-bold text-emerald-400">05/2023 – 04/2024</div>
               <div class="font-bold text-white">Datacenter One (12M)</div>
-              <div class="text-[11px] text-[#8f8888]">Werkstudent INOC • 24/7 Leitstand, ITIL 4, PRTG &amp; SOP-Portal</div>
+              <div class="text-[11px] text-[#8f8888]">24/7 INOC &amp; ITIL 4 Operations</div>
             </div>
-            <div @click="activeTab = 'project'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-[#bf262e]/60 transition cursor-pointer space-y-1">
+            <div @click="selectTab('ssb')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
               <div class="text-[10px] font-mono font-bold text-[#f87171]">05/2024 – 04/2026</div>
               <div class="font-bold text-white">SSB AG S/4HANA (24M)</div>
-              <div class="text-[11px] text-[#8f8888]">IT-PMO & TP5 • Explore-Phase abgeschlossen, SDD genehmigt</div>
+              <div class="text-[11px] text-[#8f8888]">IT-PMO (TP5) • SDD freigegeben</div>
             </div>
-            <div @click="activeTab = 'thesis'" class="p-3 rounded-xl bg-white/5 border border-white/10 hover:border-amber-400/50 transition cursor-pointer space-y-1">
+            <div @click="selectTab('master')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
               <div class="text-[10px] font-mono font-bold text-amber-400">2023 – 09/2026</div>
               <div class="font-bold text-white">M.Sc. Wirtschaftsinformatik</div>
-              <div class="text-[11px] text-[#8f8888]">Uni Stuttgart (120 ECTS, 1,6) • Masterarbeit 1,0 (12 Interviews)</div>
+              <div class="text-[11px] text-[#8f8888]">120 ECTS (1,6) • Thesis 1,0</div>
             </div>
           </div>
         </div>
 
-        <!-- Knowledge Graph & Ecosystem Telemetry Bar -->
-        <div class="bg-[#141414] p-5 rounded-2xl border border-white/10 text-white shadow-lg space-y-3">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div class="flex items-center space-x-2">
-              <span class="text-lg">🧠</span>
-              <div>
-                <h4 class="text-sm font-bold tracking-tight text-white flex items-center gap-2">
-                  <span>Wissensgraph & Second Brain Index</span>
-                  <span class="px-2 py-0.5 rounded-full bg-white/10 text-[#c4bebe] text-[10px] font-mono">Obsidian & Notizdatenbank</span>
-                </h4>
-                <p class="text-[11px] text-[#8f8888]">Strukturierte Text-Dossiers und Querverbindungen über alle beruflichen und akademischen Unterlagen.</p>
-              </div>
-            </div>
-            <button @click="selectTab('synergies')" class="self-start sm:self-auto px-3 py-1.5 rounded-lg bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-semibold flex items-center space-x-1.5 transition">
-              <span>⚡ Synergie-Atlas öffnen</span>
-              <span>➔</span>
-            </button>
-          </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-            <div @click="activeTab = '{dossier_target}'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
-              <div class="text-[11px] text-[#8f8888] font-medium">Obsidian Text-Dossiers</div>
-              <div class="text-xl font-extrabold text-white mt-0.5">149 Dossiers</div>
-              <div class="text-[10px] text-emerald-400 mt-0.5">1.064 bidirektionale Links</div>
-            </div>
-
-            <div @click="activeTab = '{files_target}'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
-              <div class="text-[11px] text-[#8f8888] font-medium">Kuratierte Dokumente</div>
-              <div class="text-xl font-extrabold text-white mt-0.5">21 Deliverables</div>
-              <div class="text-[10px] text-blue-400 mt-0.5">SSB Großprojekt-Artefakte</div>
-            </div>
-
-            <div @click="activeTab = 'project'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
-              <div class="text-[11px] text-[#8f8888] font-medium">SSB S/4HANA Steuerung</div>
-              <div class="text-xl font-extrabold text-white mt-0.5">TP1 – TP5</div>
-              <div class="text-[10px] text-amber-400 mt-0.5">Ende Explore / SDD vollständig</div>
-            </div>
-
-            <div @click="activeTab = 'thesis'" class="p-3 rounded-xl bg-white/5 hover:bg-[#bf262e]/10 transition border border-white/10 hover:border-[#bf262e]/40 cursor-pointer">
-              <div class="text-[11px] text-[#8f8888] font-medium">Akademisches Curriculum</div>
-              <div class="text-xl font-extrabold text-white mt-0.5">300 ECTS</div>
-              <div class="text-[10px] text-purple-400 mt-0.5">M.Sc. (1,6) + B.Sc. (3,0)</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Schnellzugriff auf alle Wissensbereiche (11 Module) -->
-        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
+        <!-- Zielrollen-Fokus (ATS Alignment) -->
+        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 space-y-3">
           <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-              <span>🧭</span>
-              <span>Direktzugriff auf alle Fach- und Wissensmodule</span>
-            </h3>
-            <span class="text-xs text-[#8f8888]">{module_count_label}</span>
+            <h3 class="text-sm font-bold text-white">🎯 Zielrollen für den Berufseinstieg (Region Stuttgart / Ludwigsburg)</h3>
+            <button @click="selectTab('synergies')" class="text-xs font-semibold hover:underline" style="color: var(--ds-text-brand)">Alle Stärken ansehen ➔</button>
           </div>
-
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-xs">
-            <button @click="activeTab = 'project'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🚆 SSB S/4HANA</div>
-              <div class="text-[11px] text-[#8f8888]">Ende Explore, SDD & TP1–TP5</div>
-            </button>
-
-            <button @click="selectTab('enterprise_arch')" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🖥️ Datacenter One (DC1)</div>
-              <div class="text-[11px] text-[#8f8888]">ITIL 4, 24/7 Monitoring &amp; Wissens-SOPs</div>
-            </button>
-
-            <button @click="activeTab = 'solution_design'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">📐 Solution Design</div>
-              <div class="text-[11px] text-[#8f8888]">Trennungsrechnung, FI/CO & ACDOCA</div>
-            </button>
-
-            <button @click="activeTab = 'migration'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🔄 Datenmigration</div>
-              <div class="text-[11px] text-[#8f8888]">LTMC Staging & 0,00 € Konto</div>
-            </button>
-
-            <button @click="activeTab = 'tools'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🛠️ Toolchain Hub</div>
-              <div class="text-[11px] text-[#8f8888]">Cloud ALM, Signavio & Enable Now</div>
-            </button>
-
-            <button @click="activeTab = 'thesis'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🎓 Master & Bachelor</div>
-              <div class="text-[11px] text-[#8f8888]">300 ECTS, Arbeiten & Projekte</div>
-            </button>
-{private_cards}
-            <button @click="activeTab = 'career'" class="p-3 text-left rounded-xl border border-white/10 bg-white/5 hover:border-[#bf262e] transition">
-              <div class="font-bold text-white mb-0.5">🎯 Einstiegsstrategie</div>
-              <div class="text-[11px] text-[#8f8888]">{career_sub}</div>
-            </button>
-{private_tail_cards}
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+              <div class="font-bold text-white">Junior SAP Inhouse / Transformation Consultant</div>
+              <div class="text-[11px] text-[#8f8888] mt-1">S/4HANA (FI/CO/MM), Clean Core, BTP, Cloud ALM &amp; Signavio</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+              <div class="font-bold text-white">Junior IT-Projektmanager / IT-PMO</div>
+              <div class="text-[11px] text-[#8f8888] mt-1">Multiprojektsteuerung (TP1–TP5), MS Project, Steering-Reporting</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+              <div class="font-bold text-white">Junior Enterprise Architect (EAM)</div>
+              <div class="text-[11px] text-[#8f8888] mt-1">TOGAF 9 ADM, Schnittstellen-Governance &amp; Bimodale IT</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
+              <div class="font-bold text-white">IT- / Management-Trainee</div>
+              <div class="text-[11px] text-[#8f8888] mt-1">Rotation über IT-Strategie, ERP-Transformation &amp; Operations</div>
+            </div>
           </div>
         </div>
-
+%%PRIVATE_QUICK_LINKS%%
       </div>
 """
+    return tpl.replace("%%PRIVATE_QUICK_LINKS%%", private_quick_links)

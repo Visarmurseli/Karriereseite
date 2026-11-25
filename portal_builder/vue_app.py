@@ -83,6 +83,7 @@ def get_vue_app(public_mode=False):
         const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
         const synergyViewMode = ref('compact');
         const synergyFilter = ref('Alle');
+        const selectedFaqCat = ref('Alle');
 
         const currentTabName = computed(() => {
           const found = tabs.find(t => t.id === activeTab.value);
@@ -105,25 +106,22 @@ def get_vue_app(public_mode=False):
 
         const currentHubName = computed(() => {
           const tabId = activeTab.value;
-          if (tabId === 'dashboard' || tabId === 'synergies') return 'Profil, Stärken & Synergien';
-          if (['project', 'solution_design', 'migration', 'tools'].includes(tabId)) return 'S/4HANA Transformation';
-          if (['thesis', 'enterprise_arch'].includes(tabId)) return 'Akademische Exzellenz';
-          if (['career', 'cheatsheet'].includes(tabId)) return 'Junior & Trainee Karriere';
+          if (tabId === 'dashboard' || tabId === 'synergies') return 'Profil & Synergien';
+          if (['ssb', 'dc1'].includes(tabId)) return 'Enterprise-Praxis (36M)';
+          if (['master', 'bachelor'].includes(tabId)) return 'Studium (300 ECTS)';
+          if (tabId === 'faq') return 'FAQ & Fachvertiefung';
           %%PRIVATE_HUB_LINE%%
           return 'Wissensportal';
         });
 
         const tabs = [
-          { id: 'dashboard', label: 'Profil & Einstieg', icon: '📊', badge: 'Junior & Trainee' },
-          { id: 'synergies', label: 'Stärkenprofil & Synergien', icon: '⚡', badge: 'Arbeit × Uni' },
-          { id: 'project', label: 'TP1–TP5 Steuerung & WBS', icon: '🚆', badge: 'SSB AG' },
-          { id: 'solution_design', label: 'Solution Design (FI/CO)', icon: '📐', badge: 'Trennungsrechnung' },
-          { id: 'migration', label: 'Datenmigration & CVI', icon: '🔄', badge: '0,00 € Saldo' },
-          { id: 'tools', label: 'Toolchain Hub', icon: '🛠️', badge: 'CALM / Signavio' },
-          { id: 'thesis', label: 'Masterarbeit (Note 1,0)', icon: '🎓', badge: '12 Interviews' },
-          { id: 'enterprise_arch', label: 'TOGAF ADM & ITIL 4', icon: '🏛️', badge: 'EAM' },
-          { id: 'career', label: 'Junior & Trainee Karriere', icon: '🎯', badge: '%%CAREER_BADGE%%' },
-          { id: 'cheatsheet', label: 'Tech & BTP Cheatsheet', icon: '⚡', badge: 'Architektur' },
+          { id: 'dashboard', label: 'Dashboard', icon: '🏠', badge: 'Übersicht' },
+          { id: 'ssb', label: 'SSB AG (S/4HANA)', icon: '🚆', badge: '24M • TP5 PMO' },
+          { id: 'dc1', label: 'Datacenter One', icon: '🖥️', badge: '12M • ITIL 4' },
+          { id: 'master', label: 'Master (1,6)', icon: '🎓', badge: '120 ECTS' },
+          { id: 'bachelor', label: 'Bachelor (3,0)', icon: '🏛️', badge: '180 ECTS' },
+          { id: 'synergies', label: 'Synergien', icon: '⚡', badge: 'Stärken-Cluster' },
+          { id: 'faq', label: 'FAQ', icon: '❓', badge: 'Vertiefung' },
           // PRIVATE_TABS_START
           { id: 'interview', label: 'Interview Masterclass', icon: '🎙️', badge: 'Pitches & STAR' },
           { id: 'cv_defense', label: 'CV De-Risking', icon: '🛡️', badge: 'Gefahrenabwehr' },
@@ -135,50 +133,52 @@ def get_vue_app(public_mode=False):
         const navSpaces = [
           {
             id: 'overview',
-            label: 'Übersicht & Fundament',
-            icon: '📘',
+            label: 'Übersicht',
+            icon: '🏠',
             items: [
-              { id: 'dashboard', label: 'Wissensdatenbank Übersicht', icon: '🏠' },
-              { id: 'synergies', label: 'Stärkenprofil & Synergie-Atlas', icon: '⚡' },
-              // PRIVATE_SPACE_ITEMS_START
-              { id: 'files', label: 'Deliverables-Register', icon: '📂' },
-              { id: 'notebook', label: 'Second Brain & RAG', icon: '📝' },
-              // PRIVATE_SPACE_ITEMS_END
+              { id: 'dashboard', label: 'Dashboard', icon: '🏠' },
+              { id: 'synergies', label: 'Synergien & Stärken', icon: '⚡' },
             ]
           },
           {
             id: 'praxis',
-            label: 'Praxis & S/4HANA (36M)',
+            label: 'Praxis (36 Monate)',
             icon: '🚆',
             items: [
-              { id: 'project', label: 'SSB S/4HANA Projekt', icon: '🚆' },
-              { id: 'solution_design', label: 'Solution Design (FI/CO)', icon: '📐' },
-              { id: 'migration', label: 'Datenmigration & CVI', icon: '🔄' },
-              { id: 'tools', label: 'Toolchain Hub', icon: '🛠️' },
-              { id: 'enterprise_arch', label: 'EAM & Datacenter One', icon: '🖥️' },
+              { id: 'ssb', label: 'SSB AG (S/4HANA)', icon: '🚆' },
+              { id: 'dc1', label: 'Datacenter One (DC1)', icon: '🖥️' },
             ]
           },
           {
             id: 'academy',
-            label: 'Akademie (300 ECTS)',
+            label: 'Studium (300 ECTS)',
             icon: '🎓',
             items: [
-              { id: 'thesis', label: 'Master & Bachelor', icon: '🎓' },
-              { id: 'cheatsheet', label: 'Tech & BTP Cheatsheet', icon: '⚡' },
+              { id: 'master', label: 'Master (M.Sc. 1,6)', icon: '🎓' },
+              { id: 'bachelor', label: 'Bachelor (B.Sc. 3,0)', icon: '🏛️' },
             ]
           },
           {
-            id: 'career_space',
-            label: 'Karriere & Einstieg',
-            icon: '🎯',
+            id: 'faq_space',
+            label: 'Vertiefung',
+            icon: '❓',
             items: [
-              // PRIVATE_CAREER_ITEMS_START
+              { id: 'faq', label: 'FAQ & Technik-Deep-Dive', icon: '❓' },
+            ]
+          },
+          // PRIVATE_SPACES_START
+          {
+            id: 'private_cockpit',
+            label: 'Privates Cockpit (Lokal)',
+            icon: '🔒',
+            items: [
               { id: 'interview', label: 'Interview Masterclass', icon: '🎙️' },
               { id: 'cv_defense', label: 'CV De-Risking', icon: '🛡️' },
-              // PRIVATE_CAREER_ITEMS_END
-              { id: 'career', label: 'Zielrollen & Roadmap', icon: '🎯' },
+              { id: 'files', label: 'Deliverables-Register', icon: '📂' },
+              { id: 'notebook', label: 'Second Brain & RAG', icon: '📝' },
             ]
           }
+          // PRIVATE_SPACES_END
         ];
 
         const qaCategories = ['Alle', 'SSB S/4HANA & Explore-Phase', 'Datacenter One & ITIL 4', 'Master & Plattformisierung', 'Bachelor & Methodenkompetenz', 'Enterprise Architecture & TOGAF', 'Persönlich & Trainee-Einstieg'];
@@ -1093,10 +1093,10 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             title: '1. ERP-Plattformisierung, Boundary Resources & Bimodale Architektur',
             uni: 'Bachelorarbeit (1,7, OutSystems/Mendix, 14 ABR/DBR/SBR) + Masterarbeit (1,0, 126 S., 12 Interviews) + ASE (1,6) + SA (1,7)',
             work: '24M SSB AG (TP4/TP5): Greenfield Clean Core, BTP-Entkopplung von PATRIS/xSuite/d.velop mit Nagarro & Axians',
-            project: 'Ganzheitliche ERP-Transformationsmethodik + modulares Knowledge & Profile OS Portfolio',
+            project: 'Ganzheitliche ERP-Transformationsmethodik & Plattform-Governance',
             synergy: 'APIs auf der SAP BTP sind nicht nur Technik, sondern soziotechnische Boundary Resources zur Balance aus Kontrolle (Core) & Innovation (Side-by-Side).',
             deepNote: 'Empirisch mit Gesamtprojektleitung & Lead-Architekten validiert: Clean Core wirkt nur im Zusammenspiel mit Architecture Governance, PMO & Absorptive Capacity.',
-            targetTab: 'thesis',
+            targetTab: 'master',
             ragQuery: 'Wie greifen Bachelorarbeit Boundary Resources, Masterarbeit S/4HANA Plattformisierung und SSB BTP Clean Core konkret ineinander?'
           },
           {
@@ -1107,9 +1107,9 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             uni: 'Cloud Computing (2,0, AWS Well-Architected Serverless) + SOM (3,0) + ITIL/COBIT (3,0) + TEUI (1,7)',
             work: 'Datacenter One (12M 24/7 INOC SPoC, PRTG, ITSM Service Desk, USV/HVAC, Wissens-SOPs) & SSB TP4 (RISE Private Cloud, ES4/QS4/PS4)',
             project: 'Hardware Lifecycle Management (Visio-Architektur für 100+ Leitstands- & Client-Systeme, Dell PoC)',
-            synergy: 'Du denkst Cloud & ERP vom physischen Glasfaser-/RZ-Betrieb über Serverless Event-Muster bis zur stabilen 3rd-Level Hypercare-Übergabe.',
+            synergy: 'Cloud & ERP werden durchgängig vom physischen 24/7-Leitstand über Serverless-Patterns bis zur stabilen Hypercare-Übergabe gedacht.',
             deepNote: 'Ticket- und Root-Cause-Disziplin aus dem 24/7 RZ-Leitstand überträgt sich direkt auf SAP Job-/Dump-/Berechtigungsanalyse (SM37, SU53, ST22).',
-            targetTab: 'enterprise_arch',
+            targetTab: 'dc1',
             ragQuery: 'Wie verbinden sich Datacenter One ITIL 4 24/7 INOC, Cloud Computing AWS und RISE with SAP Infrastruktur?'
           },
           {
@@ -1119,10 +1119,10 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             title: '3. Governance, Audit, IKS, Compliance & Mitbestimmung',
             uni: 'GBWL 1 & 4 (2,7: HGB, Bilanz, Finanzprozess) + Informatikrecht (DSGVO/Lizenzrecht) + TOGAF 9 ADM (Scape Consulting)',
             work: 'SSB TP2/TP5: Trennungsrechnung EU-1370/2007 im ACDOCA, Grants Management (LGVFG), LTMC/CVI Saldo 0,00 €, Betriebsrat § 87',
-            project: 'Enterprise IAM & IKS Kontrollmatrix (P_ORGIN / P_PERNR / OOSP, Segregation of Duties)',
+            project: 'Enterprise IAM & IKS Kontrollmatrix (Segregation of Duties)',
             synergy: 'Revisionssicheres Denken: Jede Schnittstelle, Migration und Rolle wird gleichzeitig gegen Wirtschaftsprüfer-IKS und Mitbestimmungsrecht abgesichert.',
-            deepNote: 'Direkt anschlussfähig für ERP-Audit/IKS-Beratung (KPMG), Enterprise IAM-Operations (Schwarz Digits) und IT-Governance-Traineeprogramme (TRUMPF).',
-            targetTab: 'solution_design',
+            deepNote: 'Direkt anschlussfähig für ERP-Audit/IKS-Beratung, Enterprise IAM und IT-Governance-Traineeprogramme.',
+            targetTab: 'ssb',
             ragQuery: 'Wie greifen Trennungsrechnung EU-1370, 0,00 Euro Übernahmekonto LTMC/CVI, IKS und Betriebsrats-Mitbestimmung zusammen?'
           },
           {
@@ -1130,12 +1130,12 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             cluster: 'Governance & Daten',
             badge: 'E-Bus 1,0 × SDD × Signavio/CALM',
             title: '4. Datenarchitektur, BPMN-Prozessdesign & End-to-End Solution Design',
-            uni: 'E-Business (1,0 Bestnote) + Modellierung (2,3: BPMN 2.0/UML/ERM/1NF-BCNF) + IVP 0x539-Wear (2,3 DB I-IV) + DBIS (2,7)',
+            uni: 'E-Business (1,0 Bestnote) + Modellierung (2,3: BPMN 2.0/UML/ERM/SQL) + IVP Unternehmensanalyse (2,3) + DBIS (2,7)',
             work: 'SSB Explore Solution Design (SDD, FI/CO/MM/GM), Tool-Dreiklang Signavio → Cloud ALM (How2Handle) → Enable Now, DC1 Visio HLM',
-            project: 'Standardisierungs-Artefakte: Offizieller Cloud ALM Quickguide & strategisches Enable Now Übergabekonzept (UB AC)',
+            project: 'Standardisierungs-Artefakte: Offizieller Cloud ALM Quickguide & strategisches Enable Now Übergabekonzept',
             synergy: 'Durchgängige Traceability vom formalen ERM-/BPMN-Modell bis zum abgenommenen Solution Design und messbaren Cloud-ALM-Testfall.',
             deepNote: 'Bilinguale Vermittlung: Fachbereiche verstehen Abläufe, Entwickler erhalten präzise Datenobjekt- und Schnittstellenspezifikationen.',
-            targetTab: 'tools',
+            targetTab: 'ssb',
             ragQuery: 'Wie ergänzen sich E-Business 1,0, Modellierung BPMN/ERM und der SSB Tool-Dreiklang Signavio, Cloud ALM How2Handle und Enable Now?'
           },
           {
@@ -1143,28 +1143,118 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             cluster: 'Automatisierung & KI',
             badge: 'Schmalz 1,0 × Klingele 2,0 × EHS',
             title: '5. Digitale Nachhaltigkeit, CSRD & pragmatische Prozessautomatisierung',
-            uni: 'Digitale Nachhaltigkeit (1,0: Fallstudie J. Schmalz GmbH) + ISG Innovationsmethoden (2,0: PatentRadar Verpackungsindustrie) + Innovationsmanagement (1,7)',
+            uni: 'Digitale Nachhaltigkeit (1,0: Fallstudie J. Schmalz GmbH) + ISG Innovationsmethoden (2,0: PatentRadar) + Innovationsmanagement (1,7)',
             work: 'SSB Stream Sustainability (CSRD, Gefahrstoffe & EHS in S/4HANA) & Fit-to-Standard Bewertung wirtschaftlicher Automatisierung',
-            project: 'PowerShell-Extraktionsskripte (fehlerfreie CSRD-Abfallbilanz) & hybrides SaaS-/RPA-Geschäftsmodell (UiPath-Potenzialanalyse)',
-            synergy: 'Du eliminierst manuellen Berichtserfassungs-Aufwand nicht mit Folien, sondern durch bereinigte BPMN-Prozesse und gezielte Automatisierung.',
+            project: 'PowerShell-Extraktionsskripte (fehlerfreie CSRD-Abfallbilanz) & hybrides SaaS-/RPA-Geschäftsmodell',
+            synergy: 'Manueller Berichtserfassungs-Aufwand wird durch bereinigte BPMN-Prozesse und gezielte Automatisierung statt reiner Konzepte eliminiert.',
             deepNote: 'Klarer Business-Analyst-Fokus: Erst Prozesskosten & Wirtschaftlichkeit quantifizieren, dann sauber automatisieren.',
-            targetTab: 'thesis',
+            targetTab: 'master',
             ragQuery: 'Welche Synergien bestehen zwischen der Schmalz CSRD PowerShell-Fallstudie (1,0), Klingele PatentRadar (2,0) und SAP Sustainability/EHS?'
           },
           {
             id: 'syn6',
             cluster: 'Automatisierung & KI',
-            badge: 'FPWI 1,3 × Applied AI 1,7 × RAG V3',
-            title: '6. Applied AI, Smart Services (IoT), DSRM & Eigenes Knowledge OS',
-            uni: 'FPWI Smart Service Blueprinting (1,3 | DSRM | SUS 85/100) + Applied AI (1,7) + PRISMA MRK (1,7) + Algorithm Aversion (1,7) + AI4IoT (2,0)',
+            badge: 'FPWI 1,3 × Applied AI 1,7',
+            title: '6. Applied AI, Smart Services (IoT) & DSRM-Architektur',
+            uni: 'FPWI Smart Service Blueprinting (1,3 | DSRM | SUS 85/100) + Applied AI (1,7) + PRISMA MRK (1,7) + AI4IoT (2,0)',
             work: 'SSB TP3 Mobile Instandhaltung (SAP Service & Asset Manager SSAM auf Tablets mit Partner Evora)',
-            project: 'Selbst entwickeltes Career & Knowledge OS mit lokalem 3-Signal Hybrid RAG V3 (BM25 + 4-Gram + 768d Vektoren über 4.980 Dateien)',
-            synergy: 'Du entwickelst KI- und Smart-Service-Lösungen rigoros nutzerzentriert (DSRM & SUS) und baust Algorithm Aversion durch harte Quellenpflicht ab.',
-            deepNote: 'Eigenes Live-Produkt als technischer Beweis: Striktes Dual-Build-Privacy-Gate zwischen öffentlichem Showcase und lokalem RAG-Cockpit.',
-            targetTab: 'cheatsheet',
-            ragQuery: 'Wie fließen FPWI Smart Service Blueprinting (1,3), Applied AI (1,7), Algorithm Aversion und SAP SSAM in mein Hybrid RAG Knowledge OS ein?'
+            project: 'End-to-End Konzeption nutzerzentrierter Service- und KI-Ökosysteme nach Design Science Research Methodology',
+            synergy: 'KI- und Smart-Service-Lösungen werden konsequent nutzerzentriert (DSRM & SUS) entwickelt und fachlich sauber in ERP-Strukturen verankert.',
+            deepNote: 'Direkt dokumentiert und vertieft in den praxisorientierten Masterprojekten sowie den Fach-FAQ.',
+            targetTab: 'faq',
+            ragQuery: 'Wie fließen FPWI Smart Service Blueprinting (1,3), Applied AI (1,7) und SAP SSAM zusammen?'
           }
         ];
+
+        const faqItems = ref([
+          {
+            cat: 'SSB & S/4HANA',
+            open: true,
+            q: 'Warum wurde bei SAP4SSB Greenfield statt Brownfield gewählt und was bedeutet „Clean Core“ konkret?',
+            a: [
+              'Das gewachsene Altsystem (SAP ECC 6.0) enthielt über Jahrzehnte entstandene Z-Modifikationen und komplexe Eigenentwicklungen, die künftige Cloud-Releases und Wartungszyklen erschwert hätten.',
+              'Beim Greenfield-Ansatz in der RISE with SAP Private Cloud lag der Fokus konsequent auf Clean Core: Standardprozesse im Kern über Fit-to-Standard Workshops (Signavio BPMN 2.0) abbilden und Abweichungen streng prüfen. Notwendige Erweiterungen werden modifikationsfrei über ABAP Cloud / RAP (On-Stack) oder entkoppelt auf der SAP BTP (Side-by-Side) realisiert.'
+            ]
+          },
+          {
+            cat: 'SSB & S/4HANA',
+            open: false,
+            q: 'Welche Rolle spielten Universal Journal (ACDOCA), Trennungsrechnung und PSP-Steuerung im Solution Design?',
+            a: [
+              'Im kaufmännischen Lösungsdesign (TP2) bildet das Universal Journal (ACDOCA) die „Single Source of Truth“ für Hauptbuchhaltung und Controlling mit paralleler Rechnungslegung (Leading Ledger 0L nach HGB, Non-Leading Ledger 2L).',
+              'Aufgrund der EU-Verordnung 1370/2007 (§ 45a PBefG) ist eine strikte Trennungsrechnung zwischen gemeinwirtschaftlichen ÖPNV-Leistungen und gewerblichen Verkehren verpflichtend. Zusätzlich wurden klassische Innenaufträge zugunsten einer durchgängigen Projekt- und Investitionssteuerung über PSP-Elemente (inkl. Grants Management / Fördermittelsteuerung) vereinheitlicht.'
+            ]
+          },
+          {
+            cat: 'SSB & S/4HANA',
+            open: false,
+            q: 'Wie greift die Tool-Governance aus SAP Signavio, SAP Cloud ALM und SAP Enable Now ineinander?',
+            a: [
+              'Die Traceability-Kette startet bei den in SAP Signavio (BPMN 2.0) dokumentierten Sollprozessen. Diese fließen strukturiert in SAP Cloud ALM zur Steuerung von Anforderungen, Quality Gates und Testfällen – standardisiert über den im IT-PMO erarbeiteten „How2Handle“-Quickguide.',
+              'Für die Anwenderbefähigung wurde das Übergabekonzept für SAP Enable Now an die Personalentwicklung konzipiert, sodass Schulungsunterlagen, Simulationen und In-App-Hilfen direkt aus den abgenommenen Prozessen heraus entstehen.'
+            ]
+          },
+          {
+            cat: 'Migration & Schnittstellen',
+            open: false,
+            q: 'Wie funktioniert die Datenmigration mit dem SAP Migration Cockpit (LTMC), CVI und dem 0,00 € Übernahmekonto?',
+            a: [
+              'Die Migration erfolgt über Staging-Tabellen im SAP Migration Cockpit (LTMC): Altdaten werden extrahiert, bereinigt, mittels Feld- und Werte-Mappings transformiert und vor dem Produktiv-Cutover simuliert.',
+              'Vorbedingung ist die Customer Vendor Integration (CVI) auf den zentralen SAP Business Partner (einheitliche IDs mit Debitoren-/Kreditoren-Rollen). Revisionsseitig entscheidend beim Eröffnungsbilanz-Abgleich ist der Saldenausgleich des Datenübernahmekontos auf exakt 0,00 € – jeder Cent Abweichung signalisiert inkonsistente Buchungen.'
+            ]
+          },
+          {
+            cat: 'Migration & Schnittstellen',
+            open: false,
+            q: 'Wie ist die Drittsystem-Landschaft (PATRIS, xSuite, d.velop, BTP Integration) sauber entkoppelt?',
+            a: [
+              'Branchenspezifische Subsysteme wie PATRIS (Fahrausweisverkäufe), xSuite (automatisierte Rechnungsworkflow-/OCR-Verarbeitung) und d.velop (DMS / ArchiveLink & CMIS) werden über standardisierte APIs, OData/REST-Services und die SAP BTP Integration Suite angebunden.',
+              'So bleiben fachspezifische Prozesse hochfunktional angebunden, während der S/4HANA-Kern clean und upgrade-sicher bleibt.'
+            ]
+          },
+          {
+            cat: 'Studium & DC1',
+            open: false,
+            q: 'Wie verbindet sich Ihre 12-monatige Rechenzentrums-Praxis bei Datacenter One mit SAP-Transformationsprojekten?',
+            a: [
+              'Als Werkstudent im 24/7 Information Network Operation Center (INOC) habe ich ITIL 4 Incident Management, SLA-Verbindlichkeit (99,99 %), strukturierte Eskalation und das Schreiben standardisierter SOPs unter Live-Betriebsdruck gelernt.',
+              'Genau diese Hochverfügbarkeits-Disziplin hilft enorm bei kritischen Projektphasen in SAP S/4HANA: vom präzisen Cutover-Zeitplan bis zum stabilen Hypercare- & 3rd-Level-Support-Übergang.'
+            ]
+          },
+          {
+            cat: 'Studium & DC1',
+            open: false,
+            q: 'Welche Methodik lag Ihrer mit 1,0 bewerteten Masterarbeit (und den 12 Experteninterviews) zugrunde?',
+            a: [
+              'Aufbauend auf der Design Science & qualitativen Forschung wurden 12 leitfadengestützte Experteninterviews innerhalb der S/4HANA-Transformation (Gesamtprojektleitung, Teilprojektleitungen, Lead-Architekten) durchgeführt.',
+              'Die Auswertung erfolgte mittels strukturierender qualitativer Inhaltsanalyse nach Mayring mit eigenem Codebuch und wurde mit Boundary Resource Theory (B.Sc. 1,7), Bimodaler IT sowie Absorptive Capacity trianguliert.'
+            ]
+          },
+          {
+            cat: 'Einstieg & Arbeitsweise',
+            open: false,
+            q: 'Warum verbinden Sie Management-/PMO-Kompetenz mit tiefem Architekturverständnis statt reinem SPRO-Customizing?',
+            a: [
+              'Moderne Cloud-ERP-Transformationen scheitern selten an fehlenden Einzelklicks in Tabellen, sondern an unklarer Architektur-Governance, fehlendem Clean-Core-Durchblick, brüchigen Schnittstellen und mangelnder Abstimmung zwischen Fachbereich und Entwicklungspartnern.',
+              'Genau diese Brücke aus technischem Verständnis (B.Sc. Informatik + TOGAF 9 + BTP/APIs) und kaufmännischem/PMO-Steuerungsblick (24M TP5 + FI/CO Solution Design) bringe ich ab Tag 1 ein.'
+            ]
+          },
+          {
+            cat: 'Einstieg & Arbeitsweise',
+            open: false,
+            q: 'Wie sieht Ihr typischer 30–60–90-Tage-Beitrag beim Einstieg als Junior Consultant / Trainee / IT-PMO aus?',
+            a: [
+              'Tage 1–30 (Einarbeitung & Analyse): Schnelles Durchdringen der bestehenden Systemlandschaft, Methodenstandards (ALM/Signavio/ITSM) und Stakeholder-Strukturen.',
+              'Tage 31–60 (Operative Übernahme): Eigenverantwortliche Begleitung von Fachworkshops, Prozessdokumentation, PMO-Tracking, Datenmappings oder Schnittstellenabstimmung.',
+              'Tage 61–90 (Volle Wertschöpfung): Selbstständige Verantwortung für definierte Arbeitspakete, Test-/UAT-Begleitung und proaktive Verbesserungsvorschläge im Team.'
+            ]
+          }
+        ]);
+
+        const filteredFaqItems = computed(() => {
+          if (selectedFaqCat.value === 'Alle') return faqItems.value;
+          return faqItems.value.filter(f => f.cat === selectedFaqCat.value);
+        });
 
         const filteredSynergies = computed(() => {
           if (synergyFilter.value === 'Alle') return synergyAtlas;
@@ -1447,6 +1537,9 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           synergyViewMode,
           synergyFilter,
           filteredSynergies,
+          selectedFaqCat,
+          faqItems,
+          filteredFaqItems,
           runRagSearch,
           runRagAsk,
           quickRagAsk,
@@ -1484,8 +1577,7 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
     if public_mode:
         tpl = tpl.replace('%%PRIVATE_HUB_LINE%%', '')
         tpl = re.sub(r'// PRIVATE_TABS_START.*?// PRIVATE_TABS_END', '', tpl, flags=re.DOTALL)
-        tpl = re.sub(r'// PRIVATE_SPACE_ITEMS_START.*?// PRIVATE_SPACE_ITEMS_END', '', tpl, flags=re.DOTALL)
-        tpl = re.sub(r'// PRIVATE_CAREER_ITEMS_START.*?// PRIVATE_CAREER_ITEMS_END', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_SPACES_START.*?// PRIVATE_SPACES_END', '', tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_RAG_START.*?// PRIVATE_RAG_END',
                      "const formattedRagAnswer = computed(() => '');\n        const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const quickRagAsk = () => {};\n        const askSynergyRag = () => {};\n        const loadPipeline = () => {};\n        const prepInterview = () => {};",
                      tpl, flags=re.DOTALL)

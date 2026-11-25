@@ -469,14 +469,11 @@ def get_header(public_mode=False):
           </div>
         </div>
 
-        <!-- Right: Telemetry Metrics, PDF Export, Theme Toggle & Mobile Menu -->
+        <!-- Right: Compact Core Credential Badge, PDF Export, Theme Toggle & Mobile Menu -->
         <div class="flex items-center gap-2 shrink-0">
-          <!-- Key Portfolio Telemetry Badges -->
-          <div class="hidden xl:flex items-center gap-1.5 text-[10px] font-mono">
-            <span class="status-pill status-pill-neutral">149 Dossiers</span>
-            <span class="status-pill status-pill-green">1.064 bidirektionale Links</span>
-            <span class="status-pill status-pill-blue">21 Deliverables</span>
-            <span class="status-pill status-pill-purple">300 ECTS</span>
+          <div class="hidden xl:flex items-center gap-1.5 text-[10.5px] font-mono">
+            <span class="status-pill status-pill-blue">36M Enterprise Praxis</span>
+            <span class="status-pill status-pill-purple">300 ECTS • M.Sc. 1,6</span>
           </div>
 
           <!-- PDF Export Button -->

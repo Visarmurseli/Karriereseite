@@ -72,23 +72,25 @@ def test_supervisor_and_colleague_anonymization(content):
     print("  [PASS] Privacy & GDPR Gate: Exactly 0 occurrences of supervisor names or internal WBS IDs.")
 
 def test_command_palette_and_telemetry(content):
-    # Check modern dynamic UI and telemetry tokens (no global search, no third-party branding clones)
+    # Check 7-tab streamlined executive architecture & reactivity
     features = [
         "scrollProgress",
         "selectTab",
         "tabReveal",
-        "149 Dossiers",
-        "1.064 bidirektionale Links",
-        "21 Deliverables",
         "300 ECTS",
-        "Stärkenprofil & Synergie-Atlas",
-        "filteredSynergies"
+        "Arbeit × Studium Synergie-Atlas",
+        "filteredSynergies",
+        "faqItems",
+        "filteredFaqItems",
+        "M.Sc. Wirtschaftsinformatik",
+        "B.Sc. Wirtschaftsinformatik",
+        "Datacenter One GmbH"
     ]
     for feat in features:
         assert feat in content, f"Feature check failed: Missing '{feat}'"
-    for removed in ["isCommandPaletteOpen", "openCommandPalette", "Confluence", "Atlassian", "Jira"]:
-        assert removed.lower() not in content.lower(), f"Forbidden clone/search token still present: '{removed}'"
-    print(f"  [PASS] Modern Dynamic UI & Telemetry: All {len(features)} features active, 0 search/clone leaks.")
+    for removed in ["isCommandPaletteOpen", "openCommandPalette", "Confluence", "Atlassian", "Jira", "149 Dossiers"]:
+        assert removed.lower() not in content.lower(), f"Forbidden clone/search/clutter token still present: '{removed}'"
+    print(f"  [PASS] 7-Tab Streamlined UI & ATS Architecture: All {len(features)} features active, 0 clutter/clone leaks.")
 
 
 def test_public_showcase_privacy():
@@ -96,7 +98,7 @@ def test_public_showcase_privacy():
     assert os.path.exists(pub_path), f"Public artifact missing: {pub_path}"
     with open(pub_path, 'r', encoding='utf-8') as f:
         pub = f.read()
-    for token in ["Persönliches Stärkenprofil", "filteredSynergies", "Stärkenprofil & Synergie-Atlas"]:
+    for token in ["Persönliches Stärkenprofil", "filteredSynergies", "Arbeit × Studium Synergie-Atlas"]:
         assert token in pub, f"Public Showcase missing synergy/profile token: {token}"
     for leak in [
         "Gefahrenstufe Rot", "TÖDLICH", "cv_defense", "Fangfrage", "Gehaltskalkulation",
