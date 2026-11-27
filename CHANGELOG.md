@@ -14,12 +14,422 @@ aliases:
   - Release Notes
   - Changelog
   - System History
-last_updated: "2026-11-24"
+last_updated: "2026-11-27"
 ---
 
 # 📜 CHANGELOG & SYSTEM RELEASE PROTOCOL (Visar Murseli | Personal Career OS)
 
 Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterungen und Git-Commits auf den Branch `main` werden in diesem Dokument lückenlos nach dem Standard [Keep a Changelog](https://keepachangelog.com/de/1.0.0/) und [Conventional Commits](https://www.conventionalcommits.org/de/v1.0.0/) protokolliert.
+
+---
+
+## [1.26.7] - 2026-11-27 (Optimierter CV-Generator Studio: `.docx` / `.pdf` Export & KI-Stellen-Tailoring)
+
+### 🎯 Kontext & Umfang
+Neues interaktives Feature **„Optimierter CV-Generator & Kugelsicheres Profil“** direkt im lokalen Career OS (`cv_defense`-Modul), das sämtliche CV-De-Risking-Empfehlungen in einen sofort exportierbaren A4-Lebenslauf überführt (strikt isoliert vom öffentlichen `public_index.html` Showcase).
+
+### ✨ Änderungen im Detail
+- **[scripts/cv_generator.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/cv_generator.py) (Neu):**
+  - ATS-sicherer Lebenslauf-Export ohne fragile Word-Textfelder: `build_cv_docx()` (`python-docx`, A4, Hairline-Trennlinien, rechtsbündige Zeitraum-Tabellen) und `build_cv_pdf()` (`pymupdf.Story` Vektor-PDF; `1 Seite` im `compact`-Modus bzw. `2 Seiten` im ausführlichen Modus) sowie `build_cv_markdown()`.
+  - `4` de-riskte Zielrollen-Presets (`universal`, `consulting`, `audit_iam`, `trainee_eam`) inkl. Bereinigung des Alt-Typos `O2/2024 → 02/2024`, Prominenz der Masterarbeit (`1,0`) & `B.Sc. 180 ECTS + TOGAF 9`, IT-PMO-Aufwertung bei `SSB AG`, Eliminierung von Coding-Fangfragen (`Java/Python/UiPath`) sowie vollständiger Sprachliste (`Deutsch/Albanisch/Englisch C1`); private Kontaktdaten werden ausschließlich lokal zur Laufzeit (`_load_local_cv_contact()`) aus `.env` bzw. dem ignorierten Quell-CV bezogen (keine Kontaktdaten im Git-Repository).
+- **[scripts/local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py) & [s4hana-prep-portal/run_portal.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/run_portal.py):**
+  - Neue Funktion `tailor_cv_profile()` (Multi-Domain Hybrid RAG + Gemini/Ollama-JSON-Synthese + Halluzinations-/Privacy-Sanitizer) sowie neue Server-Endpunkte `GET /api/cv-presets`, `POST /api/cv-tailor` und `POST /api/cv-export` (Binary-Download `.docx`/`.pdf` oder Speicherung in `00_Aktuelle_Bewerbungsunterlagen/`).
+- **[portal_builder/cv_defense.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/cv_defense.py), [portal_builder/header.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/header.py), [portal_builder/vue_app.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/vue_app.py), [portal_builder/dashboard.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/dashboard.py):**
+  - Split-Pane CV Studio mit Segmented Switch (`Optimierter CV-Generator` ↔ `De-Risking & Ampel-Playbook`), Live-A4-Papiervorschau (`#cv-print-sheet`), Theme- (`Cobalt Navy` / `Monochrom`) und Layout-Toggles (`1 Seite Fit`, `Kurzprofil`, `Masterarbeit 1,0`, `B.Sc. 180 ECTS`, `VISMUV`, `PDR Team`, `TOGAF 9 & Ehrenamt`), `5/5`-Diff-Checkliste, LocalStorage-Autosave, Spotlight-Eintrag sowie `@media print` A4-Isolationsdruck.
+
+### 🧪 Verifikation & Compliance
+- `build_ultimate_portal.py` & `scripts/test_portal.py`: `100 % PASS` (`0` Privacy-/NDA-/Public-Leaks).
+- Live-API-Tests (`POST /api/cv-tailor`, `POST /api/cv-export` für `.docx` & `.pdf`, `GET /api/cv-presets`) sowie Browser-UI-Check des CV Studios erfolgreich bestanden.
+
+---
+
+## [1.26.6] - 2026-11-27 (Obsidian Single-Point-of-Truth Deep Upgrade, Notion Detail-Enrichment & Modern Bento/Spotlight Webapp)
+
+### 🎯 Kontext & Umfang
+Tiefenanalyse und ganzheitliche Überarbeitung aller drei Säulen des Career OS:
+1. **Obsidian Vault („Single Point of Truth“)** auf `4.918` konsistente Notizen (`162` Layer-1-Hubs + `4.756` Layer-2-Quellen, `100 %` vernetzt, `0` Orphans, `0` Broken Links, `0` Inkonsistenzen) mit `256.985` Chunks und `20.987` Ollama `bge-m3` Vektoren (`1.356,17 MB`).
+2. **Notion Knowledge Hub** vollflächig (`full_width: true`) in allen bestehenden 5 Domänenhubs vertieft + neue 7. Unterseite `7. VISMUV, Praxisprojekte & Karriere-Operations` ergänzt + `6. Fachliteratur-Bibliothek` & `Visar Command Center` auf die neuen RAG-/Graph-Metriken aktualisiert.
+3. **Career OS Webapp (`s4hana-prep-portal` & `scripts/local_rag_engine.py`)** architektonisch und visuell modernisiert: Offline-LLM-Fallback (`Ollama`), Server-Warmup-Thread, Live-Bibliotheks-/Chunk-APIs sowie Bento Grid, Hero-Mesh, SVG-Telemetry-Ring, `Ctrl+K` Spotlight-Suche, Toast-Feedback, Fachbibliothek-Browser und Slide-Over Source Reader Drawer.
+
+### ✨ Änderungen im Detail
+- **Obsidian Vault (`C:\Users\SHQIPTAR634\Documents\Obsidian Vault\`):**
+  - Neuer Synthese-Cluster `04_Second_Brain_Zettelkasten/05_Fachbibliothek_Synthese/` (`8` Dateien: `MOC_Fachbibliothek_Masterhub.md` + `7` domänenspezifische Synthese-Notizen zur Beseitigung des cross-link-freien Layer-2-Buch-Silos).
+  - Fehlende Layer-1-Hubs ergänzt (`01_Karriere_Bewerbungen/VISMUV_Unternehmensprofil.md`, `PDR_Team_Uebergangsstation.md`, `03_SAP_EnterpriseArchitecture/00_MOCs/MOC_DC1_Service_Operations.md`, `02_Wirtschaftsinformatik_300ECTS/Modul_Marketing_Management.md`) sowie `9` dünne Zettelkasten-/EAM-Stubs & `Partner_apsolut.md` wissenschaftlich und praxisseitig vertieft; `00_INDEX.md` und `Modul_Übersicht.md` erweitert.
+  - Bugfixes in [scripts/zettelkasten_synthesizer.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/zettelkasten_synthesizer.py) (verhindert dreifach verschachtelte Wikilinks bei Auto-Linking), [scripts/contradiction_checker.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/contradiction_checker.py) (`## 🔗 Navigation & Wissensnetz` am Ende von `Audit_Konsistenzbericht.md`), [scripts/obsidian_sync_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_sync_v2.py) (`Modul_Marketing_Management`) und [scripts/obsidian_rag_mcp.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_rag_mcp.py).
+- **Notion Knowledge Hub (`notion_notion` MCP):**
+  - Alle bestehenden Kern-Hubs (`1. SSB`, `2. DC1`, `3. Master`, `4. Bachelor`, `5. Synergien`) auf `full_width: true` umgestellt und mit SAP-Activate-/Trennungsrechnungs-/ITIL-KPI-/ECTS-Cluster-/Synergie-Tabellen detailliert angereichert (`3 Zusatzmodule` → `6 Zusatzbereiche` im Master-Hub korrigiert).
+  - Neue Unterseite `🚀 7. VISMUV, Praxisprojekte & Karriere-Operations` (`425272de-cb1d-81f7-b5df-c506d3b98a26`) angelegt; `📚 6. Fachliteratur-Bibliothek & Standards`, `🏛️ Visar Command Center | Life & Career OS` sowie die Applied-AI-Unterseiten aktualisiert.
+- **Webapp Backend ([scripts/local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py), [s4hana-prep-portal/run_portal.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/run_portal.py)):**
+  - Lokaler Offline-LLM-Fallback `_call_ollama_text` / `_call_llm_text` (Gemini primär → lokal `qwen2.5-7b-16k:latest` über Ollama `/api/chat`) in `synthesize_answer`, `match_job_profile` und `interview_sparring`; veraltete Terminmarker `(27.11.)` / `(30.11.)` entfernt.
+  - Neue Thread-sichere Backend-Funktionen `warm_caches()` (Daemon-Warmup beim Start auf Port `8085`), `get_library_catalog()` (`471` Katalogeinträge über `7` Buchdomänen + `8` Synthese-Hubs) und `read_source_chunks()` inkl. HTTP-Endpunkten `GET /api/library` und `GET /api/source`.
+- **Webapp Frontend ([portal_builder/](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/)):**
+  - [portal_builder/header.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/header.py): Destruktiven Global-Gradient-Blocker präzisiert, `.hero-mesh`, `.bento-card`, `.segmented-control`, `.bento-metric` (`tabular-nums`), Theme-agnostische Markdown-Klassen (`.md-*`), Topbar-Spotlight-Trigger (`Ctrl K` / `spotlightOpen`), globaler Toast (`.toast-pill`) und Slide-Over Source Reader Drawer ergänzt.
+  - [portal_builder/dashboard.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/dashboard.py): Asymmetrisches 12-Spalten Bento Grid mit SVG-Progress-Ring (`M.Sc. 1,6 • +1,4 Δ`), `5`-Pfeiler-Grid (inkl. `VISMUV & Projekte`), umgebrochene 3×2-Timeline und dynamisches Privat-Cockpit (`4.918` / `20.987`).
+  - [portal_builder/files_tab.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/files_tab.py), [portal_builder/notebook.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/notebook.py), [portal_builder/vue_app.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/vue_app.py): Dual-Ansicht Artefakte vs. Live-Fachbibliothek (`/api/library`), klickbare `📖 Quelle öffnen` / `📖 Chunks lesen` Buttons, Toast-Meldungen statt `alert()`, `bge-m3 1024d` Live-Badge sowie vollständige Bereinigung aller Alt-Metriken (`4.449`, `130425`, `652.35`).
+
+### 🧪 Verifikation & Compliance
+- `scripts/validate_obsidian_rag.py`: `4.918 / 4.918 (100.0 %)` Frontmatter, `19.014` Wikilinks (`0` Broken Links, `0` Multi-H1, `0` Orphans), `101.029.175` Wörter (`100% LLM & RAG READINESS`).
+- `scripts/zettelkasten_synthesizer.py --heal --auto-link`: `162` Layer-1-Notizen, `1.234` Kanten (`Ø 7,62`), `4,731 %` Dichte, `100 %` Konnektivität, `0` Orphans; `graph_manifest.json` (`4.918 Nodes | 18.290 Edges`).
+- `scripts/contradiction_checker.py`: `4.918` gescannt → `0` FATAL / `0` WARNING / `0` NOTICE.
+- `scripts/local_rag_engine.py`: `config/career_os_rag.db` auf `1.356,17 MB` (`4.918` Notizen, `256.985` Chunks, `560` Gemini + `20.987` Ollama `bge-m3` Vektoren).
+- `build_ultimate_portal.py` & `scripts/test_portal.py` (`100 % PASS`), Live-HTTP-Tests auf `127.0.0.1:8085` sowie Browser-UI-Check (`index.html` & `public_index.html` mit `0` Konsolen-/HTTP-Fehlern).
+
+---
+
+## [1.26.5] - 2026-11-27 (Bibliotheks-Vollständigkeitsaudit +7 Promotions, `SAP4SSB`-Buchbrücken, `20.966` `bge-m3`-Vektoren & Notion-Sync)
+
+### 🎯 Kontext & Umfang
+Vollständiges Abgleich-Audit über `05_Fachliteratur_Bibliothek/`, den `Obsidian Vault`, die lokale Hybrid-RAG-Engine (`config/career_os_rag.db`) sowie den Notion Knowledge Hub. Nach Klärung aller `7` zunächst abweichend gezählten Bestände (`5` kanonische SAP-PRESS-Bände bereits unter `01_SSB/04_Architektur_Methoden_Tools/SAP_Fachbuecher_Referenzen/` bzw. `01_SSB/08_Architektur_Tools/*.md`; `2` inhaltsgleiche PDFs zugunsten der `.epub`-Edition dedupliziert) und Nachkategorisierung von `259` `99_Off_Topic`-Einträgen sind **100 % aller `454` relevanten RAG-Fachwerke (`8.474,6 MB`)** durchgängig im Obsidian-Graph und in Ollama `bge-m3` abgedeckt (`0` Lücken, `0` Off-Topic-Leaks).
+
+### ✨ Änderungen im Detail
+- **[scripts/organize_library.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/organize_library.py):**
+  - Ergänzung von `innovationsmanagement` und `ambidextres` in `DOMAIN_KEYWORDS["05_Consulting_BWL_VISMUV"]` und dem Tie-Breaker, Ergänzung passender Off-Topic-Dampener (u. a. `trendbasiertes innovationsmanagement`, `guerilla innovationsmanagement`, `markenmanagement`) sowie Titelbereinigung `kalkulation_preisbildung_und_controlling.pdf` → `Kalkulation_Preisbildung_Controlling_Bauwirtschaft.pdf` in `_CURATED_TITLE_FIXES`.
+  - Lauf `--recategorize-offtopic --apply` überführte `7` relevante Innovationsmanagement-/Ambidextrie-/Industrie-4.0-Werke in `05_Consulting_BWL_VISMUV` (`166` Werke; Gesamt-RAG `454` Dateien / `8.474,6 MB`; isolierte `99_Off_Topic` `252` Dateien / `3.467,9 MB`; `0` Root-Dateien).
+- **[scripts/local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py):**
+  - Einführung von `SAP_PRESS_IN_SSB_BOOKS` in `_domain_sql_clause`, `_matches_domain_py` und `embed_ollama_anchors` (`rn <= 30`), sodass die `5` unter `01_SSB` gespeicherten SAP-PRESS-Bände (`Berechtigungen_in_S4HANA_und_Fiori`, `BPI_mit_SAP`, `Migration_nach_SAP_S4HANA`, `SAP_Cloud_ALM`, `SAP_HANA_Cloud`) nativ in `domain="library"` gefunden und vollständig anker-vektorisiert werden.
+  - Erweiterung von `match_job_profile` (`[:14]`) und `interview_sparring` (`[:10]`) um einen `("library", 3)`-Retrieval-Bucket für gezielte Fachliteratur-Anchors.
+- **Obsidian Vault (`C:\Users\SHQIPTAR634\Documents\Obsidian Vault\00_INDEX.md` & `scripts/obsidian_sync_v2.py`):**
+  - Vault neu synchronisiert (`4.906` Notizen: `150` Layer 1, `4.756` Layer 2 inkl. `447` `reference-book`-Notizen; `18.565` semantische Kanten, `0` Orphans) und `00_INDEX.md` um `[[05_Bibliothek_Quellen_Index]]` sowie die aktuellen Layer-2-/Buchkennzahlen aktualisiert.
+- **Notion Knowledge Hub (`notion_notion` MCP):**
+  - Neue Unterseite `6. Fachliteratur-Bibliothek & Standards (454 Werke)` (`425272de-cb1d-81b5-b16c-da1c8f69298d`) unter `Visar Command Center | Life & Career OS` erstellt sowie `Visar Command Center | Life & Career OS`, `06 · Applied AI, Smart Services (IoT), DSRM & Knowledge OS` und `Applied AI and Upcoming Technologies in Industries` auf die verifizierten Bestands-, RAG- und `bge-m3`-Metriken aktualisiert.
+
+### 🧪 Verifikation & Compliance
+- `python -m py_compile scripts\organize_library.py scripts\local_rag_engine.py`: Bestanden (`Exit 0`).
+- `scripts/validate_obsidian_rag.py`: `4.906 / 4.906 (100.0 %)` Frontmatter, `18.565` Kanten (`0` Broken Links, `0` Multi-H1, `0` Orphans), `101.024.306` Wörter / `~136.382.813` Tokens (`100% LLM & RAG READINESS`).
+- `scripts/contradiction_checker.py`: `0` FATAL / `0` WARNING / `0` NOTICE (`4.906` Notizen, `100.0 %` konsistent).
+- `scripts/local_rag_engine.py --build --no-vectors` + `--embed --provider ollama --embed-model bge-m3 --max-chunks 2000`: `config/career_os_rag.db` auf `1.355,13 MB` (`4.906` Notizen, `256.965` Chunks, `+531` → `20.966` `bge-m3`-Vektoren + `579` Gemini-Vektoren); `464 / 464` Bibliotheksdokumente in `domain="library"` vollständig vektorisiert (`13.536` Bibliotheks-Vektoren), `0` Off-Topic-Leaks; Live-HTTP-API `127.0.0.1:8085` (`/api/health` & `/api/rag?q=Ambidextrie&domain=library`, Modus `hybrid_rrf_rerank`) erfolgreich verifiziert.
+
+---
+
+## [1.26.4] - 2026-11-27 (`local_rag_engine.py`: Ollama `bge-m3` SQL-Precedence-, Tier- & Cold-Load-Fix)
+
+### 🐛 Behobene Fehler & Optimierungen in [scripts/local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py)
+- **SQL-Operator-Precedence-Fix (`embed_ollama_anchors` & `embed_anchors`):** Fehlende Klammerung um `prio_likes` vor `AND rn <= 8` (bzw. `rn <= 6`) führte durch stärkere Bindung von `AND` vor `OR` dazu, dass einzelne Archivdateien komplett statt bis `rn <= 8` in Tier 1 landeten (`44.508` statt `3.285` Chunks) und Fachbücher verdrängten. Nach Klammerung ergeben sich sauber **`20.485` Anker-Chunks gesamt** (`Tier 0` Layer 1: `501`, `Tier 1` Kernquellen `rn<=8`: `3.285`, `Tier 2` alle `440` `reference-book`-Bände `rn<=30`: `12.933`, `Tier 3` übrige `05_Archiv` `rn=1`: `3.766`).
+- **Prioritätsreihenfolge:** `CORE_PRIORITY_PATTERNS` (`doc_type != 'reference-book'`) als Tier 1 vor den Fachbuch-Ankern (Tier 2), damit Eigenarbeiten (SSB SDD, Masterarbeit, P_ORGIN, Cloud ALM, DC1) vor den bis zu 30 Buch-Ankern pro Band priorisiert sind.
+- **Cold-Start-Timeout & Live-Fortschritt:** Query-Embedding-Timeout in `search()` von `3.0s` auf `20.0s` erhöht (gemessener `bge-m3`-Kaltstart auf GTX 1080: `15,86s`), Batch-Timeout auf `90.0s` angepasst und Fortschrittsanzeige (`Chunks`, `%`, `chunks/s`, `ETA`) je `256` Chunks ergänzt.
+- **Abgeschlossener `bge-m3`-Vektor-Build & Live-Verifikation:** `20.485` `ollama_vectors` (`dim=1024`, Modell `bge-m3`) komplett aufgebaut — **`440 / 440` kanonische `reference-book`-Bände** (`12.933` Buch-Anker), `7.045` `source-fulltext`-Chunks sowie 100 % Layer 1 (`507` Anker); `config/career_os_rag.db` jetzt `1.345,48 MB` (`4.899` Notizen, `255.200` Chunks, `581` Gemini- + `20.485` Ollama-Vektoren). Live-HTTP-API (`127.0.0.1:8085/api/health` & `/api/rag`) im Modus `hybrid_rrf_rerank` erfolgreich verifiziert.
+
+---
+
+## [1.26.3] - 2026-11-27 (Zweiter Tages-Batch +55 Downloads, >100 Mio. Wörter Obsidian Vault & 601 Mio. RAG-Zeichen)
+
+### 🎯 Kontext & Umfang
+Verarbeitung eines weiteren Neuzugangs von `55` EPUB-/PDF-Dateien im Root von `05_Fachliteratur_Bibliothek/` (ohne DRM, ohne Bild-only-Scans), Entfernung von `3` exakten SHA-256-Duplikaten gegen den Bestand (`Interne_Kommunikation_und_Unternehmensfuehrung.epub`, `New_Work_und_Arbeitsschutz.epub`, `Human_Capital_Supply_Chain_in_the_Age_of_AI.epub`) sowie Einsortierung und Kurztitel-Umbenennung aller `52` eindeutigen Neuzugänge (`+26` RAG-Bände in `02_`, `03_`, `05_`, `08_`, `+26` Off-Topic-Ausschlüsse in `99_`).
+
+### ✨ Änderungen im Detail
+- **[scripts/organize_library.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/organize_library.py):**
+  - **Keyword- & Tie-Breaker-Ausbau:** Ergänzung um `cyberstrategien` (`02_`), `schatten-it`, `public cloud`, `information systems outsourcing` (`03_`), `kennzahlen`, `organisationstheorie`, `personalmanagement`, `chefsache zukunft`, `digitalen wandel` (`05_`) und `marktforschung`, `verkauf`, `crm` (`08_`).
+  - **Off-Topic-Schutz & Unterordner:** Dampener gegen `tourismus`, `zukunft verantwortungsvoll gestalten`, `politische bildung`, `bildungskonzepte`, `zukunft der medien`, `bauen – pflegen`, `automobile der zukunft` inklusive Zielzuordnung in `03_Psychologie_Fitness_SelfHelp` bzw. `04_Politik_Gesellschaft_Medien_Recht`.
+  - **`_CURATED_TITLE_FIXES` (`+6` neue PDF-Reparaturen):** `3-540-27856-7.pdf` (`Personalmanagement_Holtbruegge_2Aufl.pdf`), `978-3-322-82164-5.pdf` (`Outsourcing_von_CRM_Prozessen.pdf`), `978-3-658-20787-8.pdf` (`Der_Umgang_mit_Schatten_IT_in_Unternehmen.pdf`), `978-3-658-24651-8.pdf` (`Digitalen_Wandel_gestalten_HFT_Stuttgart.pdf`), `978-3-662-64116-3.pdf` (`Automobile_der_Zukunft_elektrisch_digital_autonom.pdf`), `978-3-662-66295-3.pdf` (`Management_der_Zukunft_Zukunftsmanagement.pdf`).
+- **[05_Fachliteratur_Bibliothek/](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/05_Fachliteratur_Bibliothek/) (Bestand `706` kanonische Dateien | `0` Root-Reste):**
+  - **RAG-Bestand (`447` Dateien, `8,421.7 MB`, `+26` Bände):** `01_SAP_S4HANA_BTP_CleanCore` (`62`, `1,262.0 MB`), `02_IT_Audit_Governance_Compliance` (`18`, `184.7 MB`), `03_Enterprise_Architecture_Cloud` (`54`, `1,219.9 MB`), `04_AI_Engineering_Data_Automation` (`88`, `1,477.6 MB`), `05_Consulting_BWL_VISMUV` (`159`, `2,494.1 MB`), `06_Open_Access_Standards` (`0`), `07_Wirtschaftsinformatik_IT_Grundlagen` (`21`, `772.4 MB`), `08_Unternehmertum_Marketing_VISMUV` (`45`, `1,011.0 MB`).
+  - **Off-Topic-Isolierung (`259` Dateien, `3,520.9 MB` in `99_Off_Topic_Nicht_Fuer_RAG/`):** `01_Belletristik_Klassiker_Romane` (`11`), `02_Biografien_Musik_Zeitgeschichte` (`8`), `03_Psychologie_Fitness_SelfHelp` (`56`), `04_Politik_Gesellschaft_Medien_Recht` (`46`), `05_Finanzen_Boerse_Krypto_VWL` (`26`), `06_Branchen_Medizin_Biotech_Varia` (`112`), `07_Privatdokumente_Unvollstaendige_Downloads` (`0`).
+
+### ✅ Validierung & RAG-Status
+- **Obsidian Vault:** `4,899` Notizen (`440` kanonische `reference-book`-Bände, `0` neue Extraktionsfehler, `0` Bibliothekstitel `<100` Wörter), `18,542` Wikilinks, `0` Broken Links, `0` Multi-H1, `0` Orphans.
+- **Qualitäts-Gates:** `validate_obsidian_rag.py` (`PASSED WITH DISTINCTION`, `100,463,573` Wörter / `~135.63 Mio.` Tokens), `contradiction_checker.py` (`4899/4899` konsistent; `0` FATAL / `0` WARNING / `0` NOTICE).
+- **SQLite FTS5 RAG (`config/career_os_rag.db`):** `1,255.78 MB` | `4,899` Notizen | `255,200` Chunks (`+8,060`) | `601,238,827` Zeichen | `581` Vektoren erhalten; SQLite-Leck-Check (`path_leaks=0`, `title_leaks=[]`) und Live-Portal-Abfragen (`127.0.0.1:8085/api/health` & `/api/rag?domain=library`) verifiziert.
+
+---
+
+## [1.26.2] - 2026-11-27 (Batch-Ingestion +272 Downloads, +119 neue RAG-Fachbücher & Klassifikations-Hardening)
+
+### 🎯 Kontext & Umfang
+Verarbeitung eines großen Neuzugangs von `272` EPUB-/PDF-Dateien im Root von `05_Fachliteratur_Bibliothek/` (ohne DRM, ohne Bild-only-Scans), Entfernung von `20` exakten SHA-256-Duplikaten (`14` bereits im Bestand, `6` Doppel-Downloads im Batch) sowie thematische Sortierung, Kurztitel-Umbenennung und vollständige Obsidian-/RAG-Aktualisierung für alle `252` eindeutigen Neuzugänge (`119` RAG-Bände + `133` Off-Topic-Ausschlüsse).
+
+### ✨ Änderungen im Detail
+- **[scripts/organize_library.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/organize_library.py):**
+  - **Keyword-, Tie-Breaker- & Off-Topic-Hardening:** Ergänzung um `unternehmensberatung`, `it-revision`, `it-grc`, `site reliability engineering`, `business analytics`, `python for business`, `anforderungsmanagement`, `requirements engineering`, `einkauf`, `sales enablement` und `e-commerce`; explizite Ausschluss-Dampener gegen Fehlklassifikationen (`bauwirtschaft`, `kultureinrichtungen`, `climate change`, `fashion marketing`, `new world order`, `brics`, `salesforce`, Steuern-/Recht-/Karriere-Ratgeber).
+  - **`shorten_title_slug` & `_classify_offtopic_subdir`:** Unicode-NFC-Normalisierung vor Umlaut-Transliteration (z. B. kombiniertes `u\u0308` → `ue`) sowie Primär-Matching auf Titel/Dateiname vor Vorwort-Blurb-Text, damit Supply-Chain-/Finanzbücher (z. B. *Chefsache Finanzen in Einkauf und Supply Chain*, 4. Aufl.) nicht fälschlich in `03_Psychologie_Fitness_SelfHelp` landen.
+  - **`_CURATED_TITLE_FIXES`:** Bereinigung von `30` neuen Springer-/Vieweg-/Gabler-/DuD-Titeln (`27` PDFs + `3` *Handbuch Industrie 4.0*-EPUBs) mit Autoren-Präfixen, abgeschnittenen Bindestrich-Titeln oder Reihentitel-Verdeckungen (u. a. `Exzellenz_in_der_Unternehmensberatung_1Aufl.pdf`, `KI_im_Dienstleistungsmanagement_Band_2_Einsatzfelder.pdf`, `Effiziente_Zentralisierung_in_IT_und_Finanzen.pdf`, `Projektmanagement_im_Einkauf_2Aufl.pdf`, `Anforderungsmanagement_in_sieben_Tagen_KI_2Aufl.pdf`).
+- **[05_Fachliteratur_Bibliothek/](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/05_Fachliteratur_Bibliothek/) (Bestand `654` kanonische Dateien | `0` Root-Dateien):**
+  - **RAG-Bestand (`421` Dateien, `8,082.5 MB`, `+119` Bände):** `01_SAP_S4HANA_BTP_CleanCore` (`62`, `1,262.0 MB`), `02_IT_Audit_Governance_Compliance` (`17`, `183.3 MB`), `03_Enterprise_Architecture_Cloud` (`49`, `1,197.9 MB`), `04_AI_Engineering_Data_Automation` (`88`, `1,477.6 MB`), `05_Consulting_BWL_VISMUV` (`145`, `2,314.7 MB`), `06_Open_Access_Standards` (`0`), `07_Wirtschaftsinformatik_IT_Grundlagen` (`21`, `772.4 MB`), `08_Unternehmertum_Marketing_VISMUV` (`39`, `874.6 MB`).
+  - **Off-Topic-Isolierung (`233` Dateien, `3,275.9 MB` in `99_Off_Topic_Nicht_Fuer_RAG/`):** `01_Belletristik_Klassiker_Romane` (`11`), `02_Biografien_Musik_Zeitgeschichte` (`8`), `03_Psychologie_Fitness_SelfHelp` (`55`), `04_Politik_Gesellschaft_Medien_Recht` (`43`), `05_Finanzen_Boerse_Krypto_VWL` (`26`), `06_Branchen_Medizin_Biotech_Varia` (`90`), `07_Privatdokumente_Unvollstaendige_Downloads` (`0`).
+
+### ✅ Validierung & RAG-Status
+- **Obsidian Vault:** `4,873` Notizen (`414` kanonische `reference-book`-Bände, `0` neue Extraktionsfehler, `0` Bibliothekstitel mit `<100` Wörtern), `18,464` Wikilinks, `0` Broken Links, `0` Multi-H1, `0` Orphans.
+- **Qualitäts-Gates:** `validate_obsidian_rag.py` (`PASSED WITH DISTINCTION`, `97,837,445` Wörter / `~132.08 Mio.` Tokens), `contradiction_checker.py` (`4873/4873` konsistent; `0` FATAL / `0` WARNING / `0` NOTICE).
+- **SQLite FTS5 RAG (`config/career_os_rag.db`):** `1,217.89 MB` | `4,873` Notizen | `247,140` Chunks (`+34,389`) | `582,845,248` Zeichen | `581` Vektoren erhalten; Live-Portal-Abfragen (`127.0.0.1:8085/api/health` & `/api/rag?domain=library`) über alle neuen Domänen verifiziert (`0` Off-Topic-Treffer).
+
+---
+
+## [1.26.1] - 2026-11-26 (Off-Topic-Unterordner, +50 beförderte Fachbücher & neue RAG-Kategorien 07/08)
+
+### 🎯 Kontext & Umfang
+Vollständige Re-Evaluation aller `152` bisherigen Off-Topic-Dateien in `99_Off_Topic_Nicht_Fuer_RAG/`, Anlage zweier neuer RAG-Kategorien unter `05_Fachliteratur_Bibliothek/` (`07_Wirtschaftsinformatik_IT_Grundlagen/`, `08_Unternehmertum_Marketing_VISMUV/`) sowie Strukturierung der verbleibenden `102` Off-Topic-Dateien in `7` thematische Unterordner.
+
+### ✨ Änderungen im Detail
+- **[scripts/organize_library.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/organize_library.py) & [scripts/obsidian_sync_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_sync_v2.py):**
+  - **Neue RAG-Kategorien in `05_Fachliteratur_Bibliothek/` & `LIBRARY_AREA_LABELS`:**
+    - `07_Wirtschaftsinformatik_IT_Grundlagen/` (`18` Bände, `750,8 MB`: u. a. `Grundkurs_Wirtschaftsinformatik_Abts_Muelder`, `Anwendungsorientierte_Wirtschaftsinformatik` `9Aufl`/`10Aufl`, Manfred Broys `Logische_und_Methodische_Grundlagen_der_Programm`, `Wirtschaftsinformatik` 2022/2024/2Aufl/5Aufl, `VBA_fuer_Office_Automatisierung_und_Digitalisierung`, `Creative_DSLs_in_Kotlin`, `JavaServer_Faces`, `JavaFX`).
+    - `08_Unternehmertum_Marketing_VISMUV/` (`12` Bände, `301,8 MB`: u. a. `GmbH_Gruendung_fuer_Ingenieure`, `Erfolgreich_ein_Software_Startup_gruenden` `1Aufl`/`2Aufl`, `Erfolgreiche_Business_Inkubation`, `Zukunftsorientiertes_Kundenmanagement_im_Vertrieb`, `Marketing_Grundlagen_fuer_Studium_und_Praxis`, `Datengetriebenes_Marketing`, `Regenerative_Geschaeftsmodelle`, `Gemeinwohlorientierte_Unternehmensfuehrung`).
+  - **Weitere RAG-Beförderungen (`+20` Bände):** `Die_Macht_digitaler_Plattformen` (`03_`), `KI_mit_Koepfchen`, `Managing_Human_and_Artificial_Knowledge`, `Hybrid_Artificial_Intelligent_Systems`, `How_Agentic_AI_Will_Reshape_Payments` (`04_`), sowie `Bridging_the_Innovation_Gap`, `Knowledge_and_Co_Creation_GfWM_2026`, `Dienstleistungsmanagement` `7Aufl`/`8Aufl`, `Motivation_Agilitaet_in_Teams`, `People_Management`, `Arbeit_4_0`, `Beyond_Automation`, `KI_Revolution_der_Arbeitswelt`, `Nachhaltige_Unternehmensfuehrung_Ulm_NUF` (`05_`).
+  - **Unterordner-Taxonomie in `99_Off_Topic_Nicht_Fuer_RAG/` (`102` Dateien, `0` lose Root-Dateien):**
+    - `01_Belletristik_Klassiker_Romane` (`11`), `02_Biografien_Musik_Zeitgeschichte` (`8`), `03_Psychologie_Fitness_SelfHelp` (`31`, inkl. umbenannter `Die_Kunst_einen_Scheiss_drauf_zu_geben.pdf`), `04_Politik_Gesellschaft_Medien_Recht` (`10`), `05_Finanzen_Boerse_Krypto_VWL` (`11`), `06_Branchen_Medizin_Biotech_Varia` (`29`, inkl. korrigierter `Berufliche_Bildung_und_Persoenlichkeitsentwicklung.pdf`), `07_Privatdokumente_Unvollstaendige_Downloads` (`2`: `CoverOnly_Programmieren_mit_KI_Cover.pdf`, `Pro_forma_Rechnung_Nr_684394.pdf`).
+  - CLI-Schalter `--recategorize-offtopic` zur optionalen Neubewertung von `99_Off_Topic_Nicht_Fuer_RAG/` ergänzt (`_classify_offtopic_subdir` greift automatisch auch bei künftigen Neuzugängen).
+
+### ✅ Validierung & RAG-Status
+- **Obsidian Vault:** `4,754` Notizen (`295` kanonische `reference-book`-Bände), `18,107` Wikilinks, `0` Broken Links, `0` Multi-H1, `0` Orphans.
+- **Qualitäts-Gates:** `validate_obsidian_rag.py` (`PASSED WITH DISTINCTION`, `87,013,281` Wörter / `~117,47 Mio.` Tokens), `contradiction_checker.py` (`4754/4754` konsistent; `0` FATAL / `0` WARNING / `0` NOTICE).
+- **SQLite FTS5 RAG (`config/career_os_rag.db`):** `1,050.36 MB` | `4,754` Notizen | `212,751` Chunks (`+16,791`) | `505,037,670` Zeichen | `581` Vektoren erhalten.
+
+---
+
+## [1.26.0] - 2026-11-26 (Großpaket II: 270 Neuzugänge kuratiert, 245 kanonische Bände, Codefence-/Single-H1-Fix & 195.960 RAG-Chunks)
+
+### 🎯 Kontext & Umfang
+Sichtung, Bereinigung, Titelrekonstruktion, thematische Sortierung und selektive RAG-Aufnahme weiterer `270` in `05_Fachliteratur_Bibliothek/` abgelegter Dateien (`495` Dateien gescannt inkl. `225` Bestandsdateien).
+
+### ✨ Änderungen im Detail
+- **[scripts/organize_library.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/organize_library.py):**
+  - **Bestandsschutz für bereits einsortierte Dateien:** Bereits kategorisierte Dateien in `01_`–`99_` bleiben stabil (`KEEP`), `99_Off_Topic`-Einträge werden nie versehentlich hochgestuft, und Namenskollisionen betreffen ausschließlich Neuzugänge.
+  - **Springer/Vieweg/SSRN/DuD-PDF-Titelrekonstruktion:** Überspringt Reihen-/Verlagsbeschreibungsseiten (`BestMasters`, `LNBIP`, `Xpert.press`), differenziert Artikel (ab Seite 0) vs. Monografien (Innentitelseite `p3`/`p2`), entfernt Autorenzeilen ohne Titelverlust bei Mehrwort-Fachtiteln (`Robotic Process Automation`) und zieht getrennte Silben (`Daten-management`) wieder zusammen.
+  - **Domain-Taxonomie-Upgrade:** Präzise Trennung von `LLM`/`LLMs`/`LangChain`/`RPA`/`Datenmanagement`/`Architekturreview`/`Digitale Plattformen` (Krcmar u. a.)/`SAP RISE Datenschutz`/`Softwarelizenzmanagement` vs. fachfremdem Rauschen (`Palm sap beyond sweeteners`, `Characterization of Plant Viruses`, `Medical Imaging`, `Vehicle Dynamics`, `Bankbetriebslehre`, `Crew Resource Management`).
+- **[scripts/extractors_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/extractors_v2.py) & [scripts/obsidian_sync_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_sync_v2.py):**
+  - `_html_to_markdown` umschließt `<pre>` und `.ProgramCode`/`.FixedLine`-Container jetzt sauber mit ` ``` `-Codefences; `render_source_note` schützt zusätzlich vor einzelnen `#`-Kommentarzeilen außerhalb von Fences (behebt `42` Code-Kommentar-Fehl-H1s in `Mastering_LangChain_and_LangGraph.md`).
+- **Bibliotheksbestand (`05_Fachliteratur_Bibliothek/`):**
+  - `91` exakte SHA-256-Dubletten (`(1)`..`(14)` sowie identische Springer-/Apress-Re-Downloads) bereinigt (`[DEDUP-RM]`).
+  - `252` thematische Fachbücher in `01_` (`60`), `02_` (`11`), `03_` (`43`), `04_` (`75`) und `05_` (`63`) einsortiert (`+116`); `152` fachfremde Dateien in `99_Off_Topic_Nicht_Fuer_RAG/` isoliert (`+63`).
+
+### ✅ Validierung & RAG-Status
+- **Obsidian Vault:** `obsidian_sync_v2.py` → `4,704` Notizen (`245` kanonische `reference-book`-Bände in `05_Bibliothek`), `17,957` Wikilinks, `0` Broken Links, `0` Multi-H1, `0` Orphans.
+- **Qualitäts-Gates:** `validate_obsidian_rag.py` (`PASSED WITH DISTINCTION`, `81,789,282` Wörter / `~110,42 Mio.` Tokens), `contradiction_checker.py` (`4704/4704` konsistent; `0` FATAL / `0` WARNING / `0` NOTICE).
+- **SQLite FTS5 RAG (`config/career_os_rag.db`):** `968.98 MB` | `4,704` Notizen | `195,960` Chunks (`+29,825` Chunks) | `467,033,082` Zeichen | `581` Vektoren erhalten.
+
+---
+
+## [1.25.9] - 2026-11-26 (Großpaket Literatur-Ingestion: 122 Neuzugänge kuratiert, 129 kanonische Bände, 166.135 RAG-Chunks)
+
+### 🎯 Kontext & Umfang
+Vollständige Sichtung, Dublettenbereinigung, PDF/EPUB-Titelrekonstruktion, thematische Sortierung und RAG-Aufnahme weiterer `122` neu in `05_Fachliteratur_Bibliothek/` eingefügter Bücher und Forschungsarbeiten (`231` gesamt gescannt inkl. `109` Bestandsdateien).
+
+### ✨ Änderungen im Detail
+- **[scripts/organize_library.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/organize_library.py):**
+  - Automatische **SHA-256-Dublettenentfernung** (`[DEDUP-RM]`) mit Priorisierung bereits sortierter kanonischer Dateien und Entfernung redundanter Browser-Doppeldownloads (`(1)` / bereits in `01_` & `03_` vorhandene EPUBs).
+  - Robuste **PDF-Titelerkennung** für codierte Verlags-/DOI-/SSRN-/CESifo-Dateinamen (`978-3-8348-*`, `ssrn-*`, `s40702-*`, `cesifo*`, `f12111*`), Schutz bereits benannter Dateien gegen Autoren-Präfix-Regressionen (`Objektorientierte_Programmierung_in_Java.pdf`), `html.unescape()` für EPUB-DC-Titel, `Vol1`/`Vol2`-Auflösung sowie automatische Erkennung reiner Verlagsschutz-Cover (`CoverOnly` ≤ 2 Seiten ohne Buchinhalt).
+  - Erweiterte Domänen-Taxonomie u. a. für Enterprise IAM (`Building the Enterprise Identity Operating Model`), IT Governance & COBIT (`Enterprise Governance of IT`, `COBIT/ITIL/ISO 27002 Alignment`), Agentic AI & LLMs, Enterprise-Architecture & Cloud-Native/Microservices/ServiceNow ITSM, ABAP/SuccessFactors sowie Projekt-/Wissensmanagement — bei gezieltem Off-Topic-Ausschluss fachfremder Domänen (`eHealth`, `Life Sciences`, `Disaster Management`, `Higher Education`, `Canadian Economy`, `Veranstaltungsbranche`, `Online-Coaching`).
+- **Bibliotheksbestand (`05_Fachliteratur_Bibliothek/`):**
+  - `6` exakte SHA-256-Dubletten bereinigt (`Improving_the_Quality_of_ABAP_Code`, `SAP_ABAP_7_5_Optimization_for_HANA`, `Digitale_Transformation_und_Innovation_in_der_Praxis`, `978-3-032-14721-9 (1)`, `978-3-8348-8204-2 (1)`, `979-8-8688-3109-6 (1)`).
+  - `136` thematische Werke in `01_` (`37`), `02_` (`8`), `03_` (`29`), `04_` (`27`) und `05_` (`35`) einsortiert; `89` Off-Topic-/Cover-Dateien (u. a. reines `CoverOnly_Programmieren_mit_KI_Cover.pdf`) in `99_Off_Topic_Nicht_Fuer_RAG/` isoliert.
+
+### ✅ Validierung & RAG-Status
+- **Obsidian Vault:** `obsidian_sync_v2.py` -> `4,588` Notizen (`129` kanonische `reference-book`-Notizen in `05_Bibliothek` nach EPUB/PDF- & `01_SSB`-Deduplizierung, `~7,12 Mio.` zusätzliche Wörter), `17,609` Wikilinks, `0` Broken Links, `0` Orphans.
+- **Qualitäts-Gates:** `validate_obsidian_rag.py` (`PASSED WITH DISTINCTION`, `72,162,634` Wörter / `~97,42 Mio.` Tokens), `contradiction_checker.py` (`4588/4588` konsistent; `0` FATAL / `0` WARNING / `0` NOTICE).
+- **SQLite FTS5 RAG (`config/career_os_rag.db`):** `825.76 MB` | `4,588` Notizen | `166,135` Chunks (`+21,116` Chunks) | `581` Vektoren erhalten.
+
+---
+
+## [1.25.8] - 2026-11-26 (Bestandsbibliothek-Ingestion: 77 neue Dateien sortiert, 10 neue Fachbücher im RAG, 62 Off-Topic-Exklusionen)
+
+### 🎯 Kontext & Umfang
+Sichtung, Titelbereinigung, thematische Sortierung und selektive RAG-Ingestion von `77` neu in `05_Fachliteratur_Bibliothek/` eingefügten Bestandsbüchern (`109` gescannte Dateien gesamt inkl. `32` bestehender Werke).
+
+### ✨ Änderungen im Detail
+- **[scripts/organize_library.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/organize_library.py):**
+  - Boundary-aware Keyword-Matching (`_kw_in_text`) ergänzt, sodass Kurztokens wie `rag`, `sap` oder `agil` nicht mehr fälschlich in deutschen Teilwörtern (`ertrag`, `betrag`, `fragil`) matchen.
+  - Domain-Taxonomie um Data Science (`Data_Science_Essentials_For_Dummies`), AI Fundamentals (`AI_Explained`), Software Engineering/Java OOP (`Objektorientierte_Programmierung_in_Java`), Cybersecurity/Pentesting (`Hacking_Security`), IPMA Projektmanagement (`Project_Management_IPMA`), Change-Management (`The_Human_Element`), Leadership (`Leadership_Is_a_Relationship`) und Verhaltensökonomie (`Schnelles_Denken_langsames_Denken`) erweitert.
+  - Bereinigung fehlerhafter PDF-Metadaten (`3935042779_v01.book`, Untertitel-only-Metadaten bei `The_Human_Element`, Zählerpräfixe, `Autor: Titel`-Muster) sowie konsequente Off-Topic-Abschirmung.
+- **Bibliotheksstruktur (`05_Fachliteratur_Bibliothek/`):**
+  - `32` bestehende Fachbücher unverändert beibehalten; `15` thematisch passende Neuzugänge in `01_SAP_S4HANA_BTP_CleanCore/` (`+6`, davon `5` SHA-256-Dubletten zu bereits in `01_SSB` indexierten SAP-Press-EPUBs sauber erkannt), `02_IT_Audit_Governance_Compliance/` (`+1`), `04_AI_Engineering_Data_Automation/` (`+4`) und `05_Consulting_BWL_VISMUV/` (`+4`) einsortiert.
+  - `62` themenfremde Privatbücher, Belletristik, Biografien, Börsen-/Krypto-/Fitness-Titel (inkl. `4` DRM-/Font-obfuskierten EPUBs und einer privaten Pro-forma-Rechnung) in `99_Off_Topic_Nicht_Fuer_RAG/` isoliert und vollständig aus Vault & RAG ausgeschlossen.
+
+### ✅ Validierung & RAG-Status
+- **Obsidian Vault:** `obsidian_sync_v2.py` -> `4,500` Notizen (`+10` kanonische Bibliotheksbücher, `~949k` neue Fachbuchwörter), `17,345` Wikilinks, `0` Broken Links, `0` Orphans.
+- **Qualitäts-Gates:** `validate_obsidian_rag.py` (`PASSED WITH DISTINCTION`, `65,038,562` Wörter), `contradiction_checker.py` (`4500/4500` konsistent; `0` FATAL / `0` WARNING / `0` NOTICE).
+- **SQLite FTS5 RAG (`config/career_os_rag.db`):** `724.35 MB` | `4,500` Notizen | `145,019` Chunks (`+2,993` Chunks) | `581` Vektoren erhalten.
+
+---
+
+## [1.25.7] - 2026-11-26 (Auto-Sortierung, Kurz-Umbenennung nach Buchtitel & RAG Cache-Auto-Reload)
+
+### 🎯 Kontext & Umfang
+Verschiebung und gekürzte Klarnamen-Umbenennung aller `32` Werke in `05_Fachliteratur_Bibliothek/` sowie Bereitstellung eines wiederverwendbaren Auto-Sortierers (`scripts/organize_library.py`) inklusive thematischem Off-Topic-Filter (`99_Off_Topic_Nicht_Fuer_RAG/`) und automatischer Cache-Invalidierung im laufenden Portal-Server.
+
+### ✨ Änderungen im Detail
+- **[scripts/organize_library.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/organize_library.py):**
+  - Automatische Titel-Extraktion (`.epub` OPF / `.pdf` Metadata + Titelseite), sauberes Titel-Kürzen (`shorten_title_slug` ohne abgebrochene Präpositionen, inkl. `S4HANA`-Normierung und automatischer Auflagen-Differenzierung `10Aufl` vs `11Aufl`) sowie gewichtetes Themen-Scoring über die Kategorien `01_` bis `06_`.
+  - Off-Topic-Schutz: Thematisch unpassende Bücher (`score < 2`) wandern automatisch in `99_Off_Topic_Nicht_Fuer_RAG/` und werden von Obsidian/RAG ausgeschlossen.
+- **[scripts/obsidian_sync_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_sync_v2.py) & [00_UB_Stuttgart_Literatur_Checkliste.md](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/05_Fachliteratur_Bibliothek/00_UB_Stuttgart_Literatur_Checkliste.md):**
+  - Integration von `99_Off_Topic_Nicht_Fuer_RAG` in `SKIP_DIR_NAMES`, einheitliche `LIBRARY_AREA_LABELS` und Dokumentation von `organize_library.py --apply` als Workflow-Schritt `0`.
+- **[scripts/local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py):**
+  - `_ensure_cache_fresh()`: Automatische `mtime`-basierte Invalidierung der RAM-Caches (`_ANCHOR_NGRAM_CACHE`, `_VECTOR_CACHE`, `_OLLAMA_VECTOR_CACHE`) bei Änderungen an `career_os_rag.db`.
+
+### ✅ Verifizierung (`2026-11-26`)
+- **`organize_library.py --apply`:** `32 / 32` Dateien in Themen-Unterordner verschoben und umbenannt (`19` SAP/BTP, `8` EAM/BPM/Transformation, `5` AI Engineering [inkl. `1` `.epub`/`.pdf`-Paar -> `31` einzigartige Bücher], `0` Off-Topic).
+- **`obsidian_sync_v2.py` & Audits:** `4.334` kanonische Quellen (`149` veraltete ISBN-Notizen bereinigt), **`4.490 / 4.490` Notizen (`100,0 %`)** in `validate_obsidian_rag.py` (`PASSED WITH DISTINCTION`, `0` Broken Links, `0` Orphans) und `contradiction_checker.py` (`0` FATAL / `0` WARNING / `0` NOTICE).
+- **`career_os_rag.db`:** `709,55 MB`, `4.490` Notizen, `142.026` Chunks, `581` Gemini-Vektoren, frischer Live-Abruf unter `http://127.0.0.1:8085/api/rag?domain=library` verifiziert.
+
+---
+
+## [1.25.6] - 2026-11-26 (Import von 31 Fachbüchern aus UB Stuttgart in Bibliothek, Obsidian Vault & RAG)
+
+### 🎯 Kontext & Umfang
+Vollständiger Ingest, Format-Deduplizierung (`.epub` bevorzugt gegenüber identischer ISBN-`.pdf`), automatische Titel-/Themen-Kategorisierung und RAG-Indexierung der ersten **`32` heruntergeladenen E-Books/PDFs** (`31` einzigartige Fachbücher) in `05_Fachliteratur_Bibliothek/`.
+
+### ✨ Änderungen im Detail
+- **[scripts/obsidian_sync_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_sync_v2.py):**
+  - `_peek_book_title` & `_classify_library_category`: Automatische Klarnamen-Auflösung (`Titel_ISBNTail.md`) und Einordnung in `01_SAP_S4HANA_BTP_CleanCore` (`19` Werke), `03_Enterprise_Architecture_Cloud` (`8` Werke) sowie `04_AI_Engineering_Data_Automation` (`4` Werke).
+  - Format-Deduplizierung pro Ordner: Identische ISBN-Paare bevorzugen `.epub` vor `.pdf` (`979-8-8688-1980-3.pdf` bereinigt zugunsten von `.epub`).
+  - Klarname + ISBN-Ausgabe in [05_Bibliothek_Quellen_Index.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/05_Archiv/Volltexte_Quellen/05_Bibliothek_Quellen_Index.md).
+
+### ✅ Verifizierung (`2026-11-26`)
+- **`obsidian_sync_v2.py`:** `31` einzigartige Bücher extrahiert (`4.334` kanonische Quellennotizen, `4.490` Graph-Nodes, `0` Orphans).
+- **`validate_obsidian_rag.py`:** **`PASSED WITH DISTINCTION`** (`4.490` Dokumente, `64.088.315` Wörter, `17.315` Wikilinks / `0` defekt, `0` Multi-H1, `0` Orphans).
+- **`contradiction_checker.py`:** **`4.490 / 4.490 (100,0 %)`** konsistent (**`0` FATAL / `0` WARNING / `0` NOTICE**).
+- **`career_os_rag.db`:** **`708,69 MB`** (`4.490` Notizen | `142.026` Chunks | `345.008.262` Zeichen), getestet mit `--domain library` (`SAP Integration Suite Clean Core BTP`, `Artificial Intelligence ERP Software`) und Live-Endpunkt `http://127.0.0.1:8085/api/health`.
+
+---
+
+## [1.25.5] - 2026-11-26 (Wissenschaftliche Fachbibliothek-Pipeline: EPUB-Extraktor, 6. Pillar, RAG-Domäne `library` & Ollama-Support)
+
+### 🎯 Kontext & Umfang
+Aufbau der lokalen Fachliteratur-Infrastruktur für manuell über die UB Stuttgart bezogene Lehrbücher/Standardwerke sowie offene Standards — strikt getrennt vom Karriere-Signal, urheberrechtskonform lokal gehalten und ohne Gemini-Tageslimit über lokale `Ollama`-Vektoren (`SHQIPTAR634`) erweiterbar.
+
+### ✨ Änderungen im Detail
+- **Bibliotheksstruktur & Kuratierungsguide ([00_UB_Stuttgart_Literatur_Checkliste.md](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/05_Fachliteratur_Bibliothek/00_UB_Stuttgart_Literatur_Checkliste.md)):**
+  - Neuer Workspace-Pillar `05_Fachliteratur_Bibliothek/` mit 6 Themenordnern (`01_SAP_S4HANA_BTP_CleanCore` bis `06_Open_Access_Standards`) inkl. priorisierter Bücher- & Open-Access-Checkliste.
+- **EPUB-Extraktor ([scripts/extractors_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/extractors_v2.py)):**
+  - Neues Modul `extract_epub_v2` (Zero-Dependency-OPF/Spine-Reader + `_html_to_markdown`) inkl. Integration in `extract_document_v2`.
+- **6. Pillar & Bibliotheks-Index ([scripts/obsidian_sync_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_sync_v2.py)):**
+  - Erweiterung von `PILLARS` und `ALLOWED_EXTENSIONS` (`.epub`), Ableitung nach `05_Archiv/Volltexte_Quellen/05_Bibliothek/` (`type: reference-book`, `domain: reference-library`), SHA-256-Priorisierung hinter bestehenden `01_SSB`-Referenzwerken sowie eigener Navigationsindex `05_Bibliothek_Quellen_Index.md`.
+- **RAG-Engine, Webapp & MCP ([local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py), [obsidian_rag_mcp.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_rag_mcp.py), [notebook.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/notebook.py), [vue_app.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/vue_app.py)):**
+  - Neue Domäne `library` (Filter `📚 Fachliteratur` in der Webapp), `TYPE_AUTHORITY['reference-book'] = 0.62`, inkrementeller Vektor-Übertrag bei `--build` sowie getrennte `ollama_vectors`-Tabelle (`--embed --provider ollama --embed-model nomic-embed-text|bge-m3`) inklusive automatischer RRF-Fusion bei aktivem Ollama-Daemon (`localhost:11434`).
+
+---
+
+## [1.25.4] - 2026-11-26 (Persönliches Profil, PDR Team GmbH, VISMUV, Toolstack & Antwortstil-Sync)
+
+### 🎯 Kontext & Umfang
+Systemweite Integration der verifizierten Profildaten (Stand `18.11.2026`) bei strenger Trennung von beruflichem/technischem Kontext und sensiblen Privatdaten sowie Auslassung irrelevanter Fahrzeugangaben.
+
+### ✨ Änderungen im Detail
+- **[AGENTS.md](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/AGENTS.md):**
+  - Neuer verbindlicher Abschnitt **0 („Antwort-, Arbeitsstil & Persönlicher Kontext“)** (direkter Einstieg ohne Floskeln/Schlusszusammenfassung, Master-/Expertenniveau, kalkulatorisch-unternehmerische VISMUV-Perspektive, Hardware-Kontext `SHQIPTAR634`, geschützter interner Privat-/Gesundheits-/Hanafi-Kontext).
+  - Ergänzung der Basisdaten (Gjilan, Ludwigsburg seit `1999`, DE/XK, Sprachen DE/AL/EN C1/FR/ES), Masterarbeitseinreichung (`20.04.2026`), **PDR Team GmbH (`21.09.–30.11.2026`)** sowie **VISMUV (`seit 01.11.2026`)**.
+- **Obsidian Vault & Local RAG ([Persoenliches_Profil_und_Arbeitsstil.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Persoenliches_Profil_und_Arbeitsstil.md), [Persoenliches_Staerkenprofil.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Persoenliches_Staerkenprofil.md), [00_INDEX.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/00_INDEX.md), [local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py)):**
+  - Neue Schicht-1-Notiz zu Sprachen, PDR Team GmbH, VISMUV, erweitertem Stack (`SAP Joule Studio`, `n8n`, `Ollama`, `DeepSeek Harness`, `Google AI Studio API`, `SHQIPTAR634`) und Antwortstil-Regeln im RAG-Systemprompt; per `--upsert` direkt in `career_os_rag.db` indexiert.
+- **[portal_builder/dashboard.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/dashboard.py) & Notion ([Visar Command Center](https://app.notion.com/p/420272decb1d81d0bbaef1be06dbffa4)):**
+  - Timeline im Karriereportal um **`09–11/2026 | PDR Team & VISMUV`** ergänzt und Header-Callout im Notion Command Center synchronisiert (`0` Private-/Medizin-Leaks).
+
+---
+
+## [1.25.3] - 2026-11-26 (RAG-Qualität Next Level & Webapp Interview-Workbench: Job-Fit Matcher, Sparring & MCP)
+
+### 🎯 Kontext & Umfang
+Umsetzung der technischen Ausbaustufe des lokalen Hybrid-RAG-Systems ([local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py), [obsidian_rag_mcp.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_rag_mcp.py)) sowie der beiden interaktiven Interview-Engines in Server ([run_portal.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/run_portal.py)) und Webapp ([notebook.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/notebook.py), [vue_app.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/vue_app.py)) zur direkten Vorbereitung auf **KPMG (27.11.)** und **Schwarz Digits (30.11.)**.
+
+### ✨ Änderungen im Detail
+- **RAG-Technik & Grounding ([scripts/local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py)):**
+  - **Domain-Filter-Bugfix & `empirie`-Domäne:** 768d-Vektor-Cache speichert jetzt `(file_rel, domain, doc_type)` mit Vorfilterung pro Domäne (inkl. neuer Domäne `empirie` für Masterarbeit, Bachelorarbeit, Codebuch Mayring und die 12 Experteninterviews) plus erweiterte Fachsynonyme (`iam`, `sod`, `iks`, `eam`, `togaf`, `calm`, `signavio`, `kpmg`, `schwarz`, `trumpf`).
+  - **Two-Stage Cross-Signal Reranker (`_rerank_hits`):** Zweistufiges Scoring (Adjacent-Phrase-Cohesion, Basisbegriff-Abdeckung, SAP/Regulatorik-Entitäten) und erweiterte offline 4-Gram-Subword-Anker über sämtliche Schicht-1-Notizen + bis zu 6 Chunks je Schicht-2-Kerndokument.
+  - **Zitations- & Fakten-Grounding (`_verify_grounding`):** Jede KI-Antwort verifiziert `[Quelle: ...]`-Angaben automatisch gegen die tatsächlich abgerufenen Obsidian-Quellen und erzwingt Anonymisierung ehemaliger Vorgesetztennamen / interner WBS-Nummern.
+  - **Resiliente Multi-Tier-Vektor-Pipeline (`embed_anchors`):** Priorisiert 100 % Schicht 1 + Kernquellen aus Schicht 2 (`--max-chunks 900` passend für Gemini Free-Tier 1.000 RPD inkl. Fast-Fail bei `PerDay`-Quota).
+- **Zero-Dependency Stdlib MCP-Server ([scripts/obsidian_rag_mcp.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_rag_mcp.py)):**
+  - JSON-RPC-2.0-Stdio-Server mit den 5 Tools `search_obsidian_rag`, `read_obsidian_note`, `ask_career_rag`, `match_job_description` und `get_rag_and_pipeline_status`.
+- **Webapp Workbench & Backend APIs ([run_portal.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/run_portal.py), [notebook.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/notebook.py), [vue_app.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/vue_app.py)):**
+  - **`🎯 Job-Fit Matcher` (`POST /api/job-match`):** Multi-Domain-Retrieval (`Arbeit × Studium × Synergien × Kuratiert`) mit 1-Klick-Presets für **KPMG (27.11.)**, **Schwarz Digits (30.11.)** und **TRUMPF**.
+  - **`🥊 Devil's Advocate Interview-Sparring` (`POST /api/sparring`):** Realistische kritische Rückfragen pro Persona (`kpmg`, `schwarz`, `trumpf`, `cto`) und Live-Fakten-Audit eigener Antworten gegen Obsidian V2.1 inklusive optimierter 60s-STAR-Fassung.
+  - **Pipeline-Integration:** Jede Karte der Live-Bewerbungspipeline bietet Direktbuttons für `⚡ RAG Prep`, `🎯 Job-Fit` und `🥊 Sparring`.
+
+### ✅ Verifizierung (`2026-11-26`)
+- **`build_ultimate_portal.py` + `scripts/test_portal.py`:** **8/8 Spec-Kit Quality Gates bestanden (`100 % SUCCESS`)** — [index.html](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/index.html) (`342.923 Bytes` / `330,43 KB`), [public_index.html](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/public_index.html) (`143,06 KB`, `0` Private-Leaks), `0` fehlende Vue-Setup-Exports.
+- **API-, Engine- & MCP-Checks:** Verifiziert auf neugestartetem `run_portal.py` (`localhost:8085`): `/api/rag?domain=empirie`, `/api/ask` (mit `grounding`), `POST /api/job-match`, `POST /api/sparring` (`ask` + `evaluate`) sowie `obsidian_rag_mcp.py` (`initialize`, `tools/list`, `tools/call`).
+
+---
+
+## [1.25.2] - 2026-11-26 (Webapp V2.1 Synchronisation: Live Hybrid-RAG Telemetrie, Deliverables & Interview-Presets)
+
+### 🎯 Kontext & Umfang
+Synchronisierung der modularen Vue-3-Webapplikation ([portal_builder/](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/__init__.py)) sowie der beiden kompilierten Ausgabeartefakte ([s4hana-prep-portal/index.html](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/index.html) und [s4hana-prep-portal/public_index.html](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/public_index.html)) mit dem finalen Pass-2-Wissensstand (`V2.1`), der bereinigten Datenbank `career_os_rag.db` und der aktiven Bewerbungs-Pipeline.
+
+### ✨ Änderungen im Detail
+- **[portal_builder/vue_app.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/vue_app.py):**
+  - Neues reaktives Zustandsobjekt `ragStats` samt API-Fetcher `loadRagStats()` (`GET /api/health` in `onMounted`) sowie aktualisierte Fallback-Metriken (`4.449` Obsidian-Notizen, `130.425` RAG-Chunks, `652,35 MB`, `240` Gemini-Embeddings, `65/68` abgeschlossene/verfolgte Bewerbungen) inkl. sauberem `public_mode`-Stub.
+  - Navigation-Badge des Second-Brain-Tabs von `Obsidian Sync` auf **`Obsidian V2.1`** aktualisiert.
+- **[portal_builder/notebook.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/notebook.py):**
+  - Dynamische Bindung von Chunk-, Notiz- und Datenbankgrößen-Kennzahlen im Hybrid-RAG-Panel (`{{ (ragStats.total_chunks || 130425).toLocaleString('de-DE') }} Chunks | RRF`, `4.295 V2.1-Volltexte`, `0 Dubletten`, `Schicht 1 (149 Kuratiert)`).
+  - Ergänzung des Schnellzugriffs um **`🏭 TRUMPF Governance (Debrief)`** neben **`🎯 KPMG Prep (27.11.)`** und **`🔐 Schwarz IAM / UMT (30.11.)`** sowie präzisierten Masterarbeit-1,0-Query.
+  - Erweiterung der Live-Pipeline-Statuspills um `Abgeschlossen: {{ pipelineData.closed_count ?? 65 }} / {{ pipelineData.total_rows ?? 68 }}`.
+- **[portal_builder/files_tab.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/files_tab.py) & [portal_builder/dashboard.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/dashboard.py):**
+  - Veraltetes Badge `1.890 Dateien indexiert` im Deliverables-Explorer auf **`4.449 Obsidian-Notizen • 4.295 V2.1-Volltexte (0 Dubletten)`** sowie Dashboard-Quicklink auf **`Obsidian V2.1 (4.449) & RAG`** aktualisiert.
+
+### ✅ Verifizierung (`2026-11-26`)
+- **`build_ultimate_portal.py` + `scripts/test_portal.py`:** **8/8 Spec-Kit Quality Gates bestanden (`100 % SUCCESS`)** — [index.html](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/index.html) (`318.999 Bytes` / `307,41 KB`), [public_index.html](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/s4hana-prep-portal/public_index.html) (`146.637 Bytes` / `140,76 KB`, `0` Private-Leaks, `0` Verstoß-Treffer).
+- **Live-Server (`http://127.0.0.1:8085`):** Verifizierte Auslieferung von `/index.html`, `/api/health` (`4449` Notizen, `130425` Chunks, `652.35 MB`), `/api/pipeline` und `/api/rag`.
+
+---
+
+## [1.25.1] - 2026-11-26 (Interview-Debriefings 100 % Konsistenz & Notion Wissenshub V2.1-Abgleich)
+
+### 🎯 Kontext & Umfang
+Abschluss aller verbliebenen zeitlichen Hinweis-Flags (`D2_PAST_INTERVIEW_STATUS`) im Obsidian Vault sowie gezielter V2.1-Abgleich des [Visar Command Center](https://app.notion.com/p/420272decb1d81d0bbaef1be06dbffa4) in Notion inklusive Anreicherung der aktiven CRM-Prozesse.
+
+### ✨ Änderungen im Detail
+- **Obsidian Interview-Debriefings (`01_Karriere_Bewerbungen/Interview_Vorbereitungen/`):**
+  - Vervollständigung der Post-Interview-Sektionen inkl. Prozesshistorie & Status gemäß [00_Bewerbungsmanagement_Cockpit.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/00_Bewerbungsmanagement_Cockpit.md) für [Computacenter](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-06-11_Computacenter_IT_Service_Architecture.md), [msg systems](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-10-08_msg_systems_Technical_SAP_Consultant.md) und [EY](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-10-19_EY_Technology_Consulting_SAP_Transformation.md) (`status: archived` + `Absage` + kuratierter Wissenstransfer) sowie für [TRUMPF](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-11-23_TRUMPF_Trainee_IT_Governance.md) (`status: active`, Runde 2 am `23.11.2026` absolviert, `⏳ Warten auf Rückmeldung`).
+- **Notion Wissenshub & CRM-Abgleich:**
+  - **Bestandsaudit:** Alle 4 Wissensbereichs-Datenbanken (`1. SSB` 24 Module, `2. DC1` 6 Module, `3. Master` 19 Module, `4. Bachelor` 30 Module) plus `5. Synergien` (6 Cluster) und `Bewerbungs-Pipeline & CRM` (exklusiv 3 aktive Prozesse) geprüft.
+  - **KPMG (`422272decb1d81eaa9e0f813e7efbf01`):** Vorbereitung für **27.11.2026 (16:00 Uhr Teams, Fachbereich IT-Transformation)** inkl. 5-Punkte-Match-Tabelle, 3 STAR-Cases (`Trennungsrechnung EU 1370/2007`, `LTMC 0,00 € Übernahmekonto`, `Masterarbeit 1,0`) und 3 Rückfragen ergänzt.
+  - **TRUMPF (`422272decb1d81faba02f966851d1ea3`):** Post-Runde-2-Debriefing (`23.11.2026`) + 3-Rotations-Match-Matrix ergänzt.
+  - **Command Center, `Applied AI` & `Synergie 06`:** Obsidian-V2.1-Kennzahlen (`4.449` Notizen, `4.295` Volltext-Quellen, `60,28 Mio.` Wörter, `130.425` RAG-Chunks / `652,35 MB`, `1.530` WinRT-OCR-Seiten) aktualisiert und `.Sc`-Auto-Link-Artefakte in den Callouts bereinigt.
+
+### ✅ Verifizierung (`2026-11-26`)
+- `validate_obsidian_rag.py`: **`PASSED WITH DISTINCTION`** (`4.449` Notizen, `17.186` Wikilinks / `0` defekt, `0` Orphans).
+- `contradiction_checker.py`: **`4.449 / 4.449 (100,0 %)`** konsistent (**`0` FATAL / `0` WARNING / `0` NOTICE**).
+- `career_os_rag.db`: **`652,35 MB`** (`4.449` Notizen, `130.425` Chunks, `240` Vektoren).
+
+---
+
+## [1.25.0] - 2026-11-26 (Pass-2 Optimierung V2.1: Windows OCR, SmartArt, Typografie-Hygiene & Inhalts-Deduplizierung)
+
+### 🎯 Kontext & Durchführungsgegenstand
+Datengetriebener **Pass-2-Optimierungsdurchlauf (`V2.1`)** auf Basis der gemessenen Schwachstellenanalyse von `[1.24.0]` in [scripts/extractors_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/extractors_v2.py) und [scripts/obsidian_sync_v2.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/obsidian_sync_v2.py) bei 100 % Erhalt aller kuratierten Schicht-1-Notizen.
+
+### ✨ Optimierungen im Detail
+- **Native `Windows.Media.Ocr` (`de-DE`) Engine (`_WinOcrBridge`):**
+  - Ersetzt die langsame, worttrennungs- und umlautschwache `RapidOCR`-Erststufe durch eine persistente WinRT-PowerShell-Subprozess-Bridge (UTF-8-Dateihandoff, automatische Dimensionsskalierung `<= 2.200 px`, `RapidOCR`-Fallback nur bei technischem Engine-Fehler, sodass leere Scan-Rückseiten nicht doppelt prozessiert werden).
+  - Benchmark [Zeugnisse_Murseli_Visar.pdf](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/00_Aktuelle_Bewerbungsunterlagen/Zeugnisse_Murseli_Visar.pdf) (28 Seiten, 14 Textseiten): **`4,39 s`** statt `54,54 s` bei **`3.108` sauber getrennten Wörtern** (+47 % gegenüber RapidOCR) inkl. korrekter deutscher Umlaute (*„Universität Stuttgart … geboren am 18. September 1997 … nach der geltenden Prüfungsordnung“*).
+- **PPTX SmartArt XML & Slide-Media OCR (`extract_pptx_v2`):**
+  - Extrahiert zusätzlich alle SmartArt-Diagrammtexte (`ppt/diagrams/data*.xml`, 33 Präsentationen inkl. `17012025_SAP4SSB-Überblick_v3.pptx`) und führt bei Screenshot-/Bild-only-Folien (`< 20` Zeichen) eine automatische WinRT-Texterkennung durch (z. B. `Seitananalyse_Intranet_vor_Veröffentlichung_pptx.md` von `0` auf `92` Wörter).
+- **Vollcorpus Typografie-Hygiene (`clean_text` & `dehyphenate_text`):**
+  - Expansion aller Unicode-Ligaturen (`ﬀ`/`ﬁ`/`ﬂ`/`ﬃ`/`ﬄ`/`ﬅ`/`ﬆ`) und Beseitigung weicher Silbentrennungs-Artefakte (`\u00ad`) sowie Zeilenumbruch-Trennstriche in **`4.099`** Bestandsnotizen: Ligatur-Defekte (`644` -> **`0`** Dateien) und Rest-Trennstrich-Defekte (`642` -> **`0`** Dateien).
+- **Inhaltsbasierte Deduplizierung & kuratierte Struktur-Politur (`deduplicate_by_normalized_content`, `migrate_layer1_and_cleanup`):**
+  - Zusätzliche Verdichtung von **`118` inhaltlichen Duplikaten/Mega-Klonen** (`115` textidentische Dubletten + `3` Mega-Klone) über die ursprünglichen `514` SHA-256-Dubletten hinaus auf final **`4.295` kanonische Volltext-Notizen** (`0` SHA-256-, `0` Basename- und `0` Normaltext-Duplikate).
+  - Thematische Untergliederung der Quellen-Links in allen `Modul_*.md`-Notizen (*Vorlesungsfolien & Skripte*, *Übungen & Tutorien*, *Ausarbeitungen & Projekte*, *Wissenschaftliche Literatur*, *Prüfungsvorbereitung & Organisation*) sowie Ablösung des früheren gekürzten 15k-Alt-Dumps in [DC1_ITIL4_Service_Operations.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/03_SAP_EnterpriseArchitecture/DC1_ITIL4_Service_Operations.md) durch eine kompakte Projektzusammenfassung mit V2-Volltextlink `[[CM_ins_INOC_Projekt_VIM]]`.
+
+### ✅ Verifizierte Qualitätskennzahlen (`2026-11-26`)
+- **`scripts/validate_obsidian_rag.py`:** **`PASSED WITH DISTINCTION`** — `4.449` Markdown-Notizen (`149` Schicht 1 + `4.300` Schicht 2 / `4.295` Quellen + `5` Indizes), **`60.279.285` Wörter**, **`100,0 %` Frontmatter**, **`17.177` Wikilinks (`0` defekt)**, `0` Multi-H1, `0` Orphans.
+- **`scripts/contradiction_checker.py`:** `4.449` geprüft — **`0` FATAL**, **`0` WARNING**, `4` historische Interview-Debriefing-Hinweise (`NOTICE`).
+- **`config/career_os_rag.db` (`scripts/local_rag_engine.py --build`):** **`652,36 MB`** (`4.449` Notizen | `130.425` Chunks | `240` Gemini-Embeddings | `318.613.595` Zeichen).
+
+---
+
+## [1.24.0] - 2026-11-26 (Obsidian Extraction & Knowledge Architecture Pipeline V2)
+
+### 🎯 Kontext & Leitmotiv
+Vollständiger architektonischer Neuaufbau der Volltext-Extraktion und Obsidian-Wissensarchitektur (`scripts/extractors_v2.py`, `scripts/obsidian_sync_v2.py`) mit verlustfreier Überführung von Schicht 1 (kuratierte Module, Konzepte, Synergien & Karriere-Dossiers) sowie einer strikt nach SHA-256 deduplizierten Schicht 2 (`1 Originaldokument = 1 vollständige Markdown-Notiz`, ohne `_Teil_`-Aufsplittung).
+
+### ✨ Neue Extraktoren & Pipeline-Features
+- **Multi-Format-Extraktor (`scripts/extractors_v2.py`):**
+  - **PDF (`PyMuPDF` + `pdfplumber` + `RapidOCR`):** Lesereihenfolge-Blöcke (`blocks, sort=True`), De-Hyphenation deutscher Zeilenumbrüche, Unicode-NFC-Bereinigung, Entfernung wiederkehrender Kopf-/Fußzeilen, PDF-Lesezeichen als Markdown-Gliederung, selektive GFM-Tabellenextraktion via `pdfplumber` sowie automatische Texterkennung per `RapidOCR` für Scan-/Bild-PDFs (**`1.585` OCR-Seiten / `136.036` Wörter** über `272` Scan-PDFs inkl. eingescanntem Masterzeugnis & Organigrammen).
+  - **Office, Projekt & Spezialformate:** Verschränkte Absatz-/Tabellen-Reihenfolge + Textboxen in `.docx`, reiner Python-OLE-FIB/Piece-Table-Parser für `25` Legacy-`.doc`-Dateien, `.odt`, rekursives Entpacken gruppierter PowerPoint-Shapes + Sprechernotizen in `.pptx`, vollständige Tabellenblätter mit XML-Fallback für `.xlsx`/`.xlsm` & `.csv`, Outlook-`.msg`-Mails inkl. Anhangs-Volltext, MS Visio `.vsdx` (koordinatensortiert), MS Project `.mpp`-Vorgänge via OLE, HTML & PowerShell-Skripte.
+- **Deduplizierung & Keine-Dubletten-Architektur (`scripts/obsidian_sync_v2.py`):**
+  - **`4.927`** zulässige Quelldateien wurden per SHA-256 auf **`4.413` kanonische Volltext-Notizen** (`514` Duplikate zusammengeführt) unter `05_Archiv/Volltexte_Quellen/` verdichtet.
+  - Vollständige Entfernung des redundanten Altbestands `05_Archiv/Volltexte_DataLake/` (`144` Monolithen/Split-Dateien nach Sicherheitsbackup archiviert) sowie Bereinigung aller Modul-Köpfe in `02_Wirtschaftsinformatik_300ECTS/` unter lückenlosem Erhalt kuratierter Abstracts, Papers und Zusammenfassungen.
+- **Qualitätssicherung & Hybrid-RAG (`scripts/validate_obsidian_rag.py`, `scripts/local_rag_engine.py`, `scripts/contradiction_checker.py`):**
+  - **Vault-Audit:** `4.567` Markdown-Notizen (`149` Schicht 1 `1,41 MB` + `4.418` Schicht 2 `385,13 MB`), `100,0 %` YAML-Frontmatter, `0` SHA-256- oder Basename-Kollisionen, `0` defekte Wikilinks (`17.568` Kanten), `0` Multi-H1-Verstöße, `0` Graph-Orphans in `graph_manifest.json` und `0` kritische Faktenwidersprüche (`contradiction_checker.py`).
+  - **Hybrid-RAG-Datenbank (`config/career_os_rag.db`):** Vollständige Neuindizierung über alle `61,25 Mio.` Wörter inkl. Authority-Tier `source-fulltext` (`0.72`).
+
+---
+
+## [1.23.1] - 2026-11-25 (Pipeline- & Bewerbungsverlauf-Update: 3 aktive Tracks, 65 Absagen)
+
+### 🎯 Kontext & Statusbereinigung
+Konsolidierung der Master-Bewerbungspipeline in `00_Aktuelle_Bewerbungsunterlagen/Bewerbungsverlauf.xlsx` (beide Sheets mit 68 Einträgen synchronisiert), `00_Aktuelle_Bewerbungsunterlagen/bewerbungen_pipeline.json`, `scripts/update_bewerbungsverlauf_excel.py` sowie im Obsidian Cockpit (`00_Bewerbungsmanagement_Cockpit.md`):
+- **Schwarz Digits – Junior SAP HCM User Maintenance & Access Management (IAM) Specialist (m/w/d) [Ref: 4972]:** Zusage für das 2. Gespräch am **Montag, 30.11.2026 um 14:00 Uhr vor Ort** mit Fachbereich & IAM-Leitung.
+- **KPMG – (Junior) IT Consultant / IT-Berater IT-Transformation (w/m/d) [Ref: 224]:** Gespräch am **Freitag, 27.11.2026 um 16:00 Uhr** (Teams mit Fachbereich IT-Transformation).
+- **TRUMPF – Trainee (w/m/d) IT [Ref: R00042850]:** Warten auf Rückmeldung nach dem 2. Gespräch am **23.11.2026** (IT-Governance- & Infrastruktur-Leitung).
+- **Alle übrigen 65 Bewerbungen:** Einheitlich unter Erhalt sämtlicher historischen Einreichungs- und Interviewdaten als `Absage` markiert; Ampelfärbung in Excel und `scripts/update_bewerbungsverlauf_excel.py` gegen fehlfarbige grüne Hervorhebung abgesagter Prozesse gehärtet.
 
 ---
 
@@ -262,7 +672,7 @@ Abschluss der Ausbaustufen (B) & (C): Alle laufenden Top-Interviewprozesse verf�
 
 ### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
 - **4 neue Interview-Dossiers (`01_Karriere_Bewerbungen/Interview_Vorbereitungen/`):**
-  - `2026-11-23_TRUMPF_Trainee_IT_Governance.md` (`Ref: R00042850`, 2. Gespräch Tanja Preissner & Martin Hartmann)
+  - `2026-11-23_TRUMPF_Trainee_IT_Governance.md` (`Ref: R00042850`, 2. Gespräch IT-Governance- & Infrastruktur-Leitung)
   - `2026-10-19_EY_Technology_Consulting_SAP_Transformation.md` (`Ref: 13743137`)
   - `2026-10-08_msg_systems_Technical_SAP_Consultant.md` (2. Gespräch Matthaeus Glueck & Sandra Ulber)
   - `2026-06-11_Computacenter_IT_Service_Architecture.md` (ITIL 4 / Datacenter One INOC Brücke)
@@ -277,7 +687,7 @@ Abschluss der Ausbaustufen (B) & (C): Alle laufenden Top-Interviewprozesse verf�
 
 ### ✅ Verifikation & Compliance-Nachweise
 - **Obsidian Audit (`validate_obsidian_rag.py`):** **286 / 286** Dokumente mit validem YAML-Frontmatter (**100,0 %**), **1.662 Wikilinks (5,8 Ø/Note | 0 Broken Links)**, **0 Multiple H1**, **0 Dateien > 10 MB**, **0 Graph-Orphans**, **60.578.154 Wörter (~81,78 Mio. Tokens)** -> *PASSED WITH DISTINCTION*.
-- **GMX IMAP & RAG:** Beide Konten (`visar.murseli@gmx.de`, `visarmurseli@gmx.de`) live synchronisiert (`2/2` OK, `56` Mails geprüft, anschließender Re-Run 100 % idempotent); Hybrid RAG Index umfasst `286` Notes, `137.349` Chunks, `240` 768d-Vektoren (`787,63 MB`).
+- **GMX IMAP & RAG:** Beide Konten (`kontakt@beispiel.de`, `kontakt2@beispiel.de`) live synchronisiert (`2/2` OK, `56` Mails geprüft, anschließender Re-Run 100 % idempotent); Hybrid RAG Index umfasst `286` Notes, `137.349` Chunks, `240` 768d-Vektoren (`787,63 MB`).
 
 ---
 
@@ -535,7 +945,7 @@ Vollständige Orchestrierung des Multi-Kanal Bewerbungsmanagements: Automatisier
 
 ### 🚀 Neu hinzugefügt (Added)
 - **GMX IMAP Multi-Account Career Harvester (`scripts/gmx_imap_service.py`):**
-  - Parallele Unterstützung für `visar.murseli@gmx.de` und `visarmurseli@gmx.de`.
+  - Parallele Unterstützung für `kontakt@beispiel.de` und `kontakt2@beispiel.de`.
   - Resiliente SSL-Verbindung (`imap.gmx.net:993`) mit automatischer UTF-8 MIME-Header-Dekodierung.
   - Multi-Keyword Filterung zur Klassifikation von Bestätigungen, Einladungen, Zwischenständen und Absagen.
 - **Deep Email Extraction Engine (`scripts/dump_deep_emails.py`):**
@@ -559,8 +969,8 @@ Vollständige Orchestrierung des Multi-Kanal Bewerbungsmanagements: Automatisier
 
 ### 🔄 Geändert (Changed)
 - **Konsolidierung Schlüsselprozesse TRUMPF & Schwarz Digits:**
-  - TRUMPF: Zusammenführung des 1. HR-Screenings (06.11.2026 mit Jil Wachter) und des 2. einstündigen Fachinterviews (23.11.2026 um 09:30 Uhr mit Tanja Preissner, Head of IT Governance & Martin Hartmann, Head of IT Infrastructure).
-  - Schwarz Digits: Exakte Verankerung der Rolle *Junior SAP HCM User Maintenance & Access Management Specialist [Ref: 4972]* mit Ansprechpartnern Cosmin Serbanescu & Stefanie Link.
+  - TRUMPF: Zusammenführung des 1. HR-Screenings (06.11.2026 mit HR Recruiting) und des 2. einstündigen Fachinterviews (23.11.2026 um 09:30 Uhr mit IT-Governance- & IT-Infrastruktur-Leitung).
+  - Schwarz Digits: Exakte Verankerung der Rolle *Junior SAP HCM User Maintenance & Access Management Specialist [Ref: 4972]* mit Ansprechpartnern Fachbereich & IAM-Team.
 - **Portalerstellung (`build_ultimate_portal.py`):**
   - Automatischer Sync zwischen `s4hana-prep-portal/index.html` und Root `index.html` im GitHub-Repository für verzögerungsfreie GitHub Pages Deployments.
 - **Root-Path Auflösung in Skripten:**

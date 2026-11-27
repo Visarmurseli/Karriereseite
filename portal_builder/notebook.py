@@ -101,77 +101,218 @@ def get_notebook():
           </div>
         </div>
 
-        <!-- Local Hybrid-RAG Wissenssuche & KI-Synthese (SQLite FTS5 BM25 + 768d Vektoren + Gemini 3) -->
-        <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <!-- Local Hybrid-RAG Workbench (Suche & Zitate | Job-Fit Matcher | Interview-Sparring) -->
+        <div id="rag-workbench" class="bento-card p-6 space-y-4">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
             <div>
-              <h3 class="text-base font-bold text-white flex items-center space-x-2">
-                <span>🔍</span>
-                <span>Local Hybrid-RAG V3 & KI-Synthese (137.000+ Chunks | RRF)</span>
-              </h3>
-              <p class="text-xs text-[#8f8888] mt-0.5">Kombiniert SQLite FTS5 BM25 + Domain-Synonyme + Gemini 768d Vektor-Suche (Reciprocal Rank Fusion) inkl. Markdown-Synthese.</p>
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-base font-bold flex items-center gap-2" style="color: var(--ds-text)">
+                  <span>🔍</span>
+                  <span class="bento-metric">Local Hybrid-RAG Workbench ({{ (ragStats.total_chunks || 256985).toLocaleString('de-DE') }} Chunks | RRF + Rerank)</span>
+                </h3>
+                <span class="status-pill status-pill-purple bento-metric">🟢 {{ ragStats.ollama_model || 'bge-m3' }} 1024d ({{ (ragStats.ollama_vectors || 20987).toLocaleString('de-DE') }} Vektoren)</span>
+              </div>
+              <p class="text-xs mt-1 bento-metric" style="color: var(--ds-text-subtlest)">
+                FTS5 BM25 + Synonyme + {{ (ragStats.total_vectors || 560).toLocaleString('de-DE') }} Gemini- &amp; {{ (ragStats.ollama_vectors || 20987).toLocaleString('de-DE') }} Ollama-Vektoren + Cross-Signal-Reranker über {{ (ragStats.total_files || 4918).toLocaleString('de-DE') }} Obsidian-Notizen ({{ ragStats.size_mb || 1356.17 }} MB).
+              </p>
             </div>
-            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">{{ ragRetrievalMode === 'hybrid_rrf' ? 'Hybrid RRF (BM25 + 768d Vektor)' : 'Hybrid FTS5 + Synonym-Expansion' }}</span>
-          </div>
-
-          <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
-            <span class="text-[#8f8888] mr-1">Domäne:</span>
-            <button @click="ragDomain = ''" :class="ragDomain === '' ? 'bg-[#bf262e] text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">🌐 Alle (294 Doks)</button>
-            <button @click="ragDomain = 'work'" :class="ragDomain === 'work' ? 'bg-blue-600 text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">💼 Arbeit (SSB & DC1)</button>
-            <button @click="ragDomain = 'study'" :class="ragDomain === 'study' ? 'bg-purple-600 text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">🎓 Studium (300 ECTS)</button>
-            <button @click="ragDomain = 'synergies'" :class="ragDomain === 'synergies' ? 'bg-emerald-600 text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">⚡ Synergien & Profil</button>
-            <button @click="ragDomain = 'curated'" :class="ragDomain === 'curated' ? 'bg-amber-600 text-white font-bold' : 'bg-white/5 text-[#c4bebe] hover:bg-white/10'" class="px-2.5 py-1 rounded-lg border border-white/10 transition">✨ Nur Schicht 1 (Kuratiert)</button>
-            <span class="ml-auto inline-flex rounded-lg bg-black/50 border border-white/10 p-0.5">
-              <button @click="ragStyle = 'compact'" :class="ragStyle === 'compact' ? 'bg-[#bf262e] text-white font-bold' : 'text-[#c4bebe]'" class="px-2.5 py-0.5 rounded-md transition">⚡ 60s-Kompakt</button>
-              <button @click="ragStyle = 'deep'" :class="ragStyle === 'deep' ? 'bg-white/15 text-white font-bold' : 'text-[#c4bebe]'" class="px-2.5 py-0.5 rounded-md transition">🔬 Tiefenanalyse</button>
-            </span>
-          </div>
-
-          <div class="flex flex-wrap gap-2">
-            <input 
-              v-model="ragQuery"
-              @keyup.enter="runRagSearch"
-              type="text"
-              placeholder="z.B. Wie verhindere ich technische Schulden bei S/4HANA? oder Meine Arbeit x Uni Synergien..."
-              class="flex-1 min-w-[240px] px-4 py-2.5 text-xs bg-black/50 border border-white/15 rounded-xl text-white placeholder-[#8f8888] focus:outline-none focus:border-[#bf262e]"
-            >
-            <button @click="runRagSearch" class="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-xl transition border border-white/10">
-              {{ ragLoading ? 'Suche...' : 'Chunks finden' }}
-            </button>
-            <button @click="runRagAsk" class="px-4 py-2 bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-semibold rounded-xl transition shadow-md shadow-[#bf262e]/30">
-              {{ ragAskLoading ? 'Synthetisiere...' : (ragStyle === 'compact' ? '⚡ 60s-Synthese (Gemini)' : '🔬 Tiefenanalyse (Gemini)') }}
-            </button>
-          </div>
-
-          <!-- Schnell-Abfragen -->
-          <div class="flex flex-wrap gap-1.5 text-[11px]">
-            <button @click="askSynergyRag('Fasse meine 5 Stärken und die wichtigsten Arbeit x Uni Synergien kompakt zusammen', 'synergies')" class="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition">⭐ Stärken & Arbeit × Uni Synergien</button>
-            <button @click="quickRagAsk('Wie verhindere ich technische Schulden bei S/4HANA-Erweiterungen?')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">💡 Plattformisierung / Clean Core</button>
-            <button @click="quickRagAsk('KPMG IT-Transformation Audit IKS Berechtigungen')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🎯 KPMG Prep 27.11.</button>
-            <button @click="quickRagAsk('SAP HCM Berechtigungen UMT P_ORGIN Third Level')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🔐 Schwarz IAM / UMT</button>
-            <button @click="quickRagAsk('LTMC CVI Übernahmekonto Migration')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🔄 LTMC & CVI Saldo 0 €</button>
-          </div>
-
-          <!-- Gemini Synthesis Answer Card (XSS-safe Markdown Rendered) -->
-          <div v-if="ragAnswer" class="p-4 rounded-xl bg-gradient-to-br from-[#bf262e]/15 to-black/60 border border-[#bf262e]/40 space-y-2.5">
-            <div class="flex items-center justify-between text-xs border-b border-white/10 pb-2">
-              <span class="font-bold text-[#f87171]">{{ ragStyle === 'compact' ? '⚡ 60s-Kompakt-Briefing' : '🔬 Verifizierte Second-Brain-Tiefenanalyse' }}</span>
-              <span class="font-mono text-[10px] text-[#8f8888]">{{ ragModel }} • {{ ragRetrievalMode || 'hybrid' }} • {{ ragDomain || 'alle' }}</span>
+            <div class="segmented-control">
+              <button @click="ragViewMode = 'search'" :class="['seg-btn', ragViewMode === 'search' ? 'active' : '']">🔍 RAG &amp; Zitate</button>
+              <button @click="ragViewMode = 'matcher'" :class="['seg-btn', ragViewMode === 'matcher' ? 'active' : '']">🎯 Job-Fit Matcher</button>
+              <button @click="ragViewMode === 'sparring'" :class="['seg-btn', ragViewMode === 'sparring' ? 'active' : '']">🥊 Interview-Sparring</button>
             </div>
-            <div class="text-xs text-[#f0eded] leading-relaxed space-y-1.5" v-html="formattedRagAnswer"></div>
           </div>
 
-          <div v-if="ragResults.length > 0" class="space-y-2.5 max-h-96 overflow-y-auto custom-scrollbar">
-            <div v-for="(hit, idx) in ragResults" :key="idx" class="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
-              <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-                <span class="font-bold text-white">{{ hit.title }}</span>
-                <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
-                  <span v-if="hit.vec_sim > 0" class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">Semantik: {{ hit.vec_sim }}%</span>
-                  <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">RRF: {{ hit.score }} • {{ hit.type || 'concept' }}</span>
+          <!-- ==================== MODE 1: HYBRID-RAG SUCHE & KI-SYNTHESE ==================== -->
+          <div v-show="ragViewMode === 'search'" class="space-y-4">
+            <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
+              <span class="mr-1" style="color: var(--ds-text-subtlest)">Domäne:</span>
+              <button @click="ragDomain = ''" :class="ragDomain === '' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="ragDomain === '' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">🌐 Alle ({{ (ragStats.total_files || 4918).toLocaleString('de-DE') }})</button>
+              <button @click="ragDomain = 'work'" :class="ragDomain === 'work' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="ragDomain === 'work' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">💼 Arbeit (SSB &amp; DC1)</button>
+              <button @click="ragDomain = 'study'" :class="ragDomain === 'study' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="ragDomain === 'study' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">🎓 Studium (300 ECTS)</button>
+              <button @click="ragDomain = 'empirie'" :class="ragDomain === 'empirie' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="ragDomain === 'empirie' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">🔬 Empirie (12 Interviews)</button>
+              <button @click="ragDomain = 'synergies'" :class="ragDomain === 'synergies' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="ragDomain === 'synergies' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">⚡ Synergien</button>
+              <button @click="ragDomain = 'library'" :class="ragDomain === 'library' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="ragDomain === 'library' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">📚 Fachliteratur (454)</button>
+              <button @click="ragDomain = 'curated'" :class="ragDomain === 'curated' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="ragDomain === 'curated' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">✨ Schicht 1 (Kuratiert)</button>
+              <span class="ml-auto segmented-control">
+                <button @click="ragStyle = 'compact'" :class="['seg-btn', ragStyle === 'compact' ? 'active' : '']">⚡ 60s-Kompakt</button>
+                <button @click="ragStyle = 'deep'" :class="['seg-btn', ragStyle === 'deep' ? 'active' : '']">🔬 Tiefenanalyse</button>
+              </span>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <input 
+                v-model="ragQuery"
+                @keyup.enter="runRagSearch"
+                type="text"
+                placeholder="z.B. Wie verhindere ich technische Schulden bei S/4HANA? oder Empirie 12 Interviews Clean Core..."
+                class="flex-1 min-w-[240px] px-4 py-2.5 text-xs rounded-xl border focus:outline-none"
+              >
+              <button @click="runRagSearch" class="px-4 py-2 text-xs font-semibold rounded-xl border transition hover:opacity-85" style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text)">
+                {{ ragLoading ? 'Suche...' : 'Chunks finden' }}
+              </button>
+              <button @click="runRagAsk" class="px-4 py-2 btn-primary text-xs font-semibold rounded-xl transition">
+                {{ ragAskLoading ? 'Synthetisiere...' : (ragStyle === 'compact' ? '⚡ 60s-Synthese (Hybrid AI)' : '🔬 Tiefenanalyse (Hybrid AI)') }}
+              </button>
+            </div>
+
+            <!-- Schnell-Abfragen -->
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <button @click="askSynergyRag('Fasse meine 5 Stärken und die wichtigsten Arbeit x Uni Synergien kompakt zusammen', 'synergies')" class="px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition">⭐ Stärken &amp; Arbeit × Uni Synergien</button>
+              <button @click="quickRagAsk('Kritische Erfolgsfaktoren Plattformisierung SAP S/4HANA Masterarbeit 1,0')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">💡 Plattformisierung &amp; Masterarbeit (1,0)</button>
+              <button @click="quickRagAsk('KPMG IT-Transformation Audit IKS Berechtigungen Trennungsrechnung Masterarbeit')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🎯 KPMG IT-Audit Prep</button>
+              <button @click="quickRagAsk('Schwarz Digits IAM SAP HCM Berechtigungen UMT P_ORGIN Third Level PFCG')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🔐 Schwarz IAM / UMT</button>
+              <button @click="quickRagAsk('TRUMPF Trainee IT Governance EAM Signavio Clean Core')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🏭 TRUMPF Governance</button>
+              <button @click="askSynergyRag('Welche empirischen Aussagen liefern die 12 Masterarbeits-Interviews und das Mayring Codebuch zu Clean Core und Change Management?', 'empirie')" class="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/30 transition">🔬 Empirie &amp; 12 Interviews (Mayring)</button>
+              <button @click="quickRagAsk('LTMC CVI Übernahmekonto Migration')" class="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[#bf262e]/20 text-[#c4bebe] hover:text-white border border-white/10 transition">🔄 LTMC &amp; CVI Saldo 0 €</button>
+            </div>
+
+            <!-- Hybrid AI Synthesis Answer Card (XSS-safe Markdown Rendered) -->
+            <div v-if="ragAnswer" class="p-4 sm:p-5 rounded-xl ai-output-card space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2 text-xs border-b pb-2" style="border-color: var(--ds-border)">
+                <span class="font-bold" style="color: var(--ds-text-brand)">{{ ragStyle === 'compact' ? '⚡ 60s-Kompakt-Briefing' : '🔬 Verifizierte Second-Brain-Tiefenanalyse' }}</span>
+                <div class="flex flex-wrap items-center gap-2 font-mono text-[10px]">
+                  <span v-if="ragGrounding.citation_count > 0" class="status-pill status-pill-green">
+                    ✓ {{ ragGrounding.verified_citations }}/{{ ragGrounding.citation_count }} Zitate verifiziert
+                  </span>
+                  <span style="color: var(--ds-text-subtlest)">{{ ragModel }} • {{ ragRetrievalMode || 'hybrid_rrf_rerank' }} • {{ ragDomain || 'alle' }}</span>
                 </div>
               </div>
-              <div class="text-[11px] text-[#f87171] font-mono">{{ hit.file }} › {{ hit.section }}</div>
-              <p class="text-xs text-[#c4bebe] leading-relaxed whitespace-pre-line">{{ hit.snippet }}</p>
+              <div class="text-xs leading-relaxed space-y-1.5" style="color: var(--ds-text-subtle)" v-html="formattedRagAnswer"></div>
+            </div>
+
+            <div v-if="ragResults.length > 0" class="space-y-2.5 max-h-96 overflow-y-auto custom-scrollbar">
+              <div v-for="(hit, idx) in ragResults" :key="idx" class="bento-card p-3.5 space-y-1.5">
+                <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <span class="font-bold" style="color: var(--ds-text)">{{ hit.title }}</span>
+                  <div class="flex flex-wrap items-center gap-1.5 font-mono text-[10px]">
+                    <span v-if="hit.vec_sim > 0" class="status-pill status-pill-purple">Semantik: {{ hit.vec_sim }}%</span>
+                    <span v-if="hit.rerank_boost && hit.rerank_boost > 1" class="status-pill status-pill-blue">Rerank ×{{ hit.rerank_boost }}</span>
+                    <span class="status-pill status-pill-green">RRF: {{ hit.score }} • {{ hit.type || 'concept' }}</span>
+                    <button
+                      @click="openSourceDrawer(hit.file, hit.title)"
+                      class="px-2 py-0.5 rounded-full border font-sans font-semibold transition hover:opacity-85"
+                      style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text)"
+                    >📖 Quelle öffnen</button>
+                  </div>
+                </div>
+                <div class="text-[11px] font-mono" style="color: var(--ds-text-brand)">{{ hit.file }} › {{ hit.section }}</div>
+                <p class="text-xs leading-relaxed whitespace-pre-line" style="color: var(--ds-text-subtle)">{{ hit.snippet }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================== MODE 2: STELLENANZEIGE × VAULT MATCHER ==================== -->
+          <div v-show="ragViewMode === 'matcher'" class="space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <span style="color: var(--ds-text-subtle)">Stellenanzeige einfügen oder Interview-Preset laden → 3-Säulen-Match (SSB/DC1 × Studium × Obsidian-Primärquelle):</span>
+              <div class="flex flex-wrap gap-1.5 text-[11px]">
+                <button @click="loadJobPreset('kpmg')" class="px-2.5 py-1 rounded-lg bg-[#bf262e]/15 hover:bg-[#bf262e]/30 text-[#f87171] border border-[#bf262e]/30 transition">🎯 Preset: KPMG</button>
+                <button @click="loadJobPreset('schwarz')" class="px-2.5 py-1 rounded-lg bg-blue-500/15 hover:bg-blue-500/30 text-blue-300 border border-blue-500/30 transition">🔐 Preset: Schwarz Digits</button>
+                <button @click="loadJobPreset('trumpf')" class="px-2.5 py-1 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 transition">🏭 Preset: TRUMPF</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <input v-model="jobMatchCompany" type="text" placeholder="Unternehmen (z.B. KPMG, Schwarz Digits)" class="px-3.5 py-2 text-xs rounded-xl border focus:outline-none">
+              <input v-model="jobMatchRole" type="text" placeholder="Zielrolle (z.B. Associate IT-Audit / SAP Consultant)" class="px-3.5 py-2 text-xs rounded-xl border focus:outline-none">
+            </div>
+
+            <textarea
+              v-model="jobMatchText"
+              rows="5"
+              placeholder="Füge hier Bulletpoints der Stellenanzeige oder Aufgabenbereiche ein..."
+              class="w-full p-3.5 text-xs rounded-xl border focus:outline-none custom-scrollbar"
+            ></textarea>
+
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-[11px] font-mono" style="color: var(--ds-text-subtlest)">{{ jobMatchStatus || 'Bereit für Multi-Domain RAG-Match (Arbeit × Studium × Kuratiert).' }}</span>
+              <button @click="runJobMatch" :disabled="jobMatchLoading" class="px-4 py-2 btn-primary disabled:opacity-50 text-xs font-bold rounded-xl transition">
+                {{ jobMatchLoading ? 'Analysiere & matche...' : '🎯 Gegen Obsidian Vault matchen' }}
+              </button>
+            </div>
+
+            <div v-if="jobMatchResult" class="p-4 sm:p-5 rounded-xl ai-output-card space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2 text-xs border-b pb-2" style="border-color: var(--ds-border)">
+                <span class="font-bold" style="color: var(--ds-text-success)">🎯 Verifizierte Job-Fit-Matrix {{ jobMatchCompany ? ('(' + jobMatchCompany + ')') : '' }}</span>
+                <div class="flex items-center gap-2 font-mono text-[10px]">
+                  <span v-if="jobMatchGrounding.citation_count > 0" class="status-pill status-pill-green">
+                    ✓ {{ jobMatchGrounding.verified_citations }}/{{ jobMatchGrounding.citation_count }} Zitate belegt
+                  </span>
+                  <span style="color: var(--ds-text-subtlest)">{{ jobMatchModel }}</span>
+                </div>
+              </div>
+              <div class="text-xs leading-relaxed space-y-1.5" style="color: var(--ds-text-subtle)" v-html="formattedJobMatch"></div>
+              <div v-if="jobMatchSources.length > 0" class="pt-2 border-t flex flex-wrap gap-1.5 text-[10px] font-mono" style="border-color: var(--ds-border)">
+                <span style="color: var(--ds-text-subtlest)">Verwendete Quellen:</span>
+                <button
+                  v-for="(s, idx) in jobMatchSources.slice(0, 8)"
+                  :key="idx"
+                  @click="openSourceDrawer(s.file, s.title)"
+                  class="px-2 py-0.5 rounded border hover:opacity-80 transition"
+                  style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text)"
+                >📖 {{ s.title }}</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==================== MODE 3: DEVIL'S ADVOCATE INTERVIEW-SPARRING ==================== -->
+          <div v-show="ragViewMode === 'sparring'" class="space-y-4">
+            <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
+              <span class="mr-1" style="color: var(--ds-text-subtlest)">Interviewer-Persona:</span>
+              <button @click="selectSparringPersona('kpmg', 'KPMG')" :class="sparringPersona === 'kpmg' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="sparringPersona === 'kpmg' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">🎯 KPMG IT-Audit</button>
+              <button @click="selectSparringPersona('schwarz', 'Schwarz Digits')" :class="sparringPersona === 'schwarz' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="sparringPersona === 'schwarz' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">🔐 Schwarz IAM/HCM</button>
+              <button @click="selectSparringPersona('trumpf', 'TRUMPF')" :class="sparringPersona === 'trumpf' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="sparringPersona === 'trumpf' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">🏭 TRUMPF Governance</button>
+              <button @click="selectSparringPersona('cto', 'CTO Stresstest')" :class="sparringPersona === 'cto' ? 'btn-primary font-bold' : ''" class="px-2.5 py-1 rounded-lg border transition" :style="sparringPersona === 'cto' ? '' : 'background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)'">⚡ Kritischer CTO / CV-Check</button>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <input
+                v-model="sparringTopic"
+                @keyup.enter="askSparringQuestion"
+                type="text"
+                placeholder="Optionales Fokusthema (z.B. SoD & P_ORGIN, Trennungsrechnung, Notensprung, Clean Core vs. BTP)..."
+                class="flex-1 min-w-[240px] px-3.5 py-2 text-xs rounded-xl border focus:outline-none"
+              >
+              <button @click="askSparringQuestion" :disabled="sparringLoading" class="px-4 py-2 btn-primary disabled:opacity-50 text-xs font-bold rounded-xl transition">
+                {{ sparringLoading ? 'Generiere...' : (sparringQuestion ? '🔄 Nächste kritische Frage' : '🥊 Kritische Frage stellen') }}
+              </button>
+            </div>
+
+            <div v-if="sparringQuestion" class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/35 space-y-2">
+              <div class="flex items-center justify-between text-xs border-b border-amber-500/20 pb-1.5">
+                <span class="font-bold text-amber-300">🎙️ Frage im Stil: {{ sparringCompany || sparringPersona }}</span>
+                <span class="text-[10px] font-mono" style="color: var(--ds-text-subtlest)">{{ sparringModel }}</span>
+              </div>
+              <div class="text-xs leading-relaxed space-y-1.5" style="color: var(--ds-text)" v-html="formattedSparringQuestion"></div>
+            </div>
+
+            <div class="space-y-2">
+              <textarea
+                v-model="sparringAnswer"
+                rows="4"
+                placeholder="Formuliere hier deine Antwort (wie im echten Gespräch) – das System prüft sie faktisch gegen deinen Obsidian Vault und gibt dir sofort Score, Blind Spots und eine geschliffene 60s-STAR-Fassung..."
+                class="w-full p-3.5 text-xs rounded-xl border focus:outline-none custom-scrollbar"
+              ></textarea>
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-[11px] font-mono" style="color: var(--ds-text-subtlest)">{{ sparringStatus || 'Bereit für Live-Fakten-Audit deiner Antwort.' }}</span>
+                <button @click="evaluateSparringAnswer" :disabled="sparringLoading || !sparringAnswer.trim()" class="px-4 py-2 btn-primary disabled:opacity-50 text-xs font-bold rounded-xl transition">
+                  {{ sparringLoading ? 'Prüfe gegen Obsidian...' : '🛡️ Antwort prüfen & optimieren' }}
+                </button>
+              </div>
+            </div>
+
+            <div v-if="sparringFeedback" class="p-4 sm:p-5 rounded-xl ai-output-card space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-2 text-xs border-b pb-2" style="border-color: var(--ds-border)">
+                <span class="font-bold" style="color: var(--ds-text-brand)">📋 Fakten-Audit &amp; 60s-Optimierung</span>
+                <div class="flex items-center gap-2 font-mono text-[10px]">
+                  <span v-if="sparringGrounding.citation_count > 0" class="status-pill status-pill-green">
+                    ✓ {{ sparringGrounding.verified_citations }}/{{ sparringGrounding.citation_count }} Belege verifiziert
+                  </span>
+                  <span style="color: var(--ds-text-subtlest)">{{ sparringModel }}</span>
+                </div>
+              </div>
+              <div class="text-xs leading-relaxed space-y-1.5" style="color: var(--ds-text-subtle)" v-html="formattedSparringFeedback"></div>
             </div>
           </div>
         </div>
@@ -184,11 +325,12 @@ def get_notebook():
                 <span>🎯</span>
                 <span>Live-Bewerbungspipeline & Interview-Radar (Bewerbungsverlauf.xlsx)</span>
               </h3>
-              <p class="text-xs text-[#8f8888] mt-0.5">Direktabruf der laufenden Gespräche inkl. 1-Klick-Wissensabruf aus deinem Obsidian Second Brain.</p>
+              <p class="text-xs text-[#8f8888] mt-0.5">Direktabruf der laufenden Gespräche inkl. 1-Klick RAG-Prep, Job-Fit Matcher &amp; Sparring.</p>
             </div>
-            <div class="flex items-center gap-2 text-[11px] font-mono">
+            <div class="flex flex-wrap items-center gap-2 text-[11px] font-mono">
               <span class="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">Interviews: {{ pipelineData.interviews.length }}</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/10 text-[#c4bebe] border border-white/10">Offen: {{ pipelineData.open_count }}</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/10 text-[#c4bebe] border border-white/10">Offen: {{ pipelineData.open_count ?? 0 }}</span>
+              <span class="px-2.5 py-1 rounded-full bg-white/5 text-[#8f8888] border border-white/10">Abgeschlossen: {{ pipelineData.closed_count ?? 65 }} / {{ pipelineData.total_rows ?? 68 }}</span>
             </div>
           </div>
 
@@ -202,9 +344,17 @@ def get_notebook():
                 <div class="text-[11px] text-[#f87171] mt-0.5">{{ iv.role }}</div>
                 <div class="text-[11px] text-[#8f8888] mt-1">{{ iv.status }}</div>
               </div>
-              <button @click="prepInterview(iv.company, iv.role)" class="self-start px-3 py-1 bg-[#bf262e]/20 hover:bg-[#bf262e]/40 border border-[#bf262e]/40 text-[#f87171] hover:text-white text-[11px] font-semibold rounded-lg transition">
-                ⚡ Prep via RAG + KI laden
-              </button>
+              <div class="flex flex-wrap gap-1.5 pt-1">
+                <button @click="prepInterview(iv.company, iv.role)" class="px-2.5 py-1 bg-[#bf262e]/20 hover:bg-[#bf262e]/40 border border-[#bf262e]/40 text-[#f87171] hover:text-white text-[11px] font-semibold rounded-lg transition">
+                  ⚡ RAG Prep
+                </button>
+                <button @click="openCompanyWorkbench(iv.company, iv.role, 'matcher')" class="px-2.5 py-1 bg-emerald-500/15 hover:bg-emerald-500/35 border border-emerald-500/35 text-emerald-300 hover:text-white text-[11px] font-semibold rounded-lg transition">
+                  🎯 Job-Fit
+                </button>
+                <button @click="openCompanyWorkbench(iv.company, iv.role, 'sparring')" class="px-2.5 py-1 bg-amber-500/15 hover:bg-amber-500/35 border border-amber-500/35 text-amber-300 hover:text-white text-[11px] font-semibold rounded-lg transition">
+                  🥊 Sparring
+                </button>
+              </div>
             </div>
           </div>
           <div v-else class="text-xs text-[#8f8888]">Laufende Gespräche werden beim lokalen Start über localhost:8085 geladen.</div>

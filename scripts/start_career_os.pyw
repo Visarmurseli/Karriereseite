@@ -7,6 +7,7 @@ den Telegram Career Agent V3.2 ohne sichtbares Konsolenfenster mit Log-Dateien u
 
 import os
 import sys
+import socket
 import subprocess
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -15,6 +16,15 @@ os.makedirs(LOG_DIR, exist_ok=True)
 
 PORTAL_SCRIPT = os.path.join(BASE_DIR, "s4hana-prep-portal", "run_portal.py")
 TELEGRAM_SCRIPT = os.path.join(BASE_DIR, "telegram_career_agent.py")
+
+
+def is_port_listening(port=8085):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(0.5)
+            return s.connect_ex(("127.0.0.1", port)) == 0
+    except Exception:
+        return False
 
 
 def _spawn(cmd, log_name):
@@ -39,7 +49,9 @@ def main():
         if os.path.exists(pyw):
             py_exe = pyw
 
-    _spawn([py_exe, PORTAL_SCRIPT, "--no-browser"], "portal.log")
+    if not is_port_listening(8085):
+        _spawn([py_exe, PORTAL_SCRIPT, "--no-browser"], "portal.log")
+
     _spawn([py_exe, "-u", TELEGRAM_SCRIPT], "telegram_agent.log")
 
 

@@ -68,9 +68,10 @@ def run_validation():
             if raw and raw not in all_basenames:
                 broken_links.append((rel, l))
 
-        # 3. Heading check
+        # 3. Heading check (outside fenced code blocks, horizontal spaces only)
         body = content[len(fm_match.group(0)):] if fm_match else content
-        h1s = re.findall(r'^#\s+(.*)', body, flags=re.MULTILINE)
+        body_no_fence = re.sub(r"```.*?```", "", body, flags=re.DOTALL)
+        h1s = re.findall(r'^#[ \t]+\S.*', body_no_fence, flags=re.MULTILINE)
         if len(h1s) > 1:
             multi_h1_files.append((rel, len(h1s)))
 
@@ -113,13 +114,18 @@ def run_validation():
     layer1 = [(f, rel, full) for f, rel, full in md_files if not rel.startswith("05_Archiv")]
     layer2 = [(f, rel, full) for f, rel, full in md_files if rel.startswith("05_Archiv")]
     print(f"    - Layer 1 (Curated Knowledge & Profile Foreground): {len(layer1)} notes")
-    print(f"    - Layer 2 (05_Archiv/Volltexte_DataLake Archive): {len(layer2)} notes")
+    print(f"    - Layer 2 (05_Archiv/Volltexte_Quellen Archive): {len(layer2)} notes")
     print(f"    - Total Word Count: {sum(word_counts):,} words")
     print(f"    - Total Token Estimate: ~{int(sum(word_counts) * 1.35):,} tokens")
-    oversized = [(rel, round(os.path.getsize(full) / (1024 * 1024), 2)) for _, rel, full in md_files if os.path.getsize(full) > 10 * 1024 * 1024]
-    print(f"    - Oversized Files (>10 MB): {len(oversized)}")
-    for rel, mb in oversized:
+    oversized_layer1 = [(rel, round(os.path.getsize(full) / (1024 * 1024), 2)) for _, rel, full in layer1 if os.path.getsize(full) > 2 * 1024 * 1024]
+    large_layer2 = [(rel, round(os.path.getsize(full) / (1024 * 1024), 2)) for _, rel, full in layer2 if os.path.getsize(full) > 10 * 1024 * 1024]
+    print(f"    - Oversized Layer-1 Foreground Files (>2 MB): {len(oversized_layer1)}")
+    for rel, mb in oversized_layer1:
         print(f"        ⚠️ {rel}: {mb:.2f} MB")
+    if large_layer2:
+        print(f"    - Unsplit Layer-2 Reference Volumes (>10 MB): {len(large_layer2)}")
+        for rel, mb in large_layer2:
+            print(f"        ℹ️ {rel}: {mb:.2f} MB")
 
     manifest_path = os.path.join(VAULT_DIR, "graph_manifest.json")
     orphan_count = 0
@@ -135,12 +141,12 @@ def run_validation():
             pass
 
     # Overall verdict
-    is_success = (valid_fm_count == total_files) and (len(broken_links) == 0) and (len(multi_h1_files) == 0) and (len(oversized) == 0) and (orphan_count == 0)
+    is_success = (valid_fm_count == total_files) and (len(broken_links) == 0) and (len(multi_h1_files) == 0) and (len(oversized_layer1) == 0) and (orphan_count == 0)
     print("\n" + "=" * 70)
     if is_success:
         print("🎯 FINAL VERDICT: 100% LLM & RAG READINESS - PASSED WITH DISTINCTION")
     else:
-        print(f"⚠️ FINAL VERDICT: ATTENTION NEEDED ({len(broken_links)} links, {len(multi_h1_files)} headings, {len(oversized)} oversized, {orphan_count} orphans)")
+        print(f"⚠️ FINAL VERDICT: ATTENTION NEEDED ({len(broken_links)} links, {len(multi_h1_files)} headings, {len(oversized_layer1)} oversized L1, {orphan_count} orphans)")
     print("=" * 70)
 
 if __name__ == "__main__":

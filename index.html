@@ -253,12 +253,124 @@
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
     }
-    #app main [class*="bg-gradient-to-"] {
+    #app main [class*="bg-gradient-to-"]:not(.hero-mesh):not(.bento-accent):not(.ai-output-card) {
       background: var(--ds-surface-raised) !important;
       background-image: none !important;
       border: 1px solid var(--ds-border) !important;
       border-left: 4px solid var(--ds-brand-bold) !important;
       box-shadow: var(--ds-shadow-raised) !important;
+    }
+
+    /* ================= INNOVATIVE UI/UX STYLE PATTERNS (BENTO, MESH, GLASS, SPOTLIGHT) ================= */
+    .hero-mesh {
+      background:
+        radial-gradient(at 88% 12%, rgba(37, 99, 235, 0.11) 0, transparent 55%),
+        radial-gradient(at 10% 90%, rgba(99, 102, 241, 0.08) 0, transparent 50%),
+        var(--ds-surface-raised) !important;
+      border: 1px solid var(--ds-border-brand) !important;
+      box-shadow: var(--ds-shadow-raised) !important;
+    }
+    html.dark .hero-mesh {
+      background:
+        radial-gradient(at 88% 12%, rgba(59, 130, 246, 0.22) 0, transparent 52%),
+        radial-gradient(at 10% 90%, rgba(79, 70, 229, 0.16) 0, transparent 52%),
+        var(--ds-surface-raised) !important;
+    }
+    .bento-card {
+      background-color: var(--ds-surface-raised) !important;
+      border: 1px solid var(--ds-border) !important;
+      border-radius: 16px !important;
+      box-shadow: var(--ds-shadow-raised) !important;
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .bento-interactive:hover {
+      transform: translateY(-2px);
+      border-color: var(--ds-border-brand) !important;
+      box-shadow: var(--ds-shadow-lifted) !important;
+    }
+    .bento-metric {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.025em;
+    }
+    .segmented-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 12px;
+      background-color: var(--ds-surface-sunken);
+      border: 1px solid var(--ds-border);
+    }
+    .seg-btn {
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ds-text-subtle);
+      transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+      white-space: nowrap;
+    }
+    .seg-btn:hover { color: var(--ds-text); }
+    .seg-btn.active {
+      background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+    .ai-output-card {
+      background:
+        radial-gradient(at 96% 8%, rgba(37, 99, 235, 0.10) 0, transparent 50%),
+        var(--ds-surface-raised) !important;
+      border: 1px solid var(--ds-border-brand) !important;
+      border-left: 4px solid var(--ds-brand-bold) !important;
+      box-shadow: var(--ds-shadow-raised) !important;
+    }
+    .spotlight-backdrop {
+      background-color: rgba(15, 23, 42, 0.56);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .spotlight-modal {
+      background-color: var(--ds-surface-overlay);
+      border: 1px solid var(--ds-border-brand);
+      box-shadow: var(--ds-shadow-overlay);
+      color: var(--ds-text);
+    }
+    .drawer-panel {
+      background-color: var(--ds-surface-raised);
+      border-left: 1px solid var(--ds-border);
+      box-shadow: var(--ds-shadow-overlay);
+      color: var(--ds-text);
+    }
+    .toast-pill {
+      background-color: var(--ds-surface-overlay);
+      border: 1px solid var(--ds-border-brand);
+      box-shadow: var(--ds-shadow-overlay);
+      color: var(--ds-text);
+    }
+    /* Theme-aware Markdown rendering inside AI cards & drawers */
+    .md-strong { color: var(--ds-text); font-weight: 600; }
+    .md-h4 { color: var(--ds-text); font-size: 0.92rem; font-weight: 700; margin-top: 0.7rem; margin-bottom: 0.25rem; }
+    .md-h5 { color: var(--ds-text-brand); font-size: 0.8rem; font-weight: 700; margin-top: 0.55rem; margin-bottom: 0.2rem; }
+    .md-code {
+      padding: 0.12rem 0.42rem;
+      border-radius: 6px;
+      background-color: var(--ds-surface-neutral);
+      border: 1px solid var(--ds-border);
+      color: var(--ds-text-brand);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .md-cite {
+      display: inline-block;
+      padding: 1px 8px;
+      margin: 0 2px;
+      border-radius: 9999px;
+      background-color: var(--ds-bg-success);
+      border: 1px solid var(--ds-border-success);
+      color: var(--ds-text-success);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
     }
     #app main .bg-white\/5,
     #app main .bg-white\/10,
@@ -427,13 +539,38 @@
       outline: 2px solid var(--ds-brand-subtlest);
     }
 
-    /* ================= PRINT / PDF EXPORT MODE ================= */
+    /* ================= PRINT / PDF EXPORT MODE & CV A4 PREVIEW ================= */
+    .cv-a4-paper {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14) !important;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .cv-a4-paper * {
+      box-shadow: none !important;
+    }
     @media print {
+      @page { size: A4; margin: 11mm 13mm; }
       header, aside, footer, .no-print { display: none !important; }
       body, #app, main, div {
         background: #FFFFFF !important;
         color: #0F172A !important;
         box-shadow: none !important;
+      }
+      body.printing-cv .no-cv-print { display: none !important; }
+      body.printing-cv main {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      body.printing-cv #cv-print-sheet {
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        width: 100% !important;
       }
     }
   </style>
@@ -446,6 +583,54 @@
       style="background: linear-gradient(90deg, #2563EB, #4F46E5, #0EA5E9);"
       :style="{ width: scrollProgress + '%' }"
     ></div>
+
+    <!-- Global Toast Notification -->
+    <div v-if="toastMessage" class="fixed bottom-5 right-5 z-[70] toast-pill px-4 py-2.5 rounded-xl flex items-center gap-2 text-xs font-semibold no-print">
+      <span class="text-emerald-500">✓</span>
+      <span>{{ toastMessage }}</span>
+    </div>
+
+    <!-- Spotlight Quick-Jump Modal (Ctrl+K / Cmd+K) -->
+    <div v-if="spotlightOpen" @click.self="spotlightOpen = false" class="fixed inset-0 z-[65] spotlight-backdrop flex items-start justify-center pt-16 sm:pt-24 px-4 no-print">
+      <div class="spotlight-modal w-full max-w-xl rounded-2xl overflow-hidden flex flex-col max-h-[75vh]">
+        <div class="flex items-center gap-2.5 px-4 py-3 border-b" style="border-color: var(--ds-border)">
+          <span class="text-base">🔍</span>
+          <input
+            id="spotlight-search-input"
+            v-model="spotlightQuery"
+            @keyup.enter="spotlightResults.length && selectSpotlightItem(spotlightResults[0])"
+            type="text"
+            placeholder="Schnellnavigation, Fachbegriff, Modul oder RAG-Suche eingeben..."
+            class="flex-1 bg-transparent text-sm focus:outline-none"
+            style="color: var(--ds-text)"
+          >
+          <button @click="spotlightOpen = false" class="px-2 py-0.5 rounded border text-[10px] font-mono" style="border-color: var(--ds-border); color: var(--ds-text-subtlest)">ESC</button>
+        </div>
+        <div class="overflow-y-auto p-2 space-y-1 custom-scrollbar">
+          <div v-if="spotlightResults.length === 0" class="p-4 text-center text-xs" style="color: var(--ds-text-subtlest)">
+            Keine direkten Treffer im Menü – drücke Enter oder wechsle in das RAG-Portal.
+          </div>
+          <button
+            v-for="(item, idx) in spotlightResults"
+            :key="idx"
+            @click="selectSpotlightItem(item)"
+            class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-left transition hover:opacity-90"
+            style="background: var(--ds-surface-sunken); color: var(--ds-text)"
+          >
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-base shrink-0">{{ item.icon }}</span>
+              <div class="min-w-0">
+                <div class="text-xs font-semibold truncate">{{ item.label }}</div>
+                <div class="text-[11px] truncate" style="color: var(--ds-text-subtlest)">{{ item.sub }}</div>
+              </div>
+            </div>
+            <span class="status-pill status-pill-blue shrink-0">{{ item.badge }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    
 
     <div class="flex-1 flex flex-col min-h-screen">
 
@@ -466,12 +651,24 @@
           </div>
         </div>
 
-        <!-- Right: Compact Core Credential Badge, PDF Export, Theme Toggle & Mobile Menu -->
+        <!-- Right: Spotlight Search, Core Credential Badge, PDF Export, Theme Toggle & Mobile Menu -->
         <div class="flex items-center gap-2 shrink-0">
           <div class="hidden xl:flex items-center gap-1.5 text-[10.5px] font-mono">
             <span class="status-pill status-pill-blue">36M Enterprise Praxis</span>
             <span class="status-pill status-pill-purple">300 ECTS • M.Sc. 1,6</span>
           </div>
+
+          <!-- Spotlight Quick-Jump Button -->
+          <button
+            @click="toggleSpotlight"
+            class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition hover:opacity-85"
+            style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)"
+            title="Schnellsuche öffnen (Strg + K)"
+          >
+            <span>🔍</span>
+            <span class="hidden md:inline">Suche</span>
+            <kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded border" style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text-subtlest)">Ctrl K</kbd>
+          </button>
 
           <!-- PDF Export Button -->
           <button 
@@ -659,149 +856,212 @@
             </div>
 
 
-      <!-- ================= TAB 1: DASHBOARD (EXECUTIVE ONE-PAGER) ================= -->
+      <!-- ================= TAB 1: DASHBOARD (EXECUTIVE BENTO ONE-PAGER) ================= -->
       <div v-show="activeTab === 'dashboard'" class="space-y-6">
         
-        <!-- Executive Hero Section -->
-        <div class="bg-[#141414] rounded-2xl p-6 lg:p-8 border border-white/10 space-y-5">
-          <div class="space-y-3">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="status-pill status-pill-neutral">🏛️ Universität Stuttgart</span>
-              <span class="status-pill status-pill-green">M.Sc. Wirtschaftsinformatik: Note 1,6 (120 ECTS)</span>
-              <span class="status-pill status-pill-green">Masterarbeit: Note 1,0 (30 ECTS)</span>
-              <span class="status-pill status-pill-blue">B.Sc. Note 3,0 (180 ECTS • Thesis 1,7)</span>
-              <span class="status-pill status-pill-purple">TOGAF 9 ADM Zertifikat</span>
-            </div>
-            
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              Enterprise ERP Transformation, IT-PMO &amp; Service Operations
-            </h2>
+        <!-- Asymmetric 12-Col Bento Hero + Live Career Telemetry Ring -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+          
+          <!-- Left 8 Cols: Executive Hero Mesh Card -->
+          <div class="lg:col-span-8 hero-mesh rounded-2xl p-6 lg:p-7 flex flex-col justify-between space-y-5">
+            <div class="space-y-3.5">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="status-pill status-pill-neutral">🏛️ Universität Stuttgart</span>
+                <span class="status-pill status-pill-green">M.Sc. Wirtschaftsinformatik: Note 1,6 (120 ECTS)</span>
+                <span class="status-pill status-pill-green">Masterarbeit: Note 1,0 (30 ECTS)</span>
+                <span class="status-pill status-pill-blue">B.Sc. Note 3,0 (180 ECTS • Thesis 1,7)</span>
+                <span class="status-pill status-pill-purple">TOGAF 9 ADM Zertifikat</span>
+              </div>
+              
+              <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight leading-tight" style="color: var(--ds-text)">
+                Enterprise ERP Transformation, IT-PMO &amp; Service Operations
+              </h2>
 
-            <div class="info-callout p-4 flex items-start gap-3 text-xs sm:text-sm leading-relaxed">
-              <span class="text-base shrink-0 mt-0.5">⚡</span>
-              <div>
-                <div class="font-bold mb-0.5" style="color: var(--ds-text)">Executive Profil</div>
-                <p style="color: var(--ds-text-subtle)">
-                  Wirtschaftsinformatiker (<strong>300 ECTS</strong>, M.Sc. Note <strong>1,6</strong>, Masterarbeit <strong>1,0</strong>) mit <strong>36 Monaten Enterprise-Praxiserfahrung</strong>: 24 Monate IT-PMO &amp; Lösungsdesign in der <strong>SAP S/4HANA Transformation</strong> (SSB AG bis Explore-Abschluss &amp; SDD-Freigabe) sowie 12 Monate <strong>24/7 ITIL 4 Service Operations</strong> im Rechenzentrumsbetrieb (Datacenter One).
-                </p>
+              <div class="info-callout p-4 flex items-start gap-3 text-xs sm:text-sm leading-relaxed">
+                <span class="text-base shrink-0 mt-0.5">⚡</span>
+                <div>
+                  <div class="font-bold mb-0.5" style="color: var(--ds-text)">Executive Profil</div>
+                  <p style="color: var(--ds-text-subtle)">
+                    Wirtschaftsinformatiker (<strong>300 ECTS</strong>, M.Sc. Note <strong>1,6</strong>, Masterarbeit <strong>1,0</strong>) mit <strong>36 Monaten Enterprise-Praxiserfahrung</strong>: 24 Monate IT-PMO &amp; Lösungsdesign in der <strong>SAP S/4HANA Transformation</strong> (SSB AG bis Explore-Abschluss &amp; SDD-Freigabe) sowie 12 Monate <strong>24/7 ITIL 4 Service Operations</strong> im Rechenzentrumsbetrieb (Datacenter One).
+                  </p>
+                </div>
               </div>
             </div>
 
             <div class="pt-1 flex flex-wrap items-center gap-2.5">
-              <button @click="selectTab('synergies')" class="px-4 py-2 rounded-lg bg-[#bf262e] hover:bg-[#cf3840] text-white text-xs font-semibold transition flex items-center space-x-2">
+              <button @click="selectTab('synergies')" class="px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center gap-2 btn-primary">
                 <span>⚡</span>
                 <span>Persönliches Stärkenprofil &amp; Synergien</span>
                 <span>➔</span>
               </button>
-              <button @click="selectTab('ssb')" class="px-3.5 py-2 rounded-lg bg-white/5 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
+              <button @click="selectTab('ssb')" class="px-3.5 py-2 rounded-xl border text-xs font-semibold transition hover:opacity-85" style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text)">
                 🚆 SSB S/4HANA Projekt
               </button>
-              <button @click="selectTab('faq')" class="px-3.5 py-2 rounded-lg bg-white/5 text-[#f0eded] text-xs font-semibold border border-white/15 transition">
+              <button @click="selectTab('faq')" class="px-3.5 py-2 rounded-xl border text-xs font-semibold transition hover:opacity-85" style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text)">
                 ❓ FAQ &amp; Details
+              </button>
+              <button @click="toggleSpotlight" class="px-3 py-2 rounded-xl border text-xs font-semibold transition hover:opacity-85" style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)">
+                🔍 Ctrl K
               </button>
             </div>
           </div>
 
-          <!-- 4 Kernpfeiler (Direktzugriff auf die 4 Hauptstationen) -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
-            <div @click="selectTab('ssb')" class="bg-white/5 transition cursor-pointer rounded-xl p-4 border border-white/10 group" style="border-top: 3px solid var(--ds-brand-bold);">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="status-pill status-pill-blue">1. SSB AG (24M)</span>
-                <span class="text-xs font-semibold" style="color: var(--ds-text-brand)">➔</span>
+          <!-- Right 4 Cols: SVG Telemetry Ring & Tabular Metrics -->
+          <div class="lg:col-span-4 bento-card p-5 flex flex-col justify-between gap-4">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <div class="text-[11px] font-semibold uppercase tracking-wider" style="color: var(--ds-text-subtlest)">Akademische Progression</div>
+                <div class="text-lg font-extrabold bento-metric mt-0.5" style="color: var(--ds-text)">M.Sc. 1,6 • +1,4 Δ</div>
+                <div class="text-[11px]" style="color: var(--ds-text-success)">Masterarbeit 1,0 (Sehr Gut)</div>
               </div>
-              <div class="font-bold text-sm text-white">SAP S/4HANA &amp; PMO</div>
-              <div class="text-[11px] text-[#c4bebe] mt-1">Explore-Abschluss, SDD-Freigabe, Cloud ALM, Signavio &amp; FI/CO.</div>
+              <!-- SVG Circular Ring -->
+              <svg width="64" height="64" viewBox="0 0 64 64" class="shrink-0">
+                <circle cx="32" cy="32" r="26" fill="none" stroke="var(--ds-border)" stroke-width="6" />
+                <circle cx="32" cy="32" r="26" fill="none" stroke="var(--ds-brand-bold)" stroke-width="6"
+                        stroke-linecap="round" stroke-dasharray="163.36" stroke-dashoffset="22"
+                        transform="rotate(-90 32 32)" />
+                <text x="32" y="36" text-anchor="middle" font-size="13" font-weight="800" fill="var(--ds-text)">1,6</text>
+              </svg>
             </div>
 
-            <div @click="selectTab('dc1')" class="bg-white/5 transition cursor-pointer rounded-xl p-4 border border-white/10 group" style="border-top: 3px solid var(--ds-text-success);">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="status-pill status-pill-green">2. DC1 (12M)</span>
-                <span class="text-xs font-semibold" style="color: var(--ds-text-success)">➔</span>
+            <div class="grid grid-cols-2 gap-2.5 text-xs">
+              <div class="p-3 rounded-xl border" style="background: var(--ds-surface-sunken); border-color: var(--ds-border)">
+                <div class="text-[10px] font-semibold uppercase" style="color: var(--ds-text-subtlest)">Hochschule</div>
+                <div class="text-base font-extrabold bento-metric" style="color: var(--ds-text)">300 ECTS</div>
+                <div class="text-[10px]" style="color: var(--ds-text-subtle)">180 B.Sc. + 120 M.Sc.</div>
               </div>
-              <div class="font-bold text-sm text-white">ITIL 4 Operations</div>
-              <div class="text-[11px] text-[#c4bebe] mt-1">24/7 INOC Leitstand, PRTG Monitoring, SPoC &amp; HLM (100+ Systeme).</div>
-            </div>
-
-            <div @click="selectTab('master')" class="bg-white/5 transition cursor-pointer rounded-xl p-4 border border-white/10 group" style="border-top: 3px solid var(--ds-text-discovery);">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="status-pill status-pill-purple">3. Master (1,6)</span>
-                <span class="text-xs font-semibold" style="color: var(--ds-text-discovery)">➔</span>
+              <div class="p-3 rounded-xl border" style="background: var(--ds-surface-sunken); border-color: var(--ds-border)">
+                <div class="text-[10px] font-semibold uppercase" style="color: var(--ds-text-subtlest)">Enterprise</div>
+                <div class="text-base font-extrabold bento-metric" style="color: var(--ds-text)">36 Monate</div>
+                <div class="text-[10px]" style="color: var(--ds-text-subtle)">SSB 24M + DC1 12M</div>
               </div>
-              <div class="font-bold text-sm text-white">M.Sc. (120 ECTS)</div>
-              <div class="text-[11px] text-[#c4bebe] mt-1">Alle 16 Module • Masterarbeit 1,0 über S/4HANA Plattformisierung.</div>
-            </div>
-
-            <div @click="selectTab('bachelor')" class="bg-white/5 transition cursor-pointer rounded-xl p-4 border border-white/10 group" style="border-top: 3px solid var(--ds-text-warning);">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="status-pill status-pill-amber">4. Bachelor (3,0)</span>
-                <span class="text-xs font-semibold" style="color: var(--ds-text-warning)">➔</span>
+              <div class="p-3 rounded-xl border" style="background: var(--ds-surface-sunken); border-color: var(--ds-border)">
+                <div class="text-[10px] font-semibold uppercase" style="color: var(--ds-text-subtlest)">Empirie</div>
+                <div class="text-base font-extrabold bento-metric" style="color: var(--ds-text)">12 Interv.</div>
+                <div class="text-[10px]" style="color: var(--ds-text-subtle)">Mayring • 126 Seiten</div>
               </div>
-              <div class="font-bold text-sm text-white">B.Sc. (180 ECTS)</div>
-              <div class="text-[11px] text-[#c4bebe] mt-1">Alle Module • Bachelorarbeit 1,7 (Low-Code), E-Business 1,0 &amp; TOGAF 9.</div>
+              <div class="p-3 rounded-xl border" style="background: var(--ds-surface-sunken); border-color: var(--ds-border)">
+                <div class="text-[10px] font-semibold uppercase" style="color: var(--ds-text-subtlest)">Unternehmen</div>
+                <div class="text-base font-extrabold bento-metric" style="color: var(--ds-text)">VISMUV</div>
+                <div class="text-[10px]" style="color: var(--ds-text-subtle)">Gründer ab 11/2026</div>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- 5 Kernpfeiler Bento Strip (SSB, DC1, Master, Bachelor, VISMUV & Praxisprojekte) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+          <div @click="selectTab('ssb')" class="bento-card bento-interactive cursor-pointer p-4" style="border-top: 3px solid var(--ds-brand-bold) !important;">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="status-pill status-pill-blue">1. SSB AG (24M)</span>
+              <span class="text-xs font-semibold" style="color: var(--ds-text-brand)">➔</span>
+            </div>
+            <div class="font-bold text-sm" style="color: var(--ds-text)">SAP S/4HANA &amp; PMO</div>
+            <div class="text-[11px] mt-1 leading-relaxed" style="color: var(--ds-text-subtle)">Explore-Abschluss, SDD-Freigabe, Cloud ALM, Signavio &amp; FI/CO.</div>
+          </div>
+
+          <div @click="selectTab('dc1')" class="bento-card bento-interactive cursor-pointer p-4" style="border-top: 3px solid var(--ds-text-success) !important;">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="status-pill status-pill-green">2. DC1 (12M)</span>
+              <span class="text-xs font-semibold" style="color: var(--ds-text-success)">➔</span>
+            </div>
+            <div class="font-bold text-sm" style="color: var(--ds-text)">ITIL 4 Operations</div>
+            <div class="text-[11px] mt-1 leading-relaxed" style="color: var(--ds-text-subtle)">24/7 INOC Leitstand, PRTG Monitoring, SPoC &amp; HLM (100+ Systeme).</div>
+          </div>
+
+          <div @click="selectTab('master')" class="bento-card bento-interactive cursor-pointer p-4" style="border-top: 3px solid var(--ds-text-discovery) !important;">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="status-pill status-pill-purple">3. Master (1,6)</span>
+              <span class="text-xs font-semibold" style="color: var(--ds-text-discovery)">➔</span>
+            </div>
+            <div class="font-bold text-sm" style="color: var(--ds-text)">M.Sc. (120 ECTS)</div>
+            <div class="text-[11px] mt-1 leading-relaxed" style="color: var(--ds-text-subtle)">Alle 16 Module • Masterarbeit 1,0 über S/4HANA Plattformisierung.</div>
+          </div>
+
+          <div @click="selectTab('bachelor')" class="bento-card bento-interactive cursor-pointer p-4" style="border-top: 3px solid var(--ds-text-warning) !important;">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="status-pill status-pill-amber">4. Bachelor (3,0)</span>
+              <span class="text-xs font-semibold" style="color: var(--ds-text-warning)">➔</span>
+            </div>
+            <div class="font-bold text-sm" style="color: var(--ds-text)">B.Sc. (180 ECTS)</div>
+            <div class="text-[11px] mt-1 leading-relaxed" style="color: var(--ds-text-subtle)">Alle Module • Bachelorarbeit 1,7 (Low-Code), E-Business 1,0 &amp; TOGAF 9.</div>
+          </div>
+
+          <div @click="selectTab('synergies')" class="bento-card bento-interactive cursor-pointer p-4" style="border-top: 3px solid #06B6D4 !important;">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="status-pill status-pill-neutral">5. Praxis &amp; Ops</span>
+              <span class="text-xs font-semibold" style="color: var(--ds-text-brand)">➔</span>
+            </div>
+            <div class="font-bold text-sm" style="color: var(--ds-text)">VISMUV &amp; Projekte</div>
+            <div class="text-[11px] mt-1 leading-relaxed" style="color: var(--ds-text-subtle)">Schmalz RPA (1,0), Klingele SaaS (2,0), PDR Ops &amp; VISMUV (11/2026).</div>
+          </div>
+        </div>
+
         <!-- Kompakte Werdegang-Timeline (2019–2026) -->
-        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+        <div class="bento-card p-5 sm:p-6 space-y-4">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h3 class="text-sm font-bold flex items-center gap-2" style="color: var(--ds-text)">
               <span>🗓️</span>
               <span>Werdegang auf einen Blick (2019 – 2026)</span>
             </h3>
-            <span class="text-[11px] text-[#8f8888]">300 ECTS + 36 Monate Praxis</span>
+            <span class="status-pill status-pill-blue">300 ECTS + 36 Monate Praxis</span>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
-            <div @click="selectTab('bachelor')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
-              <div class="text-[10px] font-mono font-bold text-blue-400">2019 – 2023</div>
-              <div class="font-bold text-white">B.Sc. Wirtschaftsinformatik</div>
-              <div class="text-[11px] text-[#8f8888]">180 ECTS (3,0) • Thesis 1,7</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+            <div @click="selectTab('bachelor')" class="bento-card bento-interactive p-3 cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold" style="color: var(--ds-text-brand)">2019 – 2023</div>
+              <div class="font-bold" style="color: var(--ds-text)">B.Sc. Wirtschaftsinformatik</div>
+              <div class="text-[11px]" style="color: var(--ds-text-subtlest)">180 ECTS (3,0) • Thesis 1,7</div>
             </div>
-            <div @click="selectTab('bachelor')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
-              <div class="text-[10px] font-mono font-bold text-purple-400">01 / 2020</div>
-              <div class="font-bold text-white">TOGAF 9 ADM</div>
-              <div class="text-[11px] text-[#8f8888]">Scape Consulting Zertifikat</div>
+            <div @click="selectTab('bachelor')" class="bento-card bento-interactive p-3 cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold" style="color: var(--ds-text-discovery)">01 / 2020</div>
+              <div class="font-bold" style="color: var(--ds-text)">TOGAF 9 ADM</div>
+              <div class="text-[11px]" style="color: var(--ds-text-subtlest)">Scape Consulting Zertifikat</div>
             </div>
-            <div @click="selectTab('dc1')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
-              <div class="text-[10px] font-mono font-bold text-emerald-400">05/2023 – 04/2024</div>
-              <div class="font-bold text-white">Datacenter One (12M)</div>
-              <div class="text-[11px] text-[#8f8888]">24/7 INOC &amp; ITIL 4 Operations</div>
+            <div @click="selectTab('dc1')" class="bento-card bento-interactive p-3 cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold" style="color: var(--ds-text-success)">05/2023 – 04/2024</div>
+              <div class="font-bold" style="color: var(--ds-text)">Datacenter One (12M)</div>
+              <div class="text-[11px]" style="color: var(--ds-text-subtlest)">24/7 INOC &amp; ITIL 4 Operations</div>
             </div>
-            <div @click="selectTab('ssb')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
-              <div class="text-[10px] font-mono font-bold text-[#f87171]">05/2024 – 04/2026</div>
-              <div class="font-bold text-white">SSB AG S/4HANA (24M)</div>
-              <div class="text-[11px] text-[#8f8888]">IT-PMO (TP5) • SDD freigegeben</div>
+            <div @click="selectTab('ssb')" class="bento-card bento-interactive p-3 cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold" style="color: var(--ds-text-brand)">05/2024 – 04/2026</div>
+              <div class="font-bold" style="color: var(--ds-text)">SSB AG S/4HANA (24M)</div>
+              <div class="text-[11px]" style="color: var(--ds-text-subtlest)">IT-PMO (TP5) • SDD freigegeben</div>
             </div>
-            <div @click="selectTab('master')" class="p-3 rounded-xl bg-white/5 border border-white/10 cursor-pointer space-y-1">
-              <div class="text-[10px] font-mono font-bold text-amber-400">2023 – 09/2026</div>
-              <div class="font-bold text-white">M.Sc. Wirtschaftsinformatik</div>
-              <div class="text-[11px] text-[#8f8888]">120 ECTS (1,6) • Thesis 1,0</div>
+            <div @click="selectTab('master')" class="bento-card bento-interactive p-3 cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold" style="color: var(--ds-text-warning)">2023 – 09/2026</div>
+              <div class="font-bold" style="color: var(--ds-text)">M.Sc. Wirtschaftsinformatik</div>
+              <div class="text-[11px]" style="color: var(--ds-text-subtlest)">120 ECTS (1,6) • Thesis 1,0</div>
+            </div>
+            <div @click="selectTab('synergies')" class="bento-card bento-interactive p-3 cursor-pointer space-y-1">
+              <div class="text-[10px] font-mono font-bold" style="color: var(--ds-text-success)">09 – 11/2026+</div>
+              <div class="font-bold" style="color: var(--ds-text)">PDR Team &amp; VISMUV</div>
+              <div class="text-[11px]" style="color: var(--ds-text-subtlest)">Scanning/Ops • Gründung 11/2026</div>
             </div>
           </div>
         </div>
 
         <!-- Zielrollen-Fokus (ATS Alignment) -->
-        <div class="bg-[#141414] p-5 sm:p-6 rounded-2xl border border-white/10 space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-bold text-white">🎯 Zielrollen für den Berufseinstieg (Region Stuttgart / Ludwigsburg)</h3>
+        <div class="bento-card p-5 sm:p-6 space-y-3">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h3 class="text-sm font-bold" style="color: var(--ds-text)">🎯 Zielrollen für den Berufseinstieg (Region Stuttgart / Ludwigsburg)</h3>
             <button @click="selectTab('synergies')" class="text-xs font-semibold hover:underline" style="color: var(--ds-text-brand)">Alle Stärken ansehen ➔</button>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
-              <div class="font-bold text-white">Junior SAP Inhouse / Transformation Consultant</div>
-              <div class="text-[11px] text-[#8f8888] mt-1">S/4HANA (FI/CO/MM), Clean Core, BTP, Cloud ALM &amp; Signavio</div>
+            <div @click="selectTab('ssb')" class="bento-card bento-interactive cursor-pointer p-3.5">
+              <div class="font-bold" style="color: var(--ds-text)">Junior SAP Inhouse / Transformation Consultant</div>
+              <div class="text-[11px] mt-1" style="color: var(--ds-text-subtlest)">S/4HANA (FI/CO/MM), Clean Core, BTP, Cloud ALM &amp; Signavio</div>
             </div>
-            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
-              <div class="font-bold text-white">Junior IT-Projektmanager / IT-PMO</div>
-              <div class="text-[11px] text-[#8f8888] mt-1">Multiprojektsteuerung (TP1–TP5), MS Project, Steering-Reporting</div>
+            <div @click="selectTab('ssb')" class="bento-card bento-interactive cursor-pointer p-3.5">
+              <div class="font-bold" style="color: var(--ds-text)">Junior IT-Projektmanager / IT-PMO</div>
+              <div class="text-[11px] mt-1" style="color: var(--ds-text-subtlest)">Multiprojektsteuerung (TP1–TP5), MS Project, Steering-Reporting</div>
             </div>
-            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
-              <div class="font-bold text-white">Junior Enterprise Architect (EAM)</div>
-              <div class="text-[11px] text-[#8f8888] mt-1">TOGAF 9 ADM, Schnittstellen-Governance &amp; Bimodale IT</div>
+            <div @click="selectTab('master')" class="bento-card bento-interactive cursor-pointer p-3.5">
+              <div class="font-bold" style="color: var(--ds-text)">Junior Enterprise Architect (EAM)</div>
+              <div class="text-[11px] mt-1" style="color: var(--ds-text-subtlest)">TOGAF 9 ADM, Schnittstellen-Governance &amp; Bimodale IT</div>
             </div>
-            <div class="p-3.5 rounded-xl bg-white/5 border border-white/10">
-              <div class="font-bold text-white">IT- / Management-Trainee</div>
-              <div class="text-[11px] text-[#8f8888] mt-1">Rotation über IT-Strategie, ERP-Transformation &amp; Operations</div>
+            <div @click="selectTab('dc1')" class="bento-card bento-interactive cursor-pointer p-3.5">
+              <div class="font-bold" style="color: var(--ds-text)">IT- / Management-Trainee</div>
+              <div class="text-[11px] mt-1" style="color: var(--ds-text-subtlest)">Rotation über IT-Strategie, ERP-Transformation &amp; Operations</div>
             </div>
           </div>
         </div>
@@ -1917,7 +2177,7 @@
 
   <!-- Application Logic & Data Injection -->
   <script>
-    const { createApp, ref, computed, onMounted } = Vue;
+    const { createApp, ref, computed, watch, onMounted } = Vue;
 
     createApp({
       setup() {
@@ -1944,7 +2204,49 @@
         const ragDomain = ref('');
         const ragStyle = ref('compact');
         const ragStatusMsg = ref('');
-        const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
+        const ragGrounding = ref({ citation_count: 0, verified_citations: 0, verified_files: [] });
+        const ragViewMode = ref('search');
+        const jobMatchCompany = ref('');
+        const jobMatchRole = ref('');
+        const jobMatchText = ref('');
+        const jobMatchLoading = ref(false);
+        const jobMatchResult = ref('');
+        const jobMatchModel = ref('');
+        const jobMatchSources = ref([]);
+        const jobMatchGrounding = ref({ citation_count: 0, verified_citations: 0 });
+        const jobMatchStatus = ref('');
+        const sparringPersona = ref('kpmg');
+        const sparringCompany = ref('KPMG');
+        const sparringTopic = ref('');
+        const sparringQuestion = ref('');
+        const sparringAnswer = ref('');
+        const sparringFeedback = ref('');
+        const sparringModel = ref('');
+        const sparringSources = ref([]);
+        const sparringGrounding = ref({ citation_count: 0, verified_citations: 0 });
+        const sparringLoading = ref(false);
+        const sparringStatus = ref('');
+        const ragStats = ref({ total_files: 4918, total_chunks: 256985, size_mb: 1356.17, total_vectors: 560, ollama_vectors: 20987, ollama_model: 'bge-m3', built_at: '2026-11-27' });
+        const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0, closed_count: 65, total_rows: 68 });
+        const spotlightOpen = ref(false);
+        const spotlightQuery = ref('');
+        const toastMessage = ref('');
+        let toastTimer = null;
+        const showToast = (msg) => {
+          toastMessage.value = msg;
+          if (toastTimer) clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => { toastMessage.value = ''; }, 2600);
+        };
+        const toggleSpotlight = () => {
+          spotlightOpen.value = !spotlightOpen.value;
+          if (spotlightOpen.value) {
+            spotlightQuery.value = '';
+            setTimeout(() => {
+              const el = document.getElementById('spotlight-search-input');
+              if (el) el.focus();
+            }, 40);
+          }
+        };
         const synergyViewMode = ref('compact');
         const synergyFilter = ref('Alle');
         const selectedFaqCat = ref('Alle');
@@ -2031,6 +2333,29 @@
         const qaCategories = ['Alle', 'SSB S/4HANA & Explore-Phase', 'Datacenter One & ITIL 4', 'Master & Plattformisierung', 'Bachelor & Methodenkompetenz', 'Enterprise Architecture & TOGAF', 'Persönlich & Trainee-Einstieg'];
 
         const fileCategories = ['Alle', 'Aktuelle Bewerbungsunterlagen', 'PMO & Steuerung', 'Explore & Lösungsdesign', 'Finance & Controlling', 'Grants Management', 'Sustainability & EHS', 'Vertrieb & PATRIS', 'Datenmigration', 'Basis & Infrastruktur', 'Vergabe & SektVO', 'Tools & Enablement', 'SAP Fachliteratur (Rheinwerk)', 'Datacenter One (DC1 / ITIL 4)', 'Wissenschaft & Uni', 'Master-Module (120 ECTS)', 'Bachelor-Module (180 ECTS)'];
+
+        const cvStudioView = ref('generator');
+        const cvDraft = ref({ header: {}, skills: {}, extra: [], education: [], experience: [], projects: [] });
+        const cvTailorCompany = ref('');
+        const cvTailorRole = ref('');
+        const cvTailorJobText = ref('');
+        const cvTailorLoading = ref(false);
+        const cvTailorStatus = ref('');
+        const cvTailorHighlights = ref([]);
+        const cvExportLoading = ref(false);
+        const applyCvPreset = () => {};
+        const resetCvDraft = () => {};
+        const cvExpBulletsText = () => '';
+        const updateCvExpBullets = () => {};
+        const activeCvEducation = computed(() => []);
+        const activeCvExperience = computed(() => []);
+        const activeCvProjects = computed(() => []);
+        const fillCvJobSample = () => {};
+        const runCvTailoring = () => {};
+        const exportCvFile = () => {};
+        const saveCvToWorkspace = () => {};
+        const copyCvMarkdown = () => {};
+        const printGeneratedCv = () => {};
 
         const defenseScenarios = ref([]);
         const cvImprovements = [];
@@ -2349,8 +2674,8 @@
         };
 
         const copyText = (txt) => {
-          navigator.clipboard.writeText(txt);
-          alert('Text erfolgreich in die Zwischenablage kopiert!');
+          if (navigator.clipboard) navigator.clipboard.writeText(txt);
+          showToast('Text in die Zwischenablage kopiert');
         };
 
         // Persistent Notes logic
@@ -2358,22 +2683,94 @@
           localStorage.setItem('vm_second_brain_notes', personalNotes.value);
         };
 
+        const filesViewMode = ref('artifacts');
+        const libraryBooks = ref([]);
+        const libraryTotal = ref(471);
+        const libraryFiltered = ref(0);
+        const libraryCategories = ref([]);
+        const libraryDomain = ref('');
+        const libraryQuery = ref('');
+        const libraryLoading = ref(false);
+        const loadLibraryCatalog = () => {};
+        const sourceDrawerOpen = ref(false);
+        const sourceDrawerLoading = ref(false);
+        const sourceDrawerData = ref(null);
+        const openSourceDrawer = () => {};
+        const askAboutSource = () => {};
         const formattedRagAnswer = computed(() => '');
+        const formattedJobMatch = computed(() => '');
+        const formattedSparringQuestion = computed(() => '');
+        const formattedSparringFeedback = computed(() => '');
         const saveNotesToObsidian = () => {};
         const runRagSearch = () => {};
         const runRagAsk = () => {};
         const quickRagAsk = () => {};
         const askSynergyRag = () => {};
         const loadPipeline = () => {};
+        const loadRagStats = () => {};
         const prepInterview = () => {};
+        const loadJobPreset = () => {};
+        const runJobMatch = () => {};
+        const selectSparringPersona = () => {};
+        const askSparringQuestion = () => {};
+        const evaluateSparringAnswer = () => {};
+        const openCompanyWorkbench = () => {};
 
         const copyNotesToClipboard = () => {
           if (navigator.clipboard) {
             navigator.clipboard.writeText(personalNotes.value);
           }
-          alert('Notizen erfolgreich in die Zwischenablage kopiert! 📋');
+          showToast('Notizen in die Zwischenablage kopiert');
         };
         const exportNotes = copyNotesToClipboard;
+
+        const spotlightResults = computed(() => {
+          const q = (spotlightQuery.value || '').trim().toLowerCase();
+          const pool = [];
+          const tabKw = {
+            dashboard: 'übersicht executive profil bento kennzahlen ects',
+            ssb: 'sap s4hana pmo tp5 acdoca trennungsrechnung signavio cloud alm ltmc cvi',
+            dc1: 'datacenter one inoc itil 4 incident root cause hlm prtg 99.99',
+            master: 'msc masterarbeit 1,0 1,6 stuttgart plattformisierung mayring 12 interviews 16 module zusatz',
+            bachelor: 'bsc bachelorarbeit 1,7 boundary resources low-code togaf 9 e-business 1,0',
+            synergies: 'stärken vismuv schmalz klingele patent saas rpa pdr synergie',
+            faq: 'fragen antworten clean core greenfield acdoca abap btp',
+          };
+          for (const t of tabs) {
+            pool.push({ kind: 'tab', tab: t.id, icon: t.icon, label: t.label, sub: 'Bereich direkt öffnen', badge: t.badge, kw: tabKw[t.id] || '' });
+          }
+          
+          for (const s of synergyAtlas) {
+            pool.push({ kind: 'tab', tab: 'synergies', icon: '⚡', label: s.title, sub: s.cluster + ' • ' + (s.usp || ''), badge: 'Synergie', kw: (s.praxis || '') + ' ' + (s.studium || '') });
+          }
+          for (const f of faqItems.value) {
+            pool.push({ kind: 'tab', tab: 'faq', icon: '❓', label: f.q, sub: f.cat, badge: 'FAQ', kw: (f.a || []).join(' ') });
+          }
+          if (!q) return pool.slice(0, 8);
+          return pool.filter(it => (it.label + ' ' + it.sub + ' ' + it.badge + ' ' + (it.kw || '')).toLowerCase().includes(q)).slice(0, 12);
+        });
+
+        const selectSpotlightItem = (item) => {
+          if (!item) return;
+          spotlightOpen.value = false;
+          if (item.kind === 'cv-gen') {
+            cvStudioView.value = 'generator';
+            if (item.tab) selectTab(item.tab);
+            return;
+          }
+          if (item.kind === 'files-lib') {
+            filesViewMode.value = 'library';
+            selectTab('files');
+            if (typeof loadLibraryCatalog === 'function') loadLibraryCatalog();
+            return;
+          }
+          if (item.kind === 'rag-mode') {
+            ragViewMode.value = item.ragMode || 'search';
+            selectTab('notebook');
+            return;
+          }
+          if (item.tab) selectTab(item.tab);
+        };
 
         const clearNotes = () => {
           if (confirm('Möchtest du deine Notizen wirklich leeren?')) {
@@ -2420,7 +2817,29 @@
             isDark.value = false;
             document.documentElement.classList.remove('dark');
           }
+          window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+              e.preventDefault();
+              toggleSpotlight();
+            } else if (e.key === 'Escape') {
+              spotlightOpen.value = false;
+              isMobileMenuOpen.value = false;
+              if (typeof sourceDrawerOpen !== 'undefined') sourceDrawerOpen.value = false;
+            }
+          });
           loadPipeline();
+          loadRagStats();
+          if (typeof loadLibraryCatalog === 'function') loadLibraryCatalog();
+          try {
+            const savedCv = localStorage.getItem('vm_optimized_cv_draft_v1');
+            if (savedCv && typeof cvDraft !== 'undefined' && cvDraft.value) {
+              const parsedCv = JSON.parse(savedCv);
+              if (parsedCv && parsedCv.header && parsedCv.experience) {
+                cvDraft.value = parsedCv;
+              }
+            }
+          } catch (e) {}
+          if (typeof loadCvContactDefaults === 'function') loadCvContactDefaults();
         });
 
         return {
@@ -2428,6 +2847,13 @@
           isMobileMenuOpen,
           isSidebarCollapsed,
           scrollProgress,
+          spotlightOpen,
+          spotlightQuery,
+          spotlightResults,
+          toggleSpotlight,
+          selectSpotlightItem,
+          toastMessage,
+          showToast,
           navSpaces,
           currentTabName,
           currentTabIndex,
@@ -2456,6 +2882,32 @@
           ragStyle,
           formattedRagAnswer,
           ragStatusMsg,
+          ragGrounding,
+          ragViewMode,
+          jobMatchCompany,
+          jobMatchRole,
+          jobMatchText,
+          jobMatchLoading,
+          jobMatchResult,
+          jobMatchModel,
+          jobMatchSources,
+          jobMatchGrounding,
+          jobMatchStatus,
+          formattedJobMatch,
+          sparringPersona,
+          sparringCompany,
+          sparringTopic,
+          sparringQuestion,
+          sparringAnswer,
+          sparringFeedback,
+          sparringModel,
+          sparringSources,
+          sparringGrounding,
+          sparringLoading,
+          sparringStatus,
+          formattedSparringQuestion,
+          formattedSparringFeedback,
+          ragStats,
           pipelineData,
           synergyViewMode,
           synergyFilter,
@@ -2468,7 +2920,14 @@
           quickRagAsk,
           askSynergyRag,
           loadPipeline,
+          loadRagStats,
           prepInterview,
+          loadJobPreset,
+          runJobMatch,
+          selectSparringPersona,
+          askSparringQuestion,
+          evaluateSparringAnswer,
+          openCompanyWorkbench,
           saveNotesToObsidian,
           pitch60,
           pitchDeep,
@@ -2486,6 +2945,42 @@
           exportNotes,
           clearNotes,
           insertTemplate,
+          filesViewMode,
+          libraryBooks,
+          libraryTotal,
+          libraryFiltered,
+          libraryCategories,
+          libraryDomain,
+          libraryQuery,
+          libraryLoading,
+          loadLibraryCatalog,
+          sourceDrawerOpen,
+          sourceDrawerLoading,
+          sourceDrawerData,
+          openSourceDrawer,
+          askAboutSource,
+          cvStudioView,
+          cvDraft,
+          cvTailorCompany,
+          cvTailorRole,
+          cvTailorJobText,
+          cvTailorLoading,
+          cvTailorStatus,
+          cvTailorHighlights,
+          cvExportLoading,
+          applyCvPreset,
+          resetCvDraft,
+          cvExpBulletsText,
+          updateCvExpBullets,
+          activeCvEducation,
+          activeCvExperience,
+          activeCvProjects,
+          fillCvJobSample,
+          runCvTailoring,
+          exportCvFile,
+          saveCvToWorkspace,
+          copyCvMarkdown,
+          printGeneratedCv,
           wbsFilter,
           wbsProjects,
           filteredWbsProjects

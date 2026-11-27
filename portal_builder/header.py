@@ -256,12 +256,124 @@ def get_header(public_mode=False):
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
     }
-    #app main [class*="bg-gradient-to-"] {
+    #app main [class*="bg-gradient-to-"]:not(.hero-mesh):not(.bento-accent):not(.ai-output-card) {
       background: var(--ds-surface-raised) !important;
       background-image: none !important;
       border: 1px solid var(--ds-border) !important;
       border-left: 4px solid var(--ds-brand-bold) !important;
       box-shadow: var(--ds-shadow-raised) !important;
+    }
+
+    /* ================= INNOVATIVE UI/UX STYLE PATTERNS (BENTO, MESH, GLASS, SPOTLIGHT) ================= */
+    .hero-mesh {
+      background:
+        radial-gradient(at 88% 12%, rgba(37, 99, 235, 0.11) 0, transparent 55%),
+        radial-gradient(at 10% 90%, rgba(99, 102, 241, 0.08) 0, transparent 50%),
+        var(--ds-surface-raised) !important;
+      border: 1px solid var(--ds-border-brand) !important;
+      box-shadow: var(--ds-shadow-raised) !important;
+    }
+    html.dark .hero-mesh {
+      background:
+        radial-gradient(at 88% 12%, rgba(59, 130, 246, 0.22) 0, transparent 52%),
+        radial-gradient(at 10% 90%, rgba(79, 70, 229, 0.16) 0, transparent 52%),
+        var(--ds-surface-raised) !important;
+    }
+    .bento-card {
+      background-color: var(--ds-surface-raised) !important;
+      border: 1px solid var(--ds-border) !important;
+      border-radius: 16px !important;
+      box-shadow: var(--ds-shadow-raised) !important;
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .bento-interactive:hover {
+      transform: translateY(-2px);
+      border-color: var(--ds-border-brand) !important;
+      box-shadow: var(--ds-shadow-lifted) !important;
+    }
+    .bento-metric {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.025em;
+    }
+    .segmented-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 12px;
+      background-color: var(--ds-surface-sunken);
+      border: 1px solid var(--ds-border);
+    }
+    .seg-btn {
+      padding: 5px 11px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--ds-text-subtle);
+      transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+      white-space: nowrap;
+    }
+    .seg-btn:hover { color: var(--ds-text); }
+    .seg-btn.active {
+      background: linear-gradient(135deg, #2563EB 0%, #4F46E5 100%) !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+    }
+    .ai-output-card {
+      background:
+        radial-gradient(at 96% 8%, rgba(37, 99, 235, 0.10) 0, transparent 50%),
+        var(--ds-surface-raised) !important;
+      border: 1px solid var(--ds-border-brand) !important;
+      border-left: 4px solid var(--ds-brand-bold) !important;
+      box-shadow: var(--ds-shadow-raised) !important;
+    }
+    .spotlight-backdrop {
+      background-color: rgba(15, 23, 42, 0.56);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .spotlight-modal {
+      background-color: var(--ds-surface-overlay);
+      border: 1px solid var(--ds-border-brand);
+      box-shadow: var(--ds-shadow-overlay);
+      color: var(--ds-text);
+    }
+    .drawer-panel {
+      background-color: var(--ds-surface-raised);
+      border-left: 1px solid var(--ds-border);
+      box-shadow: var(--ds-shadow-overlay);
+      color: var(--ds-text);
+    }
+    .toast-pill {
+      background-color: var(--ds-surface-overlay);
+      border: 1px solid var(--ds-border-brand);
+      box-shadow: var(--ds-shadow-overlay);
+      color: var(--ds-text);
+    }
+    /* Theme-aware Markdown rendering inside AI cards & drawers */
+    .md-strong { color: var(--ds-text); font-weight: 600; }
+    .md-h4 { color: var(--ds-text); font-size: 0.92rem; font-weight: 700; margin-top: 0.7rem; margin-bottom: 0.25rem; }
+    .md-h5 { color: var(--ds-text-brand); font-size: 0.8rem; font-weight: 700; margin-top: 0.55rem; margin-bottom: 0.2rem; }
+    .md-code {
+      padding: 0.12rem 0.42rem;
+      border-radius: 6px;
+      background-color: var(--ds-surface-neutral);
+      border: 1px solid var(--ds-border);
+      color: var(--ds-text-brand);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+    .md-cite {
+      display: inline-block;
+      padding: 1px 8px;
+      margin: 0 2px;
+      border-radius: 9999px;
+      background-color: var(--ds-bg-success);
+      border: 1px solid var(--ds-border-success);
+      color: var(--ds-text-success);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
     }
     #app main .bg-white\\/5,
     #app main .bg-white\\/10,
@@ -430,13 +542,38 @@ def get_header(public_mode=False):
       outline: 2px solid var(--ds-brand-subtlest);
     }
 
-    /* ================= PRINT / PDF EXPORT MODE ================= */
+    /* ================= PRINT / PDF EXPORT MODE & CV A4 PREVIEW ================= */
+    .cv-a4-paper {
+      background-color: #FFFFFF !important;
+      color: #0F172A !important;
+      border: 1px solid #CBD5E1 !important;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14) !important;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .cv-a4-paper * {
+      box-shadow: none !important;
+    }
     @media print {
+      @page { size: A4; margin: 11mm 13mm; }
       header, aside, footer, .no-print { display: none !important; }
       body, #app, main, div {
         background: #FFFFFF !important;
         color: #0F172A !important;
         box-shadow: none !important;
+      }
+      body.printing-cv .no-cv-print { display: none !important; }
+      body.printing-cv main {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      body.printing-cv #cv-print-sheet {
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        width: 100% !important;
       }
     }
   </style>
@@ -449,6 +586,54 @@ def get_header(public_mode=False):
       style="background: linear-gradient(90deg, #2563EB, #4F46E5, #0EA5E9);"
       :style="{ width: scrollProgress + '%' }"
     ></div>
+
+    <!-- Global Toast Notification -->
+    <div v-if="toastMessage" class="fixed bottom-5 right-5 z-[70] toast-pill px-4 py-2.5 rounded-xl flex items-center gap-2 text-xs font-semibold no-print">
+      <span class="text-emerald-500">✓</span>
+      <span>{{ toastMessage }}</span>
+    </div>
+
+    <!-- Spotlight Quick-Jump Modal (Ctrl+K / Cmd+K) -->
+    <div v-if="spotlightOpen" @click.self="spotlightOpen = false" class="fixed inset-0 z-[65] spotlight-backdrop flex items-start justify-center pt-16 sm:pt-24 px-4 no-print">
+      <div class="spotlight-modal w-full max-w-xl rounded-2xl overflow-hidden flex flex-col max-h-[75vh]">
+        <div class="flex items-center gap-2.5 px-4 py-3 border-b" style="border-color: var(--ds-border)">
+          <span class="text-base">🔍</span>
+          <input
+            id="spotlight-search-input"
+            v-model="spotlightQuery"
+            @keyup.enter="spotlightResults.length && selectSpotlightItem(spotlightResults[0])"
+            type="text"
+            placeholder="Schnellnavigation, Fachbegriff, Modul oder RAG-Suche eingeben..."
+            class="flex-1 bg-transparent text-sm focus:outline-none"
+            style="color: var(--ds-text)"
+          >
+          <button @click="spotlightOpen = false" class="px-2 py-0.5 rounded border text-[10px] font-mono" style="border-color: var(--ds-border); color: var(--ds-text-subtlest)">ESC</button>
+        </div>
+        <div class="overflow-y-auto p-2 space-y-1 custom-scrollbar">
+          <div v-if="spotlightResults.length === 0" class="p-4 text-center text-xs" style="color: var(--ds-text-subtlest)">
+            Keine direkten Treffer im Menü – drücke Enter oder wechsle in das RAG-Portal.
+          </div>
+          <button
+            v-for="(item, idx) in spotlightResults"
+            :key="idx"
+            @click="selectSpotlightItem(item)"
+            class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl text-left transition hover:opacity-90"
+            style="background: var(--ds-surface-sunken); color: var(--ds-text)"
+          >
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="text-base shrink-0">{{ item.icon }}</span>
+              <div class="min-w-0">
+                <div class="text-xs font-semibold truncate">{{ item.label }}</div>
+                <div class="text-[11px] truncate" style="color: var(--ds-text-subtlest)">{{ item.sub }}</div>
+              </div>
+            </div>
+            <span class="status-pill status-pill-blue shrink-0">{{ item.badge }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    %%PRIVATE_SOURCE_DRAWER%%
 
     <div class="flex-1 flex flex-col min-h-screen">
 
@@ -469,12 +654,24 @@ def get_header(public_mode=False):
           </div>
         </div>
 
-        <!-- Right: Compact Core Credential Badge, PDF Export, Theme Toggle & Mobile Menu -->
+        <!-- Right: Spotlight Search, Core Credential Badge, PDF Export, Theme Toggle & Mobile Menu -->
         <div class="flex items-center gap-2 shrink-0">
           <div class="hidden xl:flex items-center gap-1.5 text-[10.5px] font-mono">
             <span class="status-pill status-pill-blue">36M Enterprise Praxis</span>
             <span class="status-pill status-pill-purple">300 ECTS • M.Sc. 1,6</span>
           </div>
+
+          <!-- Spotlight Quick-Jump Button -->
+          <button
+            @click="toggleSpotlight"
+            class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-medium transition hover:opacity-85"
+            style="background: var(--ds-surface-sunken); border-color: var(--ds-border); color: var(--ds-text-subtle)"
+            title="Schnellsuche öffnen (Strg + K)"
+          >
+            <span>🔍</span>
+            <span class="hidden md:inline">Suche</span>
+            <kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono rounded border" style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text-subtlest)">Ctrl K</kbd>
+          </button>
 
           <!-- PDF Export Button -->
           <button 
@@ -661,6 +858,78 @@ def get_header(public_mode=False):
               </div>
             </div>
 """
+    source_drawer_html = "" if public_mode else """
+    <!-- Slide-Over Source & Book Reader Drawer (Nur Lokal) -->
+    <div v-if="sourceDrawerOpen" class="fixed inset-0 z-[65] flex justify-end no-print">
+      <div @click="sourceDrawerOpen = false" class="fixed inset-0 spotlight-backdrop"></div>
+      <div class="relative drawer-panel w-full max-w-2xl h-full flex flex-col z-10 overflow-hidden">
+        <div class="p-4 sm:p-5 border-b flex items-start justify-between gap-3" style="border-color: var(--ds-border); background: var(--ds-surface-sunken)">
+          <div class="min-w-0 space-y-1">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="status-pill status-pill-blue">📖 Obsidian Quelle</span>
+              <span v-if="sourceDrawerData && sourceDrawerData.doc_type" class="status-pill status-pill-purple">{{ sourceDrawerData.doc_type }}</span>
+              <span v-if="sourceDrawerData && sourceDrawerData.total_chunks" class="status-pill status-pill-green">{{ sourceDrawerData.total_chunks }} Chunks</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-bold truncate" style="color: var(--ds-text)">
+              {{ (sourceDrawerData && sourceDrawerData.title) || 'Lade Quelle...' }}
+            </h3>
+            <div v-if="sourceDrawerData && sourceDrawerData.file" class="text-[11px] font-mono truncate" style="color: var(--ds-text-subtlest)">
+              {{ sourceDrawerData.file }}
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button
+              v-if="sourceDrawerData && sourceDrawerData.file"
+              @click="askAboutSource(sourceDrawerData.file, sourceDrawerData.title)"
+              class="px-3 py-1.5 rounded-lg text-xs font-semibold btn-primary"
+            >🤖 RAG fragen</button>
+            <button
+              @click="sourceDrawerOpen = false"
+              class="px-2.5 py-1.5 rounded-lg border text-xs font-bold"
+              style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text-subtle)"
+            >✕</button>
+          </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3 custom-scrollbar">
+          <div v-if="sourceDrawerLoading" class="p-6 text-center text-xs" style="color: var(--ds-text-subtlest)">
+            Lese indizierte Wissens-Chunks aus SQLite-Index...
+          </div>
+          <div v-else-if="sourceDrawerData && sourceDrawerData.error" class="p-4 rounded-xl status-pill-red text-xs">
+            {{ sourceDrawerData.error }}
+          </div>
+          <div v-else-if="sourceDrawerData && sourceDrawerData.chunks" class="space-y-3">
+            <div v-for="ch in sourceDrawerData.chunks" :key="ch.id" class="bento-card p-4 space-y-1.5">
+              <div class="flex items-center justify-between gap-2 text-[11px] pb-1 border-b" style="border-color: var(--ds-border)">
+                <span class="font-bold" style="color: var(--ds-text-brand)">Chunk #{{ ch.index }} • {{ ch.section }}</span>
+                <span class="font-mono" style="color: var(--ds-text-subtlest)">{{ ch.char_len }} Zeichen</span>
+              </div>
+              <p class="text-xs leading-relaxed whitespace-pre-wrap" style="color: var(--ds-text-subtle)">{{ ch.content }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="sourceDrawerData && sourceDrawerData.total_chunks > 14" class="px-5 py-3 border-t flex items-center justify-between text-xs" style="border-color: var(--ds-border); background: var(--ds-surface-sunken)">
+          <button
+            @click="openSourceDrawer(sourceDrawerData.file, sourceDrawerData.title, Math.max(0, (sourceDrawerData.offset || 0) - 14))"
+            :disabled="(sourceDrawerData.offset || 0) <= 0"
+            class="px-3 py-1.5 rounded-lg border font-medium disabled:opacity-40"
+            style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text)"
+          >← Vorherige</button>
+          <span class="font-mono text-[11px]" style="color: var(--ds-text-subtlest)">
+            Chunks {{ (sourceDrawerData.offset || 0) + 1 }}–{{ Math.min(sourceDrawerData.total_chunks, (sourceDrawerData.offset || 0) + (sourceDrawerData.chunks ? sourceDrawerData.chunks.length : 0)) }} / {{ sourceDrawerData.total_chunks }}
+          </span>
+          <button
+            @click="openSourceDrawer(sourceDrawerData.file, sourceDrawerData.title, (sourceDrawerData.offset || 0) + 14)"
+            :disabled="(sourceDrawerData.offset || 0) + 14 >= sourceDrawerData.total_chunks"
+            class="px-3 py-1.5 rounded-lg border font-medium disabled:opacity-40"
+            style="background: var(--ds-surface-raised); border-color: var(--ds-border); color: var(--ds-text)"
+          >Nächste →</button>
+        </div>
+      </div>
+    </div>
+"""
+    tpl = tpl.replace('%%PRIVATE_SOURCE_DRAWER%%', source_drawer_html)
     if public_mode:
         tpl = tpl.replace('%%CAREER_SUB%%', 'Zielrollen & 90-Tage Onboarding-Roadmap')
     else:

@@ -53,7 +53,7 @@ def get_vue_app(public_mode=False):
 
   <!-- Application Logic & Data Injection -->
   <script>
-    const { createApp, ref, computed, onMounted } = Vue;
+    const { createApp, ref, computed, watch, onMounted } = Vue;
 
     createApp({
       setup() {
@@ -80,7 +80,49 @@ def get_vue_app(public_mode=False):
         const ragDomain = ref('');
         const ragStyle = ref('compact');
         const ragStatusMsg = ref('');
-        const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0 });
+        const ragGrounding = ref({ citation_count: 0, verified_citations: 0, verified_files: [] });
+        const ragViewMode = ref('search');
+        const jobMatchCompany = ref('');
+        const jobMatchRole = ref('');
+        const jobMatchText = ref('');
+        const jobMatchLoading = ref(false);
+        const jobMatchResult = ref('');
+        const jobMatchModel = ref('');
+        const jobMatchSources = ref([]);
+        const jobMatchGrounding = ref({ citation_count: 0, verified_citations: 0 });
+        const jobMatchStatus = ref('');
+        const sparringPersona = ref('kpmg');
+        const sparringCompany = ref('KPMG');
+        const sparringTopic = ref('');
+        const sparringQuestion = ref('');
+        const sparringAnswer = ref('');
+        const sparringFeedback = ref('');
+        const sparringModel = ref('');
+        const sparringSources = ref([]);
+        const sparringGrounding = ref({ citation_count: 0, verified_citations: 0 });
+        const sparringLoading = ref(false);
+        const sparringStatus = ref('');
+        const ragStats = ref({ total_files: 4918, total_chunks: 256985, size_mb: 1356.17, total_vectors: 560, ollama_vectors: 20987, ollama_model: 'bge-m3', built_at: '2026-11-27' });
+        const pipelineData = ref({ interviews: [], open_tier1: [], open_count: 0, closed_count: 65, total_rows: 68 });
+        const spotlightOpen = ref(false);
+        const spotlightQuery = ref('');
+        const toastMessage = ref('');
+        let toastTimer = null;
+        const showToast = (msg) => {
+          toastMessage.value = msg;
+          if (toastTimer) clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => { toastMessage.value = ''; }, 2600);
+        };
+        const toggleSpotlight = () => {
+          spotlightOpen.value = !spotlightOpen.value;
+          if (spotlightOpen.value) {
+            spotlightQuery.value = '';
+            setTimeout(() => {
+              const el = document.getElementById('spotlight-search-input');
+              if (el) el.focus();
+            }, 40);
+          }
+        };
         const synergyViewMode = ref('compact');
         const synergyFilter = ref('Alle');
         const selectedFaqCat = ref('Alle');
@@ -124,9 +166,9 @@ def get_vue_app(public_mode=False):
           { id: 'faq', label: 'FAQ', icon: '❓', badge: 'Vertiefung' },
           // PRIVATE_TABS_START
           { id: 'interview', label: 'Interview Masterclass', icon: '🎙️', badge: 'Pitches & STAR' },
-          { id: 'cv_defense', label: 'CV De-Risking', icon: '🛡️', badge: 'Gefahrenabwehr' },
+          { id: 'cv_defense', label: 'CV Studio & De-Risking', icon: '📄', badge: 'DOCX / PDF' },
           { id: 'files', label: 'Deliverables-Register', icon: '📂', badge: 'Katalog' },
-          { id: 'notebook', label: 'Second Brain & RAG', icon: '📝', badge: 'Obsidian Sync' }
+          { id: 'notebook', label: 'Second Brain & RAG', icon: '📝', badge: 'Obsidian V2.1' }
           // PRIVATE_TABS_END
         ];
 
@@ -173,7 +215,7 @@ def get_vue_app(public_mode=False):
             icon: '🔒',
             items: [
               { id: 'interview', label: 'Interview Masterclass', icon: '🎙️' },
-              { id: 'cv_defense', label: 'CV De-Risking', icon: '🛡️' },
+              { id: 'cv_defense', label: 'CV Studio & De-Risking', icon: '📄' },
               { id: 'files', label: 'Deliverables-Register', icon: '📂' },
               { id: 'notebook', label: 'Second Brain & RAG', icon: '📝' },
             ]
@@ -184,6 +226,409 @@ def get_vue_app(public_mode=False):
         const qaCategories = ['Alle', 'SSB S/4HANA & Explore-Phase', 'Datacenter One & ITIL 4', 'Master & Plattformisierung', 'Bachelor & Methodenkompetenz', 'Enterprise Architecture & TOGAF', 'Persönlich & Trainee-Einstieg'];
 
         const fileCategories = ['Alle', 'Aktuelle Bewerbungsunterlagen', 'PMO & Steuerung', 'Explore & Lösungsdesign', 'Finance & Controlling', 'Grants Management', 'Sustainability & EHS', 'Vertrieb & PATRIS', 'Datenmigration', 'Basis & Infrastruktur', 'Vergabe & SektVO', 'Tools & Enablement', 'SAP Fachliteratur (Rheinwerk)', 'Datacenter One (DC1 / ITIL 4)', 'Wissenschaft & Uni', 'Master-Module (120 ECTS)', 'Bachelor-Module (180 ECTS)'];
+
+        // PRIVATE_CVGEN_START
+        const cvStudioView = ref('generator');
+        const cloneCvObj = (o) => JSON.parse(JSON.stringify(o));
+        const defaultCvPresets = {
+          universal: {
+            preset: 'universal',
+            theme: 'modern-cobalt',
+            compact: true,
+            showSummary: true,
+            showMasterDetails: true,
+            showBachelor: true,
+            showVismuv: true,
+            showPdr: false,
+            showExtra: true,
+            header: {
+              name: 'Visar Murseli',
+              subtitle: 'M.Sc. Wirtschaftsinformatik (1,6) • SAP S/4HANA Transformation & IT-PMO',
+              email: '',
+              phone: '',
+              address: 'Ludwigsburg / Region Stuttgart',
+              links: 'Portfolio: S/4HANA Career OS • Ludwigsburg / Region Stuttgart'
+            },
+            summary: 'Wirtschaftsinformatiker (M.Sc. 1,6, Masterarbeit 1,0) mit 36 Monaten Enterprise-Praxiserfahrung in der SAP S/4HANA-Transformation (24 Monate IT-PMO & Lösungsdesign) und im 24/7 ITIL 4 Servicebetrieb (12 Monate Rechenzentrums-INOC). Spezialisiert auf Clean-Core-Governance, End-to-End Prozessdesign (SAP Signavio, Cloud ALM) sowie revisionssichere ERP-Datenmigration.',
+            education: [
+              {
+                id: 'msc',
+                institution: 'Universität Stuttgart',
+                period: '2023 – 09/2026',
+                degree: 'Master of Science (M.Sc.), Wirtschaftsinformatik – Gesamtnote: 1,6 „gut“ (120 ECTS)',
+                details: [
+                  'Masterarbeit (Note 1,0): „Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA“ (12 Experteninterviews, Inhaltsanalyse nach Mayring)',
+                  'Vertiefung: Enterprise Architecture & Software-Architektur (1,7), Applied AI (1,7), Digitale Nachhaltigkeit (1,0), Smart Service Blueprinting (1,3)'
+                ]
+              },
+              {
+                id: 'bsc',
+                institution: 'Universität Stuttgart',
+                period: '2019 – 2023',
+                degree: 'Bachelor of Science (B.Sc.), Wirtschaftsinformatik – Gesamtnote: 3,0 (180 ECTS)',
+                details: [
+                  'Bachelorarbeit (Note 1,7): „Die Bedeutung von Boundary Resources in Low-Code Entwicklungsplattformen (OutSystems & Mendix)“',
+                  'Kernfächer: Informationssysteme im E-Business (Bestnote 1,0), Geschäftsprozessmodellierung (BPMN 2.0 / ERM / UML), Datenbanken'
+                ]
+              }
+            ],
+            experience: [
+              {
+                id: 'ssb',
+                company: 'Stuttgarter Straßenbahnen AG (SSB AG)',
+                period: '05/2024 – 04/2026',
+                role: 'IT-PMO & Lösungsdesign SAP S/4HANA Transformation (Werkstudent, 24 Monate)',
+                bullets: [
+                  'Multiprojekt-Governance & Teilprojektsteuerung (TP1–TP5) inklusive MS-Project-Meilensteinplanung, Ressourcenplanung und Fortschrittsanalysen',
+                  'Analyse und Dokumentation kaufmännischer Geschäftsprozesse im SAP S/4HANA-Umfeld zur Erstellung des Solution Design Documents (ACDOCA, Trennungsrechnung nach EU-VO 1370/2007)',
+                  'Tool-Governance & End-to-End Traceability: Erstellung des verbindlichen Quickguides „SAP Cloud ALM How2Handle“, Prozessstandardisierung in SAP Signavio (BPMN 2.0) sowie Übergabekonzept für SAP Enable Now',
+                  'Unterstützung der Datenmigrations- und Schnittstellenkonzeption (LTMC, Business-Partner-/CVI-Harmonisierung, Clean-Core-Entkopplung von Subsystemen wie PATRIS, xSuite und d.velop)'
+                ]
+              },
+              {
+                id: 'dc1',
+                company: 'Datacenter One GmbH',
+                period: '05/2023 – 04/2024',
+                role: 'ITIL 4 Service Operations im 24/7 Information Network Operation Center (Werkstudent, 12 Monate)',
+                bullets: [
+                  'Prozessorientiertes IT-Service- und Incident-Management nach ITIL 4 als Single Point of Contact (SPoC) unter strengen SLA-Vorgaben (99,99 %)',
+                  'Konzeption und Aufbau einer standardisierten Wissensdatenbank sowie Betriebs-SOPs für das 24/7 Rechenzentrums-Monitoring (Core-Netzwerke, USV, PRTG)',
+                  'Prozessdesign für Hardware Lifecycle Management (100+ Systeme) sowie Service-Transition des Carriermanagements in den Leitstandsbetrieb'
+                ]
+              },
+              {
+                id: 'pdr',
+                company: 'PDR Team GmbH',
+                period: '09/2026 – 11/2026',
+                role: 'Technisches Fahrzeug-Scanning & Schadensmanagement (Übergangsbeschäftigung)',
+                bullets: [
+                  'Strukturierte Datenerfassung, Prozessdokumentation und operative Qualitätssicherung im technischen Scanning-Betrieb nach Abschluss des Masterstudiums'
+                ]
+              }
+            ],
+            projects: [
+              {
+                id: 'vismuv',
+                title: 'VISMUV (Gründer & Inhaber, nebenberuflich)',
+                period: 'ab 11/2026',
+                bullets: [
+                  'Eigenverantwortlicher Aufbau und kaufmännische Steuerung von Dienstleistungsprozessen (Fahrzeugüberführungen, Kurierlogistik, Kundenservice) inkl. Kalkulation und Disposition'
+                ]
+              },
+              {
+                id: 'klingele',
+                title: 'Innovationsprojekt: KI-gestützte Patentmanagement-Plattform (Verpackungsindustrie)',
+                period: '02/2024',
+                bullets: [
+                  'Entwicklung und wirtschaftliche Konzeption eines hybriden SaaS-/Beratungs-Geschäftsmodells inkl. Business-Process-Automation-Machbarkeitsprüfung (UiPath PDD/Prozesskosten) und BPMN-Prozessmodellierung (Note 2,0)'
+                ]
+              },
+              {
+                id: 'schmalz',
+                title: 'Automatisierungsprojekt: Optimierung der Abfallbilanz & Nachhaltigkeitsberichterstattung (CSRD)',
+                period: '07/2024',
+                bullets: [
+                  'Modellierung von Ist-Prozessen im industriellen Abfallmanagement sowie PowerShell-gestützte Datenextraktion zur Eliminierung manueller Eingabefehler und Reduktion des Bilanzierungsaufwands (Note 1,0)'
+                ]
+              },
+              {
+                id: 'portfolio',
+                title: 'Privatprojekt: Interactive S/4HANA Knowledge Hub & Portfolio-Website',
+                period: 'seit 2023',
+                bullets: [
+                  'Konzeption und Betrieb einer responsiven Single-Page-Application (GitHub Pages) zur strukturierten Präsentation von SAP-S/4HANA-, EAM- und akademischen Transformationsprojekten'
+                ]
+              }
+            ],
+            skills: {
+              erp_governance: 'SAP S/4HANA Transformation Governance, Clean Core & SAP BTP-Architektur, Universal Journal (ACDOCA), SAP Cloud ALM, SAP Signavio (BPMN 2.0), SAP Enable Now, SAP Migration Cockpit (LTMC / CVI), ITIL 4, TOGAF 9 ADM',
+              data_analysis: 'Architektur- & Datenverständnis (Relationale Datenmodelle, SQL-Validierung), Business Process Automation & Machbarkeitsanalyse (BPMN 2.0, Prozesskosten-Kalkulation), Datenanalyse (Python-Auswertung, PowerShell-Automatisierung)',
+              pmo_tools: 'Multiprojekt-Steuerung (MS Project), Solution Design Dokumentation, Stakeholder- & Partnersteuerung (Nagarro, Evora, Axians), Microsoft 365 & MindManager',
+              languages: 'Deutsch (Muttersprache), Albanisch (Muttersprache), Englisch (C1 – verhandlungssicher), Französisch & Spanisch (Grundkenntnisse)'
+            },
+            extra: [
+              'Zertifizierung: TOGAF 9 ADM Intensivkurs (Scape Consulting, Universität Stuttgart, 16.01.2020)',
+              'Ehrenamt: Geflüchtetenhilfe (Refugees Welcome, HVF) sowie schulische Hausaufgabenbetreuung'
+            ]
+          }
+        };
+        const cvPresetOverrides = {
+          consulting: {
+            subtitle: 'Junior SAP S/4HANA Transformation & Clean Core Consultant • M.Sc. (1,6)',
+            summary: 'Wirtschaftsinformatiker (M.Sc. 1,6, Masterarbeit 1,0 zur Plattformisierung von SAP S/4HANA) mit 24 Monaten Projektpraxis in einer Greenfield RISE-with-SAP-Transformation (SSB AG) und 12 Monaten ITIL 4 Rechenzentrumsbetrieb. Stark in Fit-to-Standard-Governance, SAP Cloud ALM, Signavio und BTP-Entkopplung.'
+          },
+          audit_iam: {
+            subtitle: 'IT-Audit, IKS & SAP Governance / IAM Consultant • M.Sc. (1,6)',
+            summary: 'Wirtschaftsinformatiker (M.Sc. 1,6, Masterarbeit 1,0) mit tiefem Praxisverständnis für revisionssichere S/4HANA-Prozesse, Internes Kontrollsystem (IKS), Trennungsrechnung nach EU-VO 1370/2007 sowie Eröffnungsbilanz- und Datenmigrations-Abstimmung (LTMC/CVI Saldo 0,00 €) und ITIL 4 Operations.',
+            ssbBullet1: 'Revisionssicheres Lösungsdesign im kaufmännischen Bereich (FI/CO Universal Journal ACDOCA, Trennungsrechnung EU 1370/2007, Compliance & Mitbestimmungs-Alignment)'
+          },
+          trainee_eam: {
+            subtitle: 'IT- / Management-Trainee Enterprise Architecture & Digital Transformation • M.Sc. (1,6)',
+            summary: 'Master of Science Wirtschaftsinformatik (1,6; Masterarbeit 1,0) mit TOGAF 9 ADM Zertifizierung, 24 Monaten IT-PMO in der ERP-Großtransformation und 12 Monaten 24/7 ITIL 4 Service Operations. Verbindet unternehmerisches Denken (VISMUV), CSRD-Automatisierung (1,0) und Plattform-Governance.'
+          }
+        };
+        const cvDraft = ref(cloneCvObj(defaultCvPresets.universal));
+        const cvTailorCompany = ref('');
+        const cvTailorRole = ref('');
+        const cvTailorJobText = ref('');
+        const cvTailorLoading = ref(false);
+        const cvTailorStatus = ref('');
+        const cvTailorHighlights = ref([]);
+        const cvExportLoading = ref(false);
+
+        const persistCvDraft = () => {
+          try {
+            localStorage.setItem('vm_optimized_cv_draft_v1', JSON.stringify(cvDraft.value));
+          } catch (e) {}
+        };
+        watch(cvDraft, persistCvDraft, { deep: true });
+
+        const loadCvContactDefaults = async () => {
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) return;
+          try {
+            const resp = await fetch('/api/cv-presets');
+            const data = await resp.json();
+            const hdr = data && data.ok && data.presets && data.presets.universal && data.presets.universal.header;
+            if (!hdr) return;
+            if (!cvDraft.value.header.email && hdr.email) cvDraft.value.header.email = hdr.email;
+            if (!cvDraft.value.header.phone && hdr.phone) cvDraft.value.header.phone = hdr.phone;
+            if ((!cvDraft.value.header.address || cvDraft.value.header.address === 'Ludwigsburg / Region Stuttgart') && hdr.address) {
+              cvDraft.value.header.address = hdr.address;
+            }
+          } catch (e) {}
+        };
+
+        const applyCvPreset = (presetKey) => {
+          const fresh = cloneCvObj(defaultCvPresets.universal);
+          fresh.preset = presetKey || 'universal';
+          const ov = cvPresetOverrides[presetKey];
+          if (ov) {
+            if (ov.subtitle) fresh.header.subtitle = ov.subtitle;
+            if (ov.summary) fresh.summary = ov.summary;
+            if (ov.ssbBullet1 && fresh.experience[0] && fresh.experience[0].bullets.length > 1) {
+              fresh.experience[0].bullets[1] = ov.ssbBullet1;
+            }
+          }
+          cvDraft.value = fresh;
+          cvTailorHighlights.value = [];
+          cvTailorStatus.value = `Preset "${presetKey}" mit De-Risking-Regeln geladen.`;
+          persistCvDraft();
+          showToast('CV-Preset aktiviert');
+        };
+
+        const resetCvDraft = () => {
+          localStorage.removeItem('vm_optimized_cv_draft_v1');
+          applyCvPreset('universal');
+        };
+
+        const cvExpBulletsText = (expIdx) => {
+          const ex = cvDraft.value.experience && cvDraft.value.experience[expIdx];
+          return ex && Array.isArray(ex.bullets) ? ex.bullets.join('\\n') : '';
+        };
+
+        const updateCvExpBullets = (expIdx, rawText) => {
+          if (!cvDraft.value.experience || !cvDraft.value.experience[expIdx]) return;
+          cvDraft.value.experience[expIdx].bullets = String(rawText || '').split('\\n').map(x => x.trim()).filter(Boolean);
+          persistCvDraft();
+        };
+
+        const activeCvEducation = computed(() => {
+          return (cvDraft.value.education || []).filter(ed => ed.id !== 'bsc' || cvDraft.value.showBachelor).map(ed => {
+            if (ed.id === 'msc' && !cvDraft.value.showMasterDetails) {
+              return { ...ed, details: (ed.details || []).slice(0, 1) };
+            }
+            return ed;
+          });
+        });
+
+        const activeCvExperience = computed(() => {
+          return (cvDraft.value.experience || []).filter(ex => ex.id !== 'pdr' || cvDraft.value.showPdr).map(ex => {
+            const bs = (ex.bullets || []).filter(Boolean);
+            const sliced = cvDraft.value.compact ? (ex.id === 'ssb' ? bs.slice(0, 3) : bs.slice(0, 2)) : bs;
+            return { ...ex, bullets: sliced };
+          });
+        });
+
+        const activeCvProjects = computed(() => {
+          return (cvDraft.value.projects || []).filter(pr => {
+            if (pr.id === 'vismuv' && !cvDraft.value.showVismuv) return false;
+            if (cvDraft.value.compact && pr.id === 'portfolio') return false;
+            return true;
+          });
+        });
+
+        const fillCvJobSample = (key) => {
+          const p = JOB_PRESETS[key];
+          if (!p) return;
+          cvTailorCompany.value = p.company;
+          cvTailorRole.value = p.role;
+          cvTailorJobText.value = p.text;
+          cvTailorStatus.value = `Anzeige für ${p.company} geladen.`;
+        };
+
+        const runCvTailoring = async () => {
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            cvTailorStatus.value = 'KI-Tailoring erfordert localhost:8085.';
+            return;
+          }
+          if (!(cvTailorJobText.value || cvTailorRole.value || cvTailorCompany.value).trim()) {
+            cvTailorStatus.value = 'Bitte zuerst Stelle/Unternehmen einfügen oder Preset wählen.';
+            return;
+          }
+          cvTailorLoading.value = true;
+          cvTailorStatus.value = 'Analysiere Stelle gegen Obsidian Vault & De-Risking-Regeln...';
+          try {
+            const resp = await fetch('/api/cv-tailor', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                company: cvTailorCompany.value,
+                role: cvTailorRole.value,
+                job_text: cvTailorJobText.value,
+                cv: cvDraft.value
+              })
+            });
+            const data = await resp.json();
+            if (data.ok && data.tailored) {
+              const t = data.tailored;
+              if (t.subtitle) cvDraft.value.header.subtitle = t.subtitle;
+              if (t.summary) cvDraft.value.summary = t.summary;
+              if (Array.isArray(t.ssb_bullets) && t.ssb_bullets.length && cvDraft.value.experience[0]) {
+                cvDraft.value.experience[0].bullets = t.ssb_bullets;
+              }
+              if (Array.isArray(t.dc1_bullets) && t.dc1_bullets.length && cvDraft.value.experience[1]) {
+                cvDraft.value.experience[1].bullets = t.dc1_bullets;
+              }
+              if (t.skills_erp) cvDraft.value.skills.erp_governance = t.skills_erp;
+              if (t.skills_data) cvDraft.value.skills.data_analysis = t.skills_data;
+              cvTailorHighlights.value = Array.isArray(t.highlights) ? t.highlights : [];
+              cvTailorStatus.value = `✅ Optimiert via ${data.model || 'Hybrid AI'} (${(data.sources || []).length} Obsidian-Quellen).`;
+              persistCvDraft();
+              showToast('Lebenslauf auf Zielstelle zugeschnitten');
+            } else {
+              cvTailorStatus.value = '⚠️ Fehler: ' + (data.error || 'Tailoring fehlgeschlagen');
+            }
+          } catch (e) {
+            cvTailorStatus.value = '⚠️ Lokaler Server nicht erreichbar.';
+          } finally {
+            cvTailorLoading.value = false;
+          }
+        };
+
+        const exportCvFile = async (fmt) => {
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            showToast('Export nur auf localhost:8085 verfügbar');
+            return;
+          }
+          cvExportLoading.value = true;
+          try {
+            const resp = await fetch('/api/cv-export', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ format: fmt, cv: cvDraft.value })
+            });
+            if (!resp.ok) throw new Error('HTTP ' + resp.status);
+            const blob = await resp.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const slug = String(cvDraft.value.preset || 'optimiert').replace(/[^a-zA-Z0-9_-]/g, '_');
+            a.download = `Lebenslauf_Visar_Murseli_${slug}.${fmt === 'pdf' ? 'pdf' : 'docx'}`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 1500);
+            showToast(`Lebenslauf als .${fmt.toUpperCase()} heruntergeladen`);
+          } catch (e) {
+            showToast('Export fehlgeschlagen – Druckansicht nutzen');
+          } finally {
+            cvExportLoading.value = false;
+          }
+        };
+
+        const saveCvToWorkspace = async () => {
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            showToast('Workspace-Speicherung nur auf localhost:8085');
+            return;
+          }
+          cvExportLoading.value = true;
+          try {
+            const r1 = await fetch('/api/cv-export', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ format: 'docx', save_to_workspace: true, cv: cvDraft.value })
+            });
+            const r2 = await fetch('/api/cv-export', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ format: 'pdf', save_to_workspace: true, cv: cvDraft.value })
+            });
+            const d2 = await r2.json();
+            if (r1.ok && d2.ok) {
+              showToast(`DOCX & PDF in 00_Aktuelle_Bewerbungsunterlagen/ gespeichert`);
+            } else {
+              showToast('Fehler beim Speichern');
+            }
+          } catch (e) {
+            showToast('Lokaler Server nicht erreichbar');
+          } finally {
+            cvExportLoading.value = false;
+          }
+        };
+
+        const copyCvMarkdown = () => {
+          const d = cvDraft.value;
+          const lines = [
+            `# ${d.header.name}`,
+            `**${d.header.subtitle}**`,
+            [d.header.email, d.header.phone, d.header.address, d.header.links].filter(Boolean).join(' • '),
+            '',
+          ];
+          if (d.showSummary && d.summary) lines.push('## Kurzprofil', d.summary, '');
+          lines.push('## Berufserfahrung');
+          for (const ex of activeCvExperience.value) {
+            lines.push(`### ${ex.company} (${ex.period})`, `*${ex.role}*`);
+            for (const b of ex.bullets) lines.push(`- ${b}`);
+            lines.push('');
+          }
+          lines.push('## Studium');
+          for (const ed of activeCvEducation.value) {
+            lines.push(`### ${ed.institution} (${ed.period})`, `*${ed.degree}*`);
+            for (const det of ed.details) lines.push(`- ${det}`);
+            lines.push('');
+          }
+          if (activeCvProjects.value.length) {
+            lines.push('## Projekte & Unternehmertum');
+            for (const pr of activeCvProjects.value) {
+              lines.push(`### ${pr.title} (${pr.period})`);
+              for (const b of pr.bullets) lines.push(`- ${b}`);
+              lines.push('');
+            }
+          }
+          lines.push('## Qualifikationen & Kompetenzen');
+          lines.push(`- **ERP & Architektur-Governance:** ${d.skills.erp_governance}`);
+          lines.push(`- **Daten & Prozessautomatisierung:** ${d.skills.data_analysis}`);
+          lines.push(`- **PMO, Steuerung & Tools:** ${d.skills.pmo_tools}`);
+          lines.push(`- **Sprachen:** ${d.skills.languages}`);
+          if (d.showExtra && d.extra.length) {
+            lines.push('', '## Zertifizierung & Engagement');
+            for (const x of d.extra) lines.push(`- ${x}`);
+          }
+          if (navigator.clipboard) navigator.clipboard.writeText(lines.join('\\n'));
+          showToast('Optimierter CV als Markdown kopiert');
+        };
+
+        const printGeneratedCv = () => {
+          cvStudioView.value = 'generator';
+          document.body.classList.add('printing-cv');
+          const cleanup = () => document.body.classList.remove('printing-cv');
+          window.addEventListener('afterprint', cleanup, { once: true });
+          setTimeout(() => {
+            window.print();
+            setTimeout(cleanup, 1200);
+          }, 60);
+        };
+        // PRIVATE_CVGEN_END
 
         // PRIVATE_DEFENSE_START
         const defenseScenarios = ref([
@@ -1292,8 +1737,8 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         };
 
         const copyText = (txt) => {
-          navigator.clipboard.writeText(txt);
-          alert('Text erfolgreich in die Zwischenablage kopiert!');
+          if (navigator.clipboard) navigator.clipboard.writeText(txt);
+          showToast('Text in die Zwischenablage kopiert');
         };
 
         // Persistent Notes logic
@@ -1302,25 +1747,82 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         };
 
         // PRIVATE_RAG_START
+        const filesViewMode = ref('artifacts');
+        const libraryBooks = ref([]);
+        const libraryTotal = ref(471);
+        const libraryFiltered = ref(471);
+        const libraryCategories = ref([]);
+        const libraryDomain = ref('');
+        const libraryQuery = ref('');
+        const libraryLoading = ref(false);
+        const sourceDrawerOpen = ref(false);
+        const sourceDrawerLoading = ref(false);
+        const sourceDrawerData = ref(null);
+
+        const loadLibraryCatalog = async () => {
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) return;
+          libraryLoading.value = true;
+          try {
+            const url = '/api/library?limit=160&cat=' + encodeURIComponent(libraryDomain.value || '') + '&q=' + encodeURIComponent(libraryQuery.value || '');
+            const resp = await fetch(url);
+            const data = await resp.json();
+            if (data.ok) {
+              libraryBooks.value = data.books || [];
+              libraryTotal.value = data.total || 471;
+              libraryFiltered.value = data.filtered || libraryBooks.value.length;
+              libraryCategories.value = data.categories || [];
+            }
+          } catch (e) {} finally {
+            libraryLoading.value = false;
+          }
+        };
+
+        const openSourceDrawer = async (filePath, title = '', offset = 0) => {
+          if (!filePath || !['localhost', '127.0.0.1'].includes(window.location.hostname)) return;
+          sourceDrawerOpen.value = true;
+          sourceDrawerLoading.value = true;
+          sourceDrawerData.value = { title: title || filePath, file: filePath, offset: offset };
+          try {
+            const resp = await fetch('/api/source?limit=14&offset=' + offset + '&file=' + encodeURIComponent(filePath));
+            const data = await resp.json();
+            sourceDrawerData.value = data;
+          } catch (e) {
+            sourceDrawerData.value = { title: title || filePath, file: filePath, error: 'Quelle konnte nicht geladen werden.' };
+          } finally {
+            sourceDrawerLoading.value = false;
+          }
+        };
+
+        const askAboutSource = async (filePath, title) => {
+          sourceDrawerOpen.value = false;
+          activeTab.value = 'notebook';
+          ragViewMode.value = 'search';
+          ragDomain.value = '';
+          ragStyle.value = 'deep';
+          ragQuery.value = title || filePath;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          await runRagAsk();
+        };
+
         const escHtml = (s) => String(s || '').split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');
         const formatInlineMd = (line) => {
           let out = escHtml(line);
-          out = out.replace(new RegExp('[*][*]([^*]+)[*][*]', 'g'), '<strong class="text-white font-semibold">$1</strong>');
+          out = out.replace(new RegExp('[*][*]([^*]+)[*][*]', 'g'), '<strong class="md-strong">$1</strong>');
           const bt = String.fromCharCode(96);
           const btParts = out.split(bt);
           if (btParts.length >= 3) {
             out = btParts.map((seg, i) => (i % 2 === 1 && i < btParts.length - 1)
-              ? '<code class="px-1.5 py-0.5 rounded bg-black/60 text-amber-300 font-mono text-[11px]">' + seg + '</code>'
+              ? '<code class="md-code">' + seg + '</code>'
               : (i % 2 === 1 ? bt + seg : seg)
             ).join('');
           }
-          out = out.replace(new RegExp('\\\\[Quelle: ([^\\\\]]+)\\\\]', 'g'), '<span class="inline-block px-2 py-0.5 mx-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono text-[10px]">Quelle: $1</span>');
+          out = out.replace(new RegExp('\\\\[Quelle: ([^\\\\]]+)\\\\]', 'g'), '<span class="md-cite">Quelle: $1</span>');
           return out;
         };
 
-        const formattedRagAnswer = computed(() => {
-          if (!ragAnswer.value) return '';
-          const lines = String(ragAnswer.value).split('\\n');
+        const renderMarkdownHtml = (rawText) => {
+          if (!rawText) return '';
+          const lines = String(rawText).split('\\n');
           const html = [];
           let inList = false;
           for (const rawLine of lines) {
@@ -1331,10 +1833,10 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             }
             if (tr.startsWith('### ')) {
               if (inList) { html.push('</ul>'); inList = false; }
-              html.push('<h5 class="text-xs font-bold text-[#f87171] mt-2 mb-1">' + formatInlineMd(tr.slice(4)) + '</h5>');
+              html.push('<h5 class="md-h5">' + formatInlineMd(tr.slice(4)) + '</h5>');
             } else if (tr.startsWith('## ')) {
               if (inList) { html.push('</ul>'); inList = false; }
-              html.push('<h4 class="text-sm font-bold text-white mt-2.5 mb-1">' + formatInlineMd(tr.slice(3)) + '</h4>');
+              html.push('<h4 class="md-h4">' + formatInlineMd(tr.slice(3)) + '</h4>');
             } else if (tr.startsWith('- ') || tr.startsWith('* ') || tr.startsWith('• ')) {
               if (!inList) { html.push('<ul class="list-disc pl-4 space-y-1">'); inList = true; }
               html.push('<li>' + formatInlineMd(tr.slice(2)) + '</li>');
@@ -1345,7 +1847,12 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           }
           if (inList) html.push('</ul>');
           return html.join('');
-        });
+        };
+
+        const formattedRagAnswer = computed(() => renderMarkdownHtml(ragAnswer.value));
+        const formattedJobMatch = computed(() => renderMarkdownHtml(jobMatchResult.value));
+        const formattedSparringQuestion = computed(() => renderMarkdownHtml(sparringQuestion.value));
+        const formattedSparringFeedback = computed(() => renderMarkdownHtml(sparringFeedback.value));
 
         const saveNotesToObsidian = async () => {
           saveNotes();
@@ -1401,12 +1908,13 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             ragAnswer.value = data.answer || '';
             ragModel.value = data.model || '';
             ragRetrievalMode.value = data.mode || '';
+            ragGrounding.value = data.grounding || { citation_count: 0, verified_citations: 0, verified_files: [] };
             if (data.sources && data.sources.length) {
               const r2 = await fetch('/api/rag?limit=8&domain=' + encodeURIComponent(ragDomain.value || '') + '&q=' + encodeURIComponent(q));
               const d2 = await r2.json();
               ragResults.value = d2.results || [];
             }
-            ragStatusMsg.value = `🤖 Gemini (${ragStyle.value === 'compact' ? '60s-Kompakt' : 'Tiefenanalyse'} | ${ragModel.value || 'local'} | ${ragRetrievalMode.value || 'hybrid'}) auf Basis verifizierter Quellen erstellt.`;
+            ragStatusMsg.value = `🤖 ${data.model || 'Hybrid AI'} (${ragStyle.value === 'compact' ? '60s-Kompakt' : 'Tiefenanalyse'} | ${ragRetrievalMode.value || 'hybrid'}) auf Basis verifizierter Quellen erstellt.`;
           } catch (e) {
             ragStatusMsg.value = '⚠️ Fehler bei KI-Synthese.';
           } finally {
@@ -1420,6 +1928,17 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             const resp = await fetch('/api/pipeline');
             const data = await resp.json();
             if (data.ok) pipelineData.value = data;
+          } catch (e) {}
+        };
+
+        const loadRagStats = async () => {
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) return;
+          try {
+            const resp = await fetch('/api/health');
+            const data = await resp.json();
+            if (data && data.rag && data.rag.total_files) {
+              ragStats.value = data.rag;
+            }
           } catch (e) {}
         };
 
@@ -1438,9 +1957,173 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         };
 
         const prepInterview = async (company, role) => {
+          ragViewMode.value = 'search';
           ragDomain.value = '';
           ragQuery.value = `${company} ${role} Masterarbeit SSB Projekt Transformation`;
           await runRagAsk();
+        };
+
+        const JOB_PRESETS = {
+          kpmg: {
+            company: 'KPMG AG Wirtschaftsprüfungsgesellschaft',
+            role: 'Associate IT-Audit / SAP S/4HANA Transformation & IKS',
+            text: '- Prüfung und Bewertung von IT-gestützten Geschäftsprozessen (FI/CO, MM, Universal Journal ACDOCA) und Internen Kontrollsystemen (IKS)\\n- Analyse von SAP-Berechtigungskonzepten (PFCG) und Segregation of Duties (SoD) inkl. Compliance nach GoBD / EU-VO 1370/2007\\n- Begleitung von SAP S/4HANA Transformations- und Datenmigrationsprojekten (LTMC, CVI, Eröffnungsbilanz / 0,00 € Abgleich, Cloud ALM Quality Gates)\\n- Empirische Analyse komplexer ERP-Systemlandschaften und Clean-Core-/Plattform-Governance'
+          },
+          schwarz: {
+            company: 'Schwarz Digits IT-Service / Schwarz Gruppe',
+            role: 'Junior Specialist SAP Identity & Access Management / HCM Security',
+            text: '- Administration, Weiterentwicklung und Third-Level-Support für SAP IAM & SAP HCM Berechtigungen (P_ORGIN, strukturelle Berechtigungen, PFCG)\\n- Fehleranalyse mittels SU53 und STAUTHTRACE sowie User Management Prozesse (UMT) und SoD-Prüfung\\n- Zusammenarbeit mit Mitbestimmungsgremien (§ 87 Abs. 1 Nr. 6 BetrVG, Betriebsrat) und DSGVO-konforme Datenklassifizierung\\n- Standardisierte Dokumentation (Signavio, Cloud ALM) und strukturierte ITIL 4 Service Operations'
+          },
+          trumpf: {
+            company: 'TRUMPF SE + Co. KG',
+            role: 'IT-Trainee Governance & Enterprise Architecture',
+            text: '- Gestaltung von IT-Governance, Enterprise Architecture Management (TOGAF ADM) und Clean-Core-Plattformstrategien (SAP BTP)\\n- Prozessmodellierung und -standardisierung in SAP Signavio sowie Projektsteuerung in SAP Cloud ALM\\n- Verknüpfung von industrieller Digitalisierung (Applied AI, IoT, Digitale Nachhaltigkeit / CSRD) mit stabiler ERP-Architektur'
+          }
+        };
+
+        const loadJobPreset = (key) => {
+          const p = JOB_PRESETS[key];
+          if (!p) return;
+          jobMatchCompany.value = p.company;
+          jobMatchRole.value = p.role;
+          jobMatchText.value = p.text;
+          jobMatchStatus.value = `Preset für ${p.company} geladen – bereit für Obsidian V2.1 Match.`;
+        };
+
+        const runJobMatch = async () => {
+          const txt = (jobMatchText.value || '').trim();
+          if (!txt) {
+            jobMatchStatus.value = 'Bitte zuerst eine Stellenanzeige einfügen oder ein Preset wählen.';
+            return;
+          }
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            jobMatchStatus.value = 'Job-Fit Matcher steht nur auf localhost:8085 bereit.';
+            return;
+          }
+          jobMatchLoading.value = true;
+          jobMatchStatus.value = 'Suche Praxis- & Uni-Belege über Arbeit × Studium × Schicht 1...';
+          try {
+            const resp = await fetch('/api/job-match', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                company: jobMatchCompany.value,
+                role: jobMatchRole.value,
+                job_text: txt
+              })
+            });
+            const data = await resp.json();
+            if (data.ok) {
+              jobMatchResult.value = data.answer || '';
+              jobMatchModel.value = data.model || '';
+              jobMatchSources.value = data.sources || [];
+              jobMatchGrounding.value = data.grounding || { citation_count: 0, verified_citations: 0 };
+              jobMatchStatus.value = `✅ Match abgeschlossen (${data.model || 'rag'} • ${jobMatchSources.value.length} Obsidian-Quellen).`;
+            } else {
+              jobMatchStatus.value = '⚠️ Fehler: ' + (data.error || 'Unbekannter Fehler');
+            }
+          } catch (e) {
+            jobMatchStatus.value = '⚠️ Lokaler Portal-Server nicht erreichbar (localhost:8085).';
+          } finally {
+            jobMatchLoading.value = false;
+          }
+        };
+
+        const selectSparringPersona = (key, compLabel) => {
+          sparringPersona.value = key;
+          if (compLabel) sparringCompany.value = compLabel;
+        };
+
+        const askSparringQuestion = async () => {
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            sparringStatus.value = 'Interview-Sparring steht nur auf localhost:8085 bereit.';
+            return;
+          }
+          sparringLoading.value = true;
+          sparringStatus.value = 'Interviewer generiert kritische Rückfrage auf Basis deines Vaults...';
+          try {
+            const resp = await fetch('/api/sparring', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'ask',
+                persona: sparringPersona.value,
+                company: sparringCompany.value,
+                topic: sparringTopic.value,
+                question: sparringQuestion.value
+              })
+            });
+            const data = await resp.json();
+            if (data.ok) {
+              sparringQuestion.value = data.question || '';
+              sparringModel.value = data.model || '';
+              sparringSources.value = data.sources || [];
+              sparringFeedback.value = '';
+              sparringStatus.value = `🎙️ Frage gestellt (${sparringCompany.value || sparringPersona}) – formuliere jetzt deine Antwort.`;
+            } else {
+              sparringStatus.value = '⚠️ Fehler: ' + (data.error || 'Unbekannter Fehler');
+            }
+          } catch (e) {
+            sparringStatus.value = '⚠️ Lokaler Portal-Server nicht erreichbar.';
+          } finally {
+            sparringLoading.value = false;
+          }
+        };
+
+        const evaluateSparringAnswer = async () => {
+          if (!(sparringAnswer.value || '').trim()) return;
+          if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+            sparringStatus.value = 'Sparring-Audit steht nur auf localhost:8085 bereit.';
+            return;
+          }
+          sparringLoading.value = true;
+          sparringStatus.value = 'Prüfe Antwort faktisch gegen Obsidian V2.1 & erstelle 60s-Optimierung...';
+          try {
+            const resp = await fetch('/api/sparring', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'evaluate',
+                persona: sparringPersona.value,
+                company: sparringCompany.value,
+                topic: sparringTopic.value,
+                question: sparringQuestion.value,
+                user_answer: sparringAnswer.value
+              })
+            });
+            const data = await resp.json();
+            if (data.ok) {
+              sparringFeedback.value = data.feedback || '';
+              sparringModel.value = data.model || '';
+              sparringSources.value = data.sources || [];
+              sparringGrounding.value = data.grounding || { citation_count: 0, verified_citations: 0 };
+              sparringStatus.value = `✅ Fakten-Audit fertig (${data.model || 'rag'}).`;
+            } else {
+              sparringStatus.value = '⚠️ Fehler: ' + (data.error || 'Unbekannter Fehler');
+            }
+          } catch (e) {
+            sparringStatus.value = '⚠️ Lokaler Portal-Server nicht erreichbar.';
+          } finally {
+            sparringLoading.value = false;
+          }
+        };
+
+        const openCompanyWorkbench = (company, role, mode) => {
+          const low = String(company || '').toLowerCase();
+          const presetKey = low.includes('kpmg') ? 'kpmg' : (low.includes('schwarz') ? 'schwarz' : (low.includes('trumpf') ? 'trumpf' : 'cto'));
+          if (mode === 'matcher') {
+            ragViewMode.value = 'matcher';
+            if (presetKey !== 'cto') loadJobPreset(presetKey);
+            if (company) jobMatchCompany.value = company;
+            if (role) jobMatchRole.value = role;
+          } else {
+            ragViewMode.value = 'sparring';
+            selectSparringPersona(presetKey, company || 'Zielunternehmen');
+            if (role) sparringTopic.value = role;
+            askSparringQuestion();
+          }
+          const el = document.getElementById('rag-workbench');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
         // PRIVATE_RAG_END
 
@@ -1448,9 +2131,62 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           if (navigator.clipboard) {
             navigator.clipboard.writeText(personalNotes.value);
           }
-          alert('Notizen erfolgreich in die Zwischenablage kopiert! 📋');
+          showToast('Notizen in die Zwischenablage kopiert');
         };
         const exportNotes = copyNotesToClipboard;
+
+        const spotlightResults = computed(() => {
+          const q = (spotlightQuery.value || '').trim().toLowerCase();
+          const pool = [];
+          const tabKw = {
+            dashboard: 'übersicht executive profil bento kennzahlen ects',
+            ssb: 'sap s4hana pmo tp5 acdoca trennungsrechnung signavio cloud alm ltmc cvi',
+            dc1: 'datacenter one inoc itil 4 incident root cause hlm prtg 99.99',
+            master: 'msc masterarbeit 1,0 1,6 stuttgart plattformisierung mayring 12 interviews 16 module zusatz',
+            bachelor: 'bsc bachelorarbeit 1,7 boundary resources low-code togaf 9 e-business 1,0',
+            synergies: 'stärken vismuv schmalz klingele patent saas rpa pdr synergie',
+            faq: 'fragen antworten clean core greenfield acdoca abap btp',
+          };
+          for (const t of tabs) {
+            pool.push({ kind: 'tab', tab: t.id, icon: t.icon, label: t.label, sub: 'Bereich direkt öffnen', badge: t.badge, kw: tabKw[t.id] || '' });
+          }
+          // PRIVATE_SPOTLIGHT_START
+          pool.push({ kind: 'cv-gen', tab: 'cv_defense', icon: '📄', label: 'Optimierter Lebenslauf-Generator (DOCX / PDF)', sub: 'Kugelsicherer ATS-CV inkl. De-Risking & KI-Tailoring', badge: 'CV Studio', kw: 'lebenslauf cv generator docx pdf export bewerbung de-risking optimiert' });
+          pool.push({ kind: 'files-lib', tab: 'files', icon: '📚', label: 'Fachbibliothek & RAG-Katalog (471 Werke)', sub: '8 Bereiche durchsuchen & Chunks direkt im Reader öffnen', badge: 'Bibliothek', kw: 'fachbibliothek literatur bücher sap press rag katalog drawer' });
+          pool.push({ kind: 'rag-mode', tab: 'notebook', ragMode: 'matcher', icon: '🎯', label: 'Stellenanzeige × Vault Matcher', sub: '3-Säulen Job-Fit-Synthese (KPMG, Schwarz, TRUMPF)', badge: 'Matcher', kw: 'job fit match stellenanzeige kpmg schwarz trumpf' });
+          pool.push({ kind: 'rag-mode', tab: 'notebook', ragMode: 'sparring', icon: '🥊', label: "Devil's Advocate Interview-Sparring", sub: 'Strenge Fachprüfung & 60s-STAR-Optimierung', badge: 'Sparring', kw: 'interview sparring frage cto audit iam hcm' });
+          // PRIVATE_SPOTLIGHT_END
+          for (const s of synergyAtlas) {
+            pool.push({ kind: 'tab', tab: 'synergies', icon: '⚡', label: s.title, sub: s.cluster + ' • ' + (s.usp || ''), badge: 'Synergie', kw: (s.praxis || '') + ' ' + (s.studium || '') });
+          }
+          for (const f of faqItems.value) {
+            pool.push({ kind: 'tab', tab: 'faq', icon: '❓', label: f.q, sub: f.cat, badge: 'FAQ', kw: (f.a || []).join(' ') });
+          }
+          if (!q) return pool.slice(0, 8);
+          return pool.filter(it => (it.label + ' ' + it.sub + ' ' + it.badge + ' ' + (it.kw || '')).toLowerCase().includes(q)).slice(0, 12);
+        });
+
+        const selectSpotlightItem = (item) => {
+          if (!item) return;
+          spotlightOpen.value = false;
+          if (item.kind === 'cv-gen') {
+            cvStudioView.value = 'generator';
+            if (item.tab) selectTab(item.tab);
+            return;
+          }
+          if (item.kind === 'files-lib') {
+            filesViewMode.value = 'library';
+            selectTab('files');
+            if (typeof loadLibraryCatalog === 'function') loadLibraryCatalog();
+            return;
+          }
+          if (item.kind === 'rag-mode') {
+            ragViewMode.value = item.ragMode || 'search';
+            selectTab('notebook');
+            return;
+          }
+          if (item.tab) selectTab(item.tab);
+        };
 
         const clearNotes = () => {
           if (confirm('Möchtest du deine Notizen wirklich leeren?')) {
@@ -1497,7 +2233,29 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
             isDark.value = false;
             document.documentElement.classList.remove('dark');
           }
+          window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+              e.preventDefault();
+              toggleSpotlight();
+            } else if (e.key === 'Escape') {
+              spotlightOpen.value = false;
+              isMobileMenuOpen.value = false;
+              if (typeof sourceDrawerOpen !== 'undefined') sourceDrawerOpen.value = false;
+            }
+          });
           loadPipeline();
+          loadRagStats();
+          if (typeof loadLibraryCatalog === 'function') loadLibraryCatalog();
+          try {
+            const savedCv = localStorage.getItem('vm_optimized_cv_draft_v1');
+            if (savedCv && typeof cvDraft !== 'undefined' && cvDraft.value) {
+              const parsedCv = JSON.parse(savedCv);
+              if (parsedCv && parsedCv.header && parsedCv.experience) {
+                cvDraft.value = parsedCv;
+              }
+            }
+          } catch (e) {}
+          if (typeof loadCvContactDefaults === 'function') loadCvContactDefaults();
         });
 
         return {
@@ -1505,6 +2263,13 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           isMobileMenuOpen,
           isSidebarCollapsed,
           scrollProgress,
+          spotlightOpen,
+          spotlightQuery,
+          spotlightResults,
+          toggleSpotlight,
+          selectSpotlightItem,
+          toastMessage,
+          showToast,
           navSpaces,
           currentTabName,
           currentTabIndex,
@@ -1533,6 +2298,32 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           ragStyle,
           formattedRagAnswer,
           ragStatusMsg,
+          ragGrounding,
+          ragViewMode,
+          jobMatchCompany,
+          jobMatchRole,
+          jobMatchText,
+          jobMatchLoading,
+          jobMatchResult,
+          jobMatchModel,
+          jobMatchSources,
+          jobMatchGrounding,
+          jobMatchStatus,
+          formattedJobMatch,
+          sparringPersona,
+          sparringCompany,
+          sparringTopic,
+          sparringQuestion,
+          sparringAnswer,
+          sparringFeedback,
+          sparringModel,
+          sparringSources,
+          sparringGrounding,
+          sparringLoading,
+          sparringStatus,
+          formattedSparringQuestion,
+          formattedSparringFeedback,
+          ragStats,
           pipelineData,
           synergyViewMode,
           synergyFilter,
@@ -1545,7 +2336,14 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           quickRagAsk,
           askSynergyRag,
           loadPipeline,
+          loadRagStats,
           prepInterview,
+          loadJobPreset,
+          runJobMatch,
+          selectSparringPersona,
+          askSparringQuestion,
+          evaluateSparringAnswer,
+          openCompanyWorkbench,
           saveNotesToObsidian,
           pitch60,
           pitchDeep,
@@ -1563,6 +2361,42 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
           exportNotes,
           clearNotes,
           insertTemplate,
+          filesViewMode,
+          libraryBooks,
+          libraryTotal,
+          libraryFiltered,
+          libraryCategories,
+          libraryDomain,
+          libraryQuery,
+          libraryLoading,
+          loadLibraryCatalog,
+          sourceDrawerOpen,
+          sourceDrawerLoading,
+          sourceDrawerData,
+          openSourceDrawer,
+          askAboutSource,
+          cvStudioView,
+          cvDraft,
+          cvTailorCompany,
+          cvTailorRole,
+          cvTailorJobText,
+          cvTailorLoading,
+          cvTailorStatus,
+          cvTailorHighlights,
+          cvExportLoading,
+          applyCvPreset,
+          resetCvDraft,
+          cvExpBulletsText,
+          updateCvExpBullets,
+          activeCvEducation,
+          activeCvExperience,
+          activeCvProjects,
+          fillCvJobSample,
+          runCvTailoring,
+          exportCvFile,
+          saveCvToWorkspace,
+          copyCvMarkdown,
+          printGeneratedCv,
           wbsFilter,
           wbsProjects,
           filteredWbsProjects
@@ -1578,8 +2412,12 @@ Ich möchte nach meiner Junior-/Traineephase schnell eigenverantwortlich anspruc
         tpl = tpl.replace('%%PRIVATE_HUB_LINE%%', '')
         tpl = re.sub(r'// PRIVATE_TABS_START.*?// PRIVATE_TABS_END', '', tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_SPACES_START.*?// PRIVATE_SPACES_END', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_SPOTLIGHT_START.*?// PRIVATE_SPOTLIGHT_END', '', tpl, flags=re.DOTALL)
+        tpl = re.sub(r'// PRIVATE_CVGEN_START.*?// PRIVATE_CVGEN_END',
+                     "const cvStudioView = ref('generator');\n        const cvDraft = ref({ header: {}, skills: {}, extra: [], education: [], experience: [], projects: [] });\n        const cvTailorCompany = ref('');\n        const cvTailorRole = ref('');\n        const cvTailorJobText = ref('');\n        const cvTailorLoading = ref(false);\n        const cvTailorStatus = ref('');\n        const cvTailorHighlights = ref([]);\n        const cvExportLoading = ref(false);\n        const applyCvPreset = () => {};\n        const resetCvDraft = () => {};\n        const cvExpBulletsText = () => '';\n        const updateCvExpBullets = () => {};\n        const activeCvEducation = computed(() => []);\n        const activeCvExperience = computed(() => []);\n        const activeCvProjects = computed(() => []);\n        const fillCvJobSample = () => {};\n        const runCvTailoring = () => {};\n        const exportCvFile = () => {};\n        const saveCvToWorkspace = () => {};\n        const copyCvMarkdown = () => {};\n        const printGeneratedCv = () => {};",
+                     tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_RAG_START.*?// PRIVATE_RAG_END',
-                     "const formattedRagAnswer = computed(() => '');\n        const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const quickRagAsk = () => {};\n        const askSynergyRag = () => {};\n        const loadPipeline = () => {};\n        const prepInterview = () => {};",
+                     "const filesViewMode = ref('artifacts');\n        const libraryBooks = ref([]);\n        const libraryTotal = ref(471);\n        const libraryFiltered = ref(0);\n        const libraryCategories = ref([]);\n        const libraryDomain = ref('');\n        const libraryQuery = ref('');\n        const libraryLoading = ref(false);\n        const loadLibraryCatalog = () => {};\n        const sourceDrawerOpen = ref(false);\n        const sourceDrawerLoading = ref(false);\n        const sourceDrawerData = ref(null);\n        const openSourceDrawer = () => {};\n        const askAboutSource = () => {};\n        const formattedRagAnswer = computed(() => '');\n        const formattedJobMatch = computed(() => '');\n        const formattedSparringQuestion = computed(() => '');\n        const formattedSparringFeedback = computed(() => '');\n        const saveNotesToObsidian = () => {};\n        const runRagSearch = () => {};\n        const runRagAsk = () => {};\n        const quickRagAsk = () => {};\n        const askSynergyRag = () => {};\n        const loadPipeline = () => {};\n        const loadRagStats = () => {};\n        const prepInterview = () => {};\n        const loadJobPreset = () => {};\n        const runJobMatch = () => {};\n        const selectSparringPersona = () => {};\n        const askSparringQuestion = () => {};\n        const evaluateSparringAnswer = () => {};\n        const openCompanyWorkbench = () => {};",
                      tpl, flags=re.DOTALL)
         tpl = re.sub(r'// PRIVATE_DEFENSE_START.*?// PRIVATE_DEFENSE_END',
                      "const defenseScenarios = ref([]);\n        const cvImprovements = [];\n        const pitch60 = '';\n        const pitchDeep = '';\n        const starStories = ref([]);",
