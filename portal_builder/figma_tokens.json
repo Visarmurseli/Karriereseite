@@ -1,0 +1,40 @@
+{
+  "fileKey": "Pza2onTovzch4WwGTqt6qd",
+  "fileUrl": "https://www.figma.com/design/Pza2onTovzch4WwGTqt6qd?node-id=1-14",
+  "collections": [
+    {
+      "id": "VariableCollectionId:1:2",
+      "name": "Career OS Tokens",
+      "modes": [
+        { "name": "Light", "modeId": "1:0" },
+        { "name": "Dark", "modeId": "1:1" }
+      ]
+    }
+  ],
+  "light": {
+    "--surface-base": "#F8FAFC",
+    "--surface-sunken": "#F1F5F9",
+    "--surface-raised": "#FFFFFF",
+    "--text-primary": "#0F172A",
+    "--text-subtle": "#334155",
+    "--text-subtlest": "#64748B",
+    "--brand-primary": "#2563EB",
+    "--brand-subtlest": "#EFF6FF",
+    "--border-default": "#E2E8F0",
+    "--status-success-bg": "#ECFDF5",
+    "--status-success-text": "#047857"
+  },
+  "dark": {
+    "--surface-base": "#0B1120",
+    "--surface-sunken": "#0F172A",
+    "--surface-raised": "#161F33",
+    "--text-primary": "#F1F5F9",
+    "--text-subtle": "#CBD5E1",
+    "--text-subtlest": "#94A3B8",
+    "--brand-primary": "#2563EB",
+    "--brand-subtlest": "rgba(37, 99, 235, 0.16)",
+    "--border-default": "rgba(148, 163, 184, 0.18)",
+    "--status-success-bg": "rgba(16, 185, 129, 0.14)",
+    "--status-success-text": "#6EE7B7"
+  }
+}

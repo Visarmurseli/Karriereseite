@@ -1,18 +1,34 @@
 # AGENTS.md – Leitlinien für den CareerOS-Curator Agenten
 # Workspace: Visar Murseli | Enterprise Knowledge Hub & Career OS
 
-Dieses Dokument definiert das Profil, die wissenschaftlichen Fakten und die architektonischen Richtlinien für alle Agenten und Automatisierungen in diesem Workspace.
+Dieses Dokument definiert das Profil, den verbindlichen Antwortstil, die wissenschaftlichen Fakten und die architektonischen Richtlinien für alle Agenten und Automatisierungen in diesem Workspace.
+
+---
+
+## 0. Antwort-, Arbeitsstil & Persönlicher Kontext (VERBINDLICH)
+
+* **Antwortstil:** Im ersten Satz direkt zum Punkt kommen. Auf Einleitungsfloskeln sowie Wiederholungs-Zusammenfassungen am Ende verzichten. Informationen übersichtlich mit klaren Gliederungen, prägnanten Stichpunkten oder Vergleichstabellen aufbereiten.
+* **Fachtiefe:** Bei Wirtschaftsinformatik, SAP (`S/4HANA`, `BTP`, `Signavio`, `Cloud ALM`, `Enable Now`, `Joule Studio`), `EAM`, `BPMN 2.0`, `IT-PMO`, `ITSM` (`ITIL 4`, `Confluence`), PC-Hardware und KI-Workflows (`n8n`, `PowerShell`, `Ollama`, `DeepSeek Harness`, `Google AI Studio API`) auf **Master-/Expertenniveau** antworten (Grundlagen kurz einordnen, Hauptfokus direkt auf fachliche Tiefe).
+* **VISMUV-Perspektive:** Bei unternehmerischen Fragen zu **VISMUV** stets praxisnah, unternehmerisch und kalkulatorisch sauber argumentieren.
+* **Hardware-/Systemkontext (`SHQIPTAR634`):** Desktop-PC mit `Windows 11 Pro` (64-Bit), `Intel Core i5-12600KF`, `ASUS PRIME B760M-A WIFI D4` (BIOS `1825`), `32 GB DDR4-3200 CL16`, `GTX 1080 (8 GB VRAM)`, `1 TB KIOXIA EXCERIA PLUS G3 NVMe`, `2.5GbE LAN`, `49" Samsung Odyssey OLED G9 (5120×1440 @ 120 Hz)`; Mobil: `iPhone 15` (256 GB), `iPad Air 5` (256 GB).
+* **Streng interner Privat-Kontext (NIEMALS in öffentliche Karriere-Portale oder Bewerbungs-Exports übernehmen):**
+  - Verheiratet (Nikkah am `01.04.2026`) / verlobt (`03.08.2026`, Kosovo) mit Albina; regelmäßige Reisen zwischen Ludwigsburg und Gjilan (Kosovo).
+  - Gesundheit & Fitness: Fitness, Fahrradfahren, Spazieren; Tracking per `Amazfit Helio Strap` (dauerhaft), `Amazfit Helio Ring`, `Zepp App`, `Withings`-Waage und `Apple Health`. Medizinischer Rahmen (Verordnung `Dr. Vollmer`): täglich `Tilidin` (`100-50-100 mg`). Gesundheits-/Schlafdaten stets sachlich und datenbasiert unter Berücksichtigung dieser Rahmenbedingungen einordnen.
+  - Religion: Praktizierender Muslim nach der **Hanafitischen Rechtsschule** (bei Islam-Themen authentische hanafitische/primärquellenbasierte Auskunft geben).
+  - Fahrzeugdaten werden für das Career OS als irrelevant bewusst ausgelassen.
 
 ---
 
 ## 1. Profil & Akademisches Fundament von Visar Murseli
 
+* **Basisdaten & Standort:** Geboren am **18.09.1997** in Gjilan (Kosovo), wohnhaft seit **1999** in **Ludwigsburg** (Deutschland); deutsche & kosovarische Staatsangehörigkeit; fester beruflicher Lebensmittelpunkt in der **Region Ludwigsburg / Stuttgart**.
+* **Sprachen:** Deutsch & Albanisch (gegischer Dialekt, Muttersprachen), Englisch (`C1`), Grundkenntnisse in Französisch und Spanisch.
 * **Akademischer Grad:** Master of Science (M.Sc.) Wirtschaftsinformatik, Universität Stuttgart
 * **Amtliches Zeugnis:** Ausgestellt am 17. September 2026 (Prüfungsausschussvorsitzender Prof. Dr. Christian Becker)
 * **Gesamtnote Master:** **1,6 („gut“)** | 120 ECTS (100% abgeschlossen)
 * **Bachelor of Science (B.Sc.):** Wirtschaftsinformatik, Universität Stuttgart (180 ECTS, Gesamtnote 3,0, Bachelorarbeit Note 1,7 bei Prof. Dr. Georg Herzwurm, Bestnote 1,0 in Informationssysteme im E-Business)
 
-### Offizieller Titel & Fokus der Masterarbeit (Note 1,0 – Sehr Gut)
+### Offizieller Titel & Fokus der Masterarbeit (Note 1,0 – Sehr Gut, eingereicht am 20.04.2026)
 * **Offizieller Titel:**
   > **„Kritische Erfolgsfaktoren in der Transformation großer ERP-Systeme: Eine Untersuchung am Beispiel der Plattformisierung von SAP S/4HANA“**
 * **Erstprüfer:** Prof. Dr. Georg Herzwurm | Lehrstuhl für ABWL und Wirtschaftsinformatik II
@@ -41,20 +57,24 @@ Dieses Dokument definiert das Profil, die wissenschaftlichen Fakten und die arch
 2. **Datacenter One GmbH – 12 Monate (05/2023 – 04/2024):**
    - Rolle: Werkstudent Information Network Operation Center (INOC unter Helmut Schmidpeter).
    - Aufgaben: Prozessorientiertes IT-Service-Management als Single Point of Contact (Jira); Konzeption und Aufbau einer Wissensdatenbank zur Prozessstandardisierung (Confluence); 24/7 Monitoring von Core-Netzwerken, USV und Klimatechnik nach ITIL 4.
+3. **PDR Team GmbH (Ludwigsburg) – Übergangsbeschäftigung (21.09.2026 – 30.11.2026):**
+   - Aufgaben: Hagelschadenmanagement und technisches Fahrzeug-Scanning nach Abschluss des Masterstudiums.
 
-### Projekte & Außerschulische Aktivitäten (WICHTIG: Keine Fehlatzuschreibung als Praktika!)
-3. **Innovationsprojekt: Plattform für Patentmanagement und -recherche (02/2024):**
+### Unternehmertum, Projekte & Außerschulische Aktivitäten (WICHTIG: Keine Fehlatzuschreibung als Praktika!)
+4. **VISMUV (Gründer & Inhaber, seit 01.11.2026, nebenberuflich):**
+   - Geschäftsgegenstand: Fahrzeugüberführungen, Kurierdienste und Kundenservice.
+5. **Innovationsprojekt: Plattform für Patentmanagement und -recherche (02/2024):**
    - Kontext: Konzeption für ein führendes Unternehmen der Verpackungsindustrie (Klingele Paper & Packaging / ISG).
    - Aufgaben: Entwicklung und wirtschaftliche Konzeption eines hybriden Geschäftsmodells (SaaS & Beratung) zur Stärkung der Innovationskraft durch KI-gestützte Patentrecherche, inklusive BPMN-Modellierung der RPA-basierten Kernprozesse.
    - *Wichtige Leitlinie:* Dies war ein praxisbezogenes Innovationsprojekt für die Verpackungsindustrie – Visar hat **kein** Praktikum bei der Robert Bosch GmbH absolviert!
-4. **Automatisierungsprojekt: Optimierung der Abfallbilanz und Nachhaltigkeitsberichterstattung (07/2024):**
+6. **Automatisierungsprojekt: Optimierung der Abfallbilanz und Nachhaltigkeitsberichterstattung (07/2024):**
    - Kontext: Abfallmanagement eines Industrieunternehmens.
    - Aufgaben: Modellierung von Ist-Prozessen und Identifikation von Automatisierungspotenzialen; Entwicklung von PowerShell-Skripts zur automatisierten Datenextraktion zur Eliminierung von Eingabefehlern und Reduzierung des Zeitaufwands.
-5. **Privatprojekt: Persönliche Portfolio-Website (2023–):**
+7. **Privatprojekt: Persönliche Portfolio-Website (2023–):**
    - Konzeption und Entwicklung einer responsiven Single-Page-Application (via GitHub Pages) zur digitalen Präsentation des Qualifikationsprofils mit Fokus auf SAP-Expertise, akademische Arbeiten und technische Skills.
-6. **Enterprise Architecture & Zertifizierungen:**
+8. **Enterprise Architecture & Zertifizierungen:**
    - TOGAF 9 ADM-Intensivkurs bei Scape Consulting (Dr. Daniel Simon, Universität Stuttgart, 16.01.2020).
-7. **Ehrenamt & Gesellschaftliches Engagement:**
+9. **Ehrenamt & Gesellschaftliches Engagement:**
    - Ehrenamtliche Geflüchtetenhilfe (Refugees Welcome, HVF) und Hausaufgabenbetreuung.
 
 ---

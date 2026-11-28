@@ -19,9 +19,26 @@ PIPELINE_JSON = os.path.join(DOCS_DIR, "bewerbungen_pipeline.json")
 
 # Master high-precision profiles for key companies & interview tracks
 ENRICHED_PROFILES = {
+    "schwarz_digits_iam": {
+        "employer": "Schwarz Digits",
+        "title": "Junior SAP HCM User Maintenance & Access Management (IAM) Specialist (m/w/d) [Ref: 4972]",
+        "match_token": "4972",
+        "location": "Baden-Württemberg / vor Ort",
+        "sub_date": "13.11.2026",
+        "ack_date": "13.11.2026",
+        "int1_date": "24.11.2026",
+        "int1_details": "11:00 Uhr (Google Meet mit Cosmin Serbanescu, Stefanie Link & Albina Kadrija)",
+        "int2_date": "30.11.2026",
+        "int2_details": "Montag, 14:00 Uhr vor Ort (mit Cosmin Serbanescu & Abteilungsleiter Kai)",
+        "status": "⭐ Zusage für 2. Gespräch am 30.11.2026 (Montag, 14:00 Uhr vor Ort mit Cosmin & Kai)",
+        "tasks": "• Benutzer- und Berechtigungsverwaltung sowie 3rd-Level-Support im globalen SAP HCM & Identity & Access Management (IAM).\n• Weiterentwicklung der internen IAM-Kompetenz, Vorbereitung auf die S/4HANA-Transformation und BTP-Integration.\n• Schnittstellenkoordination zwischen Fachbereichen, IT-Sicherheit und operativen HR-Teams.",
+        "requirements": "Master-/Bachelor-Abschluss Wirtschaftsinformatik; Fundierung in ERP-Architektur, ITIL 4 Service Operations und Berechtigungskonzepten.",
+        "notes": "Erstgespräch am 24.11.2026 um 11:00 Uhr sehr erfolgreich absolviert (Cosmin Serbanescu & Stefanie Link). Zusage für das Zweitgespräch vor Ort am Montag, 30.11.2026 um 14:00 Uhr erhalten."
+    },
     "trumpf": {
         "employer": "TRUMPF",
         "title": "Trainee (w/m/d) IT [Ref: R00042850]",
+        "match_token": "r00042850",
         "location": "Ditzingen",
         "sub_date": "28.10.2026",
         "ack_date": "28.10.2026",
@@ -29,29 +46,31 @@ ENRICHED_PROFILES = {
         "int1_details": "11:30 – 12:00 Uhr (Virtual Screen HR mit Jil Wachter)",
         "int2_date": "23.11.2026",
         "int2_details": "09:30 – 10:30 Uhr (Teams Interview mit Tanja Preissner & Martin Hartmann)",
-        "status": "⭐ 2. Gespräch am 23.11.2026 absolviert (Tanja Preissner & Martin Hartmann)",
+        "status": "⏳ Warten auf Antwort nach 2. Gespräch am 23.11.2026 (Tanja Preissner & Martin Hartmann)",
         "tasks": "• 18–24-monatiges IT-Traineeprogramm bei TRUMPF mit Rotationen durch IT-Governance, IT-Infrastruktur & Enterprise Applications.\n• Aktive Mitgestaltung von konzernweiten Digitalisierungs- und Architekturprojekten im globalen Hochtechnologie-Maschinenbau.\n• Schnittstellenmanagement zwischen IT-Service-Bereichen, IT-Governance und internationalen Standorten.",
         "requirements": "Master Wirtschaftsinformatik; Verständnis moderner IT-Service-Architekturen und Governance; ausgeprägte Kommunikationskompetenz.",
-        "notes": "Erstes Screening am 06.11.2026 erfolgreich absolviert. Zweites, einstündiges Fachinterview am 23.11.2026 um 09:30 Uhr mit Tanja Preissner (Head of IT Governance) und Martin Hartmann (Head of IT Infrastructure)."
+        "notes": "Erstes Screening am 06.11.2026 erfolgreich absolviert. Zweites, einstündiges Fachinterview am 23.11.2026 um 09:30 Uhr mit Tanja Preissner (Head of IT Governance) und Martin Hartmann (Head of IT Infrastructure). Aktuell: Warten auf Rückmeldung."
     },
     "kpmg": {
         "employer": "KPMG",
         "title": "(Junior) IT Consultant / IT-Berater IT-Transformation (w/m/d) [Ref: 224]",
+        "match_token": "224",
         "location": "Stuttgart",
         "sub_date": "17.11.2026",
         "ack_date": "17.11.2026",
         "int1_date": "27.11.2026",
-        "int1_details": "16:00 Uhr (Teams Interview mit Jasmin Habib / Team Nevzat Canoglu)",
+        "int1_details": "Freitag, 16:00 Uhr (Teams Interview mit Jasmin Habib / Team Nevzat Canoglu)",
         "int2_date": "-",
         "int2_details": "-",
-        "status": "⭐ Einladung zum Interview am 27.11.2026 (Jasmin Habib)",
+        "status": "⭐ Gespräch am 27.11.2026 (Freitag, 16:00 Uhr Teams mit Jasmin Habib)",
         "tasks": "• Ganzheitliche Beratung nationaler und internationaler Unternehmenskunden bei der digitalen Transformation und ERP-/IT-Modernisierung.\n• Begleitung von IT-Audits, SAP S/4HANA Systemprüfungen, Prozess- und Schnittstellenanalysen.\n• Analyse von IT-Architekturen, Berechtigungskonzepten und internen Kontrollsystemen (IKS).",
         "requirements": "Master Wirtschaftsinformatik; ERP-/SAP-Verständnis, IT-Governance, IT-Audit.",
-        "notes": "Mitarbeiterempfehlung durch Nevzat Canoglu (Assistant Manager Financial Services). Intervieweinladung am 23.11.2026 erhalten."
+        "notes": "Mitarbeiterempfehlung durch Nevzat Canoglu (Assistant Manager Financial Services). Intervieweinladung am 23.11.2026 für Freitag, 27.11.2026 erhalten."
     },
     "msg systems": {
         "employer": "msg systems",
         "title": "(Junior) Technical SAP Consultant (all genders)",
+        "match_token": "technical sap consultant",
         "location": "Stuttgart / Leinfelden-Echterdingen",
         "sub_date": "17.09.2026",
         "ack_date": "17.09.2026",
@@ -59,14 +78,15 @@ ENRICHED_PROFILES = {
         "int1_details": "15:00 – 15:45 Uhr (Teams Kennenlerngespräch)",
         "int2_date": "08.10.2026",
         "int2_details": "17:00 – 17:45 Uhr (Teams Zweitgespräch mit Matthaeus Glueck & Sandra Ulber)",
-        "status": "⭐ 2. Gespräch am 08.10.2026 absolviert (Matthaeus Glueck & Sandra Ulber)",
+        "status": "Absage (Statusaktualisierung 25.11.2026; nach 2. Gespräch am 08.10.2026)",
         "tasks": "• Technische Beratung und Implementierung von SAP-Lösungen (S/4HANA, BTP, CDS Views, Integration Suite).\n• Konzeption und Implementierung von Schnittstellen zu heterogenen Vorsystemen und Cloud-Services.\n• Begleitung des gesamten Projektzyklus von der Anforderungsanalyse bis zum Go-Live.",
         "requirements": "Wirtschaftsinformatik-Abschluss; SQL, BTP-Architektur, Schnittstellen-Design.",
-        "notes": "Beide Gesprächsrunden erfolgreich absolviert."
+        "notes": "Beide Gesprächsrunden absolviert (29.09. & 08.10.2026); finale Absage (Statusaktualisierung 25.11.2026)."
     },
     "computacenter": {
         "employer": "Computacenter",
         "title": "Trainee IT Service Architecture & Design (w/m/d)",
+        "match_token": "trainee it service architecture",
         "location": "Stuttgart / Bundesweit",
         "sub_date": "27.05.2026",
         "ack_date": "27.05.2026",
@@ -74,14 +94,15 @@ ENRICHED_PROFILES = {
         "int1_details": "17:00 Uhr (Teams Videointerview mit Tobias & Lili Potyondi)",
         "int2_date": "-",
         "int2_details": "-",
-        "status": "⭐ Videointerview am 11.06.2026 absolviert",
+        "status": "Absage (Statusaktualisierung 25.11.2026; nach Videointerview am 11.06.2026)",
         "tasks": "• Ganzheitliches Design von Enterprise IT-Service-Architekturen nach ITIL 4 für Großkonzerne.\n• Konzeption hybrider Cloud- und Rechenzentrumsmodelle (Private/Public Cloud).\n• Erstellung technischer Servicekataloge, SLAs und Service-Delivery-Konzepte.",
         "requirements": "Wirtschaftsinformatik; ITIL 4 Service Operations (aus 12 Monaten Datacenter One INOC); analytische Stärke.",
-        "notes": "Videointerview am 11.06.2026 um 17:00 Uhr via Microsoft Teams geführt."
+        "notes": "Videointerview am 11.06.2026 via Microsoft Teams geführt; finale Absage (Statusaktualisierung 25.11.2026)."
     },
     "deutsche bahn": {
         "employer": "Deutsche Bahn",
         "title": "Mitarbeiter:in Reisendenlenkung für Bahnhöfe in Baden-Württemberg [DB Zeitarbeit GmbH]",
+        "match_token": "reisendenlenkung",
         "location": "Stuttgart / Baden-Württemberg",
         "sub_date": "18.10.2026",
         "ack_date": "18.10.2026",
@@ -89,14 +110,15 @@ ENRICHED_PROFILES = {
         "int1_details": "10:00 Uhr (Vorstellungsgespräch mit Berina Alomerovic)",
         "int2_date": "-",
         "int2_details": "-",
-        "status": "⭐ Vorstellungsgespräch am 02.11.2026 absolviert",
+        "status": "Absage (Statusaktualisierung 25.11.2026; nach Gespräch am 02.11.2026)",
         "tasks": "• Operative Unterstützung und Reisendenlenkung an Knotenbahnhöfen in Baden-Württemberg.\n• Deeskalation, Informationsbereitstellung und Schnittstelle zu Leitstellen.",
         "requirements": "Kommunikationsstärke, Flexibilität, Zuverlässigkeit.",
-        "notes": "Terminbestätigung und Vorstellungsgespräch am 02.11.2026."
+        "notes": "Vorstellungsgespräch am 02.11.2026 absolviert; finale Absage (Statusaktualisierung 25.11.2026)."
     },
     "ey (ernst & young)": {
         "employer": "EY (Ernst & Young)",
         "title": "(Junior) Consultant - Technology Consulting / ERP & SAP Transformation [Ref: 13743137]",
+        "match_token": "13743137",
         "location": "Stuttgart",
         "sub_date": "19.09.2026",
         "ack_date": "19.09.2026",
@@ -104,14 +126,15 @@ ENRICHED_PROFILES = {
         "int1_details": "Online / Telefoninterview mit Karolina Żukowska / Dorota Iwaniak",
         "int2_date": "-",
         "int2_details": "-",
-        "status": "⭐ Interview bestätigt (19.10.2026 / 02.10.2026)",
+        "status": "Absage (Statusaktualisierung 25.11.2026; nach Interview am 19.10.2026)",
         "tasks": "• Beratung internationaler Mandanten bei komplexen SAP S/4HANA Transformationsprogrammen.\n• Prozessanalyse, Fit-Gap-Workshops, Migrationskonzeption und Architektur-Audits.",
         "requirements": "Masterabschluss Wirtschaftsinformatik; starke analytische Fähigkeiten; Englisch fließend.",
-        "notes": "Bewerbungsfragebogen via DocuSign eingereicht; Interview im Oktober 2026 bestätigt."
+        "notes": "Interview im Oktober 2026 bestätigt; finale Absage (Statusaktualisierung 25.11.2026)."
     },
     "instaff": {
         "employer": "InStaff",
         "title": "IT-Support & Promotion Specialist (m/w/d)",
+        "match_token": "it-support & promotion",
         "location": "Stuttgart",
         "sub_date": "24.09.2026",
         "ack_date": "24.09.2026",
@@ -119,14 +142,15 @@ ENRICHED_PROFILES = {
         "int1_details": "Telefoninterview mit Jennifer Balk (InStaff)",
         "int2_date": "-",
         "int2_details": "-",
-        "status": "⭐ Telefoninterview am 24.09.2026 absolviert",
+        "status": "Absage (Statusaktualisierung 25.11.2026; nach Telefoninterview am 24.09.2026)",
         "tasks": "• Technische Unterstützung und Host-Betreuung bei Veranstaltungen und Projekten.",
         "requirements": "Zuverlässigkeit, Kommunikationsstärke.",
-        "notes": "Telefoninterview am 24.09.2026 absolviert."
+        "notes": "Telefoninterview am 24.09.2026 absolviert; finale Absage (Statusaktualisierung 25.11.2026)."
     },
     "teamative": {
         "employer": "Teamative",
         "title": "(Junior) SAP S/4HANA Consultant (m/w/d)",
+        "match_token": "teamative",
         "location": "Stuttgart / Remote",
         "sub_date": "29.04.2026",
         "ack_date": "30.04.2026",
@@ -142,6 +166,7 @@ ENRICHED_PROFILES = {
     "coop (schweiz)": {
         "employer": "Coop (Schweiz)",
         "title": "BI Consultant (80–100%)",
+        "match_token": "bi consultant",
         "location": "Basel, Schweiz",
         "sub_date": "17.11.2026",
         "ack_date": "17.11.2026",
@@ -149,12 +174,22 @@ ENRICHED_PROFILES = {
         "int1_details": "-",
         "int2_date": "-",
         "int2_details": "-",
-        "status": "Bewerbungseingang bestätigt (17.11.2026, Update 20.11.2026)",
+        "status": "Absage (Statusaktualisierung 25.11.2026)",
         "tasks": "• Weiterentwicklung und Betreuung der konzernweiten Business Intelligence- und Reporting-Landschaft bei Coop Schweiz.\n• Konzeption und Implementierung von Datenmodellen, ETL-Pipelines und Dashboards für den Detail- und Großhandel.",
         "requirements": "Wirtschaftsinformatik; Datenmodellierung, SQL, BI-Tools (Power BI, SAP Analytics Cloud).",
-        "notes": "Registrierung und Eingang der Bewerbung am 17.11.2026 bestätigt."
+        "notes": "Bewerbungseingang am 17.11.2026 bestätigt; Absage (Statusaktualisierung 25.11.2026)."
     }
 }
+
+def find_enriched_profile(employer, title):
+    emp_l = str(employer or "").lower().strip()
+    title_l = str(title or "").lower().strip()
+    for ep in ENRICHED_PROFILES.values():
+        if ep["employer"].lower() == emp_l:
+            tok = ep.get("match_token", "").lower()
+            if ep["title"].lower() == title_l or (tok and (tok in title_l or tok in emp_l)):
+                return ep
+    return None
 
 def parse_date(date_str):
     if not date_str or date_str == "-":
@@ -508,13 +543,16 @@ def run_master_update():
                     
         if matched_pair:
             row = rows_map[matched_pair]
-            if int1_dt:
-                row[4] = format_date_de(int1_dt)
-                row[6] = status_text
-            elif rej_dt and not row[6]:
-                row[6] = status_text
-            elif ack_dt and (not row[3] or row[3] == "-"):
-                row[3] = format_date_de(ack_dt)
+            cur_status_low = str(row[6] or "").lower()
+            is_final_or_active_override = ("absage" in cur_status_low) or ("30.11.2026" in cur_status_low) or ("warten auf antwort" in cur_status_low)
+            if not is_final_or_active_override:
+                if int1_dt:
+                    row[4] = format_date_de(int1_dt)
+                    row[6] = status_text
+                elif rej_dt and not row[6]:
+                    row[6] = status_text
+                elif ack_dt and (not row[3] or row[3] == "-"):
+                    row[3] = format_date_de(ack_dt)
             if pos and (not row[1] or row[1] in ["-", "Junior SAP / IT Consultant", "(Junior) SAP / IT Consultant"]):
                 row[1] = pos
         else:
@@ -530,15 +568,18 @@ def run_master_update():
             ]
             rows_map[(comp_key, pos_key)] = new_row
             
-    # Apply ENRICHED_PROFILES overrides (100% precision for TRUMPF, KPMG, msg, Computacenter, DB, EY, etc.)
+    # Apply ENRICHED_PROFILES overrides safely per role (employer + match_token)
     for ep_key, ep in ENRICHED_PROFILES.items():
-        # Purge any existing partial or duplicate entries for this company
-        keys_to_del = [k for k in list(rows_map.keys()) if ep_key == k[0] or (ep_key in k[0] and len(ep_key) > 4)]
+        emp_low = ep["employer"].lower()
+        tok = ep.get("match_token", "").lower()
+        keys_to_del = [
+            k for k in list(rows_map.keys())
+            if k[0] == emp_low and (k[1] == ep["title"].lower() or (tok and tok in k[1]))
+        ]
         for k in keys_to_del:
             del rows_map[k]
             
-        # Insert single canonical enriched row
-        rows_map[(ep["employer"].lower(), ep["title"].lower())] = [
+        rows_map[(emp_low, ep["title"].lower())] = [
             ep["employer"],
             ep["title"],
             ep["sub_date"],
@@ -571,11 +612,16 @@ def run_master_update():
     white_font = Font(name="Segoe UI", size=11, bold=True, color="FFFFFF")
     zebra_fill = PatternFill(start_color="F8FAFC", end_color="F8FAFC", fill_type="solid")
     highlight_interview = PatternFill(start_color="ECFDF5", end_color="ECFDF5", fill_type="solid")
+    highlight_waiting = PatternFill(start_color="FFFBEB", end_color="FFFBEB", fill_type="solid")
+    highlight_rejected = PatternFill(start_color="FEF2F2", end_color="FEF2F2", fill_type="solid")
     green_font = Font(name="Segoe UI", size=10, bold=True, color="047857")
+    amber_font = Font(name="Segoe UI", size=10, bold=True, color="B45309")
+    rejected_font = Font(name="Segoe UI", size=10, color="991B1B")
+    muted_font = Font(name="Segoe UI", size=10, color="475569")
     reg_font = Font(name="Segoe UI", size=10)
     bold_font = Font(name="Segoe UI", size=10, bold=True)
     center_align = Alignment(horizontal="center", vertical="center")
-    left_align = Alignment(horizontal="left", vertical="center")
+    left_align = Alignment(horizontal="left", vertical="center", wrap_text=True)
     wrap_left = Alignment(horizontal="left", vertical="center", wrap_text=True)
     thin_border = Border(
         left=Side(style="thin", color="E2E8F0"),
@@ -589,7 +635,8 @@ def run_master_update():
         "Bewerbungseingang", "1. Gespräch", "2. Gespräch", "Status / Gesprächsergebnis"
     ]
     ws1.append(col_headers_1)
-    ws1.row_dimensions[1].height = 28
+    ws1.row_dimensions[1].height = 30
+    ws1.freeze_panes = "A2"
     
     for c_idx in range(1, len(col_headers_1) + 1):
         cell = ws1.cell(row=1, column=c_idx)
@@ -600,17 +647,26 @@ def run_master_update():
         
     all_sorted_rows = list(rows_map.values())
     def sort_key(r):
-        d = r[2]
-        dt = parse_date(d)
-        if dt:
-            return dt
-        return datetime(2024, 1, 1)
+        stat_l = str(r[6] or "").lower()
+        is_rej = "absage" in stat_l
+        is_wait = (not is_rej) and ("warten" in stat_l or "⏳" in stat_l)
+        is_active_inv = (not is_rej) and (not is_wait) and any(k in stat_l for k in ["⭐", "🚀", "zusage", "einladung", "gespräch", "interview"])
+        tier = 0 if is_active_inv else (1 if is_wait else 2)
+        dt = parse_date(r[2]) or datetime(2024, 1, 1)
+        return (tier, -dt.timestamp())
         
-    all_sorted_rows.sort(key=sort_key, reverse=True)
+    all_sorted_rows.sort(key=sort_key)
     
     for r_idx, r_data in enumerate(all_sorted_rows, start=2):
-        ws1.row_dimensions[r_idx].height = 24
-        is_interview = (str(r_data[4]) not in ["-", "None", ""]) or (str(r_data[5]) not in ["-", "None", ""]) or ("gespräch" in str(r_data[6]).lower()) or ("interview" in str(r_data[6]).lower())
+        ws1.row_dimensions[r_idx].height = 28
+        stat_l = str(r_data[6] or "").lower()
+        is_rejected = "absage" in stat_l
+        is_waiting = (not is_rejected) and ("warten" in stat_l or "⏳" in stat_l)
+        is_interview = (not is_rejected) and (not is_waiting) and (
+            any(k in stat_l for k in ["⭐", "🚀", "zusage", "einladung", "gespräch", "interview"])
+            or (str(r_data[4]) not in ["-", "None", ""])
+            or (str(r_data[5]) not in ["-", "None", ""])
+        )
         is_even = (r_idx % 2 == 0)
         
         for c_idx, val in enumerate(r_data, start=1):
@@ -623,16 +679,23 @@ def run_master_update():
             if is_interview:
                 cell.fill = highlight_interview
                 cell.font = green_font if c_idx in [1, 5, 6, 7] else reg_font
+            elif is_waiting:
+                cell.fill = highlight_waiting
+                cell.font = amber_font if c_idx in [1, 5, 6, 7] else reg_font
+            elif is_rejected:
+                cell.fill = highlight_rejected if is_even else zebra_fill
+                cell.font = rejected_font if c_idx == 7 else muted_font
             elif is_even:
                 cell.fill = zebra_fill
                 cell.font = reg_font
             else:
                 cell.font = reg_font
                 
+    ws1.auto_filter.ref = f"A1:G{len(all_sorted_rows) + 1}"
     for col in ws1.columns:
         max_len = max(len(str(cell.value or "")) for cell in col)
         col_letter = get_column_letter(col[0].column)
-        ws1.column_dimensions[col_letter].width = min(max(max_len + 4, 14), 50)
+        ws1.column_dimensions[col_letter].width = min(max(max_len + 4, 14), 56)
         
     # ------------------ SHEET 2: Stellenbeschreibungen & Aufgaben ------------------
     ws2 = wb.create_sheet(title="Stellenprofile_Details")
@@ -643,6 +706,7 @@ def run_master_update():
     ]
     ws2.append(col_headers_2)
     ws2.row_dimensions[1].height = 28
+    ws2.freeze_panes = "A2"
     
     for c_idx in range(1, len(col_headers_2) + 1):
         cell = ws2.cell(row=1, column=c_idx)
@@ -653,17 +717,10 @@ def run_master_update():
         
     # Write details for all enriched profiles and detected rows
     for r_idx, r_data in enumerate(all_sorted_rows, start=2):
-        ws2.row_dimensions[r_idx].height = 55
+        ws2.row_dimensions[r_idx].height = 60
         c_emp = r_data[0]
         c_title = r_data[1]
-        c_key = c_emp.lower()
-        
-        ep = ENRICHED_PROFILES.get(c_key, None)
-        if not ep:
-            for k, v in ENRICHED_PROFILES.items():
-                if k in c_key or c_key in k:
-                    ep = v
-                    break
+        ep = find_enriched_profile(c_emp, c_title)
                     
         loc = ep["location"] if ep else "Baden-Württemberg / Deutschland"
         tasks = ep["tasks"] if ep else f"• Verantwortliche Begleitung und Fachberatung im Bereich {c_title}.\n• Analyse, Modellierung und Weiterentwicklung von IT- und Geschäftsprozessen.\n• Schnittstellenkoordination zwischen Business-Stakeholdern und technischen Entwicklungsteams."
@@ -673,12 +730,12 @@ def run_master_update():
         int_hist = ""
         if str(r_data[4]) not in ["-", "None", ""]:
             int_hist += f"1. Gespräch: {r_data[4]}"
-            if ep and ep.get("int1_details"):
+            if ep and ep.get("int1_details") and ep["int1_details"] != "-":
                 int_hist += f" ({ep['int1_details']})"
             int_hist += "\n"
         if str(r_data[5]) not in ["-", "None", ""]:
             int_hist += f"2. Gespräch: {r_data[5]}"
-            if ep and ep.get("int2_details"):
+            if ep and ep.get("int2_details") and ep["int2_details"] != "-":
                 int_hist += f" ({ep['int2_details']})"
             int_hist += "\n"
         if not int_hist:
@@ -694,13 +751,22 @@ def run_master_update():
             notes
         ]
         
+        stat_l = str(r_data[6] or "").lower()
+        is_rejected = "absage" in stat_l
+        is_waiting = (not is_rejected) and ("warten" in stat_l or "⏳" in stat_l)
+        is_interview = (not is_rejected) and (not is_waiting) and any(k in stat_l for k in ["⭐", "🚀", "zusage", "einladung", "gespräch", "interview"])
+        
         for c_idx, val in enumerate(row_vals, start=1):
             cell = ws2.cell(row=r_idx, column=c_idx)
             cell.value = str(val or "-")
             cell.border = thin_border
             cell.alignment = wrap_left if c_idx in [2, 4, 5, 6, 7] else (center_align if c_idx == 3 else left_align)
             cell.font = bold_font if c_idx == 1 else reg_font
-            if (r_idx % 2 == 0):
+            if is_interview:
+                cell.fill = highlight_interview
+            elif is_waiting:
+                cell.fill = highlight_waiting
+            elif r_idx % 2 == 0:
                 cell.fill = zebra_fill
                 
     ws2.column_dimensions["A"].width = 22
@@ -709,7 +775,7 @@ def run_master_update():
     ws2.column_dimensions["D"].width = 65
     ws2.column_dimensions["E"].width = 50
     ws2.column_dimensions["F"].width = 55
-    ws2.column_dimensions["G"].width = 40
+    ws2.column_dimensions["G"].width = 45
     
     wb.save(EXCEL_PATH)
     print(f"✅ Excel erfolgreich mit 2 Sheets gespeichert: {len(all_sorted_rows)} Bewerbungen eingetragen!")
@@ -735,13 +801,7 @@ def run_master_update():
     for r in all_sorted_rows:
         c_emp = r[0]
         c_title = r[1]
-        c_key = c_emp.lower()
-        ep = ENRICHED_PROFILES.get(c_key, None)
-        if not ep:
-            for k, v in ENRICHED_PROFILES.items():
-                if k in c_key or c_key in k:
-                    ep = v
-                    break
+        ep = find_enriched_profile(c_emp, c_title)
         loc = ep["location"] if ep else "Baden-Württemberg / Deutschland"
         tasks = ep["tasks"] if ep else f"• Verantwortliche Begleitung und Fachberatung im Bereich {c_title}.\n• Analyse, Modellierung und Weiterentwicklung von IT- und Geschäftsprozessen.\n• Schnittstellenkoordination zwischen Business-Stakeholdern und technischen Entwicklungsteams."
         reqs = ep["requirements"] if ep else "Master-/Bachelor-Abschluss Wirtschaftsinformatik; Fundierung in ERP-, Daten- oder IT-Architekturen; strukturierte Arbeitsweise."

@@ -45,6 +45,35 @@ def get_interview():
           </div>
         </div>
 
+        <!-- Gesprächs-Taktik: 30-Sekunden-Brücke & Framing-Regeln -->
+        <div class="bg-[#141414] p-5 rounded-2xl border border-amber-500/30 shadow-sm space-y-3">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+              <span>🧭</span>
+              <span>Gesprächs-Taktik: 30-Sekunden-Brücke &amp; Framing-Regeln</span>
+            </h3>
+            <span class="tag-badge bg-amber-500/20 text-amber-300 border border-amber-500/30">Live-Call Playbook</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-[#c4bebe]">
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
+              <div class="font-bold text-white">1. „Du“-Kultur &amp; Metriken in 20 Sek.</div>
+              <p>Wenn Manager aktiv duzen, direkt beim „Du“ bleiben. Sofort <strong>M.Sc. 1,6</strong>, <strong>Masterarbeit 1,0</strong> (ERP-Transformation &amp; Plattformisierung), <strong>TOGAF 9</strong> sowie <strong>KRITIS / Trennungsrechnung / ACDOCA</strong> platzieren.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
+              <div class="font-bold text-white">2. DC1 richtig framen</div>
+              <p>Nie als „First Level / Tickets abarbeiten“ verkaufen, sondern als <strong>24/7 INOC Leitstand nach ITIL 4</strong> für kritische B2B-Infrastruktur (<strong>99,99 % SLA</strong>, PRTG, USV, Eskalation).</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
+              <div class="font-bold text-white">3. 30-Sekunden-Brücke bei Fachfragen</div>
+              <p>Bei unerwarteten Fragen zu älteren Stationen (z. B. Netzwerk) erst 30 Sek. Strukturwissen liefern (Layer 2/3, VLANs, Firewall/DMZ, Redundanz) und <strong>danach</strong> auf S/4HANA-PMO &amp; Governance abgrenzen.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
+              <div class="font-bold text-white">4. Security über Compliance verknüpfen</div>
+              <p>Begriffe wie Security sofort über <strong>SoD (Funktionstrennung)</strong>, <strong>PFCG-Rollen</strong>, <strong>Clean Core / BTP-APIs</strong> und <strong>DORA / BAIT / KRITIS</strong> in die eigene Stärke drehen.</p>
+            </div>
+          </div>
+        </div>
+
         <!-- 5 STAR Stories -->
         <div class="bg-[#141414] p-6 rounded-2xl border border-white/10 shadow-sm space-y-4">
           <div class="flex items-center justify-between">

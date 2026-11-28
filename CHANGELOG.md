@@ -23,6 +23,52 @@ Alle signifikanten Änderungen, Pipeline-Updates, architektonischen Erweiterunge
 
 ---
 
+## [1.26.9] - 2026-11-28 (Oracle Cloud Live-Betrieb, 11 n8n-Workflows, Figma Suite & Token-Sync Pipeline)
+
+### 🎯 Kontext & Umfang
+Produktivsetzung der Oracle Cloud Always Free Infrastruktur (`130.61.107.25`, `https://130.61.107.25.sslip.io/`) mit `11` aktiven `n8n`-Workflows, Passwortschutz für `/portal/`, automatischer Cloud-DB-Synchronisation sowie Integration von **Figma Student Pro** (Architektur-Diagramm, UI Design System & Token-Sync, VISMUV Brand & A4-Rechnungsvorlage).
+
+### ✨ Änderungen im Detail
+- **Oracle Cloud Live-Deployment & Automation (`11` aktive `n8n`-Workflows):**
+  - `5` gesunde Docker-Container (`caddy:2-alpine`, `postgres:16-alpine`, `n8nio/n8n:latest`, `louislam/uptime-kuma:1`, `career-os-cloud`), `/portal/` via Basic-Auth geschützt.
+  - [scripts/sync_cloud_db.ps1](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/sync_cloud_db.ps1): Automatische Synchronisation der datenschutzbereinigten `career_os_cloud.db` (`588` Dateien, `1.294` Chunks, `7,7 MB`, `0` Privacy-Leaks).
+- **Figma Student Pro Suite & Token-Sync Pipeline:**
+  - FigJam Architektur-Diagramm (`Career OS x Oracle Cloud System Architecture`), Design System (`Career OS - Portal UI Design System`, `11` Light/Dark-Variablen synchron zu `portal_builder/header.py`), VISMUV Brand Kit & A4-Rechnungsvorlage (`§ 19 UStG`) inkl. vollständiger Anschrift.
+  - [portal_builder/figma_tokens.json](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/figma_tokens.json) & [scripts/sync_figma_tokens.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/sync_figma_tokens.py): Automatisierter Sync der `11` Light/Dark-Tokens zwischen Figma Variables und `portal_builder/header.py` (`--dry-run` / `--apply --build`).
+
+### 🧪 Verifikation & Compliance
+- `python scripts/sync_figma_tokens.py --apply --build`: `OK: All 11 mapped Light/Dark tokens in header.py already match figma_tokens.json.`
+- `build_ultimate_portal.py` & Spec-Kit Quality Gate: Alle `9` Checks bestanden (`100 % PASS`; `index.html` `412,38 KB`, `public_index.html` `163,83 KB`).
+
+---
+
+## [1.26.8] - 2026-11-27 (Oracle Cloud Always Free Deployment-Suite, Cloud Knowledge Pack & KPMG Post-Mortem Sync)
+
+### 🎯 Kontext & Umfang
+Vollständige Vorbereitung des Career OS & Enterprise Knowledge Hub für den sofortigen 24/7-Betrieb auf **Oracle Cloud Infrastructure (OCI) Always Free (`Ubuntu 24.04 ARM64`)** inklusive datenschutzbereinigtem Portable-RAG (`7,7 MB`), `4` importierbaren `n8n`-Workflows, KPMG-Interview-Post-Mortem-Sync nach Obsidian/Webapp sowie erweiterten Spec-Kit-Compliance-Gates.
+
+### ✨ Änderungen im Detail
+- **Oracle Cloud Deployment Suite (`oracle_cloud/`):**
+  - [oracle_cloud/bootstrap_ubuntu_oci.sh](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/oracle_cloud/bootstrap_ubuntu_oci.sh): Idempotentes Setup-Skript für Ubuntu `24.04` ARM64 (`OCI iptables`-Portfreigabe `22/80/443` + `netfilter-persistent` + `UFW`, Docker Engine & Compose Plugin, `2G`-Swapfile, `fail2ban`, `unattended-upgrades` & tägliches Backup-Skript mit `14`-Tage-Rotation).
+  - [oracle_cloud/docker-compose.yml](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/oracle_cloud/docker-compose.yml), [oracle_cloud/Caddyfile](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/oracle_cloud/Caddyfile) & [oracle_cloud/.env.example](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/oracle_cloud/.env.example): ARM64-nativer Stack aus `caddy:2-alpine`, `postgres:16-alpine`, `n8nio/n8n:latest`, `louislam/uptime-kuma:1` und `career-os-cloud` (ohne Secrets).
+  - [oracle_cloud/cloud_api/app.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/oracle_cloud/cloud_api/app.py) & [oracle_cloud/cloud_api/Dockerfile](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/oracle_cloud/cloud_api/Dockerfile): Leichtgewichtiger Python-3.12-Microservice mit Bearer-Token-Auth (`/health`, `/api/stats`, `/api/rag/query`, `/api/gemini/ask`, `/api/vismuv/calc`).
+  - `oracle_cloud/n8n_workflows/` (`4` fertige Workflows): `01_oracle_keepalive_and_health.json`, `02_career_os_followup_reminder.json`, `03_vismuv_auftrag_kalkulator_webhook.json`, `04_career_knowledge_ai_webhook.json`.
+  - [oracle_cloud/deploy_to_oracle.ps1](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/oracle_cloud/deploy_to_oracle.ps1) & [oracle_cloud/ORACLE_QUICKSTART_GUIDE.md](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/oracle_cloud/ORACLE_QUICKSTART_GUIDE.md): 1-Befehl-Upload-Skript und Schritt-für-Schritt-Anleitung für OCI Frankfurt (`eu-frankfurt-1`).
+- **Cloud Knowledge Pack Exporter ([scripts/export_cloud_knowledge_pack.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/export_cloud_knowledge_pack.py)):**
+  - Exportiert aus `config/career_os_rag.db` ein kompaktes, FTS5-indiziertes Cloud-Paket (`oracle_cloud/data/career_os_cloud.db`, `588` Dateien, `1.294` Chunks, `7,7 MB`) mit striktem Privacy-/NDA-Filter (`570` private Chunks herausgefiltert, `0` Leaks).
+- **Obsidian & Career Portal Updates:**
+  - `2026-11-27_KPMG_IT_Transformation_ERP_Audit.md` & `00_Bewerbungsmanagement_Cockpit.md` um das KPMG-Post-Mortem (`27.11.2026`), Nevzats Rückmeldung, `30.11.`-Aktionsplan und `4` Gesprächs-Learnings ergänzt + per `upsert_note` in `career_os_rag.db` synchronisiert.
+  - [portal_builder/interview.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/interview.py): Neue Taktik-Karte *„Gesprächs-Taktik: 30-Sekunden-Brücke & Framing-Regeln“* im privaten Cockpit.
+  - [scripts/test_portal.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/test_portal.py): Neues Test-Gate `test_oracle_cloud_pack()` zur Prüfung von `oracle_cloud/`, Workflow-JSONs und Privacy-Compliance in `career_os_cloud.db`.
+
+### 🧪 Verifikation & Compliance
+- `py_compile` & `bash -n oracle_cloud/bootstrap_ubuntu_oci.sh`: Bestanden (`Exit 0`).
+- Live-HTTP-E2E-Test auf `oracle_cloud/cloud_api/app.py` (`/health`, `/api/stats` mit `401` vs. `200`, `/api/rag/query`, `/api/vismuv/calc`): Bestanden (`588` Dateien, `1.294` Chunks).
+- `build_ultimate_portal.py` & `scripts/test_portal.py`: Alle `9` Spec-Kit Quality Checks bestanden (`100 % PASS`; `index.html` `412,38 KB`, `public_index.html` `163,83 KB`).
+- `scripts/validate_obsidian_rag.py` & `scripts/contradiction_checker.py`: `4.918 / 4.918 (100,0 %)` Frontmatter, `19.018` Kanten (`0` Broken Links, `0` Orphans, `0` Multi-H1), `0` FATAL / `0` WARNING / `0` NOTICE.
+
+---
+
 ## [1.26.7] - 2026-11-27 (Optimierter CV-Generator Studio: `.docx` / `.pdf` Export & KI-Stellen-Tailoring)
 
 ### 🎯 Kontext & Umfang
@@ -305,7 +351,7 @@ Systemweite Integration der verifizierten Profildaten (Stand `18.11.2026`) bei s
 ### ✨ Änderungen im Detail
 - **[AGENTS.md](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/AGENTS.md):**
   - Neuer verbindlicher Abschnitt **0 („Antwort-, Arbeitsstil & Persönlicher Kontext“)** (direkter Einstieg ohne Floskeln/Schlusszusammenfassung, Master-/Expertenniveau, kalkulatorisch-unternehmerische VISMUV-Perspektive, Hardware-Kontext `SHQIPTAR634`, geschützter interner Privat-/Gesundheits-/Hanafi-Kontext).
-  - Ergänzung der Basisdaten (Gjilan, Ludwigsburg seit `1999`, DE/XK, Sprachen DE/AL/EN C1/FR/ES), Masterarbeitseinreichung (`20.04.2026`), **PDR Team GmbH (`21.09.–30.11.2026`)** sowie **VISMUV (`seit 01.11.2026`)**.
+  - Ergänzung der Basisdaten (`18.09.1997` Gjilan, Ludwigsburg seit `1999`, DE/XK, Sprachen DE/AL/EN C1/FR/ES), Masterarbeitseinreichung (`20.04.2026`), **PDR Team GmbH (`21.09.–30.11.2026`)** sowie **VISMUV (`seit 01.11.2026`)**.
 - **Obsidian Vault & Local RAG ([Persoenliches_Profil_und_Arbeitsstil.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Persoenliches_Profil_und_Arbeitsstil.md), [Persoenliches_Staerkenprofil.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Persoenliches_Staerkenprofil.md), [00_INDEX.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/00_INDEX.md), [local_rag_engine.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/scripts/local_rag_engine.py)):**
   - Neue Schicht-1-Notiz zu Sprachen, PDR Team GmbH, VISMUV, erweitertem Stack (`SAP Joule Studio`, `n8n`, `Ollama`, `DeepSeek Harness`, `Google AI Studio API`, `SHQIPTAR634`) und Antwortstil-Regeln im RAG-Systemprompt; per `--upsert` direkt in `career_os_rag.db` indexiert.
 - **[portal_builder/dashboard.py](file:///c:/Users/SHQIPTAR634/Desktop/SSB%20Dateien/portal_builder/dashboard.py) & Notion ([Visar Command Center](https://app.notion.com/p/420272decb1d81d0bbaef1be06dbffa4)):**
@@ -369,7 +415,7 @@ Abschluss aller verbliebenen zeitlichen Hinweis-Flags (`D2_PAST_INTERVIEW_STATUS
   - Vervollständigung der Post-Interview-Sektionen inkl. Prozesshistorie & Status gemäß [00_Bewerbungsmanagement_Cockpit.md](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/00_Bewerbungsmanagement_Cockpit.md) für [Computacenter](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-06-11_Computacenter_IT_Service_Architecture.md), [msg systems](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-10-08_msg_systems_Technical_SAP_Consultant.md) und [EY](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-10-19_EY_Technology_Consulting_SAP_Transformation.md) (`status: archived` + `Absage` + kuratierter Wissenstransfer) sowie für [TRUMPF](file:///C:/Users/SHQIPTAR634/Documents/Obsidian%20Vault/01_Karriere_Bewerbungen/Interview_Vorbereitungen/2026-11-23_TRUMPF_Trainee_IT_Governance.md) (`status: active`, Runde 2 am `23.11.2026` absolviert, `⏳ Warten auf Rückmeldung`).
 - **Notion Wissenshub & CRM-Abgleich:**
   - **Bestandsaudit:** Alle 4 Wissensbereichs-Datenbanken (`1. SSB` 24 Module, `2. DC1` 6 Module, `3. Master` 19 Module, `4. Bachelor` 30 Module) plus `5. Synergien` (6 Cluster) und `Bewerbungs-Pipeline & CRM` (exklusiv 3 aktive Prozesse) geprüft.
-  - **KPMG (`422272decb1d81eaa9e0f813e7efbf01`):** Vorbereitung für **27.11.2026 (16:00 Uhr Teams, Fachbereich IT-Transformation)** inkl. 5-Punkte-Match-Tabelle, 3 STAR-Cases (`Trennungsrechnung EU 1370/2007`, `LTMC 0,00 € Übernahmekonto`, `Masterarbeit 1,0`) und 3 Rückfragen ergänzt.
+  - **KPMG (`422272decb1d81eaa9e0f813e7efbf01`):** Vorbereitung für **27.11.2026 (16:00 Uhr Teams, Jasmin Habib)** inkl. 5-Punkte-Match-Tabelle, 3 STAR-Cases (`Trennungsrechnung EU 1370/2007`, `LTMC 0,00 € Übernahmekonto`, `Masterarbeit 1,0`) und 3 Rückfragen ergänzt.
   - **TRUMPF (`422272decb1d81faba02f966851d1ea3`):** Post-Runde-2-Debriefing (`23.11.2026`) + 3-Rotations-Match-Matrix ergänzt.
   - **Command Center, `Applied AI` & `Synergie 06`:** Obsidian-V2.1-Kennzahlen (`4.449` Notizen, `4.295` Volltext-Quellen, `60,28 Mio.` Wörter, `130.425` RAG-Chunks / `652,35 MB`, `1.530` WinRT-OCR-Seiten) aktualisiert und `.Sc`-Auto-Link-Artefakte in den Callouts bereinigt.
 
@@ -426,9 +472,9 @@ Vollständiger architektonischer Neuaufbau der Volltext-Extraktion und Obsidian-
 
 ### 🎯 Kontext & Statusbereinigung
 Konsolidierung der Master-Bewerbungspipeline in `00_Aktuelle_Bewerbungsunterlagen/Bewerbungsverlauf.xlsx` (beide Sheets mit 68 Einträgen synchronisiert), `00_Aktuelle_Bewerbungsunterlagen/bewerbungen_pipeline.json`, `scripts/update_bewerbungsverlauf_excel.py` sowie im Obsidian Cockpit (`00_Bewerbungsmanagement_Cockpit.md`):
-- **Schwarz Digits – Junior SAP HCM User Maintenance & Access Management (IAM) Specialist (m/w/d) [Ref: 4972]:** Zusage für das 2. Gespräch am **Montag, 30.11.2026 um 14:00 Uhr vor Ort** mit Fachbereich & IAM-Leitung.
-- **KPMG – (Junior) IT Consultant / IT-Berater IT-Transformation (w/m/d) [Ref: 224]:** Gespräch am **Freitag, 27.11.2026 um 16:00 Uhr** (Teams mit Fachbereich IT-Transformation).
-- **TRUMPF – Trainee (w/m/d) IT [Ref: R00042850]:** Warten auf Rückmeldung nach dem 2. Gespräch am **23.11.2026** (IT-Governance- & Infrastruktur-Leitung).
+- **Schwarz Digits – Junior SAP HCM User Maintenance & Access Management (IAM) Specialist (m/w/d) [Ref: 4972]:** Zusage für das 2. Gespräch am **Montag, 30.11.2026 um 14:00 Uhr vor Ort** mit Cosmin & Kai.
+- **KPMG – (Junior) IT Consultant / IT-Berater IT-Transformation (w/m/d) [Ref: 224]:** Gespräch am **Freitag, 27.11.2026 um 16:00 Uhr** (Teams mit Jasmin Habib).
+- **TRUMPF – Trainee (w/m/d) IT [Ref: R00042850]:** Warten auf Rückmeldung nach dem 2. Gespräch am **23.11.2026** (Tanja Preissner & Martin Hartmann).
 - **Alle übrigen 65 Bewerbungen:** Einheitlich unter Erhalt sämtlicher historischen Einreichungs- und Interviewdaten als `Absage` markiert; Ampelfärbung in Excel und `scripts/update_bewerbungsverlauf_excel.py` gegen fehlfarbige grüne Hervorhebung abgesagter Prozesse gehärtet.
 
 ---
@@ -672,7 +718,7 @@ Abschluss der Ausbaustufen (B) & (C): Alle laufenden Top-Interviewprozesse verf�
 
 ### 🚀 Neu hinzugefügt & Erweitert (Added & Enhanced)
 - **4 neue Interview-Dossiers (`01_Karriere_Bewerbungen/Interview_Vorbereitungen/`):**
-  - `2026-11-23_TRUMPF_Trainee_IT_Governance.md` (`Ref: R00042850`, 2. Gespräch IT-Governance- & Infrastruktur-Leitung)
+  - `2026-11-23_TRUMPF_Trainee_IT_Governance.md` (`Ref: R00042850`, 2. Gespräch Tanja Preissner & Martin Hartmann)
   - `2026-10-19_EY_Technology_Consulting_SAP_Transformation.md` (`Ref: 13743137`)
   - `2026-10-08_msg_systems_Technical_SAP_Consultant.md` (2. Gespräch Matthaeus Glueck & Sandra Ulber)
   - `2026-06-11_Computacenter_IT_Service_Architecture.md` (ITIL 4 / Datacenter One INOC Brücke)
@@ -687,7 +733,7 @@ Abschluss der Ausbaustufen (B) & (C): Alle laufenden Top-Interviewprozesse verf�
 
 ### ✅ Verifikation & Compliance-Nachweise
 - **Obsidian Audit (`validate_obsidian_rag.py`):** **286 / 286** Dokumente mit validem YAML-Frontmatter (**100,0 %**), **1.662 Wikilinks (5,8 Ø/Note | 0 Broken Links)**, **0 Multiple H1**, **0 Dateien > 10 MB**, **0 Graph-Orphans**, **60.578.154 Wörter (~81,78 Mio. Tokens)** -> *PASSED WITH DISTINCTION*.
-- **GMX IMAP & RAG:** Beide Konten (`kontakt@beispiel.de`, `kontakt2@beispiel.de`) live synchronisiert (`2/2` OK, `56` Mails geprüft, anschließender Re-Run 100 % idempotent); Hybrid RAG Index umfasst `286` Notes, `137.349` Chunks, `240` 768d-Vektoren (`787,63 MB`).
+- **GMX IMAP & RAG:** Beide Konten (`visar.murseli@gmx.de`, `visarmurseli@gmx.de`) live synchronisiert (`2/2` OK, `56` Mails geprüft, anschließender Re-Run 100 % idempotent); Hybrid RAG Index umfasst `286` Notes, `137.349` Chunks, `240` 768d-Vektoren (`787,63 MB`).
 
 ---
 
@@ -945,7 +991,7 @@ Vollständige Orchestrierung des Multi-Kanal Bewerbungsmanagements: Automatisier
 
 ### 🚀 Neu hinzugefügt (Added)
 - **GMX IMAP Multi-Account Career Harvester (`scripts/gmx_imap_service.py`):**
-  - Parallele Unterstützung für `kontakt@beispiel.de` und `kontakt2@beispiel.de`.
+  - Parallele Unterstützung für `visar.murseli@gmx.de` und `visarmurseli@gmx.de`.
   - Resiliente SSL-Verbindung (`imap.gmx.net:993`) mit automatischer UTF-8 MIME-Header-Dekodierung.
   - Multi-Keyword Filterung zur Klassifikation von Bestätigungen, Einladungen, Zwischenständen und Absagen.
 - **Deep Email Extraction Engine (`scripts/dump_deep_emails.py`):**
@@ -969,8 +1015,8 @@ Vollständige Orchestrierung des Multi-Kanal Bewerbungsmanagements: Automatisier
 
 ### 🔄 Geändert (Changed)
 - **Konsolidierung Schlüsselprozesse TRUMPF & Schwarz Digits:**
-  - TRUMPF: Zusammenführung des 1. HR-Screenings (06.11.2026 mit HR Recruiting) und des 2. einstündigen Fachinterviews (23.11.2026 um 09:30 Uhr mit IT-Governance- & IT-Infrastruktur-Leitung).
-  - Schwarz Digits: Exakte Verankerung der Rolle *Junior SAP HCM User Maintenance & Access Management Specialist [Ref: 4972]* mit Ansprechpartnern Fachbereich & IAM-Team.
+  - TRUMPF: Zusammenführung des 1. HR-Screenings (06.11.2026 mit Jil Wachter) und des 2. einstündigen Fachinterviews (23.11.2026 um 09:30 Uhr mit Tanja Preissner, Head of IT Governance & Martin Hartmann, Head of IT Infrastructure).
+  - Schwarz Digits: Exakte Verankerung der Rolle *Junior SAP HCM User Maintenance & Access Management Specialist [Ref: 4972]* mit Ansprechpartnern Cosmin Serbanescu & Stefanie Link.
 - **Portalerstellung (`build_ultimate_portal.py`):**
   - Automatischer Sync zwischen `s4hana-prep-portal/index.html` und Root `index.html` im GitHub-Repository für verzögerungsfreie GitHub Pages Deployments.
 - **Root-Path Auflösung in Skripten:**

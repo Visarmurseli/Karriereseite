@@ -1559,9 +1559,19 @@ def _call_ollama_text(prompt, model=None, max_tokens=1600, temp=0.2):
     url = f"{OLLAMA_URL}/api/chat"
     payload = {
         "model": use_model,
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": [
+            {
+                "role": "system",
+                "content": (
+                    "Du bist der deutschsprachige Career-OS-Assistent von Visar Murseli. "
+                    "Antworte AUSSCHLIESSLICH auf einwandfreiem Deutsch (verwende niemals chinesische, "
+                    "japanische oder koreanische Schriftzeichen) und stütze dich strikt auf die Fakten im Kontext."
+                ),
+            },
+            {"role": "user", "content": prompt},
+        ],
         "stream": False,
-        "options": {"temperature": temp, "num_predict": min(int(max_tokens), 1800)},
+        "options": {"temperature": temp, "num_predict": min(int(max_tokens), 1800), "repeat_penalty": 1.08},
     }
     req = urllib.request.Request(
         url,

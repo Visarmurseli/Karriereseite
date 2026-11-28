@@ -118,6 +118,42 @@ def test_vue_syntax_integrity(content):
     assert ".mount('#app')" in content, "Missing mount('#app')"
     print("  [PASS] Vue 3 Architecture: Clean script mounting and template structure.")
 
+
+def test_oracle_cloud_pack():
+    import json
+    import glob
+    import sqlite3
+
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    oracle_dir = os.path.join(base_dir, 'oracle_cloud')
+    if not os.path.exists(oracle_dir):
+        print("  [SKIP] oracle_cloud/ directory not present.")
+        return
+
+    for rel in ['docker-compose.yml', 'Caddyfile', 'bootstrap_ubuntu_oci.sh', '.env.example', 'cloud_api/app.py']:
+        path = os.path.join(oracle_dir, rel)
+        assert os.path.exists(path), f"Missing Oracle Cloud artifact: {path}"
+
+    wf_files = sorted(glob.glob(os.path.join(oracle_dir, 'n8n_workflows', '*.json')))
+    assert len(wf_files) >= 4, f"Expected >=4 n8n workflows, found {len(wf_files)}"
+    for wf in wf_files:
+        with open(wf, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        assert 'nodes' in data and 'connections' in data, f"Invalid n8n workflow JSON: {wf}"
+
+    cloud_db = os.path.join(oracle_dir, 'data', 'career_os_cloud.db')
+    if os.path.exists(cloud_db):
+        conn = sqlite3.connect(cloud_db)
+        try:
+            cnt = conn.execute("SELECT COUNT(*) FROM cloud_chunks").fetchone()[0]
+            assert cnt > 100, f"Cloud DB too small: {cnt} chunks"
+            for leak in ["Roland Nowak", "Dietmar Fillinger", "Helmut Schmidpeter", "Robert Bosch", "Tilidin", "Nikkah", "SHQIPTAR634"]:
+                hits = conn.execute("SELECT COUNT(*) FROM cloud_chunks WHERE content LIKE ?", (f"%{leak}%",)).fetchone()[0]
+                assert hits == 0, f"PRIVACY/COMPLIANCE LEAK in career_os_cloud.db: '{leak}' ({hits} hits)"
+        finally:
+            conn.close()
+    print(f"  [PASS] Oracle Cloud Suite & Cloud Knowledge Pack: {len(wf_files)} workflows + 0 privacy leaks verified.")
+
 def run_all_tests():
     print("==========================================================")
     print("🚀 RUNNING SPEC-KIT QUALITY GATE & COMPLIANCE VERIFICATION")
@@ -135,6 +171,7 @@ def run_all_tests():
     test_command_palette_and_telemetry(content)
     test_vue_syntax_integrity(content)
     test_public_showcase_privacy()
+    test_oracle_cloud_pack()
     
     print("==========================================================")
     print("✅ ALL SPEC-KIT QUALITY CHECKS PASSED (100% SUCCESS)")
